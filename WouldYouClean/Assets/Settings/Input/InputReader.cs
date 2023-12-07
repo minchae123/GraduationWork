@@ -9,11 +9,19 @@ public class InputReader : MonoBehaviour
     private PlayerInput _inputAction;
 
     public event Action<Vector2> OnMovement;
+    public event Action OnFKeyDown;
 
     void Start()
     {
         _inputAction = new PlayerInput();
         _inputAction.Player.Enable();
+
+        _inputAction.Player.Divide.performed += OnKeyFHandle;
+    }
+
+    private void OnKeyFHandle(InputAction.CallbackContext context)
+    {
+        OnFKeyDown?.Invoke();
     }
 
     // Update is called once per frame
