@@ -9,6 +9,7 @@ public class SpaceShip : MonoBehaviour
     [SerializeField] private InputReader _input;
     [SerializeField] private float _curSpeed;
 
+
     private Vector2 _spaceShipDir;
 
     public SpaceObject[] spaceObjects;
@@ -32,7 +33,7 @@ public class SpaceShip : MonoBehaviour
     {
         foreach (SpaceObject spaceObject in spaceObjects)
         {
-            spaceObject.SetDir(new Vector2(0, -_spaceShipDir.y));
+            spaceObject.SetDir(-transform.up * _spaceShipDir.y);
         }
 
         transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * _curSpeed);
