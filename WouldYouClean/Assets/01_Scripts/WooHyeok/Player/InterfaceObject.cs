@@ -5,20 +5,26 @@ using UnityEngine;
 
 public class InterfaceObject : PlayerMain
 {
-    private ObjectType _objType;
+    private string _objTypeName;
 
     [SerializeField] private TextMeshProUGUI _text;
+    [SerializeField] private GameObject _panel;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void Update()
     {
         if (_isKeyDown)
         {
-            _objType = collision.gameObject.GetComponent<ObjectType>();
-
-            Debug.Log(_objType._ObjectName);
-            _text.text = _objType._ObjectName;
+            _text.text = _objTypeName;
 
             _isKeyDown = false;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent(out DivideObj obj))
+        {
+            _objTypeName = obj.type._ObjectName;
         }
     }
 }

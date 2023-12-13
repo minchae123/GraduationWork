@@ -6,7 +6,7 @@ public class PlayerMain : MonoBehaviour
 {
     protected Rigidbody2D _rb;
     protected SpriteRenderer _spriteRenderer;
-    protected bool _isKeyDown = false;
+    protected static bool _isKeyDown = false;
 
     private void Start()
     {
