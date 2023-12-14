@@ -10,13 +10,16 @@ public class InterfaceObject : PlayerMain
     private string _objTypeExplain;
     private Vector3 _spawnPosition;
 
+    private bool _isShowing = true;
+
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _explainText;
     [SerializeField] private GameObject _panel;
 
     private void Update()
     {
-
+        KeyDown();
     }
 
     private void ShowPanel()
@@ -27,9 +30,10 @@ public class InterfaceObject : PlayerMain
 
     public void ClosePanel()
     {
-        print("wdefghgjh,mn");
-        _panel.GetComponent<RectTransform>().transform.DOScale(Vector3.zero, 1.5f);
-        _panel.GetComponent<RectTransform>().DOAnchorPos(_spawnPosition, 1.5f);
+        _panel.GetComponent<RectTransform>().transform.DOScale(Vector3.zero, 1f);
+        _panel.GetComponent<RectTransform>().DOAnchorPos(_spawnPosition, 1f);
+
+        _isShowing = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -39,8 +43,8 @@ public class InterfaceObject : PlayerMain
             _objTypeName = obj.type._ObjectName;
             _objTypeExplain = obj.type._ObjectExplain;
 
-            ColisionPos(collision.transform.position);
-            KeyDown();
+            if (_isShowing)
+                ColisionPos(collision.transform.position);
         }
     }
 
@@ -56,12 +60,13 @@ public class InterfaceObject : PlayerMain
 
     private void KeyDown()
     {
-        if (_isKeyDown)
+        if (_isKeyDown && _isShowing)
         {
             _nameText.text = _objTypeName;
             _explainText.text = _objTypeExplain;
 
             _isKeyDown = false;
+            _isShowing = false;
 
             ShowPanel();
         }
