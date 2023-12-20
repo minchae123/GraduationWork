@@ -16,17 +16,31 @@ public class PlayerMoveMent : PlayerMain
 
         _input.OnMovement += OnMovement;
         _input.OnFKeyDown += OnKeyDown;
+        _input.OnMousePos += OnMousePos;
+        _input.OnLeftMouseClick += OnLeftMouseClick;
     }
 
-    private void OnKeyDown()
+    private void OnKeyDown(bool value)
     {
-        Debug.Log("되는지");
-        _isKeyDown = true;
+        if (value == true)
+            _isKeyDown = true;
+        else
+            _isKeyDown = false;
     }
 
     private void OnMovement(Vector2 value)
     {
         _direction = value;
+    }
+
+    private void OnMousePos(Vector2 value)
+    {
+        print(value);
+    }
+
+    private void OnLeftMouseClick()
+    {
+        print("마우스 클릭 되었달ㅇ통래ㅑㄴ");
     }
 
     void Update()

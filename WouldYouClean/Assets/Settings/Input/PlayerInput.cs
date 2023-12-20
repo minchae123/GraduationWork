@@ -28,9 +28,27 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             ""id"": ""ccb6bab6-ce14-4d85-9daa-a1c017e327b0"",
             ""actions"": [
                 {
+                    ""name"": ""MousePos"",
+                    ""type"": ""Value"",
+                    ""id"": ""1b500bd9-de46-4a2e-a86b-548649f476c0"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""MouseClick"",
+                    ""type"": ""Button"",
+                    ""id"": ""949e3650-bfa3-4914-8794-8f4c56965797"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
                     ""name"": ""Move"",
                     ""type"": ""Value"",
-                    ""id"": ""a0277025-ff82-4a2b-bcf9-5a6df2267dff"",
+                    ""id"": ""be8d6e83-b84c-40a3-a391-f81367752abb"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -39,17 +57,39 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""Divide"",
                     ""type"": ""Button"",
-                    ""id"": ""6b0d034f-6907-4d66-9a4b-8ab397e592fb"",
+                    ""id"": ""097c27ad-5d0d-4216-b79c-3533db35baf8"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": false
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""546a4fd9-8b5a-4672-9c94-221692882a70"",
+                    ""name"": """",
+                    ""id"": ""627cb80a-2b69-4093-b23c-c3a6054a4856"",
+                    ""path"": ""<Mouse>/position"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""scheme"",
+                    ""action"": ""MousePos"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b1b21196-0fc9-4307-9ca7-638d3faf1640"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""scheme"",
+                    ""action"": ""MouseClick"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""KeyBoard"",
+                    ""id"": ""0c22bd70-a202-4e35-beea-8492358423e5"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -60,55 +100,55 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""d21754a6-aea0-464e-8fa0-bd47bf66f5e3"",
+                    ""id"": ""4345c596-294e-4b4c-bae3-6366b4a76856"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
+                    ""groups"": ""scheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""8a09e2b2-bed2-4bd3-9e3e-d9e32ea1b8ca"",
+                    ""id"": ""15301f6f-abc1-46cc-b63f-5cd5bdf346aa"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
+                    ""groups"": ""scheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""6312dc97-4280-4ce9-a3cb-b6b64882b78b"",
+                    ""id"": ""c1ea945a-75bc-487e-90f3-2b7c400a5581"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
+                    ""groups"": ""scheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""5f83dc35-f6f5-439b-8324-6c4899b7f123"",
+                    ""id"": ""7f367633-7dd7-4926-a576-1b71de700c14"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
+                    ""groups"": ""scheme"",
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
                 },
                 {
                     ""name"": """",
-                    ""id"": ""9187490f-dc0e-45e2-a73e-4145cd50fb87"",
+                    ""id"": ""15e215e2-dd54-4de7-a852-fa3770814c2c"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""New control scheme"",
+                    ""groups"": ""scheme"",
                     ""action"": ""Divide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -118,11 +158,21 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     ],
     ""controlSchemes"": [
         {
-            ""name"": ""New control scheme"",
-            ""bindingGroup"": ""New control scheme"",
+            ""name"": ""scheme"",
+            ""bindingGroup"": ""scheme"",
             ""devices"": [
                 {
+                    ""devicePath"": ""<Mouse>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
                     ""devicePath"": ""<Keyboard>"",
+                    ""isOptional"": false,
+                    ""isOR"": false
+                },
+                {
+                    ""devicePath"": ""<Mouse>"",
                     ""isOptional"": false,
                     ""isOR"": false
                 }
@@ -132,6 +182,8 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 }");
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_MousePos = m_Player.FindAction("MousePos", throwIfNotFound: true);
+        m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Divide = m_Player.FindAction("Divide", throwIfNotFound: true);
     }
@@ -195,12 +247,16 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     // Player
     private readonly InputActionMap m_Player;
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
+    private readonly InputAction m_Player_MousePos;
+    private readonly InputAction m_Player_MouseClick;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Divide;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
         public PlayerActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @MousePos => m_Wrapper.m_Player_MousePos;
+        public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Divide => m_Wrapper.m_Player_Divide;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -212,6 +268,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            @MousePos.started += instance.OnMousePos;
+            @MousePos.performed += instance.OnMousePos;
+            @MousePos.canceled += instance.OnMousePos;
+            @MouseClick.started += instance.OnMouseClick;
+            @MouseClick.performed += instance.OnMouseClick;
+            @MouseClick.canceled += instance.OnMouseClick;
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
@@ -222,6 +284,12 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPlayerActions instance)
         {
+            @MousePos.started -= instance.OnMousePos;
+            @MousePos.performed -= instance.OnMousePos;
+            @MousePos.canceled -= instance.OnMousePos;
+            @MouseClick.started -= instance.OnMouseClick;
+            @MouseClick.performed -= instance.OnMouseClick;
+            @MouseClick.canceled -= instance.OnMouseClick;
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
@@ -245,17 +313,19 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         }
     }
     public PlayerActions @Player => new PlayerActions(this);
-    private int m_NewcontrolschemeSchemeIndex = -1;
-    public InputControlScheme NewcontrolschemeScheme
+    private int m_schemeSchemeIndex = -1;
+    public InputControlScheme schemeScheme
     {
         get
         {
-            if (m_NewcontrolschemeSchemeIndex == -1) m_NewcontrolschemeSchemeIndex = asset.FindControlSchemeIndex("New control scheme");
-            return asset.controlSchemes[m_NewcontrolschemeSchemeIndex];
+            if (m_schemeSchemeIndex == -1) m_schemeSchemeIndex = asset.FindControlSchemeIndex("scheme");
+            return asset.controlSchemes[m_schemeSchemeIndex];
         }
     }
     public interface IPlayerActions
     {
+        void OnMousePos(InputAction.CallbackContext context);
+        void OnMouseClick(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnDivide(InputAction.CallbackContext context);
     }
