@@ -4,10 +4,15 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Spaceship : UpgradeStat
+public class Spaceship : MonoBehaviour
 {
     [Header("InputSystem")]
     [SerializeField] private InputReader _input;
+
+    private float _rotSpeed = 20;
+    private float _curSpeed = 0;
+    private float _maxSpeed = 3;
+    private float _acceleration = 0.5f;
 
     private Vector2 _randomPos;
 
