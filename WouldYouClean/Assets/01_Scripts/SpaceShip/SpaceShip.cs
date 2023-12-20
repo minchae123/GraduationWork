@@ -49,6 +49,7 @@ public class Spaceship : MonoBehaviour
                     _randomPos.x = UnityEngine.Random.Range(-60, 60);
                     _randomPos.y = UnityEngine.Random.Range(-30, 30);
                     spaceObject.transform.position = _randomPos;
+                    PlanetInSpace.Reset();
                 }
             }
         }
