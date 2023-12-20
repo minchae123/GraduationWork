@@ -26,8 +26,6 @@ public class PlayerMoveMent : PlayerMain
             _isKeyDown = true;
         else
             _isKeyDown = false;
-
-        //print(_isKeyDown);
     }
 
     private void OnMovement(Vector2 value)

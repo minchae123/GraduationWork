@@ -43,7 +43,7 @@ public class InterfaceObject : PlayerMain
         _panelRect.DOAnchorPos(_spawnPosition, 1f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out DivideObj obj))
         {

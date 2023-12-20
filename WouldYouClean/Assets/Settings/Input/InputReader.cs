@@ -43,6 +43,7 @@ public class InputReader : MonoBehaviour
         OnMousePos?.Invoke(dir);
 
         bool isclick = _inputAction.Player.Divide.IsPressed();
+
         if (isclick)
             OnFKeyDown?.Invoke(true);
         else
