@@ -23,10 +23,10 @@ public class Cleaner : MonoBehaviour
     private void Update()
     {
         ColDir();
-        CleanAnim();
         CheckMouseRelease();
     }
 
+    //오브젝트 판별해주는 콜라이더 위치
     private void ColDir()
     {
         if (_direction.Direction())
@@ -35,37 +35,33 @@ public class Cleaner : MonoBehaviour
             _boxCol.offset = new Vector2(3, 0);
     }
 
+    //콜라이더에 들어왔을 때 청소기에 빨려 들어가게 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (!collision.GetComponent<DivideObj>() || !_isMouseClick) return;
+        _isMouseClick = Input.GetMouseButton(0);
+        if (!collision.GetComponent<DivideObj>() || !_isMouseClick) return; //들어온 오브젝트가 DivideObj스크립트를 가지고 있지 않거나 마우스 버튼이 눌리지않았을 때 실행 안함
 
-        float dis = Vector2.Distance(collision.transform.position, _gatherPos.position);
-        float _dirTime = Mathf.Lerp(_minSpeed, _maxSpeed, Mathf.InverseLerp(0f, 10f, dis));
+        float dis = Vector2.Distance(collision.transform.position, _gatherPos.position); //들어온 오브젝트와 청소기 입구 위치의 거리
+        float _dirTime = Mathf.Lerp(_minSpeed, _maxSpeed, Mathf.InverseLerp(0f, 10f, dis)); //거리를 정해둔 최소 값과 최대 값 사이에서 이러쿵저러쿵해서 거리가 멀면 속도가 빠르게 되게
 
-        collision.transform.DOMove(_gatherPos.position, _dirTime / _speed / 1.5f);
+        collision.transform.DOMove(_gatherPos.position, _dirTime / _speed / 1.5f); //청소기 윕구 위치까지 다가가게
 
-        float targetScale = Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, 20f, dis));
+        float targetScale = Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, 20f, dis)); 
 
         DotScale(collision.gameObject, targetScale);
     }
 
-    private void CleanAnim()
-    {
-        _isMouseClick = Input.GetMouseButton(0);
-        _animator.SetBool("clean", _isMouseClick);
-    }
-
     private void DotScale(GameObject obj, float targetScale)
     {
-        _cleaningSequence = DOTween.Sequence();
+        _cleaningSequence = DOTween.Sequence(); //초기화
 
-        _cleaningSequence.Append(obj.transform.DOScale(0, targetScale / 1.5f));
-        _cleaningSequence.OnComplete(() => Destroy(obj));
+        _cleaningSequence.Append(obj.transform.DOScale(0, targetScale / 1.5f)); //크기 조절해주기
+        _cleaningSequence.OnComplete(() => Destroy(obj)); //다트윈이 다 실행되면 사라지게
     }
 
     private void CheckMouseRelease()
     {
         if (Input.GetMouseButtonUp(0) && _cleaningSequence.IsActive())
-            _cleaningSequence.Kill();
+            _cleaningSequence.Kill(); 
     }
 }

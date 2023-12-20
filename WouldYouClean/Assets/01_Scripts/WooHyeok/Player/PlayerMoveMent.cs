@@ -44,7 +44,7 @@ public class PlayerMoveMent : PlayerMain
 
     private void OnMousePos(Vector2 value)
     {
-        print(value);
+
     }
 
     private void OnLeftMouseClick()
