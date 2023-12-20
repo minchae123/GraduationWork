@@ -28,6 +28,17 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI();
     }
 
+    public bool CheckInventoryIdx(ItemDataSO item)
+    {
+        if (!invenDictionary.TryGetValue(item, out InventoryItem i) // 해당 아이템이 인벤토리에 없음
+            && itemSlots.Length <= invenDictionary.Count)
+        { 
+            print("idx NOT OK");
+            return false;
+        }
+        return true;
+    }
+
     public void UpdateSlotUI()
     {
         for (int i = 0; i < itemSlots.Length; ++i) 
@@ -49,6 +60,10 @@ public class Inventory : MonoBehaviour
         }
         else // 없으면
         {
+            if(itemSlots.Length <= invenDictionary.Count) // 체크
+            {
+
+            }
             // 새로 등록
             InventoryItem newItem = new InventoryItem(item);
             mainInventory.Add(newItem);
@@ -77,5 +92,10 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateSlotUI();
+    }
+
+    public void OnClickCheck()
+    {
+        print("Dddddd");
     }
 }

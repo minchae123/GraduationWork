@@ -19,6 +19,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
         if (item != null)
         {
             itemImage.sprite = item.itemData.itemIcon;
+            itemImage.color = Vector4.one;
             if (itemAmountText == null) return;
             if (item.itemCnt > 1)
             {
@@ -34,14 +35,13 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
     public void CleanUpSlot()
     {
         item = null;
-        itemImage.sprite = null;
-        if (itemAmountText == null) return;
+        itemImage.color = new Color(1, 1, 1, 0);
         itemAmountText.text = string.Empty;
     }
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(item.itemData.itemName);
+        //Debug.Log(item.itemData.itemName);
         if (item == null) return;
         if (!Keyboard.current.ctrlKey.isPressed) return; // 컨트롤이랑 같이 눌려야
         Inventory.Instance.RemoveItem(item.itemData);
