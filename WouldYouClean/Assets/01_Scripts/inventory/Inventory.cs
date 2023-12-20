@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
+    public ItemObject itemPrefab;
     public static Inventory Instance;
 
     public List<InventoryItem> mainInventory; // 메인 인벤토리
@@ -26,6 +27,13 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         UpdateSlotUI();
+    }
+
+    public void CreateItem(ItemDataSO data, Vector2 pos)
+    {
+        ItemObject item = Instantiate(itemPrefab);
+        item.SetItemData(data);
+        item.SetPosition(pos);
     }
 
     public bool CheckInventoryIdx(ItemDataSO item)
@@ -73,10 +81,8 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI();
     }
 
-
     public void RemoveItem(ItemDataSO item, int cnt = 1)
     {
-        print("dd");
         if (invenDictionary.TryGetValue(item, out InventoryItem i)) 
         {
             if(i.itemCnt <= cnt) // 남아잇는 양이 지워야 하는 양보다 작거나 같을 경우?
@@ -92,10 +98,5 @@ public class Inventory : MonoBehaviour
         }
 
         UpdateSlotUI();
-    }
-
-    public void OnClickCheck()
-    {
-        print("Dddddd");
     }
 }

@@ -6,11 +6,14 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
+public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    private Image dragImage; // 드래그 할 때 이미지
     [SerializeField] private Image itemImage; // 아이템 이미지
     [SerializeField] private TextMeshProUGUI itemAmountText; // 해당 아이템 몇 개 있나요
+    
     public InventoryItem item;
+    private InventoryItem oldItem;
 
     public void UpdateSlot(InventoryItem newItem)
     {
@@ -31,7 +34,6 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
             }
         }
     }
-
     public void CleanUpSlot()
     {
         item = null;
@@ -39,11 +41,32 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
         itemAmountText.text = string.Empty;
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        //Debug.Log(item.itemData.itemName);
-        if (item == null) return;
-        if (!Keyboard.current.ctrlKey.isPressed) return; // 컨트롤이랑 같이 눌려야
-        Inventory.Instance.RemoveItem(item.itemData);
+        print("start");
+        oldItem = item;
+        dragImage = Instantiate(itemImage);
+        dragImage.color = new Vector4(1, 1, 1, 0.6f);
+        dragImage.transform.SetParent(transform.root, false);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        dragImage.transform.position = eventData.position;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        Inventory.Instance.RemoveItem(item.itemData); // 끝나면 삭제
+        Destroy(dragImage.gameObject);
+        print(dragImage);
+
+        Vector2 worldPos = Camera.main.ScreenToWorldPoint(eventData.position);
+        CreateItem(worldPos);
+    }
+
+    public void CreateItem(Vector2 pos)
+    {
+        Inventory.Instance.CreateItem(oldItem.itemData, pos);
     }
 }

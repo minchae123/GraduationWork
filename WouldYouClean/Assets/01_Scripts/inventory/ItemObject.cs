@@ -8,6 +8,7 @@ public class ItemObject : MonoBehaviour
     private SpriteRenderer spriterenderer;
 
     [SerializeField] private ItemDataSO itemData;
+    public ItemDataSO Item => itemData;
 
     private void Awake()
     {
@@ -28,4 +29,15 @@ public class ItemObject : MonoBehaviour
             Destroy(gameObject); // 삭제하고
         }
     }
+
+    public void SetItemData(ItemDataSO data)
+    {
+        itemData = data;
+    }
+
+    public void SetPosition(Vector2 pos)
+    {
+        transform.position = pos;
+    }
+
 }
