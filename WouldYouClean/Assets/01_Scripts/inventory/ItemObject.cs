@@ -8,6 +8,7 @@ public class ItemObject : MonoBehaviour
     private SpriteRenderer spriterenderer;
 
     [SerializeField] private ItemDataSO itemData;
+    public ItemDataSO Item => itemData;
 
     private void Awake()
     {
@@ -15,9 +16,28 @@ public class ItemObject : MonoBehaviour
         spriterenderer = GetComponent<SpriteRenderer>();
     }
 
+    private void Start()
+    {
+        spriterenderer.sprite = itemData.itemIcon;
+    }
+
     public void PickUpItem() // 추가
     {
-        Inventory.Instance.AddItem(itemData);
-        Destroy(gameObject);
+        if(Inventory.Instance.CheckInventoryIdx(itemData)) // 인벤토리 자리 남아있을 때에만
+        {
+            Inventory.Instance.AddItem(itemData); // 추가하고
+            Destroy(gameObject); // 삭제하고
+        }
     }
+
+    public void SetItemData(ItemDataSO data)
+    {
+        itemData = data;
+    }
+
+    public void SetPosition(Vector2 pos)
+    {
+        transform.position = pos;
+    }
+
 }
