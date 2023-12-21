@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IDropHandler
 {
     private Image dragImage; // 드래그 할 때 이미지
     [SerializeField] private Image itemImage; // 아이템 이미지
@@ -41,6 +41,7 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         itemAmountText.text = string.Empty;
     }
 
+    // 드래그 앤 드랍
     public void OnBeginDrag(PointerEventData eventData)
     {
         print("start");
@@ -68,5 +69,19 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void CreateItem(Vector2 pos)
     {
         Inventory.Instance.CreateItem(oldItem.itemData, pos);
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        GameObject draggedObject = eventData.pointerDrag;
+        if (draggedObject != null)
+        {
+            ItemTestTable itemTestTable = draggedObject.GetComponent<ItemTestTable>();
+
+            if (itemTestTable != null)
+            {
+                print("D");
+            }
+        }
     }
 }
