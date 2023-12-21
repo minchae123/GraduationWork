@@ -11,35 +11,42 @@ public class InterfaceObject : PlayerMain
     private Vector3 _spawnPosition;
 
     private bool _isShowing = true;
+    private RectTransform _panelRect;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _explainText;
     [SerializeField] private GameObject _panel;
 
+    private void Awake()
+    {
+        _panelRect = _panel.GetComponent<RectTransform>();
+    }
+
     private void Update()
     {
-        KeyDown();
+        if (_panelRect.localScale == Vector3.zero)
+            _isShowing = true;
     }
 
     private void ShowPanel()
     {
-        _panel.GetComponent<RectTransform>().transform.DOScale(Vector3.one * 1f, 1.5f); // 크기를 1.5배로 1초 동안 점차 키움
-        _panel.GetComponent<RectTransform>().DOAnchorPos(Vector3.zero, 1.5f);
+        _panelRect.transform.DOScale(Vector3.one * 1f, 1.5f); // 크기를 1.5배로 1초 동안 점차 키움
+        _panelRect.DOAnchorPos(Vector3.zero, 1.5f);
     }
 
     public void ClosePanel()
     {
-        _panel.GetComponent<RectTransform>().transform.DOScale(Vector3.zero, 1f);
-        _panel.GetComponent<RectTransform>().DOAnchorPos(_spawnPosition, 1f);
-
-        _isShowing = true;
+        _panelRect.transform.DOScale(Vector3.zero, 1f);
+        _panelRect.DOAnchorPos(_spawnPosition, 1f);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent(out DivideObj obj))
         {
+            KeyDown();
+
             _objTypeName = obj.type._ObjectName;
             _objTypeExplain = obj.type._ObjectExplain;
 
@@ -62,7 +69,12 @@ public class InterfaceObject : PlayerMain
     {
         if (_isKeyDown && _isShowing)
         {
-            _nameText.text = _objTypeName;
+            if (_objTypeName == "plain")
+                _isPlain = true;
+            else
+                _isPlain = false;
+
+                _nameText.text = _objTypeName;
             _explainText.text = _objTypeExplain;
 
             _isKeyDown = false;
