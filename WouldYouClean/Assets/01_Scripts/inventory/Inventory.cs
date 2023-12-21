@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    public ItemObject itemPrefab;
     public static Inventory Instance;
 
     public List<InventoryItem> mainInventory; // 메인 인벤토리
@@ -27,13 +26,6 @@ public class Inventory : MonoBehaviour
     private void Start()
     {
         UpdateSlotUI();
-    }
-
-    public void CreateItem(ItemDataSO data, Vector2 pos)
-    {
-        ItemObject item = Instantiate(itemPrefab);
-        item.SetItemData(data);
-        item.SetPosition(pos);
     }
 
     public bool CheckInventoryIdx(ItemDataSO item)
