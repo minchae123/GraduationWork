@@ -6,7 +6,7 @@ public class PlayerDirection : PlayerMain
 {
     private void Update()
     {
-
+        //print(Direction());
         _spriteRenderer.flipX = Direction();
     }
 

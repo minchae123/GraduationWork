@@ -31,11 +31,20 @@ public class PlayerMoveMent : PlayerMain
     private void OnMovement(Vector2 value)
     {
         _direction = value;
+        MoveAnim();
+    }
+
+    private void MoveAnim()
+    {
+        _animator.SetFloat("x", Mathf.Abs(_direction.x) / _curSpeed);
+
+        if (Mathf.Abs(_direction.x) / _curSpeed == 0)
+            _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
     }
 
     private void OnMousePos(Vector2 value)
     {
-        print(value);
+
     }
 
     private void OnLeftMouseClick()
