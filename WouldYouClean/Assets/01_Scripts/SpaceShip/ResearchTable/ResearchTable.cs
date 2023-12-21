@@ -49,16 +49,16 @@ public class ResearchTable : PlayerMain
     {
         if (_isKeyDown)
         {
-            //_mainPanel.SetActive(true);
-            UIManager.Instance.ScaleRectTransform(_mainPanel, _originPanelTrm
-            , 0.7f, Ease.InOutCubic);
+            ActivateMainPanel();
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         //_mainPanel.SetActive(false);
-        ExitResearchTable();
+        ExitMainPanel();
+        ExitLoadingPanel();
+        ExitResultPanel();
         _isKeyDown = false;
     }
 
@@ -66,22 +66,21 @@ public class ResearchTable : PlayerMain
     {
         //로딩하고 결과로 하기ㅣㅣ
         _resultText.text = _curTrash[_curTrashDropdown.value]._ObjectName;
-        UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm
-            , 0.7f, Ease.InOutCubic, FillLoadingBar);
+        //UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm, 0.7f, Ease.InOutCubic, FillLoadingBar);
+        ActivateLoadingPanel(FillLoadingBar);
     }
 
     public void BackBtn()
     {
         //_resultPanel.SetActive(false);
-        UIManager.Instance.ScaleRectTransform(_resultPanel, Vector3.zero
-            , 0.7f, Ease.InOutCubic);
+        ExitResultPanel();
     }
 
     private void FillLoadingBar()
     {
         _loadingFillAmountIMG.DOFillAmount(1.0f, loadingDuration).OnComplete(() =>
         {
-            UIManager.Instance.ScaleRectTransform(_loadingPanel, Vector3.zero, 0.7f, Ease.InOutCubic, ResetLoadingFillAmount);
+            ExitLoadingPanel();
             ActivateResultPanel();
         });
     }
@@ -91,15 +90,39 @@ public class ResearchTable : PlayerMain
         _loadingFillAmountIMG.fillAmount = 0f;
     }
 
-    private void ActivateResultPanel()
+    private void ActivateMainPanel(params Action[] action)
     {
-        UIManager.Instance.ScaleRectTransform(_resultPanel, _originPanelTrm
-            , 0.0f, Ease.InOutCubic);
+        UIManager.Instance.ScaleRectTransform(_mainPanel, _originPanelTrm
+            , 0.7f, Ease.InOutCubic, action);
     }
 
-    public void ExitResearchTable()
+    private void ActivateLoadingPanel(params Action[] action)
+    {
+        UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm
+            , 0.7f, Ease.InOutCubic, action);
+    }
+
+    private void ActivateResultPanel(params Action[] action)
+    {
+        UIManager.Instance.ScaleRectTransform(_resultPanel, _originPanelTrm
+            , 0.0f, Ease.InOutCubic, action);
+    }
+
+    public void ExitMainPanel(params Action[] action)
     {
         UIManager.Instance.ScaleRectTransform(_mainPanel, Vector3.zero
-            , 0.7f, Ease.InOutCubic);
+            , 0.7f, Ease.InOutCubic, action);
+    }
+
+    public void ExitLoadingPanel(params Action[] action)
+    {
+        UIManager.Instance.ScaleRectTransform(_loadingPanel, Vector3.zero
+            , 0.7f, Ease.InOutCubic, action);
+    }
+
+    public void ExitResultPanel(params Action[] action)
+    {
+        UIManager.Instance.ScaleRectTransform(_resultPanel, Vector3.zero
+            , 0.7f, Ease.InOutCubic, action);
     }
 }
