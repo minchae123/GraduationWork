@@ -25,8 +25,6 @@ public class InterfaceObject : PlayerMain
 
     private void Update()
     {
-        print(_isKeyDown);
-
         if (_panelRect.localScale == Vector3.zero)
             _isShowing = true;
     }
@@ -69,10 +67,14 @@ public class InterfaceObject : PlayerMain
 
     private void KeyDown()
     {
-        print("dfengefwdwfrbfe");
         if (_isKeyDown && _isShowing)
         {
-            _nameText.text = _objTypeName;
+            if (_objTypeName == "plain")
+                _isPlain = true;
+            else
+                _isPlain = false;
+
+                _nameText.text = _objTypeName;
             _explainText.text = _objTypeExplain;
 
             _isKeyDown = false;
