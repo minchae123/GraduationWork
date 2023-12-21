@@ -30,9 +30,15 @@ public class Cleaner : MonoBehaviour
     private void ColDir()
     {
         if (_direction.Direction())
+        {
             _boxCol.offset = new Vector2(-3, 0);
+            _gatherPos.position = new Vector2(-1.15f, _gatherPos.position.y);
+        }
         else
+        {
             _boxCol.offset = new Vector2(3, 0);
+            _gatherPos.position = new Vector2(1.15f, _gatherPos.position.y);
+        }
     }
 
     //콜라이더에 들어왔을 때 청소기에 빨려 들어가게 
@@ -44,7 +50,7 @@ public class Cleaner : MonoBehaviour
         float dis = Vector2.Distance(collision.transform.position, _gatherPos.position); //들어온 오브젝트와 청소기 입구 위치의 거리
         float _dirTime = Mathf.Lerp(_minSpeed, _maxSpeed, Mathf.InverseLerp(0f, 10f, dis)); //거리를 정해둔 최소 값과 최대 값 사이에서 이러쿵저러쿵해서 거리가 멀면 속도가 빠르게 되게
 
-        collision.transform.DOMove(_gatherPos.position, _dirTime / _speed / 1.5f); //청소기 윕구 위치까지 다가가게
+        collision.transform.DOMove(_gatherPos.position, _dirTime / _speed ).SetEase(Ease.OutQuad); //청소기 윕구 위치까지 다가가게
 
         float targetScale = Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, 20f, dis)); 
 
@@ -55,7 +61,7 @@ public class Cleaner : MonoBehaviour
     {
         _cleaningSequence = DOTween.Sequence(); //초기화
 
-        _cleaningSequence.Append(obj.transform.DOScale(0, targetScale / 1.5f)); //크기 조절해주기
+        _cleaningSequence.Append(obj.transform.DOScale(0, targetScale)).SetEase(Ease.OutQuad); //크기 조절해주기
         _cleaningSequence.OnComplete(() => Destroy(obj)); //다트윈이 다 실행되면 사라지게
     }
 

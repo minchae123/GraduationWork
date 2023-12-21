@@ -6,24 +6,74 @@ using DG.Tweening;
 
 public class PlayerAnim : PlayerMain
 {
+    [SerializeField] private Image _breathBar;
     [SerializeField] private Image _hpBar;
-    private float hp = 150f;
+    [SerializeField] private float _breath = 150f;
+
+    public bool _istest = false;
+
+    private float _hp;
+    private bool _isch = false;
+
+    private Sequence _hpSeq;
+
+    private void Awake()
+    {
+        _hp = _breath;
+        _hpSeq = DOTween.Sequence();
+    }
+
     public override void Update()
     {
-        print(hp);
-        if (_isPlain && hp < 150)
-            hp += 1f * Time.deltaTime;
-        else if(!_isPlain && hp > 0)
-            hp -= 1f * Time.deltaTime;
+        _isPlain = _istest;
+        Cleaning();
+        divideHp();
+    }
+
+    private void divideHp()
+    {
+        if (_isPlain && _breath < 150)
+            _breath += 30f * Time.deltaTime;
+        else if (!_isPlain && _breath > 0)
+            _breath -= 30f * Time.deltaTime;
+
+        _breath = Mathf.Clamp(_breath, 0f, 150f);
+
+        if (!_isch) DotBreathSlider();
+        else DotHphSlider();
+    }
+
+    private void DotBreathSlider()
+    {
+        RectTransform rect = _breathBar.GetComponent<RectTransform>();
+        _hpSeq.Append(
+        rect.DOSizeDelta(new Vector2(rect.sizeDelta.x, _breath), 0.1f).OnComplete(() =>
+        {
+            if (_breath <= 0)
+            {
+                _breath = _hp;
+                DotHphSlider();
+            }
+        }));
+    }
+
+    private void DotHphSlider()
+    {
+        _isch = true;
 
         RectTransform rect = _hpBar.GetComponent<RectTransform>();
-        rect.DOSizeDelta(new Vector2(rect.sizeDelta.x, hp), 1);
-
-        Cleaning();
+        _hpSeq.Append(rect.DOSizeDelta(new Vector2(rect.sizeDelta.x, _breath), 0.1f).SetLoops(100, LoopType.Incremental).OnComplete(() =>
+        {
+            if (_breath <= 0)
+            {
+                _isch = false;
+                _breath = _hp;
+            }
+        }));
     }
 
     private void Cleaning()
     {
-            _animator.SetBool("clean", _isPlain);
+        _animator.SetBool("clean", _isPlain);
     }
 }
