@@ -74,6 +74,6 @@ public class PlayerAnim : PlayerMain
 
     private void Cleaning()
     {
-        _animator.SetBool("clean", _isPlain);
+        _animator.SetBool("clean", !_isPlain);
     }
 }
