@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class ResearchTable : PlayerMain
 {
     [SerializeField] RectTransform _mainPanel;
-    [SerializeField] TMP_Dropdown _curTrashDropdown;
+    //[SerializeField] TMP_Dropdown _curTrashDropdown;
     [SerializeField] TMP_Text _resultText;
     [SerializeField] List<ObjectType> _curTrash;
 
@@ -24,15 +24,15 @@ public class ResearchTable : PlayerMain
 
     private void Awake()
     {
-        _curTrashDropdown.ClearOptions();
+        //_curTrashDropdown.ClearOptions();
 
-        List<string> trashNames = new List<string>();
-        foreach (ObjectType trash in _curTrash)
-        {
-            trashNames.Add(trash._ObjectName);
-        }
+        //List<string> trashNames = new List<string>();
+        //foreach (ObjectType trash in _curTrash)
+        //{
+        //    trashNames.Add(trash._ObjectName);
+        //}
 
-        _curTrashDropdown.AddOptions(trashNames);
+        //_curTrashDropdown.AddOptions(trashNames);
     }
 
     private void Start()
@@ -65,14 +65,13 @@ public class ResearchTable : PlayerMain
     public void ResearchBtn()
     {
         //로딩하고 결과로 하기ㅣㅣ
-        _resultText.text = _curTrash[_curTrashDropdown.value]._ObjectName;
+        //_resultText.text = _curTrash[_curTrashDropdown.value]._ObjectName;
         //UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm, 0.7f, Ease.InOutCubic, FillLoadingBar);
         ActivateLoadingPanel(FillLoadingBar);
     }
 
     public void BackBtn()
     {
-        //_resultPanel.SetActive(false);
         ExitResultPanel();
     }
 
