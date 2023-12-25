@@ -64,7 +64,7 @@ public class Cleaner : MonoBehaviour
         _cleaningSequence.Append(obj.transform.DOScale(0, targetScale)).SetEase(Ease.OutQuad); //크기 조절해주기
         _cleaningSequence.OnComplete(() =>
         {
-            GameManager.instance._items[divObj.name]++;
+            GameManager.Instance._items[divObj.name]++;
             Destroy(obj);
         }); //다트윈이 다 실행되면 사라지게
     }
