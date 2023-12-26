@@ -1,12 +1,12 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
+using DG.Tweening;
 using UnityEngine;
 
 public class PlayerMoveMent : PlayerMain
 {
     [SerializeField] private InputReader _input;
     [SerializeField] private float _curSpeed;
+    [SerializeField] private TextMeshPro _warning;
 
     private Vector2 _direction;
 
@@ -18,6 +18,11 @@ public class PlayerMoveMent : PlayerMain
         _input.OnFKeyDown += OnKeyDown;
         _input.OnMousePos += OnMousePos;
         _input.OnLeftMouseClick += OnLeftMouseClick;
+    }
+
+    void Update()
+    {
+        _rb.velocity = _direction * _curSpeed;
     }
 
     private void OnKeyDown(bool value)
@@ -52,8 +57,9 @@ public class PlayerMoveMent : PlayerMain
         print("마우스 클릭 되었달ㅇ통래ㅑㄴ");
     }
 
-    void Update()
+    public void OnStillWarning()
     {
-        _rb.velocity = _direction * _curSpeed;
+        //Sequence seq = DOTween.Sequence();
+        _warning.DOFade(1, 0.5f).SetLoops(5, LoopType.Yoyo).SetEase(Ease.InOutCirc).From();
     }
 }

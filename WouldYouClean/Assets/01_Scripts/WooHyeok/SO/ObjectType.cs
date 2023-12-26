@@ -9,6 +9,7 @@ public class ObjectType : ScriptableObject
     #endregion
 
     #region º¯¼öµé
+    public Sprite itemIcon;
     public string _ObjectName;
     public string _ObjectExplain;
     #endregion 

@@ -41,7 +41,7 @@ public class ItemSlotUI : MonoBehaviour, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        Debug.Log(item.itemData.itemName);
+        Debug.Log(item.itemData._ObjectName);
         if (item == null) return;
         if (!Keyboard.current.ctrlKey.isPressed) return; // 컨트롤이랑 같이 눌려야
         Inventory.Instance.RemoveItem(item.itemData);

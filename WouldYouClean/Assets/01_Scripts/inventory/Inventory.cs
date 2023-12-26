@@ -7,7 +7,7 @@ public class Inventory : MonoBehaviour
     public static Inventory Instance;
 
     public List<InventoryItem> mainInventory; // 메인 인벤토리
-    public Dictionary<ItemDataSO, InventoryItem> invenDictionary; // 인벤토리 딕셔너리
+    public Dictionary<ObjectType, InventoryItem> invenDictionary; // 인벤토리 딕셔너리
 
     [Header("Inventory UI")]
     [SerializeField] private Transform invenSlotParent; // 슬롯 부모
@@ -19,7 +19,7 @@ public class Inventory : MonoBehaviour
         Instance = this;
         
         mainInventory = new List<InventoryItem>();
-        invenDictionary = new Dictionary<ItemDataSO, InventoryItem>();
+        invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = invenSlotParent.GetComponentsInChildren<ItemSlotUI>();
     }
 
@@ -41,7 +41,15 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void AddItem(ItemDataSO item)
+    public void ClearItem()
+    {
+        for (int i = 0; i < itemSlots.Length; ++i)
+        {
+            itemSlots[i].CleanUpSlot(); // cleanUp
+        }
+    }
+
+    public void AddItem(ObjectType item)
     {
         if(invenDictionary.TryGetValue(item,out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
         {
@@ -59,7 +67,7 @@ public class Inventory : MonoBehaviour
     }
 
 
-    public void RemoveItem(ItemDataSO item, int cnt = 1)
+    public void RemoveItem(ObjectType item, int cnt = 1)
     {
         print("dd");
         if (invenDictionary.TryGetValue(item, out InventoryItem i)) 

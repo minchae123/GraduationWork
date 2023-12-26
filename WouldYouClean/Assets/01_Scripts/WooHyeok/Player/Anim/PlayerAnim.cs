@@ -23,7 +23,7 @@ public class PlayerAnim : PlayerMain
         _hpSeq = DOTween.Sequence();
     }
 
-    public override void Update()
+    public  void Update()
     {
         _isPlain = _istest;
         Cleaning();
