@@ -6,10 +6,10 @@ using UnityEngine;
 [Serializable]
 public class InventoryItem
 {
-    public ItemDataSO itemData;
+    public ObjectType itemData;
     public int itemCnt; // æ∆¿Ã≈€ cnt
 
-    public InventoryItem(ItemDataSO item)
+    public InventoryItem(ObjectType item)
     {
         this.itemData = item;
         AddItemCnt();

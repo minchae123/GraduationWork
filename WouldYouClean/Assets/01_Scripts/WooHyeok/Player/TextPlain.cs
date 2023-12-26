@@ -18,7 +18,6 @@ public class TextPlain : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        print("dfefebfwfbfderbfbe");
         if(collision.GetComponent<PlayerMain>())
             collision.GetComponent<PlayerAnim>()._istest = true;
     }

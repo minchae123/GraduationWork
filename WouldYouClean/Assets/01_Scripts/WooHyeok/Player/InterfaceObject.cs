@@ -23,7 +23,7 @@ public class InterfaceObject : PlayerMain
         _panelRect = _panel.GetComponent<RectTransform>();
     }
 
-    private void Update()
+    public void Update()
     {
         if (_panelRect.localScale == Vector3.zero)
             _isShowing = true;

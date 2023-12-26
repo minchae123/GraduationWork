@@ -7,7 +7,7 @@ public class ItemObject : MonoBehaviour
     private Rigidbody2D rigid;
     private SpriteRenderer spriterenderer;
 
-    [SerializeField] private ItemDataSO itemData;
+    [SerializeField] private ObjectType itemData;
 
     public ItemDataSO Item => itemData;
 

@@ -23,7 +23,7 @@ public class PlayerAnim : PlayerMain
         _hpSeq = DOTween.Sequence();
     }
 
-    public override void Update()
+    public  void Update()
     {
         _isPlain = _istest;
         Cleaning();
@@ -74,6 +74,6 @@ public class PlayerAnim : PlayerMain
 
     private void Cleaning()
     {
-        _animator.SetBool("clean", _isPlain);
+        _animator.SetBool("clean", !_isPlain);
     }
 }
