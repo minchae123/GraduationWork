@@ -10,7 +10,7 @@ public class DivideObj : MonoBehaviour
 
     public void PickUpItem() // Ãß°¡
     {
-        Inventory.Instance.AddItem(type);
+        Inventory.Instance.AddItem(type, true);
         Destroy(gameObject);
     }
 }

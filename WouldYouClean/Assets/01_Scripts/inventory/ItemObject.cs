@@ -9,7 +9,7 @@ public class ItemObject : MonoBehaviour
 
     [SerializeField] private ObjectType itemData;
 
-    public ItemDataSO Item => itemData;
+    public ObjectType Item => itemData;
 
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class ItemObject : MonoBehaviour
         }
     }
 
-    public void SetItemData(ItemDataSO data)
+    public void SetItemData(ObjectType data)
     {
         itemData = data;
     }

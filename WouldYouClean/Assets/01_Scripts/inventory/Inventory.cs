@@ -42,7 +42,7 @@ public class Inventory : MonoBehaviour
         UpdateSlotUI();
     }
 
-    public bool CheckInventoryIdx(ItemDataSO item)
+    public bool CheckInventoryIdx(ObjectType item)
     {
         if (!invenDictionary.TryGetValue(item, out InventoryItem i) // 해당 아이템이 인벤토리에 없음
             && inventoryLength <= invenDictionary.Count)
@@ -68,13 +68,13 @@ public class Inventory : MonoBehaviour
 
     public void ClearItem()
     {
-        for (int i = 0; i < itemSlots.Length; ++i)
+        for (int i = 0; i < inventoryLength; ++i)
         {
             itemSlots[i].CleanUpSlot(); // cleanUp
         }
     }
 
-    public void AddItem(ItemDataSO item)
+    public void AddItem(ObjectType item, bool isTable)
     { 
         if(invenDictionary.TryGetValue(item,out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
         {
@@ -96,7 +96,7 @@ public class Inventory : MonoBehaviour
         if(!isTable) // 테이블 통해서 들어온 게 아닐 경우
         {
             PopUpItem popUp = Instantiate(popUpPanel, checker);
-            popUp.SetItemPanel(item.itemName, item.itemIcon);
+            popUp.SetItemPanel(item._ObjectName, item.itemIcon);
         }
         
         UpdateSlotUI();

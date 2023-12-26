@@ -18,7 +18,7 @@ public class ItemManager : MonoBehaviour
         Instance = this;
     }
 
-    public void CreateItem(ItemDataSO data, Vector2 pos)
+    public void CreateItem(ObjectType data, Vector2 pos)
     {
         ItemObject item = Instantiate(itemPrefab);
         item.SetItemData(data);
@@ -30,7 +30,7 @@ public class ItemManager : MonoBehaviour
         inTable = v;
     }
 
-    public void SetItemTable(ItemDataSO item)
+    public void SetItemTable(ObjectType item)
     {
         itemTable.SetItem(item);
     }
