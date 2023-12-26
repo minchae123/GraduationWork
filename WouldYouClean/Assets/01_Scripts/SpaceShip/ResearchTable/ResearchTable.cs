@@ -9,8 +9,7 @@ using UnityEngine.UI;
 public class ResearchTable : PlayerMain
 {
     [SerializeField] RectTransform _mainPanel;
-    //[SerializeField] TMP_Dropdown _curTrashDropdown;
-    [SerializeField] TMP_Text _resultText;
+    [SerializeField] ItemTestTable _testTable;
     [SerializeField] List<ObjectType> _curTrash;
 
 
@@ -19,20 +18,17 @@ public class ResearchTable : PlayerMain
     [SerializeField] private float loadingDuration = 3.0f;
 
     [SerializeField] RectTransform _resultPanel;
+    [SerializeField] Image _resultImage;
+    [SerializeField] TMP_Text _resultText;
+
+    [SerializeField] List<ItemDataSO> _addItems;
 
     Vector3 _originPanelTrm;
+    bool isResearchTableActive = false;
 
     private void Awake()
     {
-        //_curTrashDropdown.ClearOptions();
 
-        //List<string> trashNames = new List<string>();
-        //foreach (ObjectType trash in _curTrash)
-        //{
-        //    trashNames.Add(trash._ObjectName);
-        //}
-
-        //_curTrashDropdown.AddOptions(trashNames);
     }
 
     private void Start()
@@ -55,7 +51,6 @@ public class ResearchTable : PlayerMain
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //_mainPanel.SetActive(false);
         ExitMainPanel();
         ExitLoadingPanel();
         ExitResultPanel();
@@ -64,9 +59,9 @@ public class ResearchTable : PlayerMain
 
     public void ResearchBtn()
     {
-        //로딩하고 결과로 하기ㅣㅣ
-        //_resultText.text = _curTrash[_curTrashDropdown.value]._ObjectName;
-        //UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm, 0.7f, Ease.InOutCubic, FillLoadingBar);
+        if (_testTable.currentItem != null)
+        {
+        }
         ActivateLoadingPanel(FillLoadingBar);
     }
 
@@ -75,9 +70,32 @@ public class ResearchTable : PlayerMain
         ExitResultPanel();
     }
 
+    public void ExitBtn()
+    {
+        ExitMainPanel();
+    }
+
+    public void AddBtn()
+    {
+        if (_testTable.currentItem != null)
+        {
+            _addItems.Add(_testTable.currentItem);
+            _testTable.currentItem = null;
+            //AddItemAndDelete()만들기러길기러기러기러기러기ㅓ리거리ㅓ기ㅓ리거리거맆럭리ㅓ기러기러기러기러
+        }
+    }
+
     private void FillLoadingBar()
     {
-        _loadingFillAmountIMG.DOFillAmount(1.0f, loadingDuration).OnComplete(() =>
+        Tween fillTween = null;
+        fillTween = _loadingFillAmountIMG.DOFillAmount(1.0f, loadingDuration).OnUpdate(() =>
+        {
+            if (!isResearchTableActive)
+            {
+                fillTween.Kill();
+                fillTween = null;
+            }
+        }).OnComplete(() =>
         {
             ExitLoadingPanel();
             ActivateResultPanel();
@@ -93,24 +111,39 @@ public class ResearchTable : PlayerMain
     {
         UIManager.Instance.ScaleRectTransform(_mainPanel, _originPanelTrm
             , 0.7f, Ease.InOutCubic, action);
+        isResearchTableActive = true;
     }
 
     private void ActivateLoadingPanel(params Action[] action)
     {
+        _loadingFillAmountIMG.fillAmount = 0f;
         UIManager.Instance.ScaleRectTransform(_loadingPanel, _originPanelTrm
             , 0.7f, Ease.InOutCubic, action);
     }
 
     private void ActivateResultPanel(params Action[] action)
     {
-        UIManager.Instance.ScaleRectTransform(_resultPanel, _originPanelTrm
-            , 0.0f, Ease.InOutCubic, action);
+        if (isResearchTableActive)
+            UIManager.Instance.ScaleRectTransform(_resultPanel, _originPanelTrm
+                , 0.0f, Ease.InOutCubic, action);
+        //이미지 바꾸고 텍스트 바꾸고
+        _resultImage.sprite = _testTable.currentItem.itemIcon;
+        _resultText.text = _testTable.currentItem.itemName;
+
+
     }
 
     public void ExitMainPanel(params Action[] action)
     {
-        UIManager.Instance.ScaleRectTransform(_mainPanel, Vector3.zero
-            , 0.7f, Ease.InOutCubic, action);
+        if (isResearchTableActive)
+        {
+            Array.Resize(ref action, action.Length + 1); // 배열 크기 늘리기
+            action[action.Length - 1] = RemoveTableItem; // 새로운 액션 추가
+
+            UIManager.Instance.ScaleRectTransform(_mainPanel, Vector3.zero
+                , 0.7f, Ease.InOutCubic, action);
+            isResearchTableActive = false;
+        }
     }
 
     public void ExitLoadingPanel(params Action[] action)
@@ -123,5 +156,15 @@ public class ResearchTable : PlayerMain
     {
         UIManager.Instance.ScaleRectTransform(_resultPanel, Vector3.zero
             , 0.7f, Ease.InOutCubic, action);
+    }
+
+    private void RemoveTableItem()
+    {
+        _testTable.RemoveItem();
+    }
+
+    private void DebugAction()
+    {
+        print("action");
     }
 }

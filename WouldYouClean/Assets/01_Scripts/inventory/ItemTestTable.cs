@@ -13,7 +13,7 @@ public class ItemTestTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void SetItem(ItemDataSO item)
     {
-        if(currentItem != null) // 현재 테이블에 아이템 있을 경우
+        if (currentItem != null) // 현재 테이블에 아이템 있을 경우
         {
             Inventory.Instance.AddItem(currentItem); // 갱신 전에 다시 인벤토리로 넣얻주기
         }
@@ -25,6 +25,12 @@ public class ItemTestTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
 
     public void RemoveItem() // 초기화
     {
+        if (currentItem != null) // 현재 테이블에 아이템 있을 경우
+        {
+            Inventory.Instance.AddItem(currentItem); // 갱신 전에 다시 인벤토리로 넣얻주기
+            currentItem = null;
+        }
+
         itemImage.sprite = null;
         itemName.text = string.Empty;
     }
