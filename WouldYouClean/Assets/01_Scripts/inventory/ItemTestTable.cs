@@ -15,7 +15,7 @@ public class ItemTestTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     {
         if(currentItem != null) // 현재 테이블에 아이템 있을 경우
         {
-            Inventory.Instance.AddItem(currentItem); // 갱신 전에 다시 인벤토리로 넣얻주기
+            Inventory.Instance.AddItem(currentItem, true); // 갱신 전에 다시 인벤토리로 넣얻주기
         }
 
         currentItem = item;
