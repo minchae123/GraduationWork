@@ -21,7 +21,7 @@ public class ResearchTable : PlayerMain
     [SerializeField] Image _resultImage;
     [SerializeField] TMP_Text _resultText;
 
-    [SerializeField] List<ItemDataSO> _addItems;
+    [SerializeField] List<ObjectType> _addItems;
 
     Vector3 _originPanelTrm;
     bool isResearchTableActive = false;
@@ -128,7 +128,7 @@ public class ResearchTable : PlayerMain
                 , 0.0f, Ease.InOutCubic, action);
         //이미지 바꾸고 텍스트 바꾸고
         _resultImage.sprite = _testTable.currentItem.itemIcon;
-        _resultText.text = _testTable.currentItem.itemName;
+        _resultText.text = _testTable.currentItem.name;
 
 
     }
