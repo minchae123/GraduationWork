@@ -8,7 +8,7 @@ using TMPro;
 public class PlanetContent : MonoBehaviour, IPointerClickHandler
 {
 	private CollectedPlanets collectedPlanets;
-	[SerializeField] private PlanetInfo info;
+	public PlanetInfo info;
 
 	private void Awake()
 	{

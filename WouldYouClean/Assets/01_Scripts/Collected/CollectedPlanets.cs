@@ -7,21 +7,33 @@ using TMPro;
 public class CollectedPlanets : MonoBehaviour
 {
 	[SerializeField] private List<PlanetInfo> planets;
-	
+
+	[SerializeField] private PlanetContent collected;
+	[SerializeField] private Transform context;
+
+	[Header("Ό³Έν UI")]
 	[SerializeField] private Image infoImage;
 	[SerializeField] private TextMeshProUGUI planetName;
 	[SerializeField] private TextMeshProUGUI planetExplain;
 
-	[SerializeField] private PlanetContent collected;
 
 	private void Awake()
 	{
 		
 	}
 
-	public void AddCollected(PlanetInfo info)
+    public void AddPlanetsCollected(PlanetInfo info)
 	{
+		planets.Add(info);
+		collected.info = info;
+		var obj = Instantiate(collected, context);
+	}
 
+	public void AddTrashCollected(PlanetInfo info)
+	{
+		planets.Add(info);
+		collected.info = info;
+		var obj = Instantiate(collected, context);
 	}
 
 	public void ShowChange(PlanetInfo info)
