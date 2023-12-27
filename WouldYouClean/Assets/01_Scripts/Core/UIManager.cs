@@ -4,19 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+public class UIManager : MonoSingleton<UIManager>
 {
-    public static UIManager Instance;
-
-    private void Awake()
-    {
-        if(Instance != null)
-        {
-            Debug.LogError("UIManager is Multiple");
-        }
-
-        Instance = this;
-    }
 
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
     {
