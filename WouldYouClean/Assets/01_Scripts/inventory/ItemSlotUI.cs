@@ -21,7 +21,7 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
         if (item != null)
         {
-            itemImage.sprite = item.itemData.itemIcon;
+            itemImage.sprite = item.itemData._ItemIcon;
             itemImage.color = Vector4.one;
             if (itemAmountText == null) return;
             if (item.itemCnt > 1)

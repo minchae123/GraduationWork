@@ -72,6 +72,8 @@ public class Cleaner : MonoBehaviour
             }
             else
             {
+                CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
+
                 if (obj.transform.localScale == Vector3.zero)
                     divObj.PickUpItem();
             }

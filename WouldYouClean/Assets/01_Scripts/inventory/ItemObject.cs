@@ -19,7 +19,7 @@ public class ItemObject : MonoBehaviour
 
     private void Start()
     {
-        spriterenderer.sprite = itemData.itemIcon;
+        spriterenderer.sprite = itemData._ItemIcon;
     }
 
     public void PickUpItem() // Ãß°¡
