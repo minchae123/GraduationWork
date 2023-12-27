@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class SetItemTrigger : MonoBehaviour
 {
-    private ItemObject item;
+    private DivideObj item;
     private void Awake()
     {
-        item = transform.parent.GetComponent<ItemObject>();
+        item = GetComponent<DivideObj>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerMain>(out PlayerMain p))
+        if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent p))//testPlayer¿¡¼­ playermovement·Î ¹Ù²Þ
         {
             item.PickUpItem();
         }
