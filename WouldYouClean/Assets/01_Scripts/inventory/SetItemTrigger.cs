@@ -12,7 +12,7 @@ public class SetItemTrigger : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent p))//testPlayer¿¡¼­ playermovement·Î ¹Ù²Þ
+        if (collision.TryGetComponent<TestPlayer>(out TestPlayer p))//testPlayer¿¡¼­ playermovement·Î ¹Ù²Þ
         {
             item.PickUpItem();
         }
