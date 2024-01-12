@@ -7,13 +7,14 @@ public class SetItemTrigger : MonoBehaviour
     private DivideObj item;
     private void Awake()
     {
-        item = GetComponent<DivideObj>();
+        item = GetComponentInParent<DivideObj>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent p))//testPlayer¿¡¼­ playermovement·Î ¹Ù²Þ
         {
+            Debug.Log(item);
             item.PickUpItem();
         }
     }

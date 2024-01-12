@@ -37,9 +37,8 @@ public class GarbageSpawner : MonoBehaviour
         {
             x = Random.Range(-transform.localScale.x / 2f, transform.localScale.x / 2f);
             y = Random.Range(-transform.localScale.y / 2f, transform.localScale.y / 2f);
-            z = Random.Range(-transform.localScale.z / 2f, transform.localScale.z / 2f);
 
-            spawnPosition = transform.position + new Vector3(x, y, z);
+            spawnPosition = transform.position + new Vector3(x, y, 0);
         } while (IsPositionOverlapping(spawnPosition));
 
         return spawnPosition;
