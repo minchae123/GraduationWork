@@ -3,32 +3,33 @@ using UnityEngine;
 
 public class GarbageSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject _garbagePrefab;
-    [SerializeField] int _minInclusive;
-    [SerializeField] int _maxInclusive;
+    [SerializeField] DivideObj _garbagePrefab;
 
-    int _garbageCount;
+
+    public int GarbageCount;
     List<Vector3> _spawnedPositions = new List<Vector3>();
 
     private void Start()
     {
-        _garbageCount = Random.Range(_minInclusive, _maxInclusive);
+        GarbageCount = Random.Range(MapManager.Instance.MinInclusive, MapManager.Instance.MaxInclusive);
 
-        for (int i = 0; i < _garbageCount; i++)
+        for (int i = 0; i < GarbageCount; i++)
         {
             // 새로운 오브젝트의 위치를 찾을 때까지 반복
-            Vector3 spawnPosition = GetValidRandomPosition();
+            Vector3 spawnPosition = GetRandomPosition();
 
-            GameObject newGarbage = Instantiate(_garbagePrefab, spawnPosition, Quaternion.identity);
+            GameObject newGarbage = Instantiate(_garbagePrefab.gameObject, spawnPosition, Quaternion.identity);
             _spawnedPositions.Add(spawnPosition);
-            // 만약 _garbage의 부모를 지정해야 한다면 아래 주석을 해제하세요.
+
+            MapManager.Instance.CurrentMapTrash.Add(_garbagePrefab);
+
             newGarbage.transform.parent = transform;
         }
 
-        Debug.Log("Generated " + _garbageCount + " garbage objects.");
+        Debug.Log("Generated " + GarbageCount + " garbage objects.");
     }
 
-    private Vector3 GetValidRandomPosition()
+    private Vector3 GetRandomPosition()
     {
         float x, y, z;
         Vector3 spawnPosition;
@@ -44,7 +45,7 @@ public class GarbageSpawner : MonoBehaviour
         return spawnPosition;
     }
 
-    private bool IsPositionOverlapping(Vector3 position)
+    private bool IsPositionOverlapping(Vector3 position) // 겹치는지 확인
     {
         foreach (Vector3 spawnedPosition in _spawnedPositions)
         {

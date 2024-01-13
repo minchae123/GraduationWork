@@ -15,7 +15,10 @@ public class SetItemTrigger : MonoBehaviour
         if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent p))//testPlayer에서 playermovement로 바꿈
         {
             Debug.Log(item);
+            //MapManager.Instance.RemoveTrash(item);
+            MapManager.Instance.UpdateTrashList();
             item.PickUpItem();
+            print("삭제");
         }
     }
 }
