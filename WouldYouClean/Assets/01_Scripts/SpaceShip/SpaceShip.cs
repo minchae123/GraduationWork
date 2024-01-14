@@ -36,7 +36,7 @@ public class Spaceship : UpgradeStat
         {
             spaceObject.SetDir(-transform.up * Acceleration());
         }
-    }
+    } 
 
     private float Acceleration()
     {

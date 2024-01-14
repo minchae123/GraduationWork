@@ -13,9 +13,8 @@ public class PlanetInSpace : SpaceObject
     [HideInInspector] public PlanetType _curType;
 
     private SpriteRenderer _sr;
-
-    public bool _isDetected;
     private int _planetIndex;
+    public bool clean;
 
     public static Action Reset;
 
@@ -36,11 +35,4 @@ public class PlanetInSpace : SpaceObject
         _curType = _planetType[_planetIndex];
         _sr.sprite = _planetType[_planetIndex]._sr;
     }
-
-    private void Update()
-    {
-        
-    }
-
-
 }
