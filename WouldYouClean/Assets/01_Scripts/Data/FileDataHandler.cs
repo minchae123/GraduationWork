@@ -84,7 +84,7 @@ public class FileDataHandler : MonoBehaviour
 	{
 		gameData = data;
 
-		string json = JsonUtility.ToJson(gameData);
+		string json = JsonUtility.ToJson(gameData, true);
 		File.WriteAllText(filePath + fileName, json);
 	}
 
