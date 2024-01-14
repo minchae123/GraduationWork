@@ -9,16 +9,8 @@ public class Spaceship : UpgradeStat
     [Header("InputSystem")]
     [SerializeField] private InputReader _input;
 
-    private Vector2 _randomPos;
-
     private Vector2 _spaceShipDir;
-
     public SpaceObject[] spaceObjects;
-
-    private void Awake()
-    {
-        _input.OnMovement += OnMove;
-    }
 
     private void OnMove(Vector2 value)
     {
@@ -27,34 +19,24 @@ public class Spaceship : UpgradeStat
 
     private void Start()
     {
+        _input.OnMovement += OnMove;
         spaceObjects = GameObject.FindObjectsOfType<SpaceObject>();
     }
 
     private void Update()
     {
         Move();
-
-        transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * (_rotSpeed * _curSpeed));
     }
 
     public void Move()
     {
+        transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * (_rotSpeed * _curSpeed));
+
         foreach (SpaceObject spaceObject in spaceObjects)
         {
             spaceObject.SetDir(-transform.up * Acceleration());
-
-            if (Vector3.Distance(transform.position, spaceObject.transform.position) >= 60)
-            {
-                if (Vector3.Distance(transform.position, spaceObject.transform.position) >= 50)
-                {
-                    _randomPos.x = UnityEngine.Random.Range(-60, 60);
-                    _randomPos.y = UnityEngine.Random.Range(-30, 30);
-                    spaceObject.transform.position = _randomPos;
-                    PlanetInSpace.Reset();
-                }
-            }
         }
-    }
+    } 
 
     private float Acceleration()
     {
