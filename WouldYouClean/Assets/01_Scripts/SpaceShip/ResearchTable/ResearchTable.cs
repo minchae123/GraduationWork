@@ -127,7 +127,7 @@ public class ResearchTable : PlayerMain
             UIManager.Instance.ScaleRectTransform(_resultPanel, _originPanelTrm
                 , 0.0f, Ease.InOutCubic, action);
         //이미지 바꾸고 텍스트 바꾸고
-        _resultImage.sprite = _testTable.currentItem.itemIcon;
+        _resultImage.sprite = _testTable.currentItem._ItemIcon;
         _resultText.text = _testTable.currentItem.name;
 
 
