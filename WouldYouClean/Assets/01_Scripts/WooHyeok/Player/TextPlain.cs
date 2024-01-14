@@ -19,12 +19,12 @@ public class TextPlain : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.GetComponent<PlayerMain>())
-            collision.GetComponent<PlayerAnim>()._istest = true;
+            collision.GetComponent<PlayerHp>()._istest = true;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.GetComponent<PlayerMain>())
-            collision.GetComponent<PlayerAnim>()._istest = false;
+            collision.GetComponent<PlayerHp>()._istest = false;
     }
 }

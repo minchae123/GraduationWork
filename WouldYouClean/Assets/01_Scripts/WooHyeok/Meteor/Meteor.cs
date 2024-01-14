@@ -4,15 +4,36 @@ using UnityEngine;
 
 public class Meteor : MonoBehaviour
 {
-    private float meteorPosY = Camera.main.orthographicSize + 10;
+    [SerializeField] private GameObject _meteor;
+    [SerializeField] private float _spawnTime;
+    [SerializeField] private float _speed;
+
+    private float meteorPosY;
+    private float meteorPosX;
 
     void Start()
     {
-        
+        meteorPosY = Camera.main.orthographicSize;
+        meteorPosX = meteorPosY * Camera.main.aspect;
+
+        meteorPosY += 3f;
+
+        StartCoroutine(SpawnMeteor());
     }
 
-    // Update is called once per frame
-    void Update()
+    IEnumerator SpawnMeteor()
     {
+        while (true)
+        {
+            yield return new WaitForSeconds(_spawnTime);
+
+            float posX = Random.Range(-meteorPosX, meteorPosX);
+
+            var obj = Instantiate(_meteor);
+            obj.transform.position = new Vector2(posX, meteorPosY);
+
+            Vector2 dir = (Vector2.right + Vector2.down * 2).normalized;
+            obj.GetComponent<Rigidbody2D>().velocity = dir * _speed;
+        }
     }
 }

@@ -11,9 +11,11 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private Image dragImage; // 드래그 할 때 이미지
     [SerializeField] private Image itemImage; // 아이템 이미지
     [SerializeField] private TextMeshProUGUI itemAmountText; // 해당 아이템 몇 개 있나요
-    
+
     public InventoryItem item;
     private InventoryItem oldItem;
+
+    public bool _isDragging = false;
 
     public void UpdateSlot(InventoryItem newItem)
     {
@@ -44,9 +46,10 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     // 드래그 앤 드랍
     public void OnBeginDrag(PointerEventData eventData)
     {
-        print("start");
+        _isDragging = true;
+
         oldItem = item;
-        
+
         dragImage = Instantiate(itemImage);
         dragImage.color = new Vector4(1, 1, 1, 0.6f);
         dragImage.transform.SetParent(transform.root, false);
@@ -61,9 +64,12 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        _isDragging = false;
+
         dragImage.raycastTarget = true;
         Inventory.Instance.RemoveItem(item.itemData); // 끝나면 삭제
         Destroy(dragImage.gameObject);
+
         if (ItemManager.Instance.CheckInTable())
         {
             print("Table"); // 테이블 세팅

@@ -10,6 +10,7 @@ public class Cleaner : MonoBehaviour
     [SerializeField] private Animator _animator;
     [SerializeField] private Transform _gatherPos;
     [SerializeField] private PlayerDirection _direction;
+    [SerializeField] private ItemSlotUI _slot;
     [SerializeField] private BoxCollider2D _boxCol;
 
     [Header("시간")]
@@ -32,12 +33,12 @@ public class Cleaner : MonoBehaviour
         if (_direction.Direction())
         {
             _boxCol.offset = new Vector2(-3, 0);
-            _gatherPos.position = new Vector2(-1.15f, _gatherPos.position.y);
+            _gatherPos.position = new Vector2(transform.position.x - 1.15f, _gatherPos.position.y);
         }
         else
         {
             _boxCol.offset = new Vector2(3, 0);
-            _gatherPos.position = new Vector2(1.15f, _gatherPos.position.y);
+            _gatherPos.position = new Vector2(transform.position.x + 1.15f, _gatherPos.position.y);
         }
     }
 
@@ -45,6 +46,9 @@ public class Cleaner : MonoBehaviour
     private void OnTriggerStay2D(Collider2D collision)
     {
         _isMouseClick = Input.GetMouseButton(0);
+
+        if (_slot._isDragging)
+            _isMouseClick = false;
 
         if (!collision.TryGetComponent<DivideObj>(out DivideObj obj)
               && !collision.TryGetComponent<Alien>(out Alien alien) || !_isMouseClick) return; //들어온 오브젝트가 DivideObj스크립트를 가지고 있지 않거나 마우스 버튼이 눌리지않았을 때 실행 안함
@@ -72,10 +76,12 @@ public class Cleaner : MonoBehaviour
             }
             else
             {
-                CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
 
                 if (obj.transform.localScale == Vector3.zero)
+                {
+                    CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
                     divObj.PickUpItem();
+                }
             }
 
             Destroy(obj);

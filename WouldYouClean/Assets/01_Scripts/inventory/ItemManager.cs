@@ -6,7 +6,7 @@ public class ItemManager : MonoBehaviour
 {
     [SerializeField] private ItemTestTable itemTable;
 
-    public ItemObject itemPrefab;
+    public DivideObj itemPrefab;
     public static ItemManager Instance;
 
     private bool inTable = false;
@@ -20,7 +20,7 @@ public class ItemManager : MonoBehaviour
 
     public void CreateItem(ObjectType data, Vector2 pos)
     {
-        ItemObject item = Instantiate(itemPrefab);
+        DivideObj item = Instantiate(itemPrefab);
         item.SetItemData(data);
         item.SetPosition(pos);
     }

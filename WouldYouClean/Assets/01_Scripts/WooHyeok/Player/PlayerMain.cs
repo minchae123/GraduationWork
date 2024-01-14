@@ -7,6 +7,7 @@ public  class PlayerMain : MonoBehaviour
     protected Rigidbody2D _rb;
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
+
     public static bool _isKeyDown = false;
     public static bool _isPlain = false;
 
