@@ -26,7 +26,7 @@ public class ShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
         }
 
         currentItem = item;
-        itemImage.sprite = item.itemIcon; // 아이템 아이콘으로 해당 이미지 넣고..
+        itemImage.sprite = item._ItemIcon; // 아이템 아이콘으로 해당 이미지 넣고..
         itemName.text = item._ObjectName; // 아이템 이름도 저장
         itemPrice.text = $"{item.itemPrice}원에 판매"; // 아이템 가격
     }

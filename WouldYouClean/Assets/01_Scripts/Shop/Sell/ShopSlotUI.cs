@@ -52,7 +52,7 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
 
         if (sellingItem != null)
         {
-            itemImage.sprite = sellingItem.itemData.itemIcon;
+            itemImage.sprite = sellingItem.itemData._ItemIcon;
             itemImage.color = Vector4.one;
             if (itemAmountText == null) return;
             if (sellingItem.itemCnt > 1)
@@ -81,6 +81,6 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
 
         itemAmountText.text = $"{itemCnt}";
         itemName.text = item.itemData._ObjectName;
-        itemImage.sprite = item.itemData.itemIcon;
+        itemImage.sprite = item.itemData._ItemIcon;
     }
 }
