@@ -12,5 +12,7 @@ public class ObjectType : ScriptableObject
     public Sprite itemIcon;
     public string _ObjectName;
     public string _ObjectExplain;
+
+    public int itemPrice;
     #endregion 
 }

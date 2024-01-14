@@ -10,7 +10,6 @@ public class PopUpShop : MonoBehaviour
 
     public void SetText(string s)
     {
-        transform.DOScale(1, 1f);
         text.text = s;
         DestroyItemPanel();
     }
@@ -19,7 +18,7 @@ public class PopUpShop : MonoBehaviour
     {
         Sequence seq = DOTween.Sequence();
         seq.SetDelay(1.5f);
-        seq.Append(transform.DOScale(0, 1f));
+        //seq.Append(transform.DOScale(0, 1f));
         seq.AppendCallback(() =>
         {
             Destroy(gameObject);
