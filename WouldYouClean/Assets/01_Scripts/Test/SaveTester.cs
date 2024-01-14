@@ -10,16 +10,26 @@ public class SaveTester : MonoBehaviour, ISaveManager
 
 	private void Awake()
 	{
-		for (int i = 0; i < invenItems.Count; i++)
-		{
-			inven.items.Add(invenItems[i]);
-		}
+
+	}
+
+	private void Start()
+	{
+		LoadData(SaveManager.Instance.data);
 	}
 
 	public void LoadData(GameData data)
 	{
 		inven = data.inventory;
 		level = data.cleanerLevel;
+
+		for (int i = 0; i < inven.items.Count; i++)
+		{
+			var inv = inven.items[i];
+			invenItems.Add(inv);
+		}
+
+		print("load");
 	}
 
 	public void SaveData(ref GameData data)
