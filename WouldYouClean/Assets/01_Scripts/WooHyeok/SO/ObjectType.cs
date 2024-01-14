@@ -9,8 +9,9 @@ public class ObjectType : ScriptableObject
     #endregion
 
     #region º¯¼öµé
-    public Sprite itemIcon;
+    public Sprite _ItemIcon;
     public string _ObjectName;
+    [TextArea]
     public string _ObjectExplain;
 
     public int itemPrice;

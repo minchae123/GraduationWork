@@ -17,7 +17,7 @@ public class DivideObj : MonoBehaviour
     }
     private void Start()
     {
-        spriterenderer.sprite = type.itemIcon;
+        spriterenderer.sprite = type._ItemIcon;
     }
 
     public void PickUpItem() // Ãß°¡

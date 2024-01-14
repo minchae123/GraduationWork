@@ -22,15 +22,23 @@ public class DInventory // 아이템들이 들어있는 집합
 	public List<DInventoryItem> items;
 }
 
-public class GameData 
+public class GameData
 {
 	[Header("돈")]
-	public int coin; // 재화
+	public int coin = 0; // 재화
 
 	[Header("업그레이드")]
-	public int cleanerLevel;
-	public int oxygenLevel;
+	public int cleanerLevel = 0;
+	public int oxygenLevel = 0;
 
 	[Header("인벤토리")]
-	public DInventory inventory;
+	public DInventory inventory = new DInventory();
+
+	public GameData()
+	{
+		coin = 0;
+		cleanerLevel = 0;
+		oxygenLevel = 0;
+		inventory = new DInventory();
+	}
 }

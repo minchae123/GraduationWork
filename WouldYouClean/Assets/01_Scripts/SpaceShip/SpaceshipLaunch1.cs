@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpaceshipLaunch : UpgradeStat
+public class SpaceshipLaunch1 : UpgradeStat
 {
     [SerializeField] private ParticleSystem _fire;
 

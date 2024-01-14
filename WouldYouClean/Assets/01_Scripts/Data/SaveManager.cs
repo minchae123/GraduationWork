@@ -1,12 +1,15 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
 	public static SaveManager Instance;
+
+	private FileDataHandler fileDataHandler;
 
 	public GameData data;
 
@@ -22,7 +25,10 @@ public class SaveManager : MonoBehaviour
 
 	private void Start()
 	{
+		fileDataHandler = GetComponent<FileDataHandler>();
 		saveManagers = FindAllSaveManagers();
+
+		LoadGameData();
 	}
 
 	private List<ISaveManager> FindAllSaveManagers() // ISaveManager의 인터페이스를 가지고 있는 게임오브젝트를 다 찾고 리스트에 넣어주기
@@ -30,23 +36,41 @@ public class SaveManager : MonoBehaviour
 		return FindObjectsOfType<MonoBehaviour>(true).OfType<ISaveManager>().ToList();
 	}
 
-	public void NewData()
+	public void NewGameData()
 	{
 		data = new GameData();
 	}
 
-	public void LoadData()
+	public void LoadGameData()
 	{
-		
+		data = fileDataHandler.Load();
+
+		if(data == null)
+		{
+			print("No Save Data");
+			NewGameData();
+		}
 	}
 
-	public void SaveData()
+	public void SaveGameData()
 	{
+		foreach(var save in saveManagers)
+		{
+			save.SaveData(ref data);
+		}
 
+		fileDataHandler.Save(data);
 	}
 
-	public void DeleteData()
+	public void DeleteGameData()
 	{
+		fileDataHandler = GetComponent<FileDataHandler>();
+		fileDataHandler.DeleteGameData();
+	}
 
+	private void OnApplicationQuit()
+	{
+		SaveGameData();
+		print("Save");
 	}
 }
