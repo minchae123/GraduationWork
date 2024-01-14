@@ -12,22 +12,17 @@ public class PlanetInSpace : SpaceObject
     [SerializeField] private List<PlanetType> _planetType;
     [HideInInspector] public PlanetType _curType;
 
-    private UpgradeStat spaceship;
-    private Camera _cam;
-    private SpaceshipLaunch _readyToLaunch;
-
     private SpriteRenderer _sr;
-
-    public bool _isDetected;
     private int _planetIndex;
+
+    public bool clean;
+    public bool interacted;
+    [SerializeField] private GameObject _detectObj;
 
     public static Action Reset;
 
     private void Awake()
     {
-        spaceship = GameObject.Find("SpaceShip").GetComponent<UpgradeStat>();
-        _readyToLaunch = GameObject.Find("SpaceShip").GetComponent<SpaceshipLaunch>();
-        _cam = Camera.main;
         _sr = GetComponent<SpriteRenderer>();
         _rb = GetComponent<Rigidbody2D>();
         _rb.isKinematic = true;
@@ -46,26 +41,11 @@ public class PlanetInSpace : SpaceObject
 
     private void Update()
     {
-        if (_isDetected && !_readyToLaunch._onSpaceship)
+        if (clean) _detectObj.SetActive(false);
+        else
         {
-            //TWINKLE
-            Debug.Log("TWINKLE");
-
-            if (Input.GetKeyDown(KeyCode.F))
-            {
-                //GO PLANET
-                StartCoroutine(Arrive());
-                Debug.Log("LET'S GO");
-                _cam.orthographicSize -= .5f * Time.deltaTime;
-            }
+            if (interacted) _detectObj.SetActive(true);
+            else _detectObj.SetActive(false);
         }
-    }
-
-    private IEnumerator Arrive()
-    {
-        //Âø·ú
-        yield return new WaitForSeconds(3);
-        spaceship._curSpeed = 0;
-        _readyToLaunch._onSpaceship = true;
     }
 }

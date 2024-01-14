@@ -30,7 +30,6 @@ public class Inventory : MonoBehaviour
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new ItemSlotUI[maxInventoryLength];
     }
-
     private void Start()
     {
         for(int i = 0; i < inventoryLength; ++i)
@@ -41,6 +40,9 @@ public class Inventory : MonoBehaviour
 
         UpdateSlotUI();
     }
+
+    public List<InventoryItem> ReturnInvenList() => mainInventory;
+    public Dictionary<ObjectType, InventoryItem> ReturnInvenDictionary() => invenDictionary;
 
     public bool CheckInventoryIdx(ObjectType item)
     {
@@ -65,13 +67,34 @@ public class Inventory : MonoBehaviour
             itemSlots[i].UpdateSlot(mainInventory[i]); // redraw
         }
     }
-
     public void ClearItem()
     {
         for (int i = 0; i < inventoryLength; ++i)
         {
             itemSlots[i].CleanUpSlot(); // cleanUp
         }
+    }
+
+    public void ResetInvenItem()
+    {
+        mainInventory.Clear();
+        invenDictionary.Clear();
+    }
+    public void SetShopItem(List<InventoryItem> list, Dictionary<ObjectType, InventoryItem> dic)
+    {
+        mainInventory.Clear();
+        invenDictionary.Clear();
+
+        foreach(var i in list)
+        {
+            mainInventory.Add(i);
+        }
+        foreach(var i in dic)
+        {
+            invenDictionary.Add(i.Key, i.Value);
+        }
+        
+        UpdateSlotUI();
     }
 
     public void AddItem(ObjectType item, bool isTable)
@@ -101,8 +124,6 @@ public class Inventory : MonoBehaviour
         
         UpdateSlotUI();
     }
-
-
     public void RemoveItem(ObjectType item, int cnt = 1)
     {
         if (invenDictionary.TryGetValue(item, out InventoryItem i)) 

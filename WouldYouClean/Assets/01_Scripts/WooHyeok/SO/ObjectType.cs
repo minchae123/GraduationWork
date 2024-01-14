@@ -13,5 +13,7 @@ public class ObjectType : ScriptableObject
     public string _ObjectName;
     [TextArea]
     public string _ObjectExplain;
+
+    public int itemPrice;
     #endregion 
 }

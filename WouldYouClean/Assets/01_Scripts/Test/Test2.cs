@@ -3,8 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class Test2 : MonoBehaviour
+public class Test2 : MonoBehaviour, ISaveManager
 {
+	public void LoadData(GameData data)
+	{
+
+	}
+
+	public void SaveData(ref GameData data)
+	{
+
+	}
+
 	private void Start()
 	{
 		Vector3 pos = transform.position;
