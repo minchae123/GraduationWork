@@ -14,7 +14,10 @@ public class PlanetInSpace : SpaceObject
 
     private SpriteRenderer _sr;
     private int _planetIndex;
+
     public bool clean;
+    public bool interacted;
+    [SerializeField] private GameObject _detectObj;
 
     public static Action Reset;
 
@@ -34,5 +37,15 @@ public class PlanetInSpace : SpaceObject
         _planetIndex = UnityEngine.Random.Range(0, _planetType.Count);
         _curType = _planetType[_planetIndex];
         _sr.sprite = _planetType[_planetIndex]._sr;
+    }
+
+    private void Update()
+    {
+        if (clean) _detectObj.SetActive(false);
+        else
+        {
+            if (interacted) _detectObj.SetActive(true);
+            else _detectObj.SetActive(false);
+        }
     }
 }
