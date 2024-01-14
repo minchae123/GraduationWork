@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class UIManager : MonoSingleton<UIManager>
 {
-
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
     {
         obj.DOScale(endValue, duraion).SetEase(ease).OnComplete(() =>

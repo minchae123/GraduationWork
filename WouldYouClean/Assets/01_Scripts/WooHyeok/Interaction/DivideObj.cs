@@ -6,7 +6,6 @@ using UnityEngine;
 public class DivideObj : MonoBehaviour
 {
     public ObjectType type;
-    public ObjectType Item => type;
 
     private SpriteRenderer spriterenderer;
 

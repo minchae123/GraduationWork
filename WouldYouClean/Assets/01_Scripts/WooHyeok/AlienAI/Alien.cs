@@ -10,8 +10,6 @@ public class Alien : MonoBehaviour
     private Inventory _inven;
   
     private Rigidbody2D _rb;
-    private List<InventoryItem> _saveMainInventory;
-    private Dictionary<ObjectType, InventoryItem> _saveInvenDictionary;
     
     private Vector2 _runningDir;
     private float _saveSpeed;

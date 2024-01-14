@@ -12,27 +12,36 @@ public class InterfaceObject : PlayerMain
 
     private bool _isShowing = true;
     private RectTransform _panelRect;
+    private RectTransform _dictionalyRect;
 
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _explainText;
     [SerializeField] private GameObject _panel;
+    [SerializeField] private GameObject _dictionaly;
 
     private void Awake()
     {
         _panelRect = _panel.GetComponent<RectTransform>();
+        _dictionalyRect = _dictionaly.GetComponent<RectTransform>();
     }
 
     public void Update()
     {
         if (_panelRect.localScale == Vector3.zero)
             _isShowing = true;
+
+
+        if (_isKeyDown)
+        {
+            ShowPanel(_dictionalyRect);
+        }
     }
 
-    private void ShowPanel()
+    private void ShowPanel(RectTransform panel)
     {
-        _panelRect.transform.DOScale(Vector3.one * 1f, 1.5f); // 크기를 1.5배로 1초 동안 점차 키움
-        _panelRect.DOAnchorPos(Vector3.zero, 1.5f);
+        panel.transform.DOScale(Vector3.one * 1f, 1.5f); // 크기를 1.5배로 1초 동안 점차 키움
+        panel.DOAnchorPos(Vector3.zero, 1.5f);
     }
 
     public void ClosePanel()
@@ -80,7 +89,7 @@ public class InterfaceObject : PlayerMain
             _isKeyDown = false;
             _isShowing = false;
 
-            ShowPanel();
+            ShowPanel(_panelRect);
         }
     }
 }
