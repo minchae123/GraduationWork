@@ -7,14 +7,18 @@ public class SetItemTrigger : MonoBehaviour
     private DivideObj item;
     private void Awake()
     {
-        item = GetComponent<DivideObj>();
+        item = GetComponentInParent<DivideObj>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent p))//testPlayer에서 playermovement로 바꿈
         {
+            Debug.Log(item);
+            //MapManager.Instance.RemoveTrash(item);
+            MapManager.Instance.UpdateTrashList();
             item.PickUpItem();
+            print("삭제");
         }
     }
 }
