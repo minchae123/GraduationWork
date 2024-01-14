@@ -8,6 +8,11 @@ public class SaveTester : MonoBehaviour, ISaveManager
 	public DInventory inven;
 	public List<DInventoryItem> invenItems;
 
+	private void Awake()
+	{
+
+	}
+
 	private void Start()
 	{
 		LoadData(SaveManager.Instance.data);
@@ -23,6 +28,8 @@ public class SaveTester : MonoBehaviour, ISaveManager
 			var inv = inven.items[i];
 			invenItems.Add(inv);
 		}
+
+		print("load");
 	}
 
 	public void SaveData(ref GameData data)
