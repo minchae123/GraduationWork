@@ -13,11 +13,6 @@ public class SaveTester : MonoBehaviour, ISaveManager
 
 	}
 
-	private void Start()
-	{
-		LoadData(SaveManager.Instance.data);
-	}
-
 	public void LoadData(GameData data)
 	{
 		inven = data.inventory;
