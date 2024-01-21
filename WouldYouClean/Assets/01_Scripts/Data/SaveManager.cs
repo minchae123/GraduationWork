@@ -21,13 +21,13 @@ public class SaveManager : MonoBehaviour
 			Debug.LogError("SaveManager Error");
 
 		Instance = this;
+
+		fileDataHandler = GetComponent<FileDataHandler>();
 	}
 
 	private void Start()
 	{
-		fileDataHandler = GetComponent<FileDataHandler>();
 		saveManagers = FindAllSaveManagers();
-
 		LoadGameData();
 	}
 
@@ -49,6 +49,11 @@ public class SaveManager : MonoBehaviour
 		{
 			print("No Save Data");
 			NewGameData();
+		}
+
+		foreach (var save in saveManagers)
+		{
+			save.LoadData(data);
 		}
 	}
 
