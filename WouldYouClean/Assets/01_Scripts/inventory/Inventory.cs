@@ -21,11 +21,14 @@ public class Inventory : MonoBehaviour, ISaveManager
     [SerializeField] private Transform checker;
     [SerializeField] private PopUpItem popUpPanel;
 
+    private NameToObjectType NameToObjectType;
+
     private void Awake()
     {
         if(Instance!=null) { Debug.LogError("Inventory Error"); }
         Instance = this;
         
+        NameToObjectType = FindObjectOfType<NameToObjectType>();
         mainInventory = new List<InventoryItem>();
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new ItemSlotUI[maxInventoryLength];
@@ -171,9 +174,25 @@ public class Inventory : MonoBehaviour, ISaveManager
         }
     }
 
-	public void LoadData(GameData data) // 로드는 일단 좀 더 고민해봐야할 듯 objectType로 만들어서 additem 할 방법을 생각해봐야함 ㅁ. ..
+	public void LoadData(GameData data)
 	{
+        print("load start");
+        print(data.inventory.items.Count);
 
+        if(data.inventory.items.Count > 0)
+		{
+            for (int i = 0; i < data.inventory.items.Count; i++)
+            {
+                print(data.inventory.items[i].count);
+                for (int j = 0; j < data.inventory.items[i].count; j++)
+                {
+                    string itemName = data.inventory.items[i].name;
+                    ObjectType type = NameToObjectType.FindType(itemName);
+                    print(type);
+                    AddItem(type, true);
+                }
+            }
+        }
 	}
 
 	public void SaveData(ref GameData data) // 인벤토리 안에 이름이랑 갯수 저장하기
