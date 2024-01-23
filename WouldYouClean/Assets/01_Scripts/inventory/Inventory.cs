@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveManager
 {
     public static Inventory Instance;
 
@@ -80,6 +80,7 @@ public class Inventory : MonoBehaviour
         mainInventory.Clear();
         invenDictionary.Clear();
     }
+
     public void SetShopItem(List<InventoryItem> list, Dictionary<ObjectType, InventoryItem> dic)
     {
         mainInventory.Clear();
@@ -99,7 +100,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ObjectType item, bool isTable)
     { 
-        if(invenDictionary.TryGetValue(item,out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
+        if(invenDictionary.TryGetValue(item, out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
         {
             i.AddItemCnt();
         }
@@ -124,6 +125,7 @@ public class Inventory : MonoBehaviour
         
         UpdateSlotUI();
     }
+
     public void RemoveItem(ObjectType item, int cnt = 1)
     {
         if (invenDictionary.TryGetValue(item, out InventoryItem i)) 
@@ -168,4 +170,26 @@ public class Inventory : MonoBehaviour
             UpgradeInventory();
         }
     }
+
+	public void LoadData(GameData data) // 로드는 일단 좀 더 고민해봐야할 듯 objectType로 만들어서 additem 할 방법을 생각해봐야함 ㅁ. ..
+	{
+
+	}
+
+	public void SaveData(ref GameData data) // 인벤토리 안에 이름이랑 갯수 저장하기
+	{
+        DInventory dInven = new DInventory();
+
+        for (int i = 0; i < mainInventory.Count; i++)
+		{
+            string name = mainInventory[i].itemData._ObjectName;
+            int count = mainInventory[i].itemCnt;
+
+            DInventoryItem invenData = new DInventoryItem(name, count);
+
+            dInven.items.Add(invenData);
+        }
+
+        data.inventory = dInven;
+	}
 }
