@@ -5,7 +5,9 @@ using UnityEngine;
 [CreateAssetMenu(menuName ="SO/ShopItem")]
 public class ShopItemSO : ScriptableObject
 {
+    [Header("기본적인 아이템 정보")]
     public string itemName;
+    [TextArea] public string itemInfo;
     public Sprite itemIcon;
     public int itemPrice;
 

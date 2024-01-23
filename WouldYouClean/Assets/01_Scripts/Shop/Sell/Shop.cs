@@ -8,8 +8,6 @@ public class Shop : MonoBehaviour
 {
     public static Shop Instance;
 
-    private int currentCoin = 0;
-
     public List<InventoryItem> mainShopItem; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> shopDictionary; // 인벤토리 딕셔너리
 
@@ -129,11 +127,11 @@ public class Shop : MonoBehaviour
 
     public void UpdateCoinText()
     {
-        coinText.text = $"{currentCoin}원";
+        coinText.text = $"{Coin.Instance.currentCoin}원";
     }
     public void AddCoin(int price)
     {
-        currentCoin += price;
+        Coin.Instance.AddCoin(price);
         UpdateCoinText();
     }
 }
