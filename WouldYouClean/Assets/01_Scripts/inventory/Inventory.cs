@@ -33,6 +33,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new ItemSlotUI[maxInventoryLength];
     }
+
     private void Start()
     {
         for(int i = 0; i < inventoryLength; ++i)
@@ -40,8 +41,8 @@ public class Inventory : MonoBehaviour, ISaveManager
             ItemSlotUI slot = Instantiate(slotPrefab, invenSlotParent);
             itemSlots[i] = slot;
         }
-
         UpdateSlotUI();
+
     }
 
     public List<InventoryItem> ReturnInvenList() => mainInventory;
@@ -176,19 +177,18 @@ public class Inventory : MonoBehaviour, ISaveManager
 
 	public void LoadData(GameData data)
 	{
-        print("load start");
-        print(data.inventory.items.Count);
+        //print("load start");
+        //print(data.inventory.items.Count);
 
         if(data.inventory.items.Count > 0)
 		{
             for (int i = 0; i < data.inventory.items.Count; i++)
             {
-                print(data.inventory.items[i].count);
+                //print(data.inventory.items[i].count);
                 for (int j = 0; j < data.inventory.items[i].count; j++)
                 {
                     string itemName = data.inventory.items[i].name;
                     ObjectType type = NameToObjectType.FindType(itemName);
-                    print(type);
                     AddItem(type, true);
                 }
             }

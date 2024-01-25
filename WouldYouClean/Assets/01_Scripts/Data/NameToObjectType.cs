@@ -12,12 +12,20 @@ public class NameToObjectType : MonoBehaviour
 	{
 		for (int i = 0; i < objects.Count; i++)
 		{
-			nameToObj.Add(objects[i].name, objects[i]);
+			nameToObj.Add(objects[i]._ObjectName, objects[i]);
 		}
 	}
 
 	public ObjectType FindType(string name)
 	{
-		return nameToObj[name];
+		if (nameToObj.ContainsKey(name))
+		{
+			return nameToObj[name];
+		}
+		else
+		{
+			print("Can't Find");
+			return null; 
+		}
 	}
 }
