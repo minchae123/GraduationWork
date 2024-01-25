@@ -19,7 +19,7 @@ public class DInventoryItem // 인벤토리 아이템
 [Serializable]
 public class DInventory // 아이템들이 들어있는 집합
 {
-	public List<DInventoryItem> items;
+	public List<DInventoryItem> items = new List<DInventoryItem>();
 }
 
 public class GameData

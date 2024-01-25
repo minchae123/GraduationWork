@@ -45,7 +45,7 @@ public class SaveManager : MonoBehaviour
 	{
 		data = fileDataHandler.Load();
 
-		if(data == null)
+		if(data == null) // 데이터가 없으면 새로 만들어주기 
 		{
 			print("No Save Data");
 			NewGameData();
@@ -73,7 +73,7 @@ public class SaveManager : MonoBehaviour
 		fileDataHandler.DeleteGameData();
 	}
 
-	private void OnApplicationQuit()
+	private void OnApplicationQuit() // 게임 종료하면 저장 
 	{
 		SaveGameData();
 		print("Save");
