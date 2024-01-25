@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Inventory : MonoBehaviour
+public class Inventory : MonoBehaviour, ISaveManager
 {
     public static Inventory Instance;
 
@@ -21,15 +21,19 @@ public class Inventory : MonoBehaviour
     [SerializeField] private Transform checker;
     [SerializeField] private PopUpItem popUpPanel;
 
+    private NameToObjectType NameToObjectType;
+
     private void Awake()
     {
         if(Instance!=null) { Debug.LogError("Inventory Error"); }
         Instance = this;
         
+        NameToObjectType = FindObjectOfType<NameToObjectType>();
         mainInventory = new List<InventoryItem>();
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new ItemSlotUI[maxInventoryLength];
     }
+
     private void Start()
     {
         for(int i = 0; i < inventoryLength; ++i)
@@ -37,8 +41,8 @@ public class Inventory : MonoBehaviour
             ItemSlotUI slot = Instantiate(slotPrefab, invenSlotParent);
             itemSlots[i] = slot;
         }
-
         UpdateSlotUI();
+
     }
 
     public List<InventoryItem> ReturnInvenList() => mainInventory;
@@ -80,6 +84,7 @@ public class Inventory : MonoBehaviour
         mainInventory.Clear();
         invenDictionary.Clear();
     }
+
     public void SetShopItem(List<InventoryItem> list, Dictionary<ObjectType, InventoryItem> dic)
     {
         mainInventory.Clear();
@@ -99,7 +104,7 @@ public class Inventory : MonoBehaviour
 
     public void AddItem(ObjectType item, bool isTable)
     { 
-        if(invenDictionary.TryGetValue(item,out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
+        if(invenDictionary.TryGetValue(item, out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
         {
             i.AddItemCnt();
         }
@@ -124,6 +129,7 @@ public class Inventory : MonoBehaviour
         
         UpdateSlotUI();
     }
+
     public void RemoveItem(ObjectType item, int cnt = 1)
     {
         if (invenDictionary.TryGetValue(item, out InventoryItem i)) 
@@ -168,4 +174,41 @@ public class Inventory : MonoBehaviour
             UpgradeInventory();
         }
     }
+
+	public void LoadData(GameData data)
+	{
+        //print("load start");
+        //print(data.inventory.items.Count);
+
+        if(data.inventory.items.Count > 0)
+		{
+            for (int i = 0; i < data.inventory.items.Count; i++)
+            {
+                //print(data.inventory.items[i].count);
+                for (int j = 0; j < data.inventory.items[i].count; j++)
+                {
+                    string itemName = data.inventory.items[i].name;
+                    ObjectType type = NameToObjectType.FindType(itemName);
+                    AddItem(type, true);
+                }
+            }
+        }
+	}
+
+	public void SaveData(ref GameData data) // 인벤토리 안에 이름이랑 갯수 저장하기
+	{
+        DInventory dInven = new DInventory();
+
+        for (int i = 0; i < mainInventory.Count; i++)
+		{
+            string name = mainInventory[i].itemData._ObjectName;
+            int count = mainInventory[i].itemCnt;
+
+            DInventoryItem invenData = new DInventoryItem(name, count);
+
+            dInven.items.Add(invenData);
+        }
+
+        data.inventory = dInven;
+	}
 }
