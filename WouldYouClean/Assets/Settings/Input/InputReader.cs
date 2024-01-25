@@ -11,6 +11,7 @@ public class InputReader : MonoBehaviour
     public event Action<Vector2> OnMovement;
     public event Action<Vector2> OnMousePos;
     public event Action<bool> OnFKeyDown;
+    public event Action<bool> OnQKeyDown;
     public event Action OnLeftMouseClick;
 
     void Start()
@@ -42,11 +43,17 @@ public class InputReader : MonoBehaviour
         Vector2 dir = _inputAction.Player.MousePos.ReadValue<Vector2>();
         OnMousePos?.Invoke(dir);
 
-        bool isclick = _inputAction.Player.Divide.IsPressed();
+        bool isFclick = _inputAction.Player.Divide.IsPressed();
+        bool isQclick = _inputAction.Player.Dictionaly.IsPressed();
 
-        if (isclick)
+        if (isFclick)
             OnFKeyDown?.Invoke(true);
         else
             OnFKeyDown?.Invoke(false);
+        
+        if (isQclick)
+            OnQKeyDown?.Invoke(true);
+        else
+            OnQKeyDown?.Invoke(false);
     }
 }
