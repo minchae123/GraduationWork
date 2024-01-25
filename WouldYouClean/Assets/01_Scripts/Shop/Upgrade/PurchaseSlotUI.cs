@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class UpgradeSlotUI : MonoBehaviour, IPointerClickHandler
+public class PurchaseSlotUI : MonoBehaviour, IPointerClickHandler
 {
 
     [Header("")]
@@ -28,6 +28,6 @@ public class UpgradeSlotUI : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData) // 클릭햇을때
     {
-        UpgradeManager.Instance.SetItem(sellingItem);
+        Shop.Instance.SetItem(sellingItem);
     }
 }

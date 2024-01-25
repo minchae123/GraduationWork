@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UpgradeTable : MonoBehaviour
+public class PurchaseShopTable : MonoBehaviour
 {
     public ShopItemSO buyItem; //
 
@@ -27,5 +27,10 @@ public class UpgradeTable : MonoBehaviour
         itemIcon.sprite = null;
         itemInfoText.text = string.Empty;
         itemPriceText.text = string.Empty;
+    }
+
+    public void OnClickBuyButton()
+    {
+        Shop.Instance.BuyItem(buyItem);
     }
 }
