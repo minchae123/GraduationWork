@@ -107,13 +107,18 @@ public class SpaceManager : MonoBehaviour
 
         if (isLanding && curPlanet != null)
         {
+            //속도초기화
+            spaceship._curSpeed = 0;
+
             Vector3 dir = spaceship.transform.position - curPlanet.transform.position;
 
             foreach (PlanetInSpace planet in Planets)
                 planet.SetDir(dir);
 
             //착륙할때 행성 바라보게
-            spaceship.transform.rotation = Quaternion.Euler(dir);
+            Vector3 pos = curPlanet.transform.position;
+            pos.z = 0;
+            spaceship.transform.up = (pos = spaceship.transform.position) * -1;
         }
     }
 
@@ -146,6 +151,9 @@ public class SpaceManager : MonoBehaviour
         spaceship.enabled = false;
         yield return new WaitForSeconds(.5f);
         //행성진입
+
+        //선택된 테두리 지우기
+        curPlanet.clean = true;
         _fire.Stop();
         Finish();
     }
@@ -164,7 +172,6 @@ public class SpaceManager : MonoBehaviour
         _fire.Play();
         yield return new WaitForSeconds(1f);
         input.enabled = true;
-        curPlanet.clean = true;
         Finish();
     }
     #endregion
