@@ -61,6 +61,9 @@ public class Cleaner : MonoBehaviour
         float targetScale = Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, 20f, dis));
 
         DotScale(collision.gameObject, targetScale, obj);
+        
+        MapManager.Instance.UpdateTrashList();
+
     }
 
     private void DotScale(GameObject obj, float targetScale, DivideObj divObj)
