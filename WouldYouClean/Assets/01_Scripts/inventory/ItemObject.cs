@@ -27,7 +27,7 @@ public class ItemObject : MonoBehaviour
         if(Inventory.Instance.CheckInventoryIdx(itemData)) // 인벤토리 자리 남아있을 때에만
         {
             Inventory.Instance.AddItem(itemData, false); // 추가하고
-
+            print("이거실행안하잖아");
             Destroy(gameObject); // 삭제하고
         }
     }
