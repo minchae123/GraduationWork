@@ -62,6 +62,15 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Dictionaly"",
+                    ""type"": ""Button"",
+                    ""id"": ""f5ce3158-b846-49e0-bee6-09fc3e08c6d9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -152,6 +161,17 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
                     ""action"": ""Divide"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9fce1d7a-372c-4159-b689-96acdaf5f970"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""scheme"",
+                    ""action"": ""Dictionaly"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,6 +206,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         m_Player_MouseClick = m_Player.FindAction("MouseClick", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_Divide = m_Player.FindAction("Divide", throwIfNotFound: true);
+        m_Player_Dictionaly = m_Player.FindAction("Dictionaly", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -251,6 +272,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MouseClick;
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_Divide;
+    private readonly InputAction m_Player_Dictionaly;
     public struct PlayerActions
     {
         private @PlayerInput m_Wrapper;
@@ -259,6 +281,7 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         public InputAction @MouseClick => m_Wrapper.m_Player_MouseClick;
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @Divide => m_Wrapper.m_Player_Divide;
+        public InputAction @Dictionaly => m_Wrapper.m_Player_Dictionaly;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -280,6 +303,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Divide.started += instance.OnDivide;
             @Divide.performed += instance.OnDivide;
             @Divide.canceled += instance.OnDivide;
+            @Dictionaly.started += instance.OnDictionaly;
+            @Dictionaly.performed += instance.OnDictionaly;
+            @Dictionaly.canceled += instance.OnDictionaly;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -296,6 +322,9 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
             @Divide.started -= instance.OnDivide;
             @Divide.performed -= instance.OnDivide;
             @Divide.canceled -= instance.OnDivide;
+            @Dictionaly.started -= instance.OnDictionaly;
+            @Dictionaly.performed -= instance.OnDictionaly;
+            @Dictionaly.canceled -= instance.OnDictionaly;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -328,5 +357,6 @@ public partial class @PlayerInput: IInputActionCollection2, IDisposable
         void OnMouseClick(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnDivide(InputAction.CallbackContext context);
+        void OnDictionaly(InputAction.CallbackContext context);
     }
 }

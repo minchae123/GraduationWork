@@ -8,7 +8,8 @@ public  class PlayerMain : MonoBehaviour
     protected Animator _animator;
     protected SpriteRenderer _spriteRenderer;
 
-    public static bool _isKeyDown = false;
+    public static bool _isFKeyDown = false;
+    public static bool _isQKeyDown = false;
     public static bool _isPlain = false;
 
     private void Start()

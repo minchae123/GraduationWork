@@ -49,8 +49,7 @@ public class ShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnClickSellItem()
     {
-        Shop.Instance.AddCoin(currentItem.itemPrice);
-        //Inventory.Instance.RemoveItem(currentItem, 1);
+        Coin.Instance.AddCoin(currentItem.itemPrice);
         ResetItem();
     }
 }

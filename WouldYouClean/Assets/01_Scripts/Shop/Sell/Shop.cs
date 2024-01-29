@@ -4,20 +4,18 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Shop : MonoBehaviour
+public class Shop : MonoSingleton<Shop>
 {
-    public static Shop Instance;
-
-    private int currentCoin = 0;
-
+    [Header("==== Core ====")]
     public List<InventoryItem> mainShopItem; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> shopDictionary; // 인벤토리 딕셔너리
 
-    private void Awake()
-    {
-        if(Instance!=null) { print("shop 에러"); }
-        Instance = this;
-    }
+    [Header("==== Main Shop ====")]
+    [SerializeField] private Transform mainShopTrm;
+
+
+
+    [Header("==== SELLING SHOP ====")]
 
     [Header("Slot")]
     [SerializeField] private ShopSlotUI slotPrefab;
@@ -25,27 +23,33 @@ public class Shop : MonoBehaviour
     private int currentInventoryCnt = 0;
 
     [Header("UI")]
-    [SerializeField] private Transform shopParent;
+    [SerializeField] private Transform sellingShop;
     [SerializeField] private ShopTable shopTable;
     [SerializeField] private Transform shopSlotParent;
 
-    [Header("나중에 다른쪽으로 옮겨야함")]
-    [SerializeField] private TextMeshProUGUI coinText;
 
-    public bool IsInTable() => shopTable.IsTable;
+
+    [Header("==== PURCHASE SHOP ====")]
+    [SerializeField] private Transform purchaseShop;
+    [SerializeField] private PurchaseShopTable itemTable;
+
+
+
+    //[Header("==== 나중에 다른쪽으로 옮겨야함 ====")]
 
     private void Start()
     {
-        shopParent.gameObject.SetActive(false);
+        mainShopTrm.gameObject.SetActive(false);
 
-        UpdateCoinText();
         shopSlots = shopSlotParent.GetComponentsInChildren<ShopSlotUI>();
         mainShopItem = new List<InventoryItem>();
         shopDictionary = new Dictionary<ObjectType, InventoryItem>();
     }
+
+    #region 버튼 클릭
     public void EnterShop()
     {
-        shopParent.gameObject.SetActive(true);
+        mainShopTrm.gameObject.SetActive(true);
 
         foreach(var i in Inventory.Instance.ReturnInvenList())
         {
@@ -59,11 +63,13 @@ public class Shop : MonoBehaviour
         currentInventoryCnt = mainShopItem.Count;
 
         Time.timeScale = 0;
+
+        OnClickSellingShopBtn(); // 기본은 판매로
         UpdateSlotUI();
     }
     public void ExitShop()
     {
-        shopParent.gameObject.SetActive(false);
+        mainShopTrm.gameObject.SetActive(false);
 
         Inventory.Instance.SetShopItem(mainShopItem, shopDictionary);
 
@@ -73,6 +79,21 @@ public class Shop : MonoBehaviour
         
         Time.timeScale = 1;
     }
+
+    public void OnClickPurchaseShopBtn() // 구매 클릭
+    {
+        sellingShop.gameObject.SetActive(false); // 판매는 끄고
+        purchaseShop.gameObject.SetActive(true);// 구매는 킴
+    }
+    public void OnClickSellingShopBtn() // 판매
+    {
+        sellingShop.gameObject.SetActive(true); // 위랑 반대
+        purchaseShop.gameObject.SetActive(false);//
+    }
+    #endregion
+
+    #region 파는 곳
+    public bool IsInTable() => shopTable.IsTable;
     public void SetTable(ObjectType item)
     {
         shopTable.SetItem(item);
@@ -126,14 +147,40 @@ public class Shop : MonoBehaviour
             shopSlots[i].UpdateSlot(mainShopItem[i]); // redraw
         }
     }
+    #endregion
 
-    public void UpdateCoinText()
+    #region 사는 곳
+    public void SetItem(ShopItemSO item)
     {
-        coinText.text = $"{currentCoin}원";
+        itemTable.SetItem(item);
     }
-    public void AddCoin(int price)
+
+    public void BuyItem(ShopItemSO item)
     {
-        currentCoin += price;
-        UpdateCoinText();
+        int price = item.itemPrice;
+        switch (item.Item)
+        {
+            case PurchaseItem.inventoryUpgrade:
+                UpgradeInventory(price); print("1");
+                break;
+            case PurchaseItem.cleanerUpgrade:
+                UpgradeCleaner(price);
+                break;
+        }
     }
+
+    public void UpgradeInventory(int price)
+    {
+        print("2");
+        Inventory.Instance.UpgradeInventory();
+        Coin.Instance.RemoveCoin(price);
+    }
+
+    public void UpgradeCleaner(int price)
+    {
+        print("청소기 업그레이드");
+        Coin.Instance.RemoveCoin(price);
+    }
+    #endregion
+
 }

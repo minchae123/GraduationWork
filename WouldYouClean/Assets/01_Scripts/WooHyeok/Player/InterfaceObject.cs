@@ -31,8 +31,7 @@ public class InterfaceObject : PlayerMain
         if (_panelRect.localScale == Vector3.zero)
             _isShowing = true;
 
-
-        if (_isKeyDown)
+        if (_isQKeyDown)
         {
             ShowPanel(_dictionalyRect);
         }
@@ -44,10 +43,10 @@ public class InterfaceObject : PlayerMain
         panel.DOAnchorPos(Vector3.zero, 1.5f);
     }
 
-    public void ClosePanel()
+    public void ClosePanel(RectTransform rect)
     {
-        _panelRect.transform.DOScale(Vector3.zero, 1f);
-        _panelRect.DOAnchorPos(_spawnPosition, 1f);
+        rect.transform.DOScale(Vector3.zero, 1f);
+        rect.DOAnchorPos(_spawnPosition, 1f);
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -76,17 +75,17 @@ public class InterfaceObject : PlayerMain
 
     private void KeyDown()
     {
-        if (_isKeyDown && _isShowing)
+        if (_isFKeyDown && _isShowing && !_isQKeyDown)
         {
             if (_objTypeName == "plain")
                 _isPlain = true;
             else
                 _isPlain = false;
 
-                _nameText.text = _objTypeName;
+            _nameText.text = _objTypeName;
             _explainText.text = _objTypeExplain;
 
-            _isKeyDown = false;
+            _isFKeyDown = false;
             _isShowing = false;
 
             ShowPanel(_panelRect);

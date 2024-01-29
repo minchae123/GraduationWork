@@ -7,11 +7,14 @@ public class Alien : MonoBehaviour
     [SerializeField] private float _waitMoveTime;
     [SerializeField] private float _runSpeed;
 
+    public bool _isFollow = false;
+
     private Inventory _inven;
-  
     private Rigidbody2D _rb;
-    
+
     private Vector2 _runningDir;
+    private Vector2 _followDir;
+
     private float _saveSpeed;
 
     private void Awake()
@@ -23,13 +26,20 @@ public class Alien : MonoBehaviour
 
     void Start()
     {
-        _runningDir = (GameObject.Find("Player").transform.position - transform.position).normalized;
+        _runningDir = PlayerDir();
     }
 
-    // Update is called once per frame
     void Update()
     {
-        _rb.velocity = _runningDir * _runSpeed;
+        if (_isFollow)
+            _rb.velocity = PlayerDir() * _runSpeed;
+        else
+            _rb.velocity = _runningDir * _runSpeed;
+    }
+
+    private Vector2 PlayerDir()
+    {
+        return (GameObject.Find("Player").transform.position - transform.position).normalized;
     }
 
     public void ReChargingList()
@@ -39,7 +49,7 @@ public class Alien : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent player))
+        if (collision.TryGetComponent<PlayerMoveMent>(out PlayerMoveMent player))
         {
             _inven.ClearItem();
 
@@ -55,6 +65,7 @@ public class Alien : MonoBehaviour
 
         yield return new WaitForSeconds(_waitMoveTime);
 
+        _isFollow = false;
         _runSpeed = _saveSpeed;
     }
 }

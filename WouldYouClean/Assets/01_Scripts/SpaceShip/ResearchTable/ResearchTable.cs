@@ -43,7 +43,7 @@ public class ResearchTable : PlayerMain
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (_isKeyDown)
+        if (_isFKeyDown)
         {
             ActivateMainPanel();
         }
@@ -54,7 +54,7 @@ public class ResearchTable : PlayerMain
         ExitMainPanel();
         ExitLoadingPanel();
         ExitResultPanel();
-        _isKeyDown = false;
+        _isFKeyDown = false;
     }
 
     public void ResearchBtn()
