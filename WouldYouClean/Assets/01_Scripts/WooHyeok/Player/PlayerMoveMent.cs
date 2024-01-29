@@ -15,7 +15,8 @@ public class PlayerMoveMent : PlayerMain
         _rb = GetComponent<Rigidbody2D>();
 
         _input.OnMovement += OnMovement;
-        _input.OnFKeyDown += OnKeyDown;
+        _input.OnFKeyDown += OnFKeyDown;
+        _input.OnQKeyDown += OnQKeyDown;
         _input.OnMousePos += OnMousePos;
         _input.OnLeftMouseClick += OnLeftMouseClick;
     }
@@ -25,12 +26,20 @@ public class PlayerMoveMent : PlayerMain
         _rb.velocity = _direction * _curSpeed;
     }
 
-    private void OnKeyDown(bool value)
+    private void OnFKeyDown(bool value)
     {
         if (value == true)
-            _isKeyDown = true;
+            _isFKeyDown = true;
         else
-            _isKeyDown = false;
+            _isFKeyDown = false;
+    }
+    
+    private void OnQKeyDown(bool value)
+    {
+        if (value == true)
+            _isQKeyDown = true;
+        else
+            _isQKeyDown = false;
     }
 
     private void OnMovement(Vector2 value)
