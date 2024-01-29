@@ -9,6 +9,11 @@ public class Coin : MonoSingleton<Coin>
 
     public int currentCoin = 0;
 
+    private void Start()
+    {
+        coinText.text = $"{currentCoin}¿ø";
+    }
+
     public void AddCoin(int amount)
     {
         currentCoin += amount;
