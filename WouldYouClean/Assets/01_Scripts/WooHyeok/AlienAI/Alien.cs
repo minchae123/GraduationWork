@@ -10,7 +10,7 @@ public class Alien : MonoBehaviour
     public bool _isFollow = false;
 
     private Inventory _inven;
-    private Rigidbody2D _rb;
+    [SerializeField] private Rigidbody2D _rb;
 
     private Vector2 _runningDir;
     private Vector2 _followDir;
@@ -20,7 +20,7 @@ public class Alien : MonoBehaviour
     private void Awake()
     {
         _saveSpeed = _runSpeed;
-        _rb = GetComponent<Rigidbody2D>();
+        //_rb = GetComponent<Rigidbody2D>();
         _inven = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 
