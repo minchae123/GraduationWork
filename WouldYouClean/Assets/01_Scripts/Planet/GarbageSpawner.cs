@@ -31,7 +31,7 @@ public class GarbageSpawner : MonoBehaviour
 
     private Vector3 GetRandomPosition()
     {
-        float x, y, z;
+        float x, y;
         Vector3 spawnPosition;
 
         do
@@ -52,7 +52,6 @@ public class GarbageSpawner : MonoBehaviour
             float distance = Vector3.Distance(position, spawnedPosition);
             if (distance < 2.0f) // ¶³¾îÁø °Å¸®
             {
-                print("true");
                 return true;
             }
         }

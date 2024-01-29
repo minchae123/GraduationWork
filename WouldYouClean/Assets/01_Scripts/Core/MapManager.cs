@@ -26,6 +26,7 @@ public class MapManager : MonoSingleton<MapManager>
         for (int i = 0; i < childCount; i++)
         {
             CurrentMapTrash.Add(Map.GetChild(i).GetComponent<DivideObj>());
+            print(Map.GetChild(i).GetComponent<DivideObj>());
         }
     }
 }
