@@ -103,7 +103,6 @@ public class InterfaceObject : PlayerMain
         CollectedPlanets.Instance.AddTrashCollected(_cleanItem);//도감에 추가
         _cleanItem.PickUpItem();
 
-        Destroy(_cleanItem); //풀링
         ClosePanel(rect);
     }
 }
