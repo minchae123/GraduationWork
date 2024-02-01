@@ -107,7 +107,7 @@ public class ResearchTable : PlayerMain
         _loadingFillAmountIMG.fillAmount = 0f;
     }
 
-    private void ActivateMainPanel(params Action[] action)
+    public void ActivateMainPanel(params Action[] action)
     {
         UIManager.Instance.ScaleRectTransform(_mainPanel, _originPanelTrm
             , 0.7f, Ease.InOutCubic, action);

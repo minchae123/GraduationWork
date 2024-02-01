@@ -10,7 +10,7 @@ public class Shop : MonoSingleton<Shop>
     public List<InventoryItem> mainShopItem; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> shopDictionary; // 인벤토리 딕셔너리
 
-    [Header("==== Main Shop ====")]
+    [Header("==== Main ShopSystem ====")]
     [SerializeField] private Transform mainShopTrm;
 
 

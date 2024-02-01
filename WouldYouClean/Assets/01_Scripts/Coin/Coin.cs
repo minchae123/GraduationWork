@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Coin : MonoSingleton<Coin>
+public class Coin : MonoSingleton<Coin>, ISaveManager
 {
     [SerializeField] private TextMeshProUGUI coinText;
 
@@ -29,4 +29,14 @@ public class Coin : MonoSingleton<Coin>
     {
         coinText.text = $"{currentCoin}¿ø";
     }
+
+	public void LoadData(GameData data)
+	{
+        currentCoin = data.coin;
+	}
+
+	public void SaveData(ref GameData data)
+	{
+		data.coin = currentCoin;
+	}
 }
