@@ -14,7 +14,6 @@ public class SpaceManager : MonoBehaviour
     [Header("Planet")]
     public PlanetInSpace[] Planets;
     public PlanetInSpace curPlanet = null;
-    private float _shortDis;
 
     private Camera _cam;
     private float _targetSize = 5;
@@ -47,8 +46,6 @@ public class SpaceManager : MonoBehaviour
     private void Start()
     {
         Planets = GameObject.FindObjectsOfType<PlanetInSpace>();
-
-
     }
 
     private void Update()
@@ -105,7 +102,7 @@ public class SpaceManager : MonoBehaviour
         }
 
 
-        if (isLanding && curPlanet != null)
+        if (isLanding)
         {
             Vector3 dir = spaceship.transform.position - curPlanet.transform.position;
 
@@ -113,6 +110,14 @@ public class SpaceManager : MonoBehaviour
                 planet.SetDir(dir);
 
             //착륙할때 행성 바라보게
+            float angle = Mathf.Atan2(spaceship.transform.position.y - curPlanet.transform.position.y,
+                spaceship.transform.position.x - curPlanet.transform.position.x) * Mathf.Rad2Deg;
+
+            if (Vector2.Distance(spaceship.transform.position, curPlanet.transform.position) < .1f)
+                spaceship.transform.rotation = Quaternion.Euler(0, 0, 0);
+            else
+                spaceship.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            //천천히 돌아가게 바꿔야됨 어케함?
         }
     }
 
@@ -120,7 +125,6 @@ public class SpaceManager : MonoBehaviour
     {
         canInteraction = false;
     }
-
 
     void Finish()
     {
