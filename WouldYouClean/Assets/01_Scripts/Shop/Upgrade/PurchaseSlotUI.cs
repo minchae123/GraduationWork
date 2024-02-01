@@ -15,12 +15,7 @@ public class PurchaseSlotUI : MonoBehaviour, IPointerClickHandler
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
 
-    private void Start()
-    {
-        SetItem();
-    }
-
-    private void SetItem()
+    public void SetItem()
     {
         itemIcon.sprite = sellingItem.itemIcon;
         itemName.text = sellingItem.itemName;
