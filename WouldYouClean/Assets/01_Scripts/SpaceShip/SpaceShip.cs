@@ -50,12 +50,12 @@ public class Spaceship : UpgradeStat
         {
             _curSpeed -= _acceleration * Time.deltaTime;
         }
-        return Mathf.Clamp(_curSpeed, .5f, _maxSpeed);
+        return Mathf.Clamp(_curSpeed, 1f, _maxSpeed);
     }
 
     private void LimitSpeed()
     {
         if (_curSpeed > _maxSpeed) _curSpeed = _maxSpeed;
-        if (_curSpeed < .5f) _curSpeed = .5f;
+        if (_curSpeed < 1f) _curSpeed = 1f;
     }
 }
