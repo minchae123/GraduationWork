@@ -24,7 +24,6 @@ public class Cleaner : MonoBehaviour
     private void Update()
     {
         ColDir();
-        CheckMouseRelease();
     }
 
     //오브젝트 판별해주는 콜라이더 위치
@@ -89,11 +88,5 @@ public class Cleaner : MonoBehaviour
 
             Destroy(obj);
         }); //다트윈이 다 실행되면 사라지게
-    }
-
-    private void CheckMouseRelease()
-    {
-        if (Input.GetMouseButtonUp(0) && _cleaningSequence.IsActive())
-            _cleaningSequence.Kill();
     }
 }
