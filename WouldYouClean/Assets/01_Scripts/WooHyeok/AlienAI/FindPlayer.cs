@@ -20,7 +20,7 @@ public class FindPlayer : MonoBehaviour
     {
         if(collision.TryGetComponent<PlayerMain>(out PlayerMain player))
         {
-            gameObject.GetComponentInParent<Alien>()._isFollow = true;
+            transform.parent.GetChild(1).GetComponent<Alien>()._isFollow = true;
         }
     }
 
@@ -28,7 +28,7 @@ public class FindPlayer : MonoBehaviour
     {
         if (collision.TryGetComponent<PlayerMain>(out PlayerMain player))
         {
-            gameObject.GetComponentInParent<Alien>()._isFollow = false;
+            transform.parent.GetChild(1).GetComponent<Alien>()._isFollow = false;
         }
     }
 }

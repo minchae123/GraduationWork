@@ -15,9 +15,9 @@ public class InventoryItem
         AddItemCnt();
     }
 
-    public void AddItemCnt()
+    public void AddItemCnt(int cnt = 1)
     {
-        ++itemCnt;
+        itemCnt += cnt;
     }
 
     public void RemoveItemCnt(int cnt = 1)

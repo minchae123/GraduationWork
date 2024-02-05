@@ -23,12 +23,14 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
         dragImage.color = new Vector4(1, 1, 1, 0.6f);
         dragImage.transform.SetParent(transform.root, false);
 
+        dragImage.GetComponent<Image>().enabled = true;
         dragImage.raycastTarget = false;
     }
     public void OnDrag(PointerEventData eventData)
     {
         //print("드래그중");
-        dragImage.transform.position = eventData.position;
+        Vector3 dragPos = GameManager.Instance.mainCam.ScreenToWorldPoint(eventData.position);
+        dragImage.transform.position = new Vector3(dragPos.x, dragPos.y, 0);
     }
     public void OnEndDrag(PointerEventData eventData)
     {
