@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Spaceship : UpgradeStat
+public class SpaceShip : UpgradeStat
 {
     [Header("InputSystem")]
     [SerializeField] private InputReader _input;

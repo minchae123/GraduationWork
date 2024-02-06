@@ -30,9 +30,9 @@ public class SpaceManager : MonoBehaviour
     private float _curStarSize;
     //셰이더 설정하기
 
-    [Header("Spaceship")]
+    [Header("SpaceShip")]
     public InputReader input;
-    public Spaceship spaceship;
+    public SpaceShip spaceship;
     public bool canInteraction;
     public bool canLanding;
     public bool isLanding;
