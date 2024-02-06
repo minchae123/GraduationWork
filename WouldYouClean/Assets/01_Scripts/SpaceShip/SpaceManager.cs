@@ -148,7 +148,7 @@ public class SpaceManager : MonoBehaviour
         input.enabled = false;
         spaceship.enabled = false;
         yield return new WaitForSeconds(.5f);
-        FadePanel.DOFade(1, .75f).OnComplete(CameraChange).OnComplete(CameraChange);
+        FadePanel.DOFade(1, .75f).OnComplete(CameraChange);
         //CameraChange();
         _fire.Stop();
         Finish();
@@ -180,5 +180,6 @@ public class SpaceManager : MonoBehaviour
         SpaceshipCam.gameObject.SetActive(!SpaceshipCam.gameObject.activeSelf);
         PlayerInputReader.enabled = !PlayerInputReader.enabled;
         SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
+        FadePanel.DOFade(0, .75f);
     }
 }
