@@ -11,6 +11,11 @@ public class SpaceManager : MonoBehaviour
 {
     public Image FadePanel;
 
+    public Camera MainCam;
+    public Camera SpaceshipCam;
+    public InputReader PlayerInputReader;
+    public InputReader SpaceshipInputReader;
+
     [Header("Planet")]
     public PlanetInSpace[] Planets;
     public PlanetInSpace curPlanet = null;
@@ -143,7 +148,8 @@ public class SpaceManager : MonoBehaviour
         input.enabled = false;
         spaceship.enabled = false;
         yield return new WaitForSeconds(.5f);
-        FadePanel.DOFade(1, .75f);
+        FadePanel.DOFade(1, .75f).OnComplete(CameraChange).OnComplete(CameraChange);
+        //CameraChange();
         _fire.Stop();
         Finish();
     }
@@ -163,8 +169,16 @@ public class SpaceManager : MonoBehaviour
         _fire.Play();
         yield return new WaitForSeconds(1f);
         input.enabled = true;
-        curPlanet.clean = true;
+        curPlanet.clean = true; //진행도가 완료되면 클리어로 바꾸기
         Finish();
     }
     #endregion
+
+    public void CameraChange()
+    {
+        MainCam.gameObject.SetActive(!MainCam.gameObject.activeSelf);
+        SpaceshipCam.gameObject.SetActive(!SpaceshipCam.gameObject.activeSelf);
+        PlayerInputReader.enabled = !PlayerInputReader.enabled;
+        SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
+    }
 }
