@@ -8,6 +8,7 @@ public class GarbageSpawner : MonoBehaviour
 
     public int GarbageCount;
     List<Vector3> _spawnedPositions = new List<Vector3>();
+    public List<ObjectType> TrashTypeList = new List<ObjectType>();
 
     private void Start()
     {
@@ -19,6 +20,8 @@ public class GarbageSpawner : MonoBehaviour
             Vector3 spawnPosition = GetRandomPosition();
 
             GameObject newGarbage = Instantiate(_garbagePrefab.gameObject, spawnPosition, Quaternion.identity);
+
+            //newGarbage.GetComponent<DivideObj>().type = TrashTypeList[Random.Range(0, TrashTypeList.Count)];
             _spawnedPositions.Add(spawnPosition);
 
             MapManager.Instance.CurrentMapTrash.Add(_garbagePrefab);
