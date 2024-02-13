@@ -21,7 +21,7 @@ public class GarbageSpawner : MonoBehaviour
 
             GameObject newGarbage = Instantiate(_garbagePrefab.gameObject, spawnPosition, Quaternion.identity);
 
-            //newGarbage.GetComponent<DivideObj>().type = TrashTypeList[Random.Range(0, TrashTypeList.Count)];
+            newGarbage.GetComponent<DivideObj>().type = TrashTypeList[Random.Range(0, TrashTypeList.Count)];
             _spawnedPositions.Add(spawnPosition);
 
             MapManager.Instance.CurrentMapTrash.Add(_garbagePrefab);
