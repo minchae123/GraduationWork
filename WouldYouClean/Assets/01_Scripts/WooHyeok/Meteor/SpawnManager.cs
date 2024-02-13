@@ -32,7 +32,10 @@ public class SpawnManager : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.C))
-            Instantiate(_cleanRobot);
+        {
+            GameObject obj = Instantiate(_cleanRobot);
+            //플레이어 위치에서 소환
+        }
     }
 
     IEnumerator SpawnMeteor()
