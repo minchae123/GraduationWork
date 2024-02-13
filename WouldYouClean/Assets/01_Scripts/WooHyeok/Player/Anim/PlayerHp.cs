@@ -13,6 +13,7 @@ public class PlayerHp : PlayerMain
     public bool _istest = false;
 
     private float _hp;
+    private float _limitHp;
     private bool _isch = false;
 
     private Sequence _hpSeq;
@@ -20,6 +21,7 @@ public class PlayerHp : PlayerMain
     private void Awake()
     {
         _hp = _breath;
+        _limitHp = _hp;
         _hpSeq = DOTween.Sequence();
     }
 
@@ -33,7 +35,7 @@ public class PlayerHp : PlayerMain
 
     private void divideHp()
     {
-        _breath = Mathf.Clamp(_breath, 0f, 150f);
+        _breath = Mathf.Clamp(_breath, 0f, _limitHp);
 
         DotBreathSlider();
         DotHphSlider();
@@ -49,7 +51,7 @@ public class PlayerHp : PlayerMain
 
     private float IncValue(float value)
     {
-        if (_isPlain && value < 150)
+        if (_isPlain && value < _limitHp)
             value += 20f * Time.deltaTime;
 
         return value;
@@ -98,5 +100,10 @@ public class PlayerHp : PlayerMain
     public void OnDamage(float damage)
     {
         _hp -= damage;
+    }
+
+    public void OnlimitHp(float value)
+    {
+        _limitHp += value;
     }
 }

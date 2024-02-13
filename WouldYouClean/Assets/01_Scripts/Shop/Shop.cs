@@ -88,6 +88,7 @@ public class Shop : MonoSingleton<Shop>
     {
         sellingShop.gameObject.SetActive(false); // 판매는 끄고
         purchaseShop.gameObject.SetActive(true);// 구매는 킴
+        DestoryItemInShop();
         SetItemInShop();
     }
     public void OnClickSellingShopBtn() // 판매
