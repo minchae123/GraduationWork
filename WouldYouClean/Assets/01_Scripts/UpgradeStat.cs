@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UpgradeStat : MonoBehaviour
 {
-    //Spaceship
+    //SpaceShip
     public float _rotSpeed = 10;
     public float _curSpeed = 0;
     public float _maxSpeed = 5;

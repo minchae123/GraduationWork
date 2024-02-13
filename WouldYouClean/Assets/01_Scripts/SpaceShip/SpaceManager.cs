@@ -30,9 +30,15 @@ public class SpaceManager : MonoBehaviour
     private float _curStarSize;
     //셰이더 설정하기
 
-    [Header("Spaceship")]
+    [Header("Player")]
+    [SerializeField] private GameObject player;
+    [SerializeField] private Transform inSpaceshipPos;
+    [SerializeField] private Transform inPlanetPos;
+    public bool isInSpaceship;
+
+    [Header("SpaceShip")]
     public InputReader input;
-    public Spaceship spaceship;
+    public SpaceShip spaceship;
     public bool canInteraction;
     public bool canLanding;
     public bool isLanding;
@@ -72,6 +78,7 @@ public class SpaceManager : MonoBehaviour
     #region 우주선발사및착륙
     private void Interaction()
     {
+        //거리 측정
         foreach (PlanetInSpace planet in Planets)
         {
             if (Vector2.Distance(spaceship.transform.position, planet.transform.position) < 7)
@@ -91,11 +98,12 @@ public class SpaceManager : MonoBehaviour
                 canLanding = false;
             }
 
+        //상호작용 가능상태
         if (canInteraction)
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (isLanding && !isFlight)
+                if (isLanding && !isFlight/*&& 우주선 출발 버튼*/)
                 {
                     StartCoroutine(SpaceshipLaunch());
                 }
@@ -106,7 +114,7 @@ public class SpaceManager : MonoBehaviour
             }
         }
 
-
+        //착륙 시
         if (isLanding)
         {
             Vector3 dir = spaceship.transform.position - curPlanet.transform.position;
@@ -123,6 +131,12 @@ public class SpaceManager : MonoBehaviour
             else
                 spaceship.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             //천천히 돌아가게 바꿔야됨 어케함?
+        }
+
+        //임시 테스트용 /입구에서 상호작용누르면 행성으로 행성내 우주선에서 누르면 우주선안으로
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            StartCoroutine(PlayerPosChange());
         }
     }
 
@@ -147,9 +161,12 @@ public class SpaceManager : MonoBehaviour
 
         input.enabled = false;
         spaceship.enabled = false;
+
+        //우주선 안으로
+        StartCoroutine(PlayerPosChange());
         yield return new WaitForSeconds(.5f);
-        FadePanel.DOFade(1, .75f).OnComplete(CameraChange);
-        //CameraChange();
+        CameraChange();
+
         _fire.Stop();
         Finish();
     }
@@ -157,7 +174,6 @@ public class SpaceManager : MonoBehaviour
     private IEnumerator SpaceshipLaunch()
     {
         Interacting();
-        FadePanel.DOFade(0, .75f);
         _targetSize = 10;
         _targetStarSize = 3;
         spaceship.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -180,6 +196,25 @@ public class SpaceManager : MonoBehaviour
         SpaceshipCam.gameObject.SetActive(!SpaceshipCam.gameObject.activeSelf);
         PlayerInputReader.enabled = !PlayerInputReader.enabled;
         SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
+        //FadePanel.DOFade(0, 1f);
+    }
+
+    private IEnumerator PlayerPosChange() 
+    {
+        isInSpaceship = !isInSpaceship;
+
+        FadePanel.DOFade(1, .75f);
+        yield return new WaitForSeconds(1f);
+        //우주선 내부인지
+        if (isInSpaceship)
+        {
+            player.transform.position = inSpaceshipPos.position;
+        }
+        else
+        {
+            player.transform.position = inPlanetPos.position;
+        }
+        yield return new WaitForSeconds(1f);
         FadePanel.DOFade(0, .75f);
     }
 }
