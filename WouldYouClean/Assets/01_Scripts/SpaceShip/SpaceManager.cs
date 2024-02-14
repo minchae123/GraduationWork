@@ -164,7 +164,7 @@ public class SpaceManager : MonoBehaviour
 
         //우주선 안으로
         StartCoroutine(PlayerPosChange());
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1f);
         CameraChange();
 
         _fire.Stop();

@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler
+public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler, IPointerClickHandler
 {
     private InventoryItem sellingItem;
     private int itemCnt = 0;
@@ -84,5 +84,10 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
         itemAmountText.text = $"{itemCnt}";
         itemName.text = item.itemData._ObjectName;
         itemImage.sprite = item.itemData._ItemIcon;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        Shop.Instance.SetTable(sellingItem.itemData); // Å¬¸¯
     }
 }
