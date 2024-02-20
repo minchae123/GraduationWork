@@ -5,6 +5,7 @@ using UnityEngine;
 public class GameManager : MonoSingleton<GameManager>
 {
     public Dictionary<string, int> _items;
+    public Transform _playerTrm;
     public Camera mainCam;
 
     // Start is called before the first frame update
