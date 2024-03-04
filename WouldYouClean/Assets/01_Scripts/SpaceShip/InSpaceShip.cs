@@ -18,11 +18,13 @@ public class InSpaceShip : MonoBehaviour
 
 	private ResearchTable researchTable;
 	private Shop shop;
+	private Oxygen oxygen;
 
 	private void Awake()
 	{
 		researchTable = FindObjectOfType<ResearchTable>();
 		shop = FindObjectOfType<Shop>();
+		oxygen = FindObjectOfType<Oxygen>();
 	}
 
 	private void Update()
@@ -69,18 +71,16 @@ public class InSpaceShip : MonoBehaviour
 
 	private void OxygenSystem()
 	{
-		print("oxygen");
+		oxygen.SetActive(true);
 	}
 
 	private void ShopSystem()
 	{
-		print("shop");
 		shop.EnterShop();
 	}
 
 	private void ReserchSystem()
 	{
 		researchTable.ActivateMainPanel();
-		print("observe");
 	}
 }
