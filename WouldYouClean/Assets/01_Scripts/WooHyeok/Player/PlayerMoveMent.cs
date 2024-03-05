@@ -8,7 +8,7 @@ public class PlayerMoveMent : PlayerMain
     [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
 
-    private Vector2 _direction;
+    [HideInInspector] public Vector2 _direction;
 
     private void Awake()
     {
