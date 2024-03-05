@@ -51,21 +51,13 @@ public class InterfaceObject : PlayerMain
             _cleanItem = obj;
             _objTypeName = obj.type._ObjectName;
             _objTypeExplain = obj.type._ObjectExplain;
-
-            //if (_isShowing)
-            //    ColisionPos(collision.transform.position);
         }
     }
 
-    //private void ColisionPos(Vector2 pos)
-    //{
-    //    _spawnPosition = pos;
-
-    //    //_spawnPosition = new Vector3(_spawnPosition.x, _spawnPosition.y, Camera.main.transform.position.z);
-
-    //    Vector2 panelPosition = _camera.ViewportToScreenPoint(_spawnPosition);
-    //    _panel.GetComponent<RectTransform>().position = panelPosition / 1000;
-    //}
+    private void PickUpAnim(bool value)
+    {
+        _animator.SetBool("pick", value);
+    }
 
     private void KeyDown()
     {
@@ -82,6 +74,7 @@ public class InterfaceObject : PlayerMain
             _isFKeyDown = false;
             _isShowing = false;
 
+            PickUpAnim(true);
             ShowPanel(_panelRect);
         }
     }
@@ -96,6 +89,8 @@ public class InterfaceObject : PlayerMain
     {
         rect.transform.DOScale(Vector2.zero, 1f);
         rect.DOAnchorPos(_spawnPosition, 1f);
+
+        PickUpAnim(false);
     }
 
     public void CleanItem(RectTransform rect)

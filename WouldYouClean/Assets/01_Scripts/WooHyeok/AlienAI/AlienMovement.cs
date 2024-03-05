@@ -18,7 +18,7 @@ public class AlienMovement : MonoBehaviour
     private void Awake()
     {
         _saveSpeed = _runSpeed;
-        //_rb = GetComponent<Rigidbody2D>();
+
         _inven = GameObject.Find("Inventory").GetComponent<Inventory>();
     }
 

@@ -30,6 +30,6 @@ public class PlayerDirection : PlayerMain
         if(pMove._direction.x == 0)
             return _spriteRenderer.flipX;
 
-        return pMove._direction.x <= 0;
+        return pMove._direction.x >= 0;
     }
 }

@@ -31,13 +31,13 @@ public class Cleaner : MonoBehaviour
     {
         if (_direction.Direction())
         {
-            _boxCol.offset = new Vector2(-3, 0);
-            _gatherPos.position = new Vector2(transform.position.x - 1.15f, _gatherPos.position.y);
+            _boxCol.offset = new Vector2(3, 0);
+            _gatherPos.position = new Vector2(transform.position.x + 1.15f, _gatherPos.position.y);
         }
         else
         {
-            _boxCol.offset = new Vector2(3, 0);
-            _gatherPos.position = new Vector2(transform.position.x + 1.15f, _gatherPos.position.y);
+            _boxCol.offset = new Vector2(-3, 0);
+            _gatherPos.position = new Vector2(transform.position.x - 1.15f, _gatherPos.position.y);
         }
     }
 
@@ -93,8 +93,6 @@ public class Cleaner : MonoBehaviour
                 CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
                 divObj.PickUpItem();
             }
-
-            Destroy(obj);
         }); //다트윈이 다 실행되면 사라지게
     }
 }
