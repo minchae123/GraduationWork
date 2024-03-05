@@ -14,8 +14,9 @@ public class Maze : MonoBehaviour
 {
     [SerializeField] private Tilemap tileMap;
     [SerializeField] private Tile wallTile;
+    [SerializeField] private Tile wall2Tile;
     
-    private int mazeSize = 35; // 35 * 35 모양의 미로
+    private int mazeSize = 55; // 35 * 35 모양의 미로
     private TileType[,] maze;
 
     private void Update()
@@ -47,14 +48,32 @@ public class Maze : MonoBehaviour
             {
                 if (i % 2 == 0 || j % 2 == 0) // 짝수는 이미 뚫려있음
                     continue;
+                if (i == mazeSize - 2 && j == mazeSize - 2) continue;
+                if (i == mazeSize - 2)
+                {
+                    maze[i, j + 1] = TileType.EMPTY;
+                    continue;
+                }
+                else if (j == mazeSize - 2)
+                {
+                    maze[i + 1, j] = TileType.EMPTY;
+                    continue;
+                }
 
-                if (Random.Range(0, 2) == 0)
+                int rand = Random.Range(0, 3);
+                if (rand == 0)
                 {
                     maze[i, j + 1] = TileType.EMPTY; 
                 }
-                else
+                else if(rand == 1)
                 {
                     maze[i+1, j] = TileType.EMPTY;
+                }
+                else
+                {
+                    maze[i, j + 1] = TileType.EMPTY;
+                    maze[i + 1, j + 1] = TileType.EMPTY;
+                    maze[i + 1, j] = TileType.EMPTY;
                 }
 
                 DrawTile(i, j);
@@ -79,7 +98,11 @@ public class Maze : MonoBehaviour
 
         if (maze[i, j] == TileType.WALL) 
         {
-            tileMap.SetTile(pos, wallTile); //타일 생성
+            if (j > 0 && maze[i, j - 1] == TileType.WALL) 
+            {
+                tileMap.SetTile(pos, wall2Tile); //타일 생성
+            }
+            else tileMap.SetTile(pos, wallTile); //타일 생성
         }
         else
         {
