@@ -38,9 +38,9 @@ public class InterfaceObject : PlayerMain
 
         if (_isQKeyDown)
         {
-            ShowPanel(_dictionalyRect);
+            UIManager.Instance.ShowPanel(_dictionalyRect);
         }
-    }
+    } 
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -75,27 +75,16 @@ public class InterfaceObject : PlayerMain
             _isShowing = false;
 
             PickUpAnim();
-            ShowPanel(_panelRect);
+            CleanItem();
+            //ShowPanel(_panelRect); //판넬 띄우기
         }
     }
 
-    private void ShowPanel(RectTransform panel)
-    {
-        panel.transform.DOScale(Vector2.one * 1f, 1.5f); // 크기를 1.5배로 1초 동안 점차 키움
-        panel.DOAnchorPos(Vector2.zero, 1.5f);
-    }
-
-    public void ClosePanel(RectTransform rect)
-    {
-        rect.transform.DOScale(Vector2.zero, 1f);
-        rect.DOAnchorPos(_spawnPosition, 1f);
-    }
-
-    public void CleanItem(RectTransform rect)
+    public void CleanItem(/*RectTransform rect*/)
     {
         CollectedPlanets.Instance.AddTrashCollected(_cleanItem);//도감에 추가
         _cleanItem.PickUpItem();
 
-        ClosePanel(rect);
+        //ClosePanel(rect);
     }
 }
