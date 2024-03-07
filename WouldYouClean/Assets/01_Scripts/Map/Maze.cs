@@ -20,7 +20,11 @@ public class Maze : MonoBehaviour
     private int mazeSize = 55; // 35 * 35 모양의 미로
     private TileType[,] maze;
 
-    private void Update()
+    private void Start()
+    {
+        Generate();
+    }
+    private void Update() // 나중에 삭제!
     {
         if (Input.GetKeyDown(KeyCode.Space)) Generate();
     }
@@ -89,7 +93,6 @@ public class Maze : MonoBehaviour
             }
         }
     }
-
     private void DrawTile(int i, int j)
     {
         Vector3Int pos = new Vector3Int(-mazeSize / 2 + i, -mazeSize / 2 + j, 0);
