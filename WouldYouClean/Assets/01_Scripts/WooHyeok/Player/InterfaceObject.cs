@@ -54,9 +54,9 @@ public class InterfaceObject : PlayerMain
         }
     }
 
-    private void PickUpAnim(bool value)
+    private void PickUpAnim()
     {
-        _animator.SetBool("pick", value);
+        _animator.SetTrigger("pick");
     }
 
     private void KeyDown()
@@ -74,7 +74,7 @@ public class InterfaceObject : PlayerMain
             _isFKeyDown = false;
             _isShowing = false;
 
-            PickUpAnim(true);
+            PickUpAnim();
             ShowPanel(_panelRect);
         }
     }
@@ -89,8 +89,6 @@ public class InterfaceObject : PlayerMain
     {
         rect.transform.DOScale(Vector2.zero, 1f);
         rect.DOAnchorPos(_spawnPosition, 1f);
-
-        PickUpAnim(false);
     }
 
     public void CleanItem(RectTransform rect)
