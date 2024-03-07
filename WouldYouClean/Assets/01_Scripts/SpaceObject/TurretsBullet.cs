@@ -19,5 +19,15 @@ public class TurretsBullet : MonoBehaviour
         transform.Translate(dir * speed * Time.deltaTime);
     }
 
-
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.tag == "Player")
+        {
+            collision.GetComponent<PlayerHp>().OnDamage(10);
+            print("포탑의 총알로 인해 10의 데미지가 들어갔습니다.");
+            Destroy(gameObject);
+        }
+    }
 }
+
+
