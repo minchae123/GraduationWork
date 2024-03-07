@@ -18,7 +18,7 @@ public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
         {
             if (!checkArea.IsReached)
             {
-                if (++cnt > 2)
+                if (++cnt > 2) // ¾ß¸Å
                 {
                     return;
                 }

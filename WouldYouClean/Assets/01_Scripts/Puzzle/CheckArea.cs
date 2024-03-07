@@ -23,7 +23,6 @@ public class CheckArea : MonoBehaviour
     {
         if (collision.TryGetComponent<CheckArea>(out CheckArea c))
         {
-            print("Dd");
             IsReached = true;
         }
     }
