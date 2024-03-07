@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
 {
+    [SerializeField] private TextMeshProUGUI test;
     public List<CheckArea> checkAreas;
 
     private void Start()
@@ -18,14 +20,13 @@ public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
         {
             if (!checkArea.IsReached)
             {
-                if (++cnt > 2)
+                if (++cnt > 2) // ¾ß¸Å
                 {
                     return;
                 }
             }
         }
-
-        print("Å¬¸®¾û");
+        test.text = "Clear";
     } 
 
     private void Update()
