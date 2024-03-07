@@ -8,7 +8,7 @@ public class PlayerMoveMent : PlayerMain
     [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
 
-    private Vector2 _direction;
+    [HideInInspector] public Vector2 _direction;
 
     private void Awake()
     {
@@ -52,8 +52,10 @@ public class PlayerMoveMent : PlayerMain
     {
         _animator.SetFloat("x", Mathf.Abs(_direction.x) / _curSpeed);
 
-        if (Mathf.Abs(_direction.x) / _curSpeed == 0)
-            _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
+        _animator.SetFloat("y", -(_direction.y / _curSpeed));
+
+    //    if (Mathf.Abs(_direction.x) / _curSpeed == 0)
+    //        _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
     }
 
     private void OnMousePos(Vector2 value)
@@ -68,7 +70,8 @@ public class PlayerMoveMent : PlayerMain
 
     public void OnStillWarning()
     {
-        //Sequence seq = DOTween.Sequence();
-        _warning.DOFade(1, 0.5f).SetLoops(5, LoopType.Yoyo).SetEase(Ease.InOutCirc).From();
+        Sequence blinkSequence = DOTween.Sequence();
+        blinkSequence.Append(_warning.DOFade(1f, 0.2f).SetEase(Ease.InOutCirc).SetLoops(5));
+        blinkSequence.AppendCallback(() => _warning.DOFade(0f, 0.2f).SetEase(Ease.InOutCirc)); // 애니메이션 끝나면 오브젝트 비활성화
     }
 }
