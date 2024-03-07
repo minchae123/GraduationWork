@@ -29,7 +29,6 @@ public class PlayerHp : PlayerMain
     {
         _isPlain = _istest;
 
-        Cleaning();
         divideHp();
     }
 
@@ -90,11 +89,6 @@ public class PlayerHp : PlayerMain
                 //print("죽음");//죽음 모션이나 이것 저것 하는 곳
             }
         }));
-    }
-
-    private void Cleaning()
-    {
-        _animator.SetBool("clean", !_isPlain);
     }
 
     public void OnDamage(float damage)

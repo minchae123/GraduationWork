@@ -31,27 +31,27 @@ public class Cleaner : MonoBehaviour
     {
         if (_direction.Direction())
         {
-            _boxCol.offset = new Vector2(-3, 0);
-            _gatherPos.position = new Vector2(transform.position.x - 1.15f, _gatherPos.position.y);
+            _boxCol.offset = new Vector2(3, 0);
+            _gatherPos.position = new Vector2(transform.position.x + 1.15f, _gatherPos.position.y);
         }
         else
         {
-            _boxCol.offset = new Vector2(3, 0);
-            _gatherPos.position = new Vector2(transform.position.x + 1.15f, _gatherPos.position.y);
+            _boxCol.offset = new Vector2(-3, 0);
+            _gatherPos.position = new Vector2(transform.position.x - 1.15f, _gatherPos.position.y);
         }
     }
 
     //콜라이더에 들어왔을 때 청소기에 빨려 들어가게 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        _isMouseClick = Input.GetMouseButton(0);
+        _isMouseClick = Input.GetMouseButtonDown(0);
 
         if (_slot._isDragging)
             _isMouseClick = false;
 
         if (!collision.TryGetComponent<DivideObj>(out DivideObj obj)
               && !collision.TryGetComponent<AlienMovement>(out AlienMovement alien) || !_isMouseClick) return; //들어온 오브젝트가 DivideObj스크립트를 가지고 있지 않거나 마우스 버튼이 눌리지않았을 때 실행 안함
-       
+
         Transform trm = collision.transform;
 
         if (collision.transform.parent != null)
@@ -65,7 +65,7 @@ public class Cleaner : MonoBehaviour
         float targetScale = Mathf.Lerp(1f, 0f, Mathf.InverseLerp(0f, 20f, dis));
 
         DotScale(trm, targetScale, obj);
-        
+
         MapManager.Instance.UpdateTrashList();
 
     }
@@ -77,21 +77,22 @@ public class Cleaner : MonoBehaviour
         _cleaningSequence.Append(obj.DOScale(0, targetScale)).SetEase(Ease.OutQuad); //크기 조절해주기
         _cleaningSequence.OnComplete(() =>
         {
-            if (obj.TryGetComponent<AlienMovement>(out AlienMovement alien))
-            {
-                alien.ReChargingList();
-            }
-            else
-            {
+            bool isAlien = false;
 
-                if (obj.localScale == Vector3.zero)
+            foreach (Transform child in obj)
+            {
+                if (child.TryGetComponent<AlienMovement>(out AlienMovement aliens))
                 {
-                    CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
-                    divObj.PickUpItem();
+                    aliens.ReChargingList();
+                    isAlien = true;
                 }
             }
 
-            Destroy(obj);
+            if (!isAlien && obj.localScale == Vector3.zero)
+            {
+                CollectedPlanets.Instance.AddTrashCollected(divObj);//도감에 추가
+                divObj.PickUpItem();
+            }
         }); //다트윈이 다 실행되면 사라지게
     }
 }
