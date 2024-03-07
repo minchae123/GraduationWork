@@ -20,7 +20,7 @@ public class PuzzleObject : MonoBehaviour
         Vector3 targetEulerAngles = transform.eulerAngles + new Vector3(0f, 0f, 90f);
         transform.DORotate(targetEulerAngles, 0.5f).OnComplete(() =>
         {
-            ReachPuzzleManager.Instance.CheckAllArea();
+            ReachPuzzleManager.Instance.CheckAllAreaReached();
             IsRotating = false;
         });
     }

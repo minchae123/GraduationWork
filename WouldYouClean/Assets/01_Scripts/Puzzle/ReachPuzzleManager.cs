@@ -11,7 +11,7 @@ public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
         checkAreas = new List<CheckArea>(FindObjectsOfType<CheckArea>());
     }
 
-    public void CheckAllArea()
+    public void CheckAllAreaReached()
     {
         int cnt = 0;        
         foreach (CheckArea checkArea in checkAreas)
