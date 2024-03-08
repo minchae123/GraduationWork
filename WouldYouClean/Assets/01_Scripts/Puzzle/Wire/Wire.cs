@@ -39,7 +39,7 @@ public class Wire : MonoBehaviour
 	{
 		clickPos = Input.mousePosition;
 		line = click;
-		wireType = line.GetComponentInParent<LeftWire>().WireType;
+		wireType = line.GetComponentInChildren<LeftWire>().WireType;
 
 		isDrag = true;
 	}

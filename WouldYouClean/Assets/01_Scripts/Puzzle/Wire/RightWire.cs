@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RightWire : MonoBehaviour, IPointerClickHandler
+public class RightWire : MonoBehaviour, IPointerClickHandler, IDropHandler
 {
 	private Wire wire;
 
@@ -16,6 +16,15 @@ public class RightWire : MonoBehaviour, IPointerClickHandler
 	public WireType wireType;
 
 	public void OnPointerClick(PointerEventData eventData)
+	{
+		Vector3 pos = wire.line.GetPosition(1);
+		Vector3 mouse = (Vector2)Input.mousePosition - wire.clickPos;
+		pos.y = mouse.y;
+		wire.line.SetPosition(1, pos);
+		wire.isDrag = false;
+	}
+
+	public void OnDrop(PointerEventData eventData)
 	{
 		Vector3 pos = wire.line.GetPosition(1);
 		Vector3 mouse = (Vector2)Input.mousePosition - wire.clickPos;
