@@ -31,5 +31,19 @@ public class RightWire : MonoBehaviour, IPointerClickHandler, IDropHandler
 		pos.y = mouse.y;
 		wire.line.SetPosition(1, pos);
 		wire.isDrag = false;
+
+		WireType ltype = wire.wireType;
+
+		if(ltype == wireType)
+		{
+			wire.isColor[(int)wireType] = true;
+			print(true);
+		}
+		else
+		{
+			print(wireType);
+			print(ltype);
+		}
+
 	}
 }

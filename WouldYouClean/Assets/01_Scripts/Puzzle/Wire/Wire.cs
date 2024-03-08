@@ -35,6 +35,18 @@ public class Wire : MonoBehaviour
 		}
 	}
 
+	public void CheckAnswer()
+	{
+		if (isColor[0] && isColor[1] && isColor[2] && isColor[3])
+		{
+			print("success");
+		}
+		else
+		{
+			print("fail");
+		}
+	}
+
 	public void ClickLine(LineRenderer click)
 	{
 		clickPos = Input.mousePosition;
