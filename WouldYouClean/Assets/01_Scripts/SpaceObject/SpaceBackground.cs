@@ -5,17 +5,30 @@ using UnityEngine;
 
 public class SpaceBackground : MonoBehaviour
 {
-    //private SpriteRenderer _sr;
-    //private SpaceShip _spaceship;
+    private SpriteRenderer _sr;
+    private float _brightness;
 
-    //private void Awake()
+    private void Awake()
+    {
+        _sr = GetComponent<SpriteRenderer>();
+    }
+
+    private void Start()
+    {
+        StartCoroutine(Twinkle());
+    }
+
+    //private void Update()
     //{
-    //    _sr = GetComponent<SpriteRenderer>();
-    //    _spaceship = GameObject.Find("SpaceShip").GetComponent<SpaceShip>();
+    //    _sr.material.SetFloat("_Threshold", _brightness);
     //}
 
-    //void Update()
-    //{
-    //    _sr.material.SetVector("_Offset", _spaceship.transform.up);
-    //}
+    private IEnumerator Twinkle()
+    {
+        _sr.material.SetFloat("_Threshold", .965f);
+        yield return new WaitForSeconds(1);
+        _sr.material.SetFloat("_Threshold", .975f);
+        yield return new WaitForSeconds(1);
+        StartCoroutine(Twinkle());
+    }
 }
