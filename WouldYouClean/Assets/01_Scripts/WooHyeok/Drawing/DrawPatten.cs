@@ -1,108 +1,63 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+
 [RequireComponent(typeof(LineRenderer))]
 public class DrawPatten : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private RectTransform[] spots;
 
-    private Vector3 mousePosition;
     private LineRenderer line;
-    private int count;
 
-    private float minDis = 100f;
-    private float dis;
-
-    // Start is called before the first frame update
     void Start()
     {
         line = GetComponent<LineRenderer>();
-
-        mousePosition = Input.mousePosition;
-        count = 1;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    line.SetPosition(0, WorldToLocal(Input.mousePosition));
-        //    print(WorldToLocal(spots[0].position));
-        //}
-        //else if(Input.GetMouseButton(0))
-        //{
-        //    print("ss");
-        //    line.SetPosition(count, WorldToLocal(Input.mousePosition));
-        //}
-        //if(Input.GetMouseButtonUp(0))
-        //{
-        //    count++;
-        //}
-        CrossSpot();
-        //if (Input.GetMouseButtonDown(0))
-        //{
-        //    Vector3 worldPosition = ConvertUIToWorldCoordinates(mousePosition);
-        //    Debug.Log("UI Element World Position: " + worldPosition);
-        //}
-    }
-
-    private void CrossSpot()
-    {
-        Distance();
-
-        if (Input.GetMouseButtonDown(0))
+        // 마우스 왼쪽 버튼이 클릭되었을 때
+        if (Input.GetMouseButton(0))
         {
-            if (minDis <= 1)
-                line.SetPosition(0, WorldToLocal(Input.mousePosition));
-            else
-                return;
-        }
-        else if (Input.GetMouseButton(0))
-        {
-            Distance();
-
-            if (minDis <= 1)
+            // UI 이벤트를 무시하고 마우스 위치를 가져옴
+            if (!EventSystem.current.IsPointerOverGameObject())
             {
-                Debug.Log(minDis);
-                line.SetPosition(count, WorldToLocal(Input.mousePosition));
-                count++;
+                Debug.Log("ss");
+                Vector3 mousePosition = Input.mousePosition;
+                mousePosition.z = 10; // 원하는 Z 값으로 조정(카메라와의 거리)
+
+                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
+
+                bool isOverUI = IsMouseOverUI(mousePosition);
+
+                // UI 이미지를 지나면 LineRenderer 위치 추가
+                if (isOverUI)
+                {
+                    AddPositionToLineRenderer(worldMousePosition);
+                }
             }
         }
-        else if (Input.GetMouseButtonUp(0))
+    }
+
+    // 마우스 위치가 UI 이미지 위에 있는지 여부를 반환
+    bool IsMouseOverUI(Vector3 mousePosition)
+    {
+        foreach (RectTransform uiElement in spots)
         {
-            line.positionCount = 2;
+            if (RectTransformUtility.RectangleContainsScreenPoint(uiElement, mousePosition))
+            {
+                return true;
+            }
         }
+        return false;
     }
 
-    private void Distance()
+    // LineRenderer에 위치 추가
+    void AddPositionToLineRenderer(Vector3 position)
     {
-        minDis = 100;
-
-        for (int i = 0; i < spots.Length; i++)
-        {
-            dis = Vector2.Distance(WorldToLocal(mousePosition), ConvertUIToWorldCoordinates(mousePosition, spots[i]));
-
-            if (dis < minDis)
-                minDis = dis;
-        }
-    }
-
-    private Vector2 WorldToLocal(Vector3 pos)
-    {
-        Vector2 mousePos = cam.ScreenToWorldPoint(pos);
-        Vector2 camRelative = cam.transform.InverseTransformPoint(mousePos);
-
-        return camRelative;
-    }
-
-    private Vector3 ConvertUIToWorldCoordinates(Vector2 screenPos, RectTransform rect)
-    {
-        // 스크린 좌표를 UI 요소의 로컬 좌표로 변환
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(rect, screenPos, cam, out Vector2 localPoint);
-
-        // UI 요소의 로컬 좌표를 월드 좌표로 변환
-        return rect.TransformPoint(localPoint);
+        line.positionCount++;
+        line.SetPosition(line.positionCount - 1, position);
     }
 }
