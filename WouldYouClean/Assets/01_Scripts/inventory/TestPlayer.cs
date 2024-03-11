@@ -11,4 +11,9 @@ public class TestPlayer : MonoBehaviour
 
         transform.position += new Vector3(h, v, 0) * Time.deltaTime * 5f;
     }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        print($"Ãæµ¹ : {collision.collider}");
+    }
 }

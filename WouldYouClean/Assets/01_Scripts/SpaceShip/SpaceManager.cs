@@ -20,7 +20,6 @@ public class SpaceManager : MonoBehaviour
     public PlanetInSpace[] Planets;
     public PlanetInSpace curPlanet = null;
 
-    private Camera _cam;
     private float _targetSize = 5;
     private float _curSize;
 
@@ -50,8 +49,7 @@ public class SpaceManager : MonoBehaviour
     {
         canInteraction = true;
 
-        _cam = Camera.main;
-        _curSize = _cam.orthographicSize;
+        _curSize = SpaceshipCam.orthographicSize;
     }
 
     private void Start()
@@ -68,8 +66,8 @@ public class SpaceManager : MonoBehaviour
 
     private void VisualRange()
     {
-        float smoothCamSize = Mathf.SmoothDamp(_cam.orthographicSize, _targetSize, ref _curSize, 1.5f);
-        _cam.orthographicSize = smoothCamSize;
+        float smoothCamSize = Mathf.SmoothDamp(SpaceshipCam.orthographicSize, _targetSize, ref _curSize, 1.5f);
+        SpaceshipCam.orthographicSize = smoothCamSize;
 
         float starScale = Mathf.SmoothDamp(_sr.material.GetFloat("_OverallScale"), _targetStarSize, ref _curStarSize, 1.5f);
         _sr.material.SetFloat("_OverallScale", starScale);
@@ -103,7 +101,7 @@ public class SpaceManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (isLanding && !isFlight/*&& 우주선 출발 버튼*/)
+                if (isLanding && !isFlight && isInSpaceship /*&& 우주선 출발 버튼*/)
                 {
                     StartCoroutine(SpaceshipLaunch());
                 }
@@ -163,10 +161,8 @@ public class SpaceManager : MonoBehaviour
         spaceship.enabled = false;
 
         //우주선 안으로
-        StartCoroutine(PlayerPosChange());
         yield return new WaitForSeconds(1f);
-        CameraChange();
-
+        StartCoroutine(CameraChange());
         _fire.Stop();
         Finish();
     }
@@ -174,6 +170,8 @@ public class SpaceManager : MonoBehaviour
     private IEnumerator SpaceshipLaunch()
     {
         Interacting();
+        StartCoroutine(CameraChange());
+        yield return new WaitForSeconds(1f);
         _targetSize = 10;
         _targetStarSize = 3;
         spaceship.transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -190,17 +188,21 @@ public class SpaceManager : MonoBehaviour
     }
     #endregion
 
-    public void CameraChange()
+    public IEnumerator CameraChange()
     {
+        FadePanel.DOFade(1, .75f);
+        yield return new WaitForSeconds(1f);
         MainCam.gameObject.SetActive(!MainCam.gameObject.activeSelf);
         SpaceshipCam.gameObject.SetActive(!SpaceshipCam.gameObject.activeSelf);
         PlayerInputReader.enabled = !PlayerInputReader.enabled;
-        SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
-        //FadePanel.DOFade(0, 1f);
+        //SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
+        //yield return new WaitForSeconds(1f);
+        FadePanel.DOFade(0, .75f);
     }
 
     private IEnumerator PlayerPosChange() 
     {
+        Interacting();
         isInSpaceship = !isInSpaceship;
 
         FadePanel.DOFade(1, .75f);
@@ -215,6 +217,6 @@ public class SpaceManager : MonoBehaviour
             player.transform.position = inPlanetPos.position;
         }
         yield return new WaitForSeconds(1f);
-        FadePanel.DOFade(0, .75f);
+        FadePanel.DOFade(0, .75f).OnComplete(Finish);
     }
 }
