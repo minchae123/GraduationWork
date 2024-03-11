@@ -28,10 +28,15 @@ public class InterfaceObject : PlayerMain
     private void Awake()
     {
         _panelRect = _panel.GetComponent<RectTransform>();
-        _dictionalyRect = _dictionaly.GetComponent<RectTransform>();
+       _dictionalyRect = _dictionaly.GetComponent<RectTransform>();
     }
 
-    public void Update()
+	private void Start()
+	{
+		_camera = GameManager.Instance.mainCam;
+	}
+
+	public void Update()
     {
         if (_panelRect.localScale == Vector3.zero)
             _isShowing = true;
