@@ -22,7 +22,7 @@ public class Maze : MonoBehaviour
 
     private void Start()
     {
-        Generate();
+        //Generate();
     }
     private void Update() // 나중에 삭제!
     {
