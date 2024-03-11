@@ -6,8 +6,8 @@ public class Mine : MonoBehaviour
     private enum State { Emergency, Warning, Normal }
     private State currentState = State.Normal;
 
-    public float EmergencyRange =3f; //이걸 3으로 하지 않아도 계속 확인 할 때 3으로 되는데 어떻게 함?
-    public float WarningRange = 8f;
+    private float EmergencyRange = 0f; //이걸 3으로 하지 않아도 계속 확인 할 때 3으로 되는데 어떻게 함?
+    private float WarningRange = 8f;
 
     private float maxIntensity = 3;
 
@@ -26,7 +26,6 @@ public class Mine : MonoBehaviour
     {
         float distanceToPlayer = Vector3.Distance(transform.position, GameManager.Instance._playerTrm.position);
         float totalDistance = WarningRange - EmergencyRange;
-
 
 
 
@@ -98,7 +97,7 @@ public class Mine : MonoBehaviour
         currentState = newState;
     }
 
-        
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
