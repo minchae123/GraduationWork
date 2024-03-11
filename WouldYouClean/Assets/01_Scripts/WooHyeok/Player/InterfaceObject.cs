@@ -11,15 +11,12 @@ public class InterfaceObject : PlayerMain
 
     private bool _isShowing = true;
 
-    private Vector3 _spawnPosition;
-
     [SerializeField] private DivideObj _cleanItem;
 
     private RectTransform _panelRect;
     private RectTransform _dictionalyRect;
 
     [Header("UI")]
-    [SerializeField] private Camera _camera;
     [SerializeField] private TextMeshProUGUI _nameText;
     [SerializeField] private TextMeshProUGUI _explainText;
     [SerializeField] private GameObject _panel;

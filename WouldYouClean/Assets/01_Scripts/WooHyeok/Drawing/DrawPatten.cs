@@ -1,7 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(LineRenderer))]
 public class DrawPatten : MonoBehaviour
@@ -10,54 +8,60 @@ public class DrawPatten : MonoBehaviour
     [SerializeField] private RectTransform[] spots;
 
     private LineRenderer line;
+    private HashSet<RectTransform> completeSpot = new HashSet<RectTransform>();
 
-    void Start()
+    private int UiLength;
+    private int UiIdx;
+
+    private void Start()
     {
         line = GetComponent<LineRenderer>();
+
+        UiLength = spots.Length;
     }
 
-    void Update()
+    private void Update()
     {
-        // 마우스 왼쪽 버튼이 클릭되었을 때
         if (Input.GetMouseButton(0))
         {
-            // UI 이벤트를 무시하고 마우스 위치를 가져옴
-            if (!EventSystem.current.IsPointerOverGameObject())
+            Vector3 mousePosition = Input.mousePosition;
+            mousePosition.z = 10;
+
+            Vector3 worldMousePosition = cam.ScreenToWorldPoint(mousePosition);
+
+            bool isOverUI = IsMouseOverUI(mousePosition);
+
+            if (isOverUI)
+                AddPositionToLineRenderer(worldMousePosition);
+        }
+    }
+
+    private bool IsMouseOverUI(Vector3 mousePosition)
+    {
+        for (int i = 0; i < UiLength; i++)
+        {
+            if (RectTransformUtility.RectangleContainsScreenPoint(spots[i], mousePosition, cam))
             {
-                Debug.Log("ss");
-                Vector3 mousePosition = Input.mousePosition;
-                mousePosition.z = 10; // 원하는 Z 값으로 조정(카메라와의 거리)
-
-                Vector3 worldMousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
-                bool isOverUI = IsMouseOverUI(mousePosition);
-
-                // UI 이미지를 지나면 LineRenderer 위치 추가
-                if (isOverUI)
+                if (!completeSpot.Contains(spots[i]))
                 {
-                    AddPositionToLineRenderer(worldMousePosition);
+                    completeSpot.Add(spots[i]);
+                    UiIdx = i;
+
+                    return true;
+
                 }
             }
         }
-    }
 
-    // 마우스 위치가 UI 이미지 위에 있는지 여부를 반환
-    bool IsMouseOverUI(Vector3 mousePosition)
-    {
-        foreach (RectTransform uiElement in spots)
-        {
-            if (RectTransformUtility.RectangleContainsScreenPoint(uiElement, mousePosition))
-            {
-                return true;
-            }
-        }
         return false;
     }
 
-    // LineRenderer에 위치 추가
-    void AddPositionToLineRenderer(Vector3 position)
+    private void AddPositionToLineRenderer(Vector3 position)
     {
+        Vector2 screenPoint = Camera.main.WorldToScreenPoint(spots[UiIdx].position);
+        //https://blog.naver.com/bysmk14/221313438577
+        //유니티 UI의 월드 좌표
         line.positionCount++;
-        line.SetPosition(line.positionCount - 1, position);
+        line.SetPosition(line.positionCount - 1, screenPoint);
     }
 }
