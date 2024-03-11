@@ -12,6 +12,8 @@ public class SpaceShip : UpgradeStat
     private Vector2 _spaceShipDir;
     public SpaceObject[] spaceObjects;
 
+    [SerializeField] private SpaceBackground background;
+
     private void OnMove(Vector2 value)
     {
         _spaceShipDir = value;
@@ -36,6 +38,9 @@ public class SpaceShip : UpgradeStat
         {
             spaceObject.SetDir(-transform.up * Acceleration());
         }
+
+        //우주배경
+        background.SetDir(5 * Time.deltaTime * transform.up);
     } 
 
     private float Acceleration()
