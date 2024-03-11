@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 
 public class Mine : MonoBehaviour
 {
@@ -8,11 +9,15 @@ public class Mine : MonoBehaviour
     public float EmergencyRange = 3f;
     public float WarningRange = 6f;
 
+    private float maxIntensity = 10;
+
     private SpriteRenderer spriteRenderer;
+    private Light2D light;
 
     private void Awake()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        light = GetComponentInChildren<Light2D>();
     }
 
     private void Update()
@@ -24,12 +29,13 @@ public class Mine : MonoBehaviour
         {
             //SwitchState(State.Emergency);
             spriteRenderer.color = new Color(1, 1, 1, 1);
+            //light.intensity = 1;
         }
         else if (distanceToPlayer < WarningRange)
         {
             //SwitchState(State.Warning);
             spriteRenderer.color = new Color(1, 1, 1, 1 - ((distanceToPlayer - EmergencyRange) / totalDistance));
-            print(1 - ((distanceToPlayer - EmergencyRange) / totalDistance));
+            light.intensity = Mathf.Clamp(maxIntensity - ((distanceToPlayer - EmergencyRange) / totalDistance * maxIntensity), 0, maxIntensity);
         }
         else
         {
