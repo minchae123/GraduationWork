@@ -40,7 +40,7 @@ public class SpaceShip : UpgradeStat
         }
 
         //우주배경
-        background.SetDir(5 * Time.deltaTime * transform.up);
+        background.SetDir(Acceleration() * Time.deltaTime * transform.up);
     } 
 
     private float Acceleration()
