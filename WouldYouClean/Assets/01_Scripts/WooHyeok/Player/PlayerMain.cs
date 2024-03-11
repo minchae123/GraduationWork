@@ -11,7 +11,7 @@ public  class PlayerMain : MonoBehaviour
     public static bool _isFKeyDown = false;
     public static bool _isQKeyDown = false;
     public static bool _isPlain = false;
-
+    
     private void Start()
     {
         _rb = transform.GetComponent<Rigidbody2D>();
