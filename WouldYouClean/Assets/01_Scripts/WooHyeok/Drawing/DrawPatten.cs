@@ -6,10 +6,14 @@ public class DrawPatten : MonoBehaviour
 {
     [SerializeField] private Camera cam;
     [SerializeField] private RectTransform[] spots;
+    [SerializeField] private string passWord;
 
     private LineRenderer line;
     private HashSet<RectTransform> completeSpot = new HashSet<RectTransform>();
 
+    private Vector3 worldMousePosition;
+
+    private string enterPassWord = null;
     private int UiLength;
     private int UiIdx;
 
@@ -22,46 +26,66 @@ public class DrawPatten : MonoBehaviour
 
     private void Update()
     {
+        StartLine();
+    }
+
+    private void StartLine()
+    {
         if (Input.GetMouseButton(0))
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10;
 
-            Vector3 worldMousePosition = cam.ScreenToWorldPoint(mousePosition);
+            worldMousePosition = cam.ScreenToWorldPoint(mousePosition);
 
-            bool isOverUI = IsMouseOverUI(mousePosition);
-
-            if (isOverUI)
-                AddPositionToLineRenderer(worldMousePosition);
+            MouseOverUI(mousePosition);
         }
     }
 
-    private bool IsMouseOverUI(Vector3 mousePosition)
+    private bool ExistSet(int idx) => completeSpot.Contains(spots[idx]);
+
+    private void MouseOverUI(Vector3 mousePosition)
     {
         for (int i = 0; i < UiLength; i++)
         {
             if (RectTransformUtility.RectangleContainsScreenPoint(spots[i], mousePosition, cam))
             {
-                if (!completeSpot.Contains(spots[i]))
+                if (!ExistSet(i))
                 {
-                    completeSpot.Add(spots[i]);
-                    UiIdx = i;
+                    VisitSpot(i);
 
-                    return true;
-
+                    break;
                 }
             }
         }
-
-        return false;
     }
 
-    private void AddPositionToLineRenderer(Vector3 position)
+    private void VisitSpot(int idx)
     {
-        Vector2 screenPoint = Camera.main.WorldToScreenPoint(spots[UiIdx].position);
-        //https://blog.naver.com/bysmk14/221313438577
-        //유니티 UI의 월드 좌표
+        completeSpot.Add(spots[idx]);
+        UiIdx = idx;
+
+        DrawLine(worldMousePosition);
+    }
+
+    private void DrawLine(Vector3 position)
+    {
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(cam, spots[UiIdx].position);
+        Vector3 result = Vector3.zero;
+
+        RectTransformUtility.ScreenPointToWorldPointInRectangle(spots[UiIdx], screenPos, cam, out result);
+
         line.positionCount++;
-        line.SetPosition(line.positionCount - 1, screenPoint);
+        line.SetPosition(line.positionCount - 1, result);
+
+        SuccessPatten();
+    }
+
+    private void SuccessPatten()
+    {
+        enterPassWord += UiIdx.ToString();
+
+        if (passWord == enterPassWord)
+            print("Success!!!");
     }
 }
