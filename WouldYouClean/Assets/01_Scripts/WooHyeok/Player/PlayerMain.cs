@@ -15,7 +15,7 @@ public  class PlayerMain : MonoBehaviour
     private void Start()
     {
         _rb = transform.GetComponent<Rigidbody2D>();
-        _animator = transform.Find("Visual").GetComponent<Animator>();
+        _animator = transform.GetChild(0).GetComponent<Animator>();
         _spriteRenderer = transform.Find("Visual").GetComponent<SpriteRenderer>();
     }
 }
