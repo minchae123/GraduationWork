@@ -24,13 +24,12 @@ public class InterfaceObject : PlayerMain
 
     private void Awake()
     {
-        _panelRect = _panel.GetComponent<RectTransform>();
+        //_panelRect = _panel.GetComponent<RectTransform>();
        _dictionalyRect = _dictionaly.GetComponent<RectTransform>();
     }
 
 	private void Start()
 	{
-		_camera = GameManager.Instance.mainCam;
 	}
 
 	public void Update()
