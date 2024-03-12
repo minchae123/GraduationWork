@@ -73,6 +73,7 @@ public class Shop : MonoSingleton<Shop>
     }
     public void ExitShop()
     {
+        print("CLick");
         mainShopTrm.gameObject.SetActive(false);
 
         Inventory.Instance.SetShopItem(mainShopItem, shopDictionary);
@@ -88,6 +89,7 @@ public class Shop : MonoSingleton<Shop>
     {
         sellingShop.gameObject.SetActive(false); // ÆÇ¸Å´Â ²ô°í
         purchaseShop.gameObject.SetActive(true);// ±¸¸Å´Â Å´
+        print("Purchase");
         DestoryItemInShop();
         SetItemInShop();
     }
@@ -95,6 +97,7 @@ public class Shop : MonoSingleton<Shop>
     {
         sellingShop.gameObject.SetActive(true); // À§¶û ¹Ý´ë
         purchaseShop.gameObject.SetActive(false);//
+        print("Sell");
         DestoryItemInShop();
     }
     #endregion

@@ -40,9 +40,9 @@ public class Inventory : MonoBehaviour, ISaveManager
         {
             ItemSlotUI slot = Instantiate(slotPrefab, invenSlotParent);
             itemSlots[i] = slot;
+            print(slot);
         }
         UpdateSlotUI();
-
     }
 
     public List<InventoryItem> ReturnInvenList() => mainInventory;
