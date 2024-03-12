@@ -66,6 +66,7 @@ public class DrawPatten : MonoBehaviour
         UiIdx = idx;
 
         DrawLine(worldMousePosition);
+        DrawLine(worldMousePosition);
     }
 
     private void DrawLine(Vector3 position)
@@ -82,7 +83,7 @@ public class DrawPatten : MonoBehaviour
     }
 
     private void SuccessPatten()
-    {
+    {             
         enterPassWord += UiIdx.ToString();
 
         if (passWord == enterPassWord)
