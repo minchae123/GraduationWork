@@ -7,6 +7,7 @@ public class PlayerMoveMent : PlayerMain
     [SerializeField] private InputReader _input;
     [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
+	[SerializeField] private float maxDistance;
 
     [HideInInspector] public Vector2 _direction;
 
@@ -24,6 +25,8 @@ public class PlayerMoveMent : PlayerMain
     void Update()
     {
         _rb.velocity = _direction * _curSpeed;
+
+        transform.position = Vector3.ClampMagnitude(transform.position, maxDistance);
     }
 
     private void OnFKeyDown(bool value)
