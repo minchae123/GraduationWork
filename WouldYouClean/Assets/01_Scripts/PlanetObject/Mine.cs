@@ -6,7 +6,7 @@ public class Mine : MonoBehaviour
     private enum State { Emergency, Warning, Normal }
     private State currentState = State.Normal;
 
-    private float EmergencyRange = 0f; //이걸 3으로 하지 않아도 계속 확인 할 때 3으로 되는데 어떻게 함?
+    private float EmergencyRange = 2f; //이걸 3으로 하지 않아도 계속 확인 할 때 3으로 되는데 어떻게 함?
     private float WarningRange = 8f;
 
     private float maxIntensity = 3;
