@@ -17,8 +17,8 @@ public class ProgressDisplay : MonoBehaviour
     {
         if (progressText != null)
         {
-            float progressPercentage = (float)MapManager.Instance.CurrentMapTrash.Count / MapManager.Instance.Map.GetComponent<GarbageSpawner>().GarbageCount * 100f;
-            progressText.text = "진행도: " + progressPercentage.ToString("F1") + "%";
+            //float progressPercentage = (float)MapManager.Instance.CurrentMapTrash.Count / MapManager.Instance.Map.GetComponent<GarbageSpawner>().GarbageCount * 100f;
+            //progressText.text = "진행도: " + progressPercentage.ToString("F1") + "%";
         }
     }
 }
