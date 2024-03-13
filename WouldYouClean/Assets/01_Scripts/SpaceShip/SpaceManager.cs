@@ -30,10 +30,10 @@ public class SpaceManager : MonoBehaviour
     //셰이더 설정하기
 
     [Header("Player")]
-    [SerializeField] private GameObject player;
-    [SerializeField] private Transform inSpaceshipPos;
-    [SerializeField] private Transform inPlanetPos;
-    public bool isInSpaceship;
+    [SerializeField] private GameObject _player;
+    [SerializeField] private Transform _spaceshipPos;
+    //[SerializeField] private Transform _inPlanetPos;
+    public bool nearSpaceship;
 
     [Header("SpaceShip")]
     public InputReader input;
@@ -62,6 +62,11 @@ public class SpaceManager : MonoBehaviour
         Interaction();
 
         VisualRange();
+
+        if (Vector2.Distance(_spaceshipPos.position, _player.transform.position) < 2)
+            nearSpaceship = true;
+        else 
+            nearSpaceship = false;
     }
 
     private void VisualRange()
@@ -101,7 +106,7 @@ public class SpaceManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.F))
             {
-                if (isLanding && !isFlight && isInSpaceship /*&& 우주선 출발 버튼*/)
+                if (isLanding && !isFlight && nearSpaceship)
                 {
                     StartCoroutine(SpaceshipLaunch());
                 }
@@ -132,10 +137,10 @@ public class SpaceManager : MonoBehaviour
         }
 
         //임시 테스트용 /입구에서 상호작용누르면 행성으로 행성내 우주선에서 누르면 우주선안으로
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            StartCoroutine(PlayerPosChange());
-        }
+        //if (Input.GetKeyDown(KeyCode.R))
+        //{
+        //    StartCoroutine(PlayerPosChange());
+        //}
     }
 
     void Interacting()
@@ -153,6 +158,8 @@ public class SpaceManager : MonoBehaviour
         Interacting();
         _targetSize = 5;
         _targetStarSize = 5;
+
+        _player.transform.position = _spaceshipPos.position;
 
         isFlight = false;
         isLanding = true;
@@ -200,23 +207,24 @@ public class SpaceManager : MonoBehaviour
         FadePanel.DOFade(0, .75f);
     }
 
-    private IEnumerator PlayerPosChange() 
-    {
-        Interacting();
-        isInSpaceship = !isInSpaceship;
+    //혹시 몰라 남겨놓기
+    //private IEnumerator PlayerPosChange() 
+    //{
+    //    Interacting();
+    //    nearSpaceship = !nearSpaceship;
 
-        FadePanel.DOFade(1, .75f);
-        yield return new WaitForSeconds(1f);
-        //우주선 내부인지
-        if (isInSpaceship)
-        {
-            player.transform.position = inSpaceshipPos.position;
-        }
-        else
-        {
-            player.transform.position = inPlanetPos.position;
-        }
-        yield return new WaitForSeconds(1f);
-        FadePanel.DOFade(0, .75f).OnComplete(Finish);
-    }
+    //    FadePanel.DOFade(1, .75f);
+    //    yield return new WaitForSeconds(1f);
+    //    //우주선 내부인지
+    //    if (nearSpaceship)
+    //    {
+    //        player.transform.position = inSpaceshipPos.position;
+    //    }
+    //    else
+    //    {
+    //        player.transform.position = inPlanetPos.position;
+    //    }
+    //    yield return new WaitForSeconds(1f);
+    //    FadePanel.DOFade(0, .75f).OnComplete(Finish);
+    //}
 }
