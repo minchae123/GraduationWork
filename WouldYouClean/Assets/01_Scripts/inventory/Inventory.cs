@@ -13,7 +13,8 @@ public class Inventory : MonoBehaviour, ISaveManager
     [SerializeField] private Transform invenSlotParent; // 슬롯 부모
     [SerializeField] private ItemSlotUI slotPrefab;
 
-    private int inventoryLength = 3; // 초기 인벤토리
+    [Header("수정 가능")]
+    [SerializeField] private int inventoryLength = 3; // 초기 인벤토리
     private int maxInventoryLength = 10; // 최대 인벤토리
     private ItemSlotUI[] itemSlots; // 슬롯 부모에서 가져올 slotUI들 (prefab)
 
