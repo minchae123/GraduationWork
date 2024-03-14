@@ -11,6 +11,7 @@ public class DrawPatten : MonoBehaviour
     private LineRenderer line;
     private HashSet<RectTransform> completeSpot = new HashSet<RectTransform>();
 
+    private Vector3 saveSpot = Vector3.zero;
     private Vector3 worldMousePosition;
 
     private string enterPassWord = null;
@@ -40,6 +41,18 @@ public class DrawPatten : MonoBehaviour
 
             MouseOverUI(mousePosition);
         }
+        else if (Input.GetMouseButtonUp(0))
+        {
+            SuccessPw(passWord.Length == enterPassWord.Length);
+            ResetLine();
+        }
+    }
+
+    private void ResetLine()
+    {
+        line.positionCount = 0;
+        completeSpot.Clear();
+        enterPassWord = null;
     }
 
     private bool ExistSet(int idx) => completeSpot.Contains(spots[idx]);
@@ -65,8 +78,22 @@ public class DrawPatten : MonoBehaviour
         completeSpot.Add(spots[idx]);
         UiIdx = idx;
 
+        UndoCorner(spots[idx]);
         DrawLine(worldMousePosition);
-        DrawLine(worldMousePosition);
+    }
+
+    private void UndoCorner(RectTransform spot)
+    {
+        if (saveSpot.x == spot.position.x || saveSpot.y == spot.position.y)
+        {
+            line.numCornerVertices = 0;
+        }
+        else
+        {
+            line.numCornerVertices = 10;
+        }
+
+        saveSpot = spot.position;
     }
 
     private void DrawLine(Vector3 position)
@@ -79,14 +106,19 @@ public class DrawPatten : MonoBehaviour
         line.positionCount++;
         line.SetPosition(line.positionCount - 1, result);
 
-        SuccessPatten();
+        CheckPatten();
     }
 
-    private void SuccessPatten()
-    {             
+    private void CheckPatten()
+    {
         enterPassWord += UiIdx.ToString();
+    }
 
-        if (passWord == enterPassWord)
+    private void SuccessPw(bool value)
+    {
+        if (value)
             print("Success!!!");
+        else
+            print("Fail!");
     }
 }
