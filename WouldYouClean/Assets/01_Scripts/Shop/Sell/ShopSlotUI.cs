@@ -5,9 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDragHandler, IPointerClickHandler
+public class ShopSlotUI : MonoBehaviour, IPointerClickHandler// IBeginDragHandler, IDragHandler,IEndDragHandler, 
 {
-    private InventoryItem sellingItem;
+    public InventoryItem sellingItem;
     private int itemCnt = 0;
 
     [Header("UI")]
@@ -16,7 +16,7 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
     [SerializeField] private Image itemImage;
     private Image dragImage;
 
-    #region 드래그 이벤트
+    /*#region 드래그 이벤트
     public void OnBeginDrag(PointerEventData eventData)
     {
         dragImage = Instantiate(itemImage);
@@ -46,7 +46,7 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
 
         }
     }
-    #endregion
+    #endregion*/
 
     public void UpdateSlot(InventoryItem newItem)
     {
@@ -88,6 +88,7 @@ public class ShopSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler,IEndDra
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        //if (sellingItem == null || sellingItem.itemData == null) { print("nothing to sell"); return; }
         Shop.Instance.SetTable(sellingItem.itemData); // 클릭
     }
 }
