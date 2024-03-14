@@ -43,5 +43,4 @@ public class GarbageSpawner : MonoBehaviour
 
         return transform.position + new Vector3(x, y, 0);
     }
-
 }
