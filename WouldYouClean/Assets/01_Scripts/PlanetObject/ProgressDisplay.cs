@@ -9,7 +9,7 @@ public class ProgressDisplay : MonoBehaviour
     {
         if (progressText == null)
         {
-            Debug.LogError("Progress Text is not assigned!");
+            //Debug.LogError("Progress Text is not assigned!");
         }
     }
 
