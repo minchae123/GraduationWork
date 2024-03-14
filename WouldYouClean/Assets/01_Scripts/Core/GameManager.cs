@@ -6,6 +6,7 @@ public class GameManager : MonoSingleton<GameManager>
 {
     public Dictionary<string, int> _items;
     public Transform _playerTrm;
+    public Transform SpaceShipTrm;
     public Camera mainCam;
 
     // Start is called before the first frame update
