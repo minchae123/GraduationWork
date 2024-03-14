@@ -207,7 +207,7 @@ public class SpaceManager : MonoBehaviour
         _fire.Play();
         yield return new WaitForSeconds(1f);
         input.enabled = true;
-        curPlanet.clean = true; //진행도가 완료되면 클리어로 바꾸기
+        //curPlanet.clean = true; //진행도가 완료되면 클리어로 바꾸기
         Finish();
     }
     #endregion

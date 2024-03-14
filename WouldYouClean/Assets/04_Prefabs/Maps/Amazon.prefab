@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6601939752496024510}
   - component: {fileID: 2350913521389361326}
-  - component: {fileID: 8199261690774701868}
   m_Layer: 0
   m_Name: MapManager
   m_TagString: Untagged
@@ -49,19 +48,6 @@ MonoBehaviour:
   MinInclusive: 20
   MaxInclusive: 20
   CurrentMapTrash: []
---- !u!114 &8199261690774701868
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1880618909123288146}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd2ab34b33c550e4a9258b7ef6b08ee2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  progressText: {fileID: 0}
 --- !u!1 &2785636092651300903
 GameObject:
   m_ObjectHideFlags: 0
@@ -79,7 +65,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2785636092651300901
 Transform:
   m_ObjectHideFlags: 0
@@ -136,8 +122,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2033943677
+  m_SortingLayer: 1
   m_SortingOrder: -1
   m_Sprite: {fileID: 342546945, guid: 6a5e6255d99d804489a30f5ecdc44ac2, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -231,7 +217,7 @@ MonoBehaviour:
   m_Intensity: 1
   m_LightVolumeIntensity: 1
   m_LightVolumeIntensityEnabled: 0
-  m_ApplyToSortingLayers: 0000000063c6cc72
+  m_ApplyToSortingLayers: 837bc486
   m_LightCookieSprite: {fileID: 0}
   m_DeprecatedPointLightCookieSprite: {fileID: 0}
   m_LightOrder: 0
@@ -15149,8 +15135,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -2033943677
+  m_SortingLayer: 1
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
