@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class ItemSlotUI : MonoBehaviour//, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     private Image dragImage; // 드래그 할 때 이미지
     [SerializeField] private Image itemImage; // 아이템 이미지
@@ -42,7 +42,7 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         itemImage.color = new Color(1, 1, 1, 0);
         itemAmountText.text = string.Empty;
     }
-
+/*
     // 드래그 앤 드랍
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -80,7 +80,7 @@ public class ItemSlotUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
             Vector2 worldPos = Camera.main.ScreenToWorldPoint(eventData.position);
             CreateItem(worldPos);
         }
-    }
+    }*/
 
     public void CreateItem(Vector2 pos)
     {
