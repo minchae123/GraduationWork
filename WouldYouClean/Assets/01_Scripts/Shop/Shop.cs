@@ -50,6 +50,14 @@ public class Shop : MonoSingleton<Shop>
         shopDictionary = new Dictionary<ObjectType, InventoryItem>();
     }
 
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.B))
+        {
+            EnterShop();
+        }
+    }
+
     #region 버튼 클릭
     public void EnterShop()
     {
@@ -89,7 +97,7 @@ public class Shop : MonoSingleton<Shop>
     {
         sellingShop.gameObject.SetActive(false); // 판매는 끄고
         purchaseShop.gameObject.SetActive(true);// 구매는 킴
-        print("Purchase");
+        //print("Purchase");
         DestoryItemInShop();
         SetItemInShop();
     }
@@ -97,7 +105,7 @@ public class Shop : MonoSingleton<Shop>
     {
         sellingShop.gameObject.SetActive(true); // 위랑 반대
         purchaseShop.gameObject.SetActive(false);//
-        print("Sell");
+        //print("Sell");
         DestoryItemInShop();
     }
     #endregion
@@ -109,7 +117,6 @@ public class Shop : MonoSingleton<Shop>
     public void SetTable(ObjectType item)
     {
         sellingItemTable.SetItem(item);
-        RemoveItem(item);
         UpdateSlotUI();
     }
     public void AddItem(ObjectType item, int cnt = 1)
@@ -126,6 +133,8 @@ public class Shop : MonoSingleton<Shop>
 
             mainShopItem.Add(newItem);
             shopDictionary.Add(item, newItem);
+
+            newItem.AddItemCnt(cnt - 1);
         }
 
         UpdateSlotUI();

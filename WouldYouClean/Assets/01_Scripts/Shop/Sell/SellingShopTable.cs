@@ -27,9 +27,17 @@ public class SellingShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void SetItem(ObjectType item)
     {
+        if (currentItem == item)
+        {
+            IncreaseAmount();
+            return;
+        }
+
+        Shop.Instance.RemoveItem(item);
+
         if (currentItem != null) // 현재 테이블에 아이템 있을 경우
         {
-            Shop.Instance.AddItem(currentItem, itemAmount);
+            Shop.Instance.AddItem(currentItem, itemAmount); // 현재 아이템을, itemAmount만큼 넣어
             ResetItem();
         }
 
@@ -46,12 +54,11 @@ public class SellingShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExi
         
         itemImage.sprite = null;
         
-        itemName.text = "아이템을 드래그 해주세요";
+        itemName.text = "아이템을 클릭 해주세요";
         itemPrice.text = string.Empty;
-        itemAmountText.text = $"{1}";
-        
         itemAmount = 1;
-    }
+        itemAmountText.text = $"{itemAmount}";
+     }
     public void OnPointerEnter(PointerEventData eventData)
     {
         isTable = true;
@@ -83,7 +90,7 @@ public class SellingShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExi
     }
     public void DecreaseAmount()
     {
-        if (itemAmount <= 0) return;
+        if (itemAmount <= 1) return;
         Shop.Instance.AddItem(currentItem);
         itemAmount--;
 
