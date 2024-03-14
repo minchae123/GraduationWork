@@ -66,7 +66,6 @@ public class DrawPatten : MonoBehaviour
                 if (!ExistSet(i))
                 {
                     VisitSpot(i);
-
                     break;
                 }
             }
