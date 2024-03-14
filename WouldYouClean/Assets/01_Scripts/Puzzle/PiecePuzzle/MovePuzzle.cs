@@ -34,6 +34,7 @@ public class MovePuzzle : MonoBehaviour
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
+			print("as");
 			Vector3 mouse = cam.ScreenToWorldPoint(Input.mousePosition);
 
 			startPos = new Vector2(mouse.x - transform.localPosition.x, mouse.y - transform.localPosition.y);
@@ -52,6 +53,8 @@ public class MovePuzzle : MonoBehaviour
 		}
 		else
 		{
+			//Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+			//transform.position = new Vector2(mousePos.x - startPos.x, mousePos.y - startPos.y);
 			transform.position = resetPos;
 		}
 	}
