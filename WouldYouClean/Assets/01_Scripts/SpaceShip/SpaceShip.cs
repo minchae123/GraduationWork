@@ -28,6 +28,14 @@ public class SpaceShip : UpgradeStat
     private void Update()
     {
         Move();
+
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            _maxSpeed = 10;
+            _curSpeed = 10;
+        }
+        else
+            _maxSpeed = 5;
     }
 
     public void Move()
@@ -55,12 +63,12 @@ public class SpaceShip : UpgradeStat
         {
             _curSpeed -= _acceleration * Time.deltaTime;
         }
-        return Mathf.Clamp(_curSpeed, 1f, _maxSpeed);
+        return Mathf.Clamp(_curSpeed, 0, _maxSpeed);
     }
 
     private void LimitSpeed()
     {
         if (_curSpeed > _maxSpeed) _curSpeed = _maxSpeed;
-        if (_curSpeed < 1f) _curSpeed = 1f;
+        if (_curSpeed < 0f) _curSpeed = 0f;
     }
 }
