@@ -33,7 +33,7 @@ public class Mine : MonoBehaviour
         {
             //SwitchState(State.Emergency);
             spriteRenderer.color = new Color(1, 1, 1, 1);
-            print(distanceToPlayer);
+            //print(distanceToPlayer);
             light.color = new Color(light.color.r, light.color.g, light.color.b, 1);
         }
         else if (distanceToPlayer < WarningRange)
