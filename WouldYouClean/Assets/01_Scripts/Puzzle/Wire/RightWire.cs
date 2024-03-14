@@ -37,12 +37,9 @@ public class RightWire : MonoBehaviour, IPointerClickHandler, IDropHandler
 		if(ltype == wireType)
 		{
 			wire.isColor[(int)wireType] = true;
-			print(true);
 		}
 		else
 		{
-			print(wireType);
-			print(ltype);
 		}
 
 	}
