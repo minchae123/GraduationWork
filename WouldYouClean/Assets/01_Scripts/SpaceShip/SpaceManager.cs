@@ -89,17 +89,21 @@ public class SpaceManager : MonoBehaviour
         }
 
         if (curPlanet != null)
+        {
             if (Vector2.Distance(spaceship.transform.position, curPlanet.transform.position) < 7)
             {
                 //행성주변 사각형으로 선택된거같은 표시  
                 curPlanet.interacted = true;
                 canLanding = true;
+                curPlanet._inPlanet.SetActive(true);
             }
             else
             {
                 curPlanet.interacted = false;
                 canLanding = false;
+                curPlanet._inPlanet.SetActive(false);
             }
+        }
 
         //상호작용 가능상태
         if (canInteraction)
@@ -107,7 +111,7 @@ public class SpaceManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 if (isLanding && !isFlight && nearSpaceship)
-                {
+                {                    
                     StartCoroutine(SpaceshipLaunch());
                 }
                 else if (isFlight && canLanding && !curPlanet.clean)
