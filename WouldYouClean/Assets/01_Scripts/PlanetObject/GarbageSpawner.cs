@@ -5,10 +5,10 @@ public class GarbageSpawner : MonoBehaviour
 {
     [SerializeField] DivideObj _garbagePrefab;
 
-
     public int GarbageCount;
     List<Vector3> _spawnedPositions = new List<Vector3>();
     public List<ObjectType> TrashTypeList = new List<ObjectType>();
+    private float mapRadius = 30f; // 맵 크기를 나중에 넣어야 할 수도 있습니다.
 
     private void Start()
     {
@@ -17,7 +17,7 @@ public class GarbageSpawner : MonoBehaviour
         for (int i = 0; i < GarbageCount; i++)
         {
             // 새로운 오브젝트의 위치를 찾을 때까지 반복
-            Vector3 spawnPosition = GetRandomPosition();
+            Vector3 spawnPosition = GetRandomPositionInCircle();
 
             GameObject newGarbage = Instantiate(_garbagePrefab.gameObject, spawnPosition, Quaternion.identity);
 
@@ -27,38 +27,20 @@ public class GarbageSpawner : MonoBehaviour
             MapManager.Instance.CurrentMapTrash.Add(_garbagePrefab);
 
             newGarbage.transform.parent = transform;
+            //Debug.Log("Distance: " + Vector3.Distance(Vector3.zero, spawnPosition) + " " + i);
         }
 
         Debug.Log("Generated " + GarbageCount + " garbage objects.");
     }
 
-    private Vector3 GetRandomPosition()
+    private Vector3 GetRandomPositionInCircle()
     {
-        float x, y;
-        Vector3 spawnPosition;
+        float radius = Mathf.Sqrt(Random.Range(0f, 1f)) * mapRadius;
+        float angle = Random.Range(0f, Mathf.PI * 2f);
 
-        do
-        {
-            x = Random.Range(-transform.localScale.x / 2f, transform.localScale.x / 2f);
-            y = Random.Range(-transform.localScale.y / 2f, transform.localScale.y / 2f);
+        float x = radius * Mathf.Cos(angle);
+        float y = radius * Mathf.Sin(angle);
 
-            spawnPosition = transform.position + new Vector3(x, y, 0);
-        } while (IsPositionOverlapping(spawnPosition));
-
-        return spawnPosition;
+        return transform.position + new Vector3(x, y, 0);
     }
-
-    private bool IsPositionOverlapping(Vector3 position) // 겹치는지 확인
-    {
-        foreach (Vector3 spawnedPosition in _spawnedPositions)
-        {
-            float distance = Vector3.Distance(position, spawnedPosition);
-            if (distance < 2.0f) // 떨어진 거리
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
 }
