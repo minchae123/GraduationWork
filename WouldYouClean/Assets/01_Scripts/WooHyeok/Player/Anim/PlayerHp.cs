@@ -6,23 +6,25 @@ using DG.Tweening;
 
 public class PlayerHp : PlayerMain
 {
-    [SerializeField] private Image _breathBar;
-    [SerializeField] private Image _hpBar;
-    [SerializeField] private float _breath = 150f;
+    [SerializeField] private Slider _breathBar;
+    [SerializeField] private Slider _hpBar;
+
+    [SerializeField] private float _limitHp;
+    [SerializeField] private float _limitBreath;
+    [SerializeField] private float _value = 5f;
 
     public bool _istest = false;
 
+    private float _breath;
     private float _hp;
-    private float _limitBreath;
-    private bool _isch = false;
-
-    private Sequence _hpSeq;
 
     private void Awake()
     {
-        _hp = _breath;
-        _limitBreath = _hp;
-        _hpSeq = DOTween.Sequence();
+        _hp = _limitHp;
+        _breath = _limitBreath;
+
+        _breathBar.maxValue = _limitBreath;
+        _hpBar.maxValue = _limitHp;
     }
 
     public void Update()
@@ -30,65 +32,55 @@ public class PlayerHp : PlayerMain
         _isPlain = _istest;
 
         divideHp();
+        UpdateSlider();
+    }
+
+    private void UpdateSlider()
+    {
+        if (_isPlain)
+        {
+            _breath = IncValue(_breath, _limitBreath);
+            _hp = IncValue(_hp, _limitHp);
+        }
+        else
+        {
+            _breath = DecValue(_breath);
+
+            if(_breath <= 0)
+            _hp = DecValue(_hp);
+        }
+
+        _hpBar.value = _hp;
+        _breathBar.value = _breath;
     }
 
     private void divideHp()
     {
         _breath = Mathf.Clamp(_breath, 0f, _limitBreath);
+        _hp = Mathf.Clamp(_hp, 0f, _limitBreath);
 
-        DotBreathSlider();
-        DotHphSlider();
-    }
-
-    private float DecValue(float value)
-    {
-        if (!_isPlain && value > 0)
-            value -= 20f * Time.deltaTime;
-
-        return value;
     }
 
     private float IncValue(float value, float limit)
     {
         if (_isPlain && value < limit)
-            value += 20f * Time.deltaTime;
+            value += _value * Time.deltaTime;
 
         return value;
     }
 
-    private void DotBreathSlider()
+    private float DecValue(float value)
     {
-        RectTransform rect = _breathBar.GetComponent<RectTransform>();
-        _hpSeq.Append(
-        rect.DOSizeDelta(new Vector2(rect.sizeDelta.x, _breath), 0.1f).OnComplete(() =>
-        {
-            _breath = DecValue(_breath);
-            _breath = IncValue(_breath, _limitBreath);
+        if (!_isPlain && value > 0)
+            value -= _value * Time.deltaTime;
 
-            if (_breath <= 0)
-            {
-                DotHphSlider();
-            }
-        }));
+        return value;
     }
 
-    private void DotHphSlider()
+    private void Die()
     {
-        _isch = true;
-
-        RectTransform rect = _hpBar.GetComponent<RectTransform>();
-        _hpSeq.Append(rect.DOSizeDelta(new Vector2(rect.sizeDelta.x, _hp), 0.1f).SetLoops(1, LoopType.Incremental).OnComplete(() =>
-        {
-            if (_breath <= 0)
-                _hp = DecValue(_hp);
-
-            _hp = IncValue(_hp, 150);
-
-            if (_hp <= 0)
-            {
-                //print("죽음");//죽음 모션이나 이것 저것 하는 곳
-            }
-        }));
+        //if(_hp <= 0)
+            //죽음
     }
 
     public void OnDamage(float damage)
