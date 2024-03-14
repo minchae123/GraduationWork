@@ -18,7 +18,10 @@ public class PiecePuzzle : MonoBehaviour
 	private void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Q))
+		{
 			print(CheckAnswer());
+
+		}
 	}
 
 	public bool CheckAnswer()
