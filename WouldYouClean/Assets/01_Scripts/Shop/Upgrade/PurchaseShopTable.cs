@@ -31,6 +31,7 @@ public class PurchaseShopTable : MonoBehaviour
 
     public void OnClickBuyButton()
     {
+        if (buyItem == null) return;
         Shop.Instance.BuyItem(buyItem);
     }
 }
