@@ -12,6 +12,7 @@ public class PlanetInSpace : SpaceObject
     public bool clean;
     public bool interacted;
     [SerializeField] private GameObject _detectObj;
+    public GameObject _inPlanet;
 
     private void Awake()
     {
