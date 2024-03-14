@@ -5,10 +5,13 @@ using UnityEngine;
 
 public class GasStation : MonoBehaviour
 {
-	private void OnTriggerEnter2D(Collider2D collision)
+	public GameObject puzzle;
+
+	private void OnTriggerStay2D(Collider2D collision)
 	{
 		if(collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.F))
 		{
+			puzzle.SetActive(true);
 			print("hi");
 		}
 	}
