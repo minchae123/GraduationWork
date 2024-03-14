@@ -9,10 +9,11 @@ public class PlanetInSpace : SpaceObject
 {
     [SerializeField] private float _radius;
 
+    public bool found;
     public bool clean;
     public bool interacted;
     [SerializeField] private GameObject _detectObj;
-    public GameObject _inPlanet;
+    public GameObject inPlanet;
 
     private void Awake()
     {

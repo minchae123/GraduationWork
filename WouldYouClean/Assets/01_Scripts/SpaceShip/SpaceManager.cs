@@ -45,6 +45,9 @@ public class SpaceManager : MonoBehaviour
 
     [SerializeField] private ParticleSystem _fire;
 
+    private float _distance;
+    private float _shortDis;
+
     private void Awake()
     {
         canInteraction = true;
@@ -63,9 +66,10 @@ public class SpaceManager : MonoBehaviour
 
         VisualRange();
 
+        //콜라이더로 하시래요
         if (Vector2.Distance(_spaceshipPos.position, _player.transform.position) < 2)
             nearSpaceship = true;
-        else 
+        else
             nearSpaceship = false;
     }
 
@@ -82,10 +86,19 @@ public class SpaceManager : MonoBehaviour
     private void Interaction()
     {
         //거리 측정
+        _shortDis = Vector2.Distance(_spaceshipPos.position, Planets[0].transform.position);
+
         foreach (PlanetInSpace planet in Planets)
         {
-            if (Vector2.Distance(spaceship.transform.position, planet.transform.position) < 7)
+            //if (Vector2.Distance(spaceship.transform.position, planet.transform.position) < 7)
+
+            _distance = Vector2.Distance(spaceship.transform.position, planet.transform.position);
+
+            if (_distance < _shortDis)
+            {
                 curPlanet = planet;
+                _shortDis = _distance;
+            }
         }
 
         if (curPlanet != null)
@@ -95,13 +108,13 @@ public class SpaceManager : MonoBehaviour
                 //행성주변 사각형으로 선택된거같은 표시  
                 curPlanet.interacted = true;
                 canLanding = true;
-                curPlanet._inPlanet.SetActive(true);
+                curPlanet.inPlanet.SetActive(true);
             }
             else
             {
                 curPlanet.interacted = false;
                 canLanding = false;
-                curPlanet._inPlanet.SetActive(false);
+                curPlanet.inPlanet.SetActive(false);
             }
         }
 
@@ -111,7 +124,7 @@ public class SpaceManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.F))
             {
                 if (isLanding && !isFlight && nearSpaceship)
-                {                    
+                {
                     StartCoroutine(SpaceshipLaunch());
                 }
                 else if (isFlight && canLanding && !curPlanet.clean)
