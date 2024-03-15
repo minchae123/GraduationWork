@@ -11,4 +11,9 @@ public class SpaceObject : MonoBehaviour
     {
         _rb.velocity = dir;
     }
+
+    public void Power(Vector2 dir)
+    {
+        _rb.AddForce(dir * 5, ForceMode2D.Impulse);
+    }
 }

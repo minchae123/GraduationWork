@@ -4,21 +4,20 @@ using UnityEngine;
 
 public class AIUFO : SpaceObject
 {
-    Rigidbody2D rigid;
     public float speed;
 
     private void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     private void Update()
     {
-        Vector2 movement = transform.up * Time.deltaTime * speed;
-        rigid.velocity = movement;
+        Vector2 movement = transform.up * speed;
+        transform.position += new Vector3(movement.x, movement.y) * Time.deltaTime;
 
-        Vector2 direction = (Vector2)GameManager.Instance.SpaceShipTrm.position - rigid.position;
+        Vector2 direction = (Vector2)GameManager.Instance.SpaceShipTrm.position - _rb.position;
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90f;
-        rigid.rotation = angle;
+        _rb.rotation = angle;
     }
 }

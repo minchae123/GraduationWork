@@ -41,12 +41,12 @@ public class SpaceShip : UpgradeStat
         else if (_chargingTime > 0)
             _chargingTime -= 1 * Time.deltaTime;
 
-        if(_chargingTime > 1)
+        if (_chargingTime > 1)
         {
             _maxSpeed = 15;
             _curSpeed = _maxSpeed;
         }
-        else if(_chargingTime < 1 && _maxSpeed > 5)
+        else if (_chargingTime < 1 && _maxSpeed > 5)
         {
             if (_spaceShipDir.y < 0)
             {
@@ -65,7 +65,14 @@ public class SpaceShip : UpgradeStat
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    spaceObject.Power(transform.up);
+            //    Debug.Log(transform.up);
+            //}
+
             spaceObject.SetDir(-transform.up * Acceleration());
+
         }
 
         //우주배경
