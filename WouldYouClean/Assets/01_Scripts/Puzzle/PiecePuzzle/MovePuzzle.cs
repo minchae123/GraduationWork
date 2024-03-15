@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MovePuzzle : MonoBehaviour
 {
@@ -54,7 +55,8 @@ public class MovePuzzle : MonoBehaviour
 		else
 		{
 			//Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-			//transform.position = new Vector2(mousePos.x - startPos.x, mousePos.y - startPos.y);
+			//mousePos.z = 0;
+			//transform.position = mousePos;
 			transform.position = resetPos;
 		}
 	}

@@ -17,6 +17,7 @@ public class Wire : MonoBehaviour
 
 	public Vector2 clickPos;
 	public LineRenderer line;
+	public LineRenderer[] lines;
 
 	public bool isDrag;
 
@@ -54,5 +55,13 @@ public class Wire : MonoBehaviour
 		wireType = line.GetComponentInChildren<LeftWire>().WireType;
 
 		isDrag = true;
+	}
+
+	public void ResetLine()
+	{
+		foreach(var i in lines)
+		{
+			i.SetPosition(1, Vector3.zero);
+		}
 	}
 }

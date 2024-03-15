@@ -185,6 +185,7 @@ MonoBehaviour:
   wireType: 0
   clickPos: {x: 0, y: 0}
   line: {fileID: 0}
+  lines: []
   isDrag: 0
 --- !u!1 &88702098
 GameObject:
@@ -2389,6 +2390,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1013359237311932417, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1013359237311932417, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7158952199557040634, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
       propertyPath: m_Sprite
       value: 
@@ -2437,9 +2446,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7158952201527329732, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
+      propertyPath: maxDistance
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7158952201527329735, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786501995011269144, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7786501995011269144, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a550416ad2f80474a9349b1b7b39fa8b, type: 3}
@@ -15640,7 +15661,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1972253964
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16036,6 +16057,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5571128983098427741, guid: ef487c584df283849a6f99b98fdd5720, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571128984206189674, guid: ef487c584df283849a6f99b98fdd5720, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571128984235025562, guid: ef487c584df283849a6f99b98fdd5720, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5571128984739139582, guid: ef487c584df283849a6f99b98fdd5720, type: 3}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 5571128985045975923, guid: ef487c584df283849a6f99b98fdd5720, type: 3}
       propertyPath: m_Name
       value: PiecePuzzle
