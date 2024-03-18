@@ -48,6 +48,11 @@ public class UIManager : MonoSingleton<UIManager>
     {
         settingPanel.SetActive(false);
     }
+    public void OnExitAndSave()
+    {
+        // 게임 세이브하고
+        // 타이틀 화면으로 이동하는 로직
+    }
     #endregion
 
     private void Update()
