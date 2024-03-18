@@ -11,7 +11,6 @@ public  class PlayerMain : MonoBehaviour
     public static bool _isFKeyDown = false;
     public static bool _isQKeyDown = false;
     public static bool _isPlain = false;
-    public static bool _isAnim = false;
 
     private void Start()
     {
