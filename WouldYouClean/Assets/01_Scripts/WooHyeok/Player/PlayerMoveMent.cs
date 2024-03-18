@@ -7,7 +7,7 @@ public class PlayerMoveMent : PlayerMain
     [SerializeField] private InputReader _input;
     [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
-	[SerializeField] private float maxDistance;
+    [SerializeField] private float maxDistance;
 
     [HideInInspector] public Vector2 _direction;
 
@@ -36,7 +36,7 @@ public class PlayerMoveMent : PlayerMain
         else
             _isFKeyDown = false;
     }
-    
+
     private void OnQKeyDown(bool value)
     {
         if (value == true)
@@ -57,8 +57,8 @@ public class PlayerMoveMent : PlayerMain
 
         _animator.SetFloat("y", -(_direction.y / _curSpeed));
 
-    //    if (Mathf.Abs(_direction.x) / _curSpeed == 0)
-    //        _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
+        //    if (Mathf.Abs(_direction.x) / _curSpeed == 0)
+        //        _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
     }
 
     private void OnMousePos(Vector2 value)
@@ -74,7 +74,7 @@ public class PlayerMoveMent : PlayerMain
     public void OnStillWarning()
     {
         Sequence blinkSequence = DOTween.Sequence();
-        blinkSequence.Append(_warning.DOFade(1f, 0.2f).SetEase(Ease.InOutCirc).SetLoops(5));
-        blinkSequence.AppendCallback(() => _warning.DOFade(0f, 0.2f).SetEase(Ease.InOutCirc)); // 애니메이션 끝나면 오브젝트 비활성화
+        blinkSequence.Append(_warning.DOFade(1f, 0.2f).SetEase(Ease.InOutCirc).SetLoops(5))
+            .AppendCallback(() => _warning.DOFade(0f, 0.2f).SetEase(Ease.InOutCirc)); // 애니메이션 끝나면 오브젝트 비활성화
     }
 }
