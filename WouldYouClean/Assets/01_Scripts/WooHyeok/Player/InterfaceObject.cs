@@ -1,9 +1,10 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class InterfaceObject : PlayerMain
 {
     private string _objTypeName;
-    private bool _isAnim = false;
 
     [SerializeField] private DivideObj _cleanItem;
 
@@ -18,12 +19,20 @@ public class InterfaceObject : PlayerMain
         {
             _animator.SetTrigger("pick");
             _isAnim = false;
+            StartCoroutine(PickDelay());
         }
 
         if (_isQKeyDown)
         {
             UIManager.Instance.ShowPanel(_dictionalyRect);
         }
+    }
+
+    IEnumerator PickDelay()
+    {
+        yield return new WaitForSeconds(0.5f);
+        Debug.Log("S");
+        CleanItem();
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -48,8 +57,6 @@ public class InterfaceObject : PlayerMain
 
             _isFKeyDown = false;
             _isAnim = true;
-
-            CleanItem();
             //ShowPanel(_panelRect); //ÆÇ³Ú ¶ç¿ì±â
         }
     }
