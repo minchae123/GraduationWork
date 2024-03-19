@@ -38,9 +38,5 @@ public class RightWire : MonoBehaviour, IPointerClickHandler, IDropHandler
 		{
 			wire.isColor[(int)wireType] = true;
 		}
-		else
-		{
-		}
-
 	}
 }
