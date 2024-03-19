@@ -48,6 +48,10 @@ public class SpaceManager : MonoBehaviour
     private float _distance;
     private float _shortDis;
 
+    [Header("Compass")]
+    [SerializeField] private GameObject _compass;
+    public bool onCompass;
+
     private void Awake()
     {
         canInteraction = true;
@@ -100,6 +104,17 @@ public class SpaceManager : MonoBehaviour
                 _shortDis = _distance;
             }
         }
+
+        //Planet Compass
+        if (onCompass )
+        {            
+            float compassDir = Mathf.Atan2(curPlanet.transform.position.y - spaceship.transform.position.y,
+                curPlanet.transform.position.x - spaceship.transform.position.x) * Mathf.Rad2Deg;
+
+            _compass.transform.rotation = Quaternion.AngleAxis(compassDir - 90, Vector3.forward);
+
+        }
+
 
         if (curPlanet != null)
         {

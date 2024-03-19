@@ -5,8 +5,11 @@ using UnityEngine;
 public class UpgradeStat : MonoBehaviour
 {
     //SpaceShip
-    public float _rotSpeed = 10;
-    public float _curSpeed = 0;
-    public float _maxSpeed = 5;
-    public float _acceleration = 0.75f;
+    public float rotSpeed = 10;
+    public float curSpeed = 0;
+    public float maxSpeed = 5;
+    public float acceleration = 0.75f;
+
+    public float maxfuel;
+    public float curfuel;
 }
