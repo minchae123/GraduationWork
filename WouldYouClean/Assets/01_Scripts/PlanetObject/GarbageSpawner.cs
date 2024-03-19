@@ -30,7 +30,7 @@ public class GarbageSpawner : MonoBehaviour
             //Debug.Log("Distance: " + Vector3.Distance(Vector3.zero, spawnPosition) + " " + i);
         }
 
-        Debug.Log("Generated " + GarbageCount + " garbage objects.");
+        //Debug.Log("Generated " + GarbageCount + " garbage objects.");
     }
 
     private Vector3 GetRandomPositionInCircle()

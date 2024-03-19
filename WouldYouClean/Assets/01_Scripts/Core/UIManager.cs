@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
+    private bool isSetting = false;
+
+    [Header("Setting UI")]
     [SerializeField] private GameObject settingPanel;
 
     [SerializeField] private Slider bgmSlider;
@@ -16,18 +19,10 @@ public class UIManager : MonoSingleton<UIManager>
     private string bgmKey = "BGMVolume";
     private string effectKey = "EffectVolume";
 
-    [Header("")]
-    [SerializeField] private TextMeshProUGUI textBox;
-    [SerializeField] private RectTransform doorLock;
-    [SerializeField] private string password;
-
-    private string[] answer = { "Success!", "Failed" };
-    private string passStr = null;
-    private bool isPass = false;
 
     private void Start()
     {
-        settingPanel.SetActive(false);
+        OnExitSettingPanel();
 
         bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
         effectSlider.value = PlayerPrefs.GetFloat(effectKey);
@@ -46,7 +41,10 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void OnExitSettingPanel()
     {
+        isSetting = false;
         settingPanel.SetActive(false);
+
+        Time.timeScale = 1;
     }
     public void OnExitAndSave()
     {
@@ -57,33 +55,26 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update()
     {
-        if (isPass && passStr.Length >= password.Length)
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (password == passStr)
-                StartCoroutine(GuessPassword(answer[0]));
-            else
-                StartCoroutine(GuessPassword(answer[1]));
-
-            passStr = null;
-            isPass = false;
+            if (!isSetting) // ????? ?? ???? ???? ??
+            {
+                OnEntrySettingPanel();
+            }
+            else // ????? ???? ??????
+            {
+                OnExitSettingPanel();
+            }
         }
+
     }
 
-    private IEnumerator GuessPassword(string result)
+    public void OnEntrySettingPanel()
     {
-        yield return new WaitForSeconds(0.5f);
-        textBox.text = result;
+        isSetting = true;
+        settingPanel.SetActive(true);
 
-        yield return new WaitForSeconds(1f);
-        UndoLock(result);
-    }
-    
-    private void UndoLock(string result)
-    {
-        textBox.text = null;
-
-        if (result == answer[0])
-            ClosePanel(doorLock);
+        Time.timeScale = 0;
     }
 
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
@@ -107,15 +98,5 @@ public class UIManager : MonoSingleton<UIManager>
     {
         rect.transform.DOScale(Vector2.zero, 1f).SetEase(Ease.InOutQuint);
         rect.DOAnchorPos(Vector2.zero, 1f);
-    }
-
-
-    public void NumBtn(int num)
-    {
-        isPass = true;
-
-        passStr += num.ToString();
-
-        textBox.text = passStr;
     }
 }

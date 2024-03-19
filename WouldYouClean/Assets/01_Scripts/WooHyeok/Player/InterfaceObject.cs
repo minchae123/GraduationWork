@@ -9,17 +9,20 @@ public class InterfaceObject : PlayerMain
     [SerializeField] private DivideObj _cleanItem;
 
     private RectTransform _dictionalyRect;
+    private bool _isPick = false;
+    private bool _isAnim = true;
 
     [Header("UI")]
     [SerializeField] private GameObject _dictionaly;
 
     public void Update()
     {
-        if (_isAnim)
+        if (_isPick && _isAnim)
         {
             _animator.SetTrigger("pick");
-            _isAnim = false;
             StartCoroutine(PickDelay());
+
+            _isAnim = false;
         }
 
         if (_isQKeyDown)
@@ -31,8 +34,10 @@ public class InterfaceObject : PlayerMain
     IEnumerator PickDelay()
     {
         yield return new WaitForSeconds(0.5f);
-        Debug.Log("S");
         CleanItem();
+
+        _isAnim = true;
+        _isPick = false;
     }
 
     private void OnTriggerStay2D(Collider2D collision)
@@ -55,8 +60,8 @@ public class InterfaceObject : PlayerMain
             else
                 _isPlain = false;
 
-            _isFKeyDown = false;
-            _isAnim = true;
+            if (!_isPick)
+                _isPick = true;
             //ShowPanel(_panelRect); //ÆÇ³Ú ¶ç¿ì±â
         }
     }

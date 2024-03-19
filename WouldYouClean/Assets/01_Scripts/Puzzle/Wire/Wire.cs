@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UI.Extensions;
+using DG.Tweening;
 
 public enum WireType
 {
@@ -17,8 +18,11 @@ public class Wire : MonoBehaviour
 
 	public Vector2 clickPos;
 	public LineRenderer line;
+	public LineRenderer[] lines;
 
 	public bool isDrag;
+
+	public Image panelObject;
 
 
 	private void Update()
@@ -39,10 +43,12 @@ public class Wire : MonoBehaviour
 	{
 		if (isColor[0] && isColor[1] && isColor[2] && isColor[3])
 		{
+			panelObject.gameObject.SetActive(false);
 			print("success");
 		}
 		else
 		{
+			FailGame();
 			print("fail");
 		}
 	}
@@ -54,5 +60,21 @@ public class Wire : MonoBehaviour
 		wireType = line.GetComponentInChildren<LeftWire>().WireType;
 
 		isDrag = true;
+	}
+
+	public void ResetLine()
+	{
+		foreach (var i in lines)
+		{
+			i.SetPosition(1, Vector3.zero);
+		}
+	}
+
+	public void FailGame()
+	{
+		ResetLine();
+		panelObject.color = Color.red;
+		panelObject.transform.DOShakePosition(0.6f, 1.5f);
+		panelObject.color = new Color(1, 1, 1, 0.4f);
 	}
 }
