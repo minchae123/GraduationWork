@@ -40,7 +40,7 @@ public class CompassManager : MonoSingleton<CompassManager>
         }
     }
 
-    public Transform FindWhatSlot()
+    public Transform CheckSlot()
     {
         foreach(PuzzleSlotUI p in puzzleSlot)
         {

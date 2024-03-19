@@ -10,6 +10,7 @@ public class CompassPieceUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     [Header("==============")]
     private CanvasGroup canvasGroup;
+    public PuzzleSlotUI parentSlot;
 
     private void Awake()
     {
@@ -35,15 +36,17 @@ public class CompassPieceUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        if (CompassManager.Instance.FindWhatSlot() == null) // 슬롯 위가 아닐 경우
+        if (CompassManager.Instance.CheckSlot() == null) // 슬롯 위가 아닐 경우
         {
+            SetParent(null);
             transform.SetParent(CompassManager.Instance.unuseParentTrm);
         }
-
-        CompassManager.Instance.HowManyPiecesLeft(); // 체크
     }
 #endregion  
-
+    public void SetParent(PuzzleSlotUI p)
+    {
+        parentSlot = p;
+    }
     public void SetData(CompassPieceClass data)
     {
         num = data.num;
