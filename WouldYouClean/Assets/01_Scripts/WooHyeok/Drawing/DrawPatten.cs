@@ -21,7 +21,7 @@ public class DrawPatten : MonoBehaviour
     private void Start()
     {
         line = GetComponent<LineRenderer>();
-
+        cam = Camera.main;
         UiLength = spots.Length;
     }
 
