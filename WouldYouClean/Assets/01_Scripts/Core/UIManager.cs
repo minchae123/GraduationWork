@@ -16,14 +16,6 @@ public class UIManager : MonoSingleton<UIManager>
     private string bgmKey = "BGMVolume";
     private string effectKey = "EffectVolume";
 
-    [Header("")]
-    [SerializeField] private TextMeshProUGUI textBox;
-    [SerializeField] private RectTransform doorLock;
-    [SerializeField] private string password;
-
-    private string[] answer = { "Success!", "Failed" };
-    private string passStr = null;
-    private bool isPass = false;
 
     private void Start()
     {
@@ -57,33 +49,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update()
     {
-        if (isPass && passStr.Length >= password.Length)
-        {
-            if (password == passStr)
-                StartCoroutine(GuessPassword(answer[0]));
-            else
-                StartCoroutine(GuessPassword(answer[1]));
 
-            passStr = null;
-            isPass = false;
-        }
-    }
-
-    private IEnumerator GuessPassword(string result)
-    {
-        yield return new WaitForSeconds(0.5f);
-        textBox.text = result;
-
-        yield return new WaitForSeconds(1f);
-        UndoLock(result);
-    }
-    
-    private void UndoLock(string result)
-    {
-        textBox.text = null;
-
-        if (result == answer[0])
-            ClosePanel(doorLock);
     }
 
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
@@ -107,15 +73,5 @@ public class UIManager : MonoSingleton<UIManager>
     {
         rect.transform.DOScale(Vector2.zero, 1f).SetEase(Ease.InOutQuint);
         rect.DOAnchorPos(Vector2.zero, 1f);
-    }
-
-
-    public void NumBtn(int num)
-    {
-        isPass = true;
-
-        passStr += num.ToString();
-
-        textBox.text = passStr;
     }
 }
