@@ -29,12 +29,36 @@ public class SpaceShip : UpgradeStat
 
     private void Update()
     {
+        //나중에 지울거
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            FillFuel();
+        }
+
+        if (curSpeed > 0)
+        {
+            curfuel -= curSpeed * Time.deltaTime;
+        }
+
         Move();
 
-        Booster();
+        if (curfuel >= 0)
+        {
+            Booster();
+        }
+        else
+        {
+            curSpeed = 0;
+            Debug.Log("NO FUEL");
+        }
     }
 
-    public void Booster()
+    public void FillFuel()
+    {
+        curfuel = maxfuel;
+    }
+
+    private void Booster()
     {
         if (Input.GetKey(KeyCode.LeftShift) && _chargingTime < 1.1f)
             _chargingTime += 1 * Time.deltaTime;
@@ -43,33 +67,33 @@ public class SpaceShip : UpgradeStat
 
         if (_chargingTime > 1)
         {
-            _maxSpeed = 15;
-            _curSpeed = _maxSpeed;
+            maxSpeed = 15;
+            curSpeed = maxSpeed;
         }
-        else if (_chargingTime < 1 && _maxSpeed > 5)
+        else if (_chargingTime < 1 && maxSpeed > 5)
         {
             if (_spaceShipDir.y < 0)
             {
-                _maxSpeed -= _acceleration * Time.deltaTime;
+                maxSpeed -= acceleration * Time.deltaTime;
             }
 
-            _maxSpeed -= 5 * Time.deltaTime;
-            _curSpeed = _maxSpeed;
+            maxSpeed -= 5 * Time.deltaTime;
+            curSpeed = maxSpeed;
         }
     }
 
 
     public void Move()
     {
-        transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * _rotSpeed);
+        if(curSpeed > 0)
+        transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * rotSpeed);
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    spaceObject.Power(transform.up);
-            //    Debug.Log(transform.up);
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                spaceObject.Power(new Vector2(100, 0));
+            }
 
             spaceObject.SetDir(-transform.up * Acceleration());
 
@@ -85,18 +109,18 @@ public class SpaceShip : UpgradeStat
 
         if (_spaceShipDir.y > 0)
         {
-            _curSpeed += _acceleration * Time.deltaTime;
+            curSpeed += acceleration * Time.deltaTime;
         }
         if (_spaceShipDir.y < 0)
         {
-            _curSpeed -= _acceleration * Time.deltaTime;
+            curSpeed -= acceleration * Time.deltaTime;
         }
-        return Mathf.Clamp(_curSpeed, 0, _maxSpeed);
+        return Mathf.Clamp(curSpeed, 0, maxSpeed);
     }
 
     private void LimitSpeed()
     {
-        if (_curSpeed > _maxSpeed) _curSpeed = _maxSpeed;
-        if (_curSpeed < 0f) _curSpeed = 0f;
+        if (curSpeed > maxSpeed) curSpeed = maxSpeed;
+        if (curSpeed < 0f) curSpeed = 0f;
     }
 }
