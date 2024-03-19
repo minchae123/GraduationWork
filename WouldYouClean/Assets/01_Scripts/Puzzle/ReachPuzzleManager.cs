@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
 {
-    [SerializeField] private TextMeshProUGUI test;
+    //[SerializeField] private TextMeshProUGUI test;
     public List<CheckArea> checkAreas;
 
     private void Start()
@@ -26,7 +26,8 @@ public class ReachPuzzleManager : MonoSingleton<ReachPuzzleManager>
                 }
             }
         }
-        test.text = "Clear";
+        print("Clear");
+        //test.text = "Clear";
     } 
 
     private void Update()

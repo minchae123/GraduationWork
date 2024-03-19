@@ -53,10 +53,7 @@ public class MovePuzzle : MonoBehaviour
 			puzzle.CorrectPuzzle(this, true);
 		}
 		else
-		{
-			//Vector3 mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-			//mousePos.z = 0;
-			//transform.position = mousePos;
+		{ 
 			transform.position = resetPos;
 		}
 	}
