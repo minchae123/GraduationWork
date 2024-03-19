@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
+    [SerializeField] private GameObject settingPanel;
+
     [SerializeField] private Slider bgmSlider;
     [SerializeField] private Slider effectSlider;
 
@@ -25,11 +27,13 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Start()
     {
+        settingPanel.SetActive(false);
+
         bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
         effectSlider.value = PlayerPrefs.GetFloat(effectKey);
     }
 
-    // 음악 소리 변경
+    #region 설정창
     public void BgmSliderValueChanged()
     {
         float bgmVolume = bgmSlider.value;
@@ -40,6 +44,16 @@ public class UIManager : MonoSingleton<UIManager>
         float effectVolume = effectSlider.value;
         SoundManager.Instance.SetEffectVolume(effectVolume);
     }
+    public void OnExitSettingPanel()
+    {
+        settingPanel.SetActive(false);
+    }
+    public void OnExitAndSave()
+    {
+        // 게임 세이브하고
+        // 타이틀 화면으로 이동하는 로직
+    }
+    #endregion
 
     private void Update()
     {
