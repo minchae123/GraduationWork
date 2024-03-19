@@ -8,6 +8,8 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
+    private bool isSetting = false;
+
     [SerializeField] private GameObject settingPanel;
 
     [SerializeField] private Slider bgmSlider;
@@ -27,7 +29,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Start()
     {
-        settingPanel.SetActive(false);
+        OnExitSettingPanel();
 
         bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
         effectSlider.value = PlayerPrefs.GetFloat(effectKey);
@@ -44,9 +46,19 @@ public class UIManager : MonoSingleton<UIManager>
         float effectVolume = effectSlider.value;
         SoundManager.Instance.SetEffectVolume(effectVolume);
     }
+    public void OnEntrySettingPanel()
+    {
+        isSetting = true;
+        settingPanel.SetActive(true);
+
+        Time.timeScale = 0;
+    }
     public void OnExitSettingPanel()
     {
+        isSetting = false;
         settingPanel.SetActive(false);
+
+        Time.timeScale = 1;
     }
     public void OnExitAndSave()
     {
@@ -57,6 +69,18 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            if(!isSetting) // 세팅창 안 켜져 있을 경ㅇ
+            {
+                OnEntrySettingPanel();
+            }
+            else // 세팅창 켜져 있으면
+            {
+                OnExitSettingPanel();
+            }
+        }
+
         if (isPass && passStr.Length >= password.Length)
         {
             if (password == passStr)
