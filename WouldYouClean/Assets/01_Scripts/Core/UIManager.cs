@@ -3,9 +3,18 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
 {
+    [Header("Setting UI")]
+    [SerializeField] private Slider bgmSlider;
+    [SerializeField] private Slider effectSlider;
+
+    private string bgmKey = "BGMVolume";
+    private string effectKey = "EffectVolume";
+
+    [Header("")]
     [SerializeField] private TextMeshProUGUI textBox;
     [SerializeField] private RectTransform doorLock;
     [SerializeField] private string password;
@@ -13,6 +22,24 @@ public class UIManager : MonoSingleton<UIManager>
     private string[] answer = { "Success!", "Failed" };
     private string passStr = null;
     private bool isPass = false;
+
+    private void Start()
+    {
+        bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
+        effectSlider.value = PlayerPrefs.GetFloat(effectKey);
+    }
+
+    // 음악 소리 변경
+    public void BgmSliderValueChanged()
+    {
+        float bgmVolume = bgmSlider.value;
+        SoundManager.Instance.SetBGMVolume(bgmVolume);
+    }
+    public void EffectSliderValueChanged()
+    {
+        float effectVolume = effectSlider.value;
+        SoundManager.Instance.SetEffectVolume(effectVolume);
+    }
 
     private void Update()
     {
@@ -36,7 +63,7 @@ public class UIManager : MonoSingleton<UIManager>
         yield return new WaitForSeconds(1f);
         UndoLock(result);
     }
-
+    
     private void UndoLock(string result)
     {
         textBox.text = null;

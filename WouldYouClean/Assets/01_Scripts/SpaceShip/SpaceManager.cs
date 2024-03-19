@@ -181,6 +181,7 @@ public class SpaceManager : MonoBehaviour
         isFlight = false;
         isLanding = true;
 
+        PlayerInputReader.enabled = true;
         input.enabled = false;
         spaceship.enabled = false;
 
@@ -194,7 +195,10 @@ public class SpaceManager : MonoBehaviour
     private IEnumerator SpaceshipLaunch()
     {
         Interacting();
-        StartCoroutine(CameraChange());
+        if (MainCam.gameObject.activeSelf)
+        {
+            StartCoroutine(CameraChange());
+        }
         yield return new WaitForSeconds(1f);
         _targetSize = 10;
         _targetStarSize = 3;
@@ -203,6 +207,7 @@ public class SpaceManager : MonoBehaviour
         isLanding = false;
         isFlight = true;
 
+        PlayerInputReader.enabled = false;
         spaceship.enabled = true;
         _fire.Play();
         yield return new WaitForSeconds(1f);
@@ -218,7 +223,6 @@ public class SpaceManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         MainCam.gameObject.SetActive(!MainCam.gameObject.activeSelf);
         SpaceshipCam.gameObject.SetActive(!SpaceshipCam.gameObject.activeSelf);
-        PlayerInputReader.enabled = !PlayerInputReader.enabled;
         //SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
         //yield return new WaitForSeconds(1f);
         FadePanel.DOFade(0, .75f);
