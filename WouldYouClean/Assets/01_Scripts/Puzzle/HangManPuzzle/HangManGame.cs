@@ -19,6 +19,8 @@ public class HangManGame : MonoBehaviour
 
 	private void Start()
 	{
+		count = 0;
+		check = 0;
 		inputField.ActivateInputField();
 		inputField.characterLimit = 1; // 한글자만 쓸 수 있도록
 		answerWord = answerWord.ToUpper();
