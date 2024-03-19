@@ -29,6 +29,12 @@ public class SpaceShip : UpgradeStat
 
     private void Update()
     {
+        //나중에 지울거
+        if(Input.GetKeyDown(KeyCode.R))
+        {
+            FillFuel();
+        }
+
         if (curSpeed > 0)
         {
             curfuel -= curSpeed * Time.deltaTime;
