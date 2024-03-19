@@ -65,11 +65,11 @@ public class SpaceShip : UpgradeStat
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    spaceObject.Power(transform.up);
-            //    Debug.Log(transform.up);
-            //}
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                spaceObject.Power(transform.up);
+                Debug.Log(transform.up);
+            }
 
             spaceObject.SetDir(-transform.up * Acceleration());
 
