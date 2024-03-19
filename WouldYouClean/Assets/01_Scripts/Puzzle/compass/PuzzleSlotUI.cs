@@ -58,6 +58,7 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         }
 
         CompassManager.Instance.HowManyPiecesLeft(); // 체크
+        colorImage.color = Color.white; // 초기화 안 됐을 경우를 위한 초기화
     }
 
     public void SetChild(CompassPieceUI p, Transform t)
@@ -70,14 +71,21 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        IsEnter = true;
-        colorImage.color = Color.yellow;
+
+        if (eventData.pointerDrag != null)
+        {
+            colorImage.color = Color.yellow;
+            IsEnter = true;
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        IsEnter = false;
-        colorImage.color = Color.white;
+        if (eventData.pointerDrag != null)
+        {
+            colorImage.color = Color.white;
+            IsEnter = false;
+        }
     }
     #endregion
 }
