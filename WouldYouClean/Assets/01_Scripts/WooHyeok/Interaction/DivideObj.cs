@@ -26,7 +26,7 @@ public class DivideObj : MonoBehaviour
             Inventory.Instance.AddItem(type, false); // 추가하고
             MapManager.Instance.RemoveTrash(this);
 
-            //Destroy(gameObject); // 삭제하고 여기서 삭제 안하는데 어디서 삭제하는지 모르겟음
+            Destroy(gameObject); // 삭제하고 여기서 삭제 안하는데 어디서 삭제하는지 모르겟음
         }
     }
 
