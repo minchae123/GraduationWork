@@ -8,6 +8,9 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
+    private bool isSetting = false;
+
+    [Header("Setting UI")]
     [SerializeField] private GameObject settingPanel;
 
     [SerializeField] private Slider bgmSlider;
@@ -19,7 +22,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Start()
     {
-        settingPanel.SetActive(false);
+        OnExitSettingPanel();
 
         bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
         effectSlider.value = PlayerPrefs.GetFloat(effectKey);
@@ -38,7 +41,10 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void OnExitSettingPanel()
     {
+        isSetting = false;
         settingPanel.SetActive(false);
+
+        Time.timeScale = 1;
     }
     public void OnExitAndSave()
     {
@@ -49,7 +55,26 @@ public class UIManager : MonoSingleton<UIManager>
 
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (!isSetting) // ????? ?? ???? ???? ??
+            {
+                OnEntrySettingPanel();
+            }
+            else // ????? ???? ??????
+            {
+                OnExitSettingPanel();
+            }
+        }
 
+    }
+
+    public void OnEntrySettingPanel()
+    {
+        isSetting = true;
+        settingPanel.SetActive(true);
+
+        Time.timeScale = 0;
     }
 
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
