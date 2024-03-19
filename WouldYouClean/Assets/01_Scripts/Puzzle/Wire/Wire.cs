@@ -64,7 +64,7 @@ public class Wire : MonoBehaviour
 
 	public void ResetLine()
 	{
-		foreach(var i in lines)
+		foreach (var i in lines)
 		{
 			i.SetPosition(1, Vector3.zero);
 		}
@@ -74,7 +74,7 @@ public class Wire : MonoBehaviour
 	{
 		ResetLine();
 		panelObject.color = Color.red;
-		panelObject.transform.DOShakePosition(0.3f, 1.5f);
-		panelObject.color = Color.white;
+		panelObject.transform.DOShakePosition(0.6f, 1.5f);
+		panelObject.color = new Color(1, 1, 1, 0.4f);
 	}
 }
