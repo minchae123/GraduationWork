@@ -37,7 +37,7 @@ public class SpaceShip : UpgradeStat
 
     private void Update()
     {
-        fuelSlider.value = curfuel / maxfuel;
+        //fuelSlider.value = curfuel / maxfuel;
 
         Move();
 
