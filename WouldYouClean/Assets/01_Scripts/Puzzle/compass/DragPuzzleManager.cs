@@ -7,9 +7,9 @@ public enum CompassNum
     one, two, three, four, five, six, seven, eight, nine
 }
 
-public class CompassManager : MonoSingleton<CompassManager>
+public class DragPuzzleManager : MonoSingleton<DragPuzzleManager>
 {
-    [SerializeField] private CompassPieceSO piecesData;
+    [SerializeField] private PuzzlePieceSO piecesData;
 
     [Header("UI")]
     [SerializeField] public Transform canvas;

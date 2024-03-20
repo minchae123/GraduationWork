@@ -20,7 +20,7 @@ public class CompassPieceUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     #region 이벤트
     public void OnBeginDrag(PointerEventData eventData)
     {
-        transform.SetParent(CompassManager.Instance.canvas);// 최상단으로 보이게 하려구
+        transform.SetParent(DragPuzzleManager.Instance.canvas);// 최상단으로 보이게 하려구
         transform.SetAsLastSibling();//이것도 위랑 같은이유
 
         canvasGroup.alpha = 0.6f;
@@ -36,10 +36,11 @@ public class CompassPieceUI : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         canvasGroup.alpha = 1;
         canvasGroup.blocksRaycasts = true;
-        if (CompassManager.Instance.CheckSlot() == null) // 슬롯 위가 아닐 경우
+        if (DragPuzzleManager.Instance.CheckSlot() == null) // 슬롯 위가 아닐 경우
         {
+            parentSlot.SetChild(null);
             SetParent(null);
-            transform.SetParent(CompassManager.Instance.unuseParentTrm);
+            transform.SetParent(DragPuzzleManager.Instance.unuseParentTrm);
         }
     }
 #endregion  

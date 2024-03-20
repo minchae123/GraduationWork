@@ -43,7 +43,7 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
                 }
                 else // 그ㅜ냥 인벤에 있었다면
                 {
-                    childPiece.transform.SetParent(CompassManager.Instance.unuseParentTrm);
+                    childPiece.transform.SetParent(DragPuzzleManager.Instance.unuseParentTrm);
                 }
             }
             else // childPiece가 null이었을 때 (아무것도 없던 슬롯에 드래그드랍했을때
@@ -57,8 +57,9 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             p.SetParent(this);
         }
 
-        CompassManager.Instance.HowManyPiecesLeft(); // 체크
+        DragPuzzleManager.Instance.HowManyPiecesLeft(); // 체크
         colorImage.color = Color.white; // 초기화 안 됐을 경우를 위한 초기화
+        //IsEnter = false; // 이것도 초기화
     }
 
     public void SetChild(CompassPieceUI p, Transform t)
@@ -67,7 +68,10 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         t.SetParent(transform);
         t.GetComponent<RectTransform>().position = rect.position;
     }
-
+    public void SetChild(CompassPieceUI p)
+    {
+        childPiece = p;
+    }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
@@ -75,8 +79,8 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (eventData.pointerDrag != null)
         {
             colorImage.color = Color.yellow;
-            IsEnter = true;
         }
+        IsEnter = true;
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -84,8 +88,8 @@ public class PuzzleSlotUI : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
         if (eventData.pointerDrag != null)
         {
             colorImage.color = Color.white;
-            IsEnter = false;
         }
+        IsEnter = false;
     }
     #endregion
 }
