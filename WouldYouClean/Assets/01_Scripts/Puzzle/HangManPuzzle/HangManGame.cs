@@ -15,8 +15,6 @@ public class HangManGame : MonoBehaviour
 	private int count = 0;
 	private int check = 0;
 
-	private bool isClear = false;
-
 	private void Start()
 	{
 		count = 0;
@@ -28,7 +26,7 @@ public class HangManGame : MonoBehaviour
 
 	public void WrongWord()
 	{
-		if(count > hangSprite.Count)
+		if(count >= hangSprite.Count)
 		{
 			return;
 		}
