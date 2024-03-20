@@ -4,6 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceShip : UpgradeStat
 {
@@ -21,6 +22,8 @@ public class SpaceShip : UpgradeStat
 
     private Rigidbody2D _crashUFORigid;
 
+    public Slider fuelSlider;
+
     private void OnMove(Vector2 value)
     {
         _spaceShipDir = value;
@@ -34,8 +37,12 @@ public class SpaceShip : UpgradeStat
 
     private void Update()
     {
+        fuelSlider.value = curfuel / maxfuel;
+
+        Move();
+
         //나중에 지울거
-        if(Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             FillFuel();
         }
@@ -44,8 +51,6 @@ public class SpaceShip : UpgradeStat
         {
             curfuel -= curSpeed * Time.deltaTime;
         }
-
-        Move();
 
         if (curfuel >= 0)
         {
