@@ -11,6 +11,15 @@ public class SpaceObject : MonoBehaviour
     {
         _rb.velocity = dir;
     }
+    public void SetDir(Vector2 dir, float speed)
+    {
+        _rb.velocity = dir + new Vector2(speed, speed);
+    }
+
+    public void SetDir(Vector2 dir, Vector2 dir2)
+    {
+        _rb.velocity = dir + dir2;
+    }
 
     public void Power(Vector2 dir)
     {

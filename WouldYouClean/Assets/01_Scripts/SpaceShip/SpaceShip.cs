@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,6 +17,10 @@ public class SpaceShip : UpgradeStat
 
     private float _chargingTime;
 
+    public bool isCrash;
+
+    private Rigidbody2D _crashUFORigid;
+
     private void OnMove(Vector2 value)
     {
         _spaceShipDir = value;
@@ -24,7 +29,7 @@ public class SpaceShip : UpgradeStat
     private void Start()
     {
         _input.OnMovement += OnMove;
-        spaceObjects = GameObject.FindObjectsOfType<SpaceObject>();
+        spaceObjects = GameObject.FindObjectsOfType<PlanetInSpace>();
     }
 
     private void Update()
@@ -85,17 +90,22 @@ public class SpaceShip : UpgradeStat
 
     public void Move()
     {
-        if(curSpeed > 0)
-        transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * rotSpeed);
+        if (curSpeed > 0)
+            transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * rotSpeed);
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                spaceObject.Power(new Vector2(100, 0));
-            }
+            //if (Input.GetKeyDown(KeyCode.Space))
+            //{
+            //    spaceObject.Power(new Vector2(100, 0));
+            //}
 
-            spaceObject.SetDir(-transform.up * Acceleration());
+            if (isCrash && _crashUFORigid != null)
+            {
+                spaceObject.SetDir(_crashUFORigid.position - (Vector2)transform.position, 50);
+            }
+            else
+                spaceObject.SetDir(-transform.up * Acceleration());
 
         }
 
@@ -122,5 +132,26 @@ public class SpaceShip : UpgradeStat
     {
         if (curSpeed > maxSpeed) curSpeed = maxSpeed;
         if (curSpeed < 0f) curSpeed = 0f;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("UFO"))
+        {
+            _crashUFORigid = collision.gameObject.GetComponent<Rigidbody2D>();
+            StartCoroutine(CrashCheck(collision));
+            print("펑터졌다.이펙트랑이것저것밀려나는것도추가하기");
+            transform.DOShakePosition(0.5f);
+            _crashUFORigid = null;
+        }
+    }
+
+    IEnumerator CrashCheck(Collider2D collision)
+    {
+        isCrash = true;
+        yield return new WaitForSeconds(0.5f);
+        isCrash = false;
+        if (collision.gameObject != null)
+            Destroy(collision.gameObject);
     }
 }
