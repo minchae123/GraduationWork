@@ -8,6 +8,6 @@ public class Hint : MonoBehaviour
 
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
-		HintManager.Instance.CurrentHintSetting(note);
+		PuzzleManager.Instance.GetHint(note);
 	}
 }
