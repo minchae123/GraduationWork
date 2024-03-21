@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     [Header("수정 가능")]
     [SerializeField] private int inventoryLength = 3; // 초기 인벤토리
-    private int maxInventoryLength = 10; // 최대 인벤토리
+    private int maxInventoryLength = 8; // 최대 인벤토리
     private ItemSlotUI[] itemSlots; // 슬롯 부모에서 가져올 slotUI들 (prefab)
 
     [Header("ItemUI")]
@@ -85,7 +85,7 @@ public class Inventory : MonoBehaviour, ISaveManager
         invenDictionary.Clear();
     }
 
-    public void SetShopItem(List<InventoryItem> list, Dictionary<ObjectType, InventoryItem> dic)
+    public void SetChangedInventory(List<InventoryItem> list, Dictionary<ObjectType, InventoryItem> dic)
     {
         mainInventory.Clear();
         invenDictionary.Clear();
@@ -167,13 +167,13 @@ public class Inventory : MonoBehaviour, ISaveManager
         UpdateSlotUI(); // 업덱
     }
 
-    private void Update()
+    /*private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K))
         {
             UpgradeInventory();
         }
-    }
+    }*/
 
 	public void LoadData(GameData data)
 	{

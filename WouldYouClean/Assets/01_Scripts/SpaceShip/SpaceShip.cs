@@ -100,14 +100,9 @@ public class SpaceShip : UpgradeStat
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
-            //if (Input.GetKeyDown(KeyCode.Space))
-            //{
-            //    spaceObject.Power(new Vector2(100, 0));
-            //}
-
-            if (isCrash && _crashUFORigid != null)
+            if (isCrash)// && _crashUFORigid != null)
             {
-                spaceObject.SetDir(_crashUFORigid.position - (Vector2)transform.position, 50);
+                spaceObject.SetDir(-transform.up * 30);
             }
             else
                 spaceObject.SetDir(-transform.up * Acceleration());
@@ -145,7 +140,6 @@ public class SpaceShip : UpgradeStat
         {
             _crashUFORigid = collision.gameObject.GetComponent<Rigidbody2D>();
             StartCoroutine(CrashCheck(collision));
-            print("펑터졌다.이펙트랑이것저것밀려나는것도추가하기");
             transform.DOShakePosition(0.5f);
             _crashUFORigid = null;
         }
@@ -154,9 +148,12 @@ public class SpaceShip : UpgradeStat
     IEnumerator CrashCheck(Collider2D collision)
     {
         isCrash = true;
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.2f);
         isCrash = false;
-        if (collision.gameObject != null)
-            Destroy(collision.gameObject);
+
+        if (collision == null)
+            yield break;
+
+        Destroy(collision.gameObject);
     }
 }
