@@ -32,7 +32,7 @@ public class DrawPatten : MonoBehaviour
 
     private void StartLine()
     {
-        if (Input.GetMouseButton(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10;
