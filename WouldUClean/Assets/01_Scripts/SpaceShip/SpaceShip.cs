@@ -14,7 +14,6 @@ public class SpaceShip : UpgradeStat
     private Vector2 _spaceShipDir;
     public SpaceObject[] spaceObjects;
     public SpaceObject[] spaceGarbages;
-    SpaceGarbageSpawner spaceGarbageSpawner;
 
     [SerializeField] private SpaceBackground background;
 
@@ -25,6 +24,10 @@ public class SpaceShip : UpgradeStat
     private Rigidbody2D _crashUFORigid;
 
     public Slider fuelSlider;
+
+    //https://stackoverflow.com/questions/41393814/unity-5-5-obsolete-particle-system-code
+    //함수 안되면 이거보고 고치셈
+    [SerializeField] private ParticleSystem _booster;
 
     private void OnMove(Vector2 value)
     {
@@ -40,7 +43,7 @@ public class SpaceShip : UpgradeStat
 
     private void Update()
     {
-        //fuelSlider.value = curfuel / maxfuel;
+        fuelSlider.value = curfuel / maxfuel;
 
         Move();
 
@@ -82,9 +85,13 @@ public class SpaceShip : UpgradeStat
         {
             maxSpeed = 15;
             curSpeed = maxSpeed;
+            _booster.startLifetime = 3;
+            _booster.playbackSpeed = 5;
         }
         else if (_chargingTime < 1 && maxSpeed > 5)
         {
+            _booster.startLifetime = 1;
+            _booster.playbackSpeed = 2;
             if (_spaceShipDir.y < 0)
             {
                 maxSpeed -= acceleration * Time.deltaTime;
@@ -99,7 +106,14 @@ public class SpaceShip : UpgradeStat
     public void Move()
     {
         if (curSpeed > 0)
+        {
             transform.Rotate(0, 0, -_spaceShipDir.x * Time.deltaTime * rotSpeed);
+            _booster.startLifetime = 1;
+        }
+        else if (curSpeed <= 0)
+        {
+            _booster.startLifetime = 0;
+        }
 
         foreach (SpaceObject spaceObject in spaceObjects)
         {
