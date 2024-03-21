@@ -13,6 +13,8 @@ public class SpaceShip : UpgradeStat
 
     private Vector2 _spaceShipDir;
     public SpaceObject[] spaceObjects;
+    public SpaceObject[] spaceGarbages;
+    SpaceGarbageSpawner spaceGarbageSpawner;
 
     [SerializeField] private SpaceBackground background;
 
@@ -33,11 +35,12 @@ public class SpaceShip : UpgradeStat
     {
         _input.OnMovement += OnMove;
         spaceObjects = GameObject.FindObjectsOfType<PlanetInSpace>();
+        spaceGarbages = GameObject.FindObjectsOfType<SpaceGarbage>();
     }
 
     private void Update()
     {
-        fuelSlider.value = curfuel / maxfuel;
+        //fuelSlider.value = curfuel / maxfuel;
 
         Move();
 
@@ -106,7 +109,11 @@ public class SpaceShip : UpgradeStat
             }
             else
                 spaceObject.SetDir(-transform.up * Acceleration());
-
+        }
+        //print(spaceGarbages[10]);
+        foreach (SpaceObject spaceObject in spaceGarbages) // 우주 쓰레기
+        {
+            spaceObject.SetDir(-transform.up * curSpeed);
         }
 
         //우주배경
