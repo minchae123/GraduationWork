@@ -71,10 +71,8 @@ public class FileDataHandler : MonoBehaviour
 		gameData = new GameData();
 		filePath = Application.dataPath + "/SaveData/";
 
-
 		if (!Directory.Exists(filePath))
 		{
-			print(1);
 			Directory.CreateDirectory(filePath);
 		}
 	}
@@ -98,7 +96,6 @@ public class FileDataHandler : MonoBehaviour
 
 			return gameData;
 		}
-
 		else
 		{
 			Debug.Log("Save Failed");
