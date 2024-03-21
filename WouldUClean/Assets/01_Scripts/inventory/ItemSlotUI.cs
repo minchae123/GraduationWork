@@ -24,7 +24,7 @@ public class ItemSlotUI : MonoBehaviour,
 
         if (item != null)
         {
-            itemImage.sprite = item.itemData._ItemIcon;
+            itemImage.sprite = item.itemData._ItemSprite;
             itemImage.color = Vector4.one;
             if (itemAmountText == null) return;
             if (item.itemCnt > 1)

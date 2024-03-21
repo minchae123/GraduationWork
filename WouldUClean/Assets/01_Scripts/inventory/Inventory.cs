@@ -133,7 +133,7 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
         if(!isTable) // 테이블 통해서 들어온 게 아닐 경우
         {
             PopUpItem popUp = Instantiate(popUpPanel, checker);
-            popUp.SetItemPanel(item._ObjectName, item._ItemIcon);
+            popUp.SetItemPanel(item._ObjectName, item._ItemSprite);
         }
         
         UpdateSlotUI();
