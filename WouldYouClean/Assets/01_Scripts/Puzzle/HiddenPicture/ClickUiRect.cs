@@ -41,7 +41,7 @@ public class ClickUiRect : MonoBehaviour, IPointerClickHandler
     {
         count++;
 
-        GameDone(level < hiddenSO._left.Length);
+        //GameDone(level < hiddenSO._left.Length);
 
         if (GameDone(level < hiddenSO._left.Length))
             NextLevel(count == 3);
