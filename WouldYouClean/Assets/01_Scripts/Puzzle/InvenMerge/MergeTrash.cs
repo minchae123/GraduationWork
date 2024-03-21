@@ -5,11 +5,13 @@ using UnityEngine;
 public class MergeTrash : MonoSingleton<MergeTrash>
 {
     [Header("==== Core ====")]
+    [SerializeField] private GameObject mainPanel;
     public List<InventoryItem> mainList; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> mainDictionary; // 인벤토리 딕셔너리
 
     [Header("Transform")]
     public Transform inventoryParent;
+    public Transform tableParent;
 
     [Header("UI")]
     public MergeItemSlotUI slotPrefab;
@@ -22,6 +24,8 @@ public class MergeTrash : MonoSingleton<MergeTrash>
 
     private void Start()
     {
+        mainPanel.SetActive(false);
+
         mainList = new List<InventoryItem>();
         mainDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new MergeItemSlotUI[8]; //인벤 최대 8개
@@ -40,6 +44,8 @@ public class MergeTrash : MonoSingleton<MergeTrash>
 
     public void EnterPuzzle()
     {
+        mainPanel.SetActive(true);
+
         foreach (var i in Inventory.Instance.ReturnInvenList())
         {
             mainList.Add(i);
@@ -58,9 +64,22 @@ public class MergeTrash : MonoSingleton<MergeTrash>
 
         UpdateSlotUI();
     }
-
     public void ExitPuzzle()
     {
+        mainPanel.SetActive(false);
+
+        foreach (Transform t in tableParent)
+        {
+            if (t.TryGetComponent<MergeTable>(out MergeTable m))
+            {
+                if (m.itemData != null) // not null
+                {
+                    AddItem(m.itemData); // 다시 넣어주기
+                    m.ResetTable(); // 그리고 리셋
+                }
+            }
+        }
+
         Inventory.Instance.SetChangedInventory(mainList, mainDictionary); // 바뀐 게 있다면 적용...
 
         // 초기화!
@@ -68,9 +87,9 @@ public class MergeTrash : MonoSingleton<MergeTrash>
         mainList.Clear();
         mainDictionary.Clear();
 
-        foreach (Transform child in inventoryParent)
+        foreach (Transform t in inventoryParent)
         {
-            if (child.TryGetComponent<MergeItemSlotUI>(out MergeItemSlotUI m))
+            if (t.TryGetComponent<MergeItemSlotUI>(out MergeItemSlotUI m))
             {
                 Destroy(m.gameObject);
             }
@@ -84,7 +103,7 @@ public class MergeTrash : MonoSingleton<MergeTrash>
             itemSlots[i].CleanUpSlot(); // cleanUp
         }
 
-        for (int i = 0; i < currentInventoryCnt; ++i)
+        for (int i = 0; i < mainList.Count; ++i)
         {
             itemSlots[i].UpdateSlot(mainList[i]); // redraw
         }
@@ -96,7 +115,6 @@ public class MergeTrash : MonoSingleton<MergeTrash>
             itemSlots[i].CleanUpSlot(); // cleanUp
         }
     }
-
 
     public void AddItem(ObjectType item, int cnt = 1)
     {
@@ -114,7 +132,6 @@ public class MergeTrash : MonoSingleton<MergeTrash>
 
         UpdateSlotUI();
     }
-
     public void UseItem(ObjectType item, int cnt = 1)
     {
         if (mainDictionary.TryGetValue(item, out InventoryItem i))
@@ -132,5 +149,25 @@ public class MergeTrash : MonoSingleton<MergeTrash>
         }
 
         UpdateSlotUI();
+    }
+
+    public void OnClickMergeButton()
+    {
+        List<ObjectType> objs = new List<ObjectType>();
+        foreach (Transform t in tableParent)
+        {
+            if (t.TryGetComponent<MergeTable>(out MergeTable table))
+            {
+                if (table.itemData == null)
+                {
+                    print("둘 다 채우세욤");
+                    return;
+                }
+                objs.Add(table.itemData); // 합친 거
+                table.ResetTable(); // 합쳤으니 제거
+            }
+        }
+        
+        // 합친 걸로 뭐할 건지는 아래에 작성 (objs 리스트 활용)
     }
 }

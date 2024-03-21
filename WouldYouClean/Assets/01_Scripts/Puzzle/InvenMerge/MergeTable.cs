@@ -32,15 +32,22 @@ public class MergeTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (eventData.pointerDrag.TryGetComponent<MergeItemSlotUI>(out MergeItemSlotUI m))
         {
-            if(itemData !=null)//이미 아이템이 해당 테이블에 있을 경우
+            if (itemData != null) //이미 아이템이 해당 테이블에 있을 경우
             {
-                //MergeTrash.Instance
-                print("이미 있음");
-                MergeTrash.Instance.AddItem(itemData);
+                //print("이미 있음");
+                MergeTrash.Instance.AddItem(itemData); // 넣고
             }
-            childImage.sprite = m.itemImage.sprite;
+
             itemData = m.item.itemData;
+            childImage.sprite = m.itemImage.sprite;
+
             MergeTrash.Instance.UseItem(itemData);
         }
+    }
+
+    public void ResetTable()
+    {
+        itemData = null;
+        childImage.sprite = null;
     }
 }

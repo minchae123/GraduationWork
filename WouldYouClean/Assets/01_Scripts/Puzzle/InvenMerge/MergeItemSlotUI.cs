@@ -31,6 +31,5 @@ public class MergeItemSlotUI : ItemSlotUI, IBeginDragHandler, IDragHandler, IEnd
 
         dragImage.raycastTarget = true;
         Destroy(dragImage.gameObject);
-
     }
 }
