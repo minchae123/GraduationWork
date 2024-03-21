@@ -40,7 +40,8 @@ public class PuzzleManager : MonoSingleton<PuzzleManager>
 		infoImage.sprite = info.hintSprite;
 
 		Sequence seq = DOTween.Sequence();
-		seq.Append(infoGet.transform.DOMoveY(75, 1));
-		seq.Append(infoGet.transform.DOMoveY(-80,1));
+		seq.Append(infoGet.transform.DOLocalMoveY(-470, 1));
+		seq.AppendInterval(.4f);
+		seq.Append(infoGet.transform.DOLocalMoveY(-650, 1.5f));
 	}
 }

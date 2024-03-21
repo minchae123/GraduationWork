@@ -9,5 +9,6 @@ public class Hint : MonoBehaviour
 	private void OnTriggerEnter2D(Collider2D collision)
 	{
 		PuzzleManager.Instance.GetHint(note);
+		Destroy(gameObject);
 	}
 }
