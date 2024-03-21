@@ -41,39 +41,38 @@ public class ClickUiRect : MonoBehaviour, IPointerClickHandler
     {
         count++;
 
-        //GameDone(level < hiddenSO._left.Length);
-
-        if (GameDone(level < hiddenSO._left.Length))
-            NextLevel(count == 3);
+        NextLevel(count == 3);
+        GameDone(level < hiddenSO._left.Length);
     }
 
-    private bool GameDone(bool value)
+    private void GameDone(bool value)
     {
-        if (value) return true;
+        if (value) return;
 
         ClosePanel(spawnParent);
-
-        return false;
     }
 
     private void NextLevel(bool value)
     {
         if (!value) return;
 
+        level++;
         CreateLevel();
     }
 
     private void CreateLevel()
     {
+        if (level >= hiddenSO._left.Length) return;
+
         RectTransform left = Instantiate(hiddenSO._left[level], spawnParent);
-        RectTransform right = Instantiate(hiddenSO._right[level++], spawnParent);
+        RectTransform right = Instantiate(hiddenSO._right[level], spawnParent);
 
         saveL = left;
         saveR = right;
 
         ShowPanel(left);
         ShowPanel(right);
-        
+
         OnBtnListener(left);
 
         left.anchoredPosition = InstPos[0].anchoredPosition;
@@ -88,7 +87,7 @@ public class ClickUiRect : MonoBehaviour, IPointerClickHandler
         {
             Button btn = item.GetComponent<Button>();
 
-            btn.onClick.AddListener(()=>ChangeImg(btn));
+            btn.onClick.AddListener(() => ChangeImg(btn));
             btn.onClick.AddListener(FindDifferent);
         }
     }
