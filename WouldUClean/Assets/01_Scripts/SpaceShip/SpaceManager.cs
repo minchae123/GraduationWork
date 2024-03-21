@@ -44,8 +44,6 @@ public class SpaceManager : MonoBehaviour
     public bool isLanding;
     public bool isFlight;
 
-    [SerializeField] private ParticleSystem _fire;
-
     private float _distance;
     private float _shortDis;
 
@@ -205,7 +203,6 @@ public class SpaceManager : MonoBehaviour
         //우주선 안으로
         yield return new WaitForSeconds(1f);
         StartCoroutine(CameraChange());
-        _fire.Stop();
         Finish();
     }
 
@@ -226,7 +223,6 @@ public class SpaceManager : MonoBehaviour
 
         PlayerInputReader.enabled = false;
         spaceship.enabled = true;
-        _fire.Play();
         yield return new WaitForSeconds(1f);
         input.enabled = true;
         //curPlanet.clean = true; //진행도가 완료되면 클리어로 바꾸기
