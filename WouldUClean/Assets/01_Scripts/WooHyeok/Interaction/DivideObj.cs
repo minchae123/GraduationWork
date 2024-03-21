@@ -7,16 +7,15 @@ public class DivideObj : MonoBehaviour
 {
     public ObjectType type;
 
-    private SpriteRenderer spriterenderer;
-
+    private Mesh mesh;
 
     private void Awake()
     {
-        spriterenderer = GetComponent<SpriteRenderer>();
+        mesh = GetComponent<Mesh>();
     }
     private void Start()
     {
-        spriterenderer.sprite = type._ItemIcon;
+        mesh = type._ItemMesh;
     }
 
     public void PickUpItem() // Ãß°¡

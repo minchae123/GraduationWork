@@ -4,16 +4,22 @@ using UnityEngine;
 
 public class PlayerMoveMent : PlayerMain
 {
+    [SerializeField] private Camera cam;
+
     [SerializeField] private InputReader _input;
-    [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
+
+    [SerializeField] private float _curSpeed;
     [SerializeField] private float maxDistance = 35;
 
-    [HideInInspector] public Vector2 _direction;
+    [HideInInspector] public Vector3 _direction;
+
+    private float xRotate = 0;
+    private float yRotate = 0;
 
     private void Awake()
     {
-        _rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody>();
 
         _input.OnMovement += OnMovement;
         _input.OnFKeyDown += OnFKeyDown;
@@ -24,6 +30,7 @@ public class PlayerMoveMent : PlayerMain
 
     void Update()
     {
+        RotCam();
         _rb.velocity = _direction * _curSpeed;
 
         transform.position = Vector3.ClampMagnitude(transform.position, maxDistance);
@@ -45,7 +52,7 @@ public class PlayerMoveMent : PlayerMain
             _isQKeyDown = false;
     }
 
-    private void OnMovement(Vector2 value)
+    private void OnMovement(Vector3 value)
     {
         _direction = value;
         MoveAnim();
@@ -56,14 +63,40 @@ public class PlayerMoveMent : PlayerMain
         _animator.SetFloat("x", Mathf.Abs(_direction.x) / _curSpeed);
 
         _animator.SetFloat("y", -(_direction.y / _curSpeed));
-
-        //    if (Mathf.Abs(_direction.x) / _curSpeed == 0)
-        //        _animator.SetFloat("x", Mathf.Abs(_direction.y) / _curSpeed);
     }
 
     private void OnMousePos(Vector2 value)
     {
+        Vector3 mouseWorldPosition = Camera.main.ScreenToWorldPoint(new Vector3(value.x, value.y, Camera.main.nearClipPlane));
 
+        //print(mouseWorldPosition.x);
+        //print(Input.GetAxis("Mouse X"));
+
+        //float mouseX = mouseWorldPosition.x;
+        //float mouseY = mouseWorldPosition.y;
+
+        //// 카메라 회전
+        //transform.Rotate(-mouseY * 5, mouseX * 5, 0);
+
+        //// 카메라의 x축 회전 제한 (-90 ~ 90도)
+        //Vector3 currentRotation = transform.localEulerAngles;
+        //currentRotation.x = Mathf.Clamp(currentRotation.x, -90f, 90f);
+        //transform.localEulerAngles = currentRotation;
+    }
+
+    private void RotCam()
+    {
+        float xRotateMove = -Input.GetAxis("Mouse Y") * Time.deltaTime * 500;
+        float yRotateMove = Input.GetAxis("Mouse X") * Time.deltaTime * 500;
+
+        yRotate = cam.transform.eulerAngles.y + yRotateMove;
+        //xRotate = transform.eulerAngles.x + xRotateMove; 
+        xRotate = xRotate + xRotateMove;
+
+        xRotate = Mathf.Clamp(xRotate, -90, 90); // 위, 아래 고정
+
+        transform.eulerAngles = new Vector3(0, yRotate, 0);
+        cam.transform.eulerAngles = new Vector3(xRotate, yRotate, 0);
     }
 
     private void OnLeftMouseClick()

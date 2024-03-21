@@ -7,6 +7,7 @@ public class PlanetInfo : ScriptableObject
 {
 	public string planetName;
 	public Sprite planetSprite;
+	public Mesh planetMesh;
 
 	[TextArea]
 	public string planetExplain;

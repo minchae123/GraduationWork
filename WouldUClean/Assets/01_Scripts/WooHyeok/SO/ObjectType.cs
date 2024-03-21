@@ -9,7 +9,8 @@ public class ObjectType : ScriptableObject
     #endregion
 
     #region º¯¼öµé
-    public Sprite _ItemIcon;
+    public Mesh _ItemMesh;
+    public Sprite _ItemSprite;
     public string _ObjectName;
     [TextArea]
     public string _ObjectExplain;

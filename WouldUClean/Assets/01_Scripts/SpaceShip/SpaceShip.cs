@@ -26,7 +26,7 @@ public class SpaceShip : UpgradeStat
 
     public Slider fuelSlider;
 
-    private void OnMove(Vector2 value)
+    private void OnMove(Vector3 value)
     {
         _spaceShipDir = value;
     }
