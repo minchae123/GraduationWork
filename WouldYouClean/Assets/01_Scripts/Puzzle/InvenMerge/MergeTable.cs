@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class MergeTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IDropHandler
 {
+    public ObjectType itemData;
+
     private Image colorImage;
     [SerializeField] private Image childImage;
 
@@ -28,11 +30,17 @@ public class MergeTable : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 
     public void OnDrop(PointerEventData eventData)
     {
-        //if(eventData.pointerDrag.TryGetComponent<>().sprite)
-    }
-
-    public void SetImage(Sprite image)
-    {
-        childImage.sprite = image;
+        if (eventData.pointerDrag.TryGetComponent<MergeItemSlotUI>(out MergeItemSlotUI m))
+        {
+            if(itemData !=null)//이미 아이템이 해당 테이블에 있을 경우
+            {
+                //MergeTrash.Instance
+                print("이미 있음");
+                MergeTrash.Instance.AddItem(itemData);
+            }
+            childImage.sprite = m.itemImage.sprite;
+            itemData = m.item.itemData;
+            MergeTrash.Instance.UseItem(itemData);
+        }
     }
 }

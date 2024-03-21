@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MergeTrash : MonoBehaviour
+public class MergeTrash : MonoSingleton<MergeTrash>
 {
     [Header("==== Core ====")]
     public List<InventoryItem> mainList; // 메인 인벤토리
@@ -97,6 +97,24 @@ public class MergeTrash : MonoBehaviour
         }
     }
 
+
+    public void AddItem(ObjectType item, int cnt = 1)
+    {
+        if (mainDictionary.TryGetValue(item, out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
+        {
+            i.AddItemCnt(cnt);
+        }
+        else
+        {
+            // 새로 등록
+            InventoryItem newItem = new InventoryItem(item);
+            mainList.Add(newItem);
+            mainDictionary.Add(item, newItem);
+        }
+
+        UpdateSlotUI();
+    }
+
     public void UseItem(ObjectType item, int cnt = 1)
     {
         if (mainDictionary.TryGetValue(item, out InventoryItem i))
@@ -112,5 +130,7 @@ public class MergeTrash : MonoBehaviour
                 i.RemoveItemCnt(cnt); // cnt만큼 빼주기
             }
         }
+
+        UpdateSlotUI();
     }
 }
