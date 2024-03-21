@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 
 public class InputReader : MonoBehaviour
 {
-    private PlayerInput _inputAction;
+    private PlayerInputs _inputAction;
 
     public event Action<Vector2> OnMovement;
     public event Action<Vector2> OnMousePos;
@@ -16,7 +16,7 @@ public class InputReader : MonoBehaviour
 
     void Start()
     {
-        _inputAction = new PlayerInput();
+        _inputAction = new PlayerInputs();
         _inputAction.Player.Enable();
 
         //_inputAction.Player.Divide.performed += OnKeyFHandle;
