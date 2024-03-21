@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UIManager : MonoSingleton<UIManager>
@@ -48,6 +49,8 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void OnExitAndSave()
     {
+        SaveManager.Instance.SaveGameData();
+        SceneManager.LoadScene("Title");
         // 게임 세이브하고
         // 타이틀 화면으로 이동하는 로직
     }

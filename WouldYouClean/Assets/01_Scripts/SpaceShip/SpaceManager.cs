@@ -18,7 +18,8 @@ public class SpaceManager : MonoBehaviour
 
     [Header("Planet")]
     public PlanetInSpace[] Planets;
-    public PlanetInSpace curPlanet = null;
+    private PlanetInSpace curPlanet = null;
+    private PlanetInSpace nearPlanet = null;
 
     private float _targetSize = 5;
     private float _curSize;
@@ -89,30 +90,30 @@ public class SpaceManager : MonoBehaviour
     #region 우주선발사및착륙
     private void Interaction()
     {
+        _shortDis = 100;
         //거리 측정
-        _shortDis = Vector2.Distance(_spaceshipPos.position, Planets[0].transform.position);
 
         foreach (PlanetInSpace planet in Planets)
         {
-            //if (Vector2.Distance(spaceship.transform.position, planet.transform.position) < 7)
-
             _distance = Vector2.Distance(spaceship.transform.position, planet.transform.position);
 
+            //if (Vector2.Distance(spaceship.transform.position, planet.transform.position) < 15)
             if (_distance < _shortDis)
             {
                 curPlanet = planet;
                 _shortDis = _distance;
+                if (!curPlanet.found)
+                    nearPlanet = curPlanet;
             }
         }
 
         //Planet Compass
-        if (onCompass )
-        {            
-            float compassDir = Mathf.Atan2(curPlanet.transform.position.y - spaceship.transform.position.y,
-                curPlanet.transform.position.x - spaceship.transform.position.x) * Mathf.Rad2Deg;
+        if (onCompass)
+        {
+            float compassDir = Mathf.Atan2(nearPlanet.transform.position.y - spaceship.transform.position.y,
+                nearPlanet.transform.position.x - spaceship.transform.position.x) * Mathf.Rad2Deg;
 
             _compass.transform.rotation = Quaternion.AngleAxis(compassDir - 90, Vector3.forward);
-
         }
 
 
@@ -124,6 +125,7 @@ public class SpaceManager : MonoBehaviour
                 curPlanet.interacted = true;
                 canLanding = true;
                 curPlanet.inPlanet.SetActive(true);
+                curPlanet.found = true;
             }
             else
             {

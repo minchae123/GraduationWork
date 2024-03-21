@@ -81,10 +81,10 @@ public class Shop : MonoSingleton<Shop>
     }
     public void ExitShop()
     {
-        print("CLick");
+        //print("CLick");
         mainShopTrm.gameObject.SetActive(false);
 
-        Inventory.Instance.SetShopItem(mainShopItem, shopDictionary);
+        Inventory.Instance.SetChangedInventory(mainShopItem, shopDictionary);
 
         mainShopItem.Clear();
         shopDictionary.Clear();

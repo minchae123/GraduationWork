@@ -7,7 +7,7 @@ public class PlayerMoveMent : PlayerMain
     [SerializeField] private InputReader _input;
     [SerializeField] private float _curSpeed;
     [SerializeField] private TextMeshPro _warning;
-    [SerializeField] private float maxDistance;
+    [SerializeField] private float maxDistance = 35;
 
     [HideInInspector] public Vector2 _direction;
 
