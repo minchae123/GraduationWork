@@ -1,11 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
-public class Inventory : MonoBehaviour, ISaveManager
+public class Inventory : MonoSingleton<Inventory>, ISaveManager
 {
-    public static Inventory Instance;
-
     public List<InventoryItem> mainInventory; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> invenDictionary; // 인벤토리 딕셔너리
 
@@ -13,9 +13,9 @@ public class Inventory : MonoBehaviour, ISaveManager
     [SerializeField] private Transform invenSlotParent; // 슬롯 부모
     [SerializeField] private ItemSlotUI slotPrefab;
 
-    [Header("수정 가능")]
-    [SerializeField] private int inventoryLength = 3; // 초기 인벤토리
-    private int maxInventoryLength = 8; // 최대 인벤토리
+    // 변수
+    private int inventoryLength = 8; // 초기 인벤토리
+    private int maxInventoryLength = 20; // 최대 인벤토리
     private ItemSlotUI[] itemSlots; // 슬롯 부모에서 가져올 slotUI들 (prefab)
 
     [Header("ItemUI")]
@@ -24,11 +24,16 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private NameToObjectType NameToObjectType;
 
+    // 추가된 부분   
+    [Header("KEY INPUT")]
+    public InventoryItem currentSelectedItem; // 처음에는 null 이 맞다
+
+    private bool isInInventory = false;
+    private float localPosY = -540f;
+    private int currentSelectedInven = 0;
+
     private void Awake()
-    {
-        if(Instance!=null) { Debug.LogError("Inventory Error"); }
-        Instance = this;
-        
+    {  
         NameToObjectType = FindObjectOfType<NameToObjectType>();
         mainInventory = new List<InventoryItem>();
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
@@ -37,14 +42,17 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     private void Start()
     {
-        for(int i = 0; i < inventoryLength; ++i)
+        for (int i = 0; i < inventoryLength; ++i)
         {
             ItemSlotUI slot = Instantiate(slotPrefab, invenSlotParent);
             itemSlots[i] = slot;
         }
         UpdateSlotUI();
+
+        itemSlots[currentSelectedInven].transform.DOScale(1.1f, 0.5f);
     }
 
+    #region 전에 있던 것들
     public List<InventoryItem> ReturnInvenList() => mainInventory;
     public Dictionary<ObjectType, InventoryItem> ReturnInvenDictionary() => invenDictionary;
 
@@ -71,6 +79,7 @@ public class Inventory : MonoBehaviour, ISaveManager
             itemSlots[i].UpdateSlot(mainInventory[i]); // redraw
         }
     }
+
     public void ClearItem()
     {
         for (int i = 0; i < inventoryLength; ++i)
@@ -151,31 +160,85 @@ public class Inventory : MonoBehaviour, ISaveManager
 
     public void UpgradeInventory(int upgradeLength = 1)
     {
-        if (inventoryLength + upgradeLength > maxInventoryLength) 
-        {
-            print("maxInventory 초과");
-            return;
-        }
+        if (inventoryLength >= maxInventoryLength) { return; }
 
         for (int i = 0; i < upgradeLength; ++i)
         {
+            if (inventoryLength > maxInventoryLength)
+            {
+                Mathf.Clamp(inventoryLength, 0, maxInventoryLength);
+                return;
+            }
+
             ItemSlotUI newSlot = Instantiate(slotPrefab, invenSlotParent);
             // 0, 1, 2 들어있음 (3->5)
             // 2개가 들어옴 (3, 4 에 있어야함)
             itemSlots[inventoryLength++] = newSlot;
         }
+
         UpdateSlotUI(); // 업덱
     }
+    #endregion
 
-    /*private void Update()
+    // 추가 딘 부분
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K))
+        if (Input.GetKeyDown(KeyCode.K)) // 디버깅
         {
             UpgradeInventory();
         }
-    }*/
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(!isInInventory)
+            {
+                ShowInventory();
+                itemSlots[currentSelectedInven].transform.DOScale(1.0f, 0.5f);
+            }
+            else
+            {
+                HideInventory();
+                itemSlots[currentSelectedInven].transform.DOScale(1.1f, 0.5f);
+            }
 
-	public void LoadData(GameData data)
+            isInInventory = !isInInventory;
+        }
+
+        if (isInInventory) return; // 휠 못 움직이게
+        Vector2 wheel = Input.mouseScrollDelta;
+        if (wheel.y > 0)
+        {
+            UpdateSelectInven(1);
+        }else if (wheel.y < 0)
+        {
+            UpdateSelectInven(-1);
+        }
+    }
+
+    private void UpdateSelectInven(int sign)
+    {
+        if (currentSelectedInven + sign > 3 || currentSelectedInven + sign < 0) return;
+        //print("dd");
+
+        currentSelectedInven += sign;
+
+        itemSlots[currentSelectedInven].transform.DOScale(1.1f, 0.5f);
+        itemSlots[currentSelectedInven - sign].transform.DOScale(1f, 0.5f);
+        
+        currentSelectedItem = itemSlots[currentSelectedInven].item;
+    }
+
+    private void ShowInventory()
+    {
+        int curLength = (inventoryLength - 1) / 4; 
+        invenSlotParent.DOLocalMoveY(localPosY + (200 * curLength), 0.9f);
+    }
+    private void HideInventory()
+    {
+        invenSlotParent.DOLocalMoveY(localPosY, 0.7f);
+    }
+
+    #region 저장
+    public void LoadData(GameData data)
 	{
         //print("load start");
         //print(data.inventory.items.Count);
@@ -211,4 +274,5 @@ public class Inventory : MonoBehaviour, ISaveManager
 
         data.inventory = dInven;
 	}
+    #endregion
 }
