@@ -77,7 +77,7 @@ public class DrawPatten : MonoBehaviour
         completeSpot.Add(spots[idx]);
         UiIdx = idx;
 
-        UndoCorner(spots[idx]);
+        //UndoCorner(spots[idx]);
         DrawLine(worldMousePosition);
     }
 
