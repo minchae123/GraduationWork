@@ -32,7 +32,7 @@ public class DrawPatten : MonoBehaviour
 
     private void StartLine()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButton(0))
         {
             Vector3 mousePosition = Input.mousePosition;
             mousePosition.z = 10;
@@ -77,7 +77,7 @@ public class DrawPatten : MonoBehaviour
         completeSpot.Add(spots[idx]);
         UiIdx = idx;
 
-        UndoCorner(spots[idx]);
+        //UndoCorner(spots[idx]);
         DrawLine(worldMousePosition);
     }
 
