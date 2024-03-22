@@ -7,12 +7,12 @@ public class UFO : MonoBehaviour
     [Header("InputSystem")]
     [SerializeField] private InputReader _input;
 
-    private Vector2 _spaceShipDir;
+    private Vector3 _spaceShipDir;
     public SpaceObject[] spaceObjects;
 
     [SerializeField] private SpaceBackground background;
 
-    private void OnMove(Vector2 value)
+    private void OnMove(Vector3 value)
     {
         _spaceShipDir = value;
     }

@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 public class MergeItemSlotUI : ItemSlotUI, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
-    [SerializeField] private Image dragImage; // 드래그 할 때 이미지
+    /*[SerializeField] private Image dragImage; // 드래그 할 때 이미지
 
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -31,5 +31,5 @@ public class MergeItemSlotUI : ItemSlotUI, IBeginDragHandler, IDragHandler, IEnd
 
         dragImage.raycastTarget = true;
         Destroy(dragImage.gameObject);
-    }
+    }*/
 }
