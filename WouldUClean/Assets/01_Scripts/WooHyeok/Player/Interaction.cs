@@ -5,6 +5,7 @@ using StarterAssets;
 
 public class Interaction : MonoBehaviour
 {
+    [SerializeField] private RectTransform _sellTable;
     StarterAssetsInputs _input;
 
     private DivideObj _cleanItem;
@@ -30,6 +31,7 @@ public class Interaction : MonoBehaviour
                         CleanItem();
                         break;
                     case "Sell":
+                        UIManager.Instance.ShowPanel(_sellTable);
                         break;
                 }
             }

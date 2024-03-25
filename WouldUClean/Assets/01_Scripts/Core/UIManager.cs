@@ -93,7 +93,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowPanel(RectTransform panel)
     {
-        panel.transform.DOScale(Vector2.one * 1f, 1.5f).SetEase(Ease.InOutQuint); // 크기를 1.5배로 1초 동안 점차 키움
+        panel.transform.DOScale(Vector2.one * 1f, 1.5f).SetEase(Ease.Linear); // 크기를 1.5배로 1초 동안 점차 키움
         panel.DOAnchorPos(Vector2.zero, 1.5f).SetEase(Ease.InOutQuint);
     }
 
