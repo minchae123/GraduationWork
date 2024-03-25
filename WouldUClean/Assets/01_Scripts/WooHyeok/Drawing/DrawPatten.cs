@@ -44,6 +44,7 @@ public class DrawPatten : MonoBehaviour
         else if (Input.GetMouseButtonUp(0))
         {
             SuccessPw(passWord.Length == enterPassWord.Length);
+
             ResetLine();
         }
     }
