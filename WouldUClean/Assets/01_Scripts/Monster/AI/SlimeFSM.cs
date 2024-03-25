@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class SlimeFSM : EnemyFSM
 {
+	[SerializeField] private float chaseDecision;
+	[SerializeField] private float attackDecision;
+
 	public override void OnStateEnter(EnemyState state)
 	{
 		switch (state)
 		{
 			case EnemyState.Idle:
+				{
+
+				}
 				break;
 			case EnemyState.Chase:
 				{
@@ -30,6 +36,9 @@ public class SlimeFSM : EnemyFSM
 		switch (state)
 		{
 			case EnemyState.Idle:
+				{
+
+				}
 				break;
 			case EnemyState.Chase:
 				{
