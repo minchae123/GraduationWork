@@ -66,7 +66,7 @@ public class CollectedPlanets : MonoSingleton<CollectedPlanets>
 
         trashSO[trashs.Count - 1].planetName = info.type._ObjectName;
         trashSO[trashs.Count - 1].planetExplain = info.type._ObjectExplain;
-        trashSO[trashs.Count - 1].planetSprite = info.type._ItemIcon;
+        trashSO[trashs.Count - 1].planetSprite = info.type._ItemSprite;
 
         collected.info = trashSO[trashs.Count - 1];
 

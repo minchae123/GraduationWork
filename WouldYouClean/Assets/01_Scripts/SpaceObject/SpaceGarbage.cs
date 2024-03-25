@@ -14,13 +14,14 @@ public class SpaceGarbage : SpaceObject
     }
     private void Update()
     {
-        
+
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Spaceship"))
         {
             collision.transform.DOShakePosition(0.2f);
+            Destroy(gameObject);
             //¿¬·á»¯±â
         }
     }
