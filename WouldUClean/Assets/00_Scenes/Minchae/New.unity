@@ -272,7 +272,7 @@ GameObject:
   - component: {fileID: 842591224}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -348,7 +348,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 842591223}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.671101, y: -1.3251634, z: -2.17983}
+  m_LocalPosition: {x: -0.671101, y: 0.61, z: -2.17983}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -462,6 +462,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   targetTrm: {fileID: 842591227}
   moveSpeed: 10
+  chaseDecision: 0
+  attackDecision: 0
 --- !u!1 &1725490081
 GameObject:
   m_ObjectHideFlags: 0
