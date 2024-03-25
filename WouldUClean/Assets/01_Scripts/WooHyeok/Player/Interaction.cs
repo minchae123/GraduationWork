@@ -23,8 +23,15 @@ public class Interaction : MonoBehaviour
         {
             if (TrashRay())
             {
-                _cleanItem = hit.transform.GetComponent<DivideObj>();
-                CleanItem();
+                switch (hit.collider.tag)
+                {
+                    case "Trash":
+                        _cleanItem = hit.transform.GetComponent<DivideObj>();
+                        CleanItem();
+                        break;
+                    case "Sell":
+                        break;
+                }
             }
             else
                 _input.interaction = false;
@@ -33,7 +40,7 @@ public class Interaction : MonoBehaviour
     }
 
     private bool TrashRay() =>
-        Physics.Raycast(transform.position, transform.forward, out hit, 100f, LayerMask.GetMask("Trash"));
+        Physics.Raycast(transform.position, transform.forward, out hit, 10f);
 
     private void CleanItem()
     {
