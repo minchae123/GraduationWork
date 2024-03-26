@@ -8,7 +8,7 @@ public class InputReader : MonoBehaviour
 {
     private PlayerInputs _inputAction;
 
-    public event Action<Vector3> OnMovement;
+    public event Action<Vector2> OnMovement;
     public event Action<Vector2> OnMousePos;
     public event Action<bool> OnFKeyDown;
     public event Action<bool> OnQKeyDown;
@@ -30,7 +30,7 @@ public class InputReader : MonoBehaviour
 
     void Update()
     {
-        Vector3 inputDir = _inputAction.Player.Move.ReadValue<Vector3>();
+        Vector2 inputDir = _inputAction.Player.Move.ReadValue<Vector2>();
         OnMovement.Invoke(inputDir);
 
         Vector2 dir = _inputAction.Player.MousePos.ReadValue<Vector2>();

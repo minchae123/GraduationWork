@@ -6,6 +6,7 @@ using UnityEngine.Experimental.GlobalIllumination;
 using UnityEngine.UI;
 using DG.Tweening;
 using UnityEditor.Rendering.LookDev;
+using StarterAssets;
 
 public class SpaceManager : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class SpaceManager : MonoBehaviour
 
     public Camera MainCam;
     public Camera SpaceshipCam;
-    public InputReader PlayerInputReader;
+    public FirstPersonController PlayerInput;
     public InputReader SpaceshipInputReader;
 
     [Header("Planet")]
@@ -196,7 +197,7 @@ public class SpaceManager : MonoBehaviour
         isFlight = false;
         isLanding = true;
 
-        PlayerInputReader.enabled = true;
+        PlayerInput.enabled = true;
         input.enabled = false;
         spaceship.enabled = false;
 
@@ -221,7 +222,7 @@ public class SpaceManager : MonoBehaviour
         isLanding = false;
         isFlight = true;
 
-        PlayerInputReader.enabled = false;
+        PlayerInput.enabled = false;
         spaceship.enabled = true;
         yield return new WaitForSeconds(1f);
         input.enabled = true;
