@@ -4,8 +4,25 @@ using UnityEngine;
 
 public class SlimeFSM : EnemyFSM
 {
-	[SerializeField] private float chaseDecision;
-	[SerializeField] private float attackDecision;
+	[SerializeField] private float chaseDecision = 6;
+	[SerializeField] private float attackDecision = 2;
+
+	protected override void Update()
+	{
+		base.Update();
+		if(decision < attackDecision)
+		{
+			ChangeState(EnemyState.Attack);
+		}
+		else if(decision < chaseDecision)
+		{
+			ChangeState(EnemyState.Chase);
+		}
+		else if(decision > chaseDecision)
+		{
+			ChangeState(EnemyState.Idle);
+		}
+	}
 
 	public override void OnStateEnter(EnemyState state)
 	{
@@ -13,20 +30,23 @@ public class SlimeFSM : EnemyFSM
 		{
 			case EnemyState.Idle:
 				{
-
+					print("Enter Idle");
 				}
 				break;
 			case EnemyState.Chase:
 				{
+					print("Enter Chase");
 					navMovement.SetSpeed(moveSpeed);
 				}
 				break;
 			case EnemyState.Attack:
 				{
+					print("Enter Attack");
 					StartCoroutine(AttackCoroutine());
 				}
 				break;
 			case EnemyState.Die:
+					print("Enter Die");
 				break;
 		}
 	}
@@ -75,6 +95,9 @@ public class SlimeFSM : EnemyFSM
 		switch (state)
 		{
 			case EnemyState.Idle:
+				{
+					print("Idle");
+				}
 				break;
 			case EnemyState.Chase:
 				{
@@ -82,6 +105,9 @@ public class SlimeFSM : EnemyFSM
 				}
 				break;
 			case EnemyState.Attack:
+				{
+
+				}
 				break;
 			case EnemyState.Die:
 				break;
