@@ -18,8 +18,7 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected float decision;
 
-
-	private void Awake()
+    private void Awake()
 	{
 		navMovement = GetComponent<NavAgentMovement>();
 	}
