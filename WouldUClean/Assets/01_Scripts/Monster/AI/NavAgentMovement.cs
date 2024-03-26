@@ -29,7 +29,7 @@ public class NavAgentMovement : MonoBehaviour
         aiActionData = transform.Find("AI").GetComponent<AIActionData>();
     }
 
-    public void SetSpeed(float speed)
+    public void SetSpeed(float speed = 4)
     {
         navAgent.speed = speed; 
     }

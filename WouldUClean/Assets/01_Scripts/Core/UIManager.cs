@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
-    private bool isSetting = false;
+    [HideInInspector] public bool isSetting = false;
 
     [Header("Setting UI")]
     [SerializeField] private GameObject settingPanel;
@@ -20,10 +20,14 @@ public class UIManager : MonoSingleton<UIManager>
     private string bgmKey = "BGMVolume";
     private string effectKey = "EffectVolume";
 
+    public float Sensitivity { get; private set; }
+
 
     private void Start()
     {
         OnExitSettingPanel();
+
+        Sensitivity = 1f;
 
         bgmSlider.value = PlayerPrefs.GetFloat(bgmKey);
         effectSlider.value = PlayerPrefs.GetFloat(effectKey);
@@ -42,10 +46,21 @@ public class UIManager : MonoSingleton<UIManager>
     }
     public void OnExitSettingPanel()
     {
+        Cursor.lockState = CursorLockMode.Locked;
+
         isSetting = false;
         settingPanel.SetActive(false);
 
         Time.timeScale = 1;
+    }
+    public void OnEntrySettingPanel()
+    {
+        Cursor.lockState = CursorLockMode.None;
+
+        isSetting = true;
+        settingPanel.SetActive(true);
+
+        Time.timeScale = 0;
     }
     public void OnExitAndSave()
     {
@@ -72,14 +87,6 @@ public class UIManager : MonoSingleton<UIManager>
 
     }
 
-    public void OnEntrySettingPanel()
-    {
-        isSetting = true;
-        settingPanel.SetActive(true);
-
-        Time.timeScale = 0;
-    }
-
     public void ScaleRectTransform(RectTransform obj, Vector3 endValue, float duraion, Ease ease = Ease.Linear, params Action[] action)
     {
         obj.DOScale(endValue, duraion).SetEase(ease).OnComplete(() =>
@@ -93,7 +100,7 @@ public class UIManager : MonoSingleton<UIManager>
 
     public void ShowPanel(RectTransform panel)
     {
-        panel.transform.DOScale(Vector2.one * 1f, 1.5f).SetEase(Ease.InOutQuint); // 크기를 1.5배로 1초 동안 점차 키움
+        panel.transform.DOScale(Vector2.one * 1f, 1.5f).SetEase(Ease.Linear); // 크기를 1.5배로 1초 동안 점차 키움
         panel.DOAnchorPos(Vector2.zero, 1.5f).SetEase(Ease.InOutQuint);
     }
 
@@ -101,5 +108,10 @@ public class UIManager : MonoSingleton<UIManager>
     {
         rect.transform.DOScale(Vector2.zero, 1f).SetEase(Ease.InOutQuint);
         rect.DOAnchorPos(Vector2.zero, 1f);
+    }
+
+    public void SliderValue(float value)
+    {
+        Sensitivity = value;
     }
 }
