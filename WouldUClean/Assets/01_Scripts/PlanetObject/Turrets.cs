@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class Turrets : MonoBehaviour
+public class Turrets : MonoBehaviour//////////////////////////////////////사용하지않는스크립트입니다람쥐처럼볼에다도토리채우기
 {
     public float attackRange = 5;
     public GameObject Bullet;
