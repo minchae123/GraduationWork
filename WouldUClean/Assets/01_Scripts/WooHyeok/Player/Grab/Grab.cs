@@ -9,6 +9,7 @@ public class Grab : MonoBehaviour
     [SerializeField] private float _speed;
 
     private bool _isGrabbing = false;
+    public bool _isTurning = true;
 
     public void GrabTrash(DivideObj obj)
     {
@@ -16,10 +17,21 @@ public class Grab : MonoBehaviour
         StartCoroutine(GrabMotion(obj));
     }
 
+    public void EmptyGrab()
+    {
+        transform.DOScaleZ(15, 0.5f)
+            .OnComplete(()=>
+            {
+                transform.DOScaleZ(1, 0.5f);
+            });
+    }
+
     IEnumerator GrabMotion(DivideObj obj)
     {
         Vector3 size = Vector3.zero;
         size.z = _speed;
+
+        _isTurning = false;
 
         while (true)
         {
@@ -42,6 +54,8 @@ public class Grab : MonoBehaviour
 
             yield return null;
         }
+
+        _isTurning = true;
     }
 
     private bool CatchObj(DivideObj obj)
@@ -67,6 +81,7 @@ public class Grab : MonoBehaviour
     private bool IsStop(DivideObj obj)
     {
         if (obj == null) return true;
+        if (transform.localScale.z > 15) return true;
 
         Vector3 dir = obj.transform.position - colPos.position;
         return Physics.Raycast(colPos.position, dir, 1f, LayerMask.GetMask("Trash"));
