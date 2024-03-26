@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 
-public class PlayerHp : PlayerMain
+public class PlayerHp : MonoBehaviour
 {
     [SerializeField] private Slider _breathBar;
     [SerializeField] private Slider _hpBar;
@@ -14,6 +14,7 @@ public class PlayerHp : PlayerMain
     [SerializeField] private float _value = 5f;
 
     public bool _istest = false;
+    private bool _isPlain = false;
 
     private float _breath;
     private float _hp;
