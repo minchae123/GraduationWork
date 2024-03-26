@@ -33,18 +33,18 @@ public class Interaction : MonoBehaviour
                         break;
                 }
             }
-            else
-                _input.interaction = false;
 
+            _input.interaction = false;
         }
     }
 
     private bool TrashRay() =>
-        Physics.Raycast(transform.position, transform.forward, out hit, 10f);
+        Physics.Raycast(transform.position, transform.forward, out hit, 5f);
 
     private void CleanItem()
     {
-        CollectedPlanets.Instance.AddTrashCollected(_cleanItem);//도감에 추가
-        _cleanItem.PickUpItem();
+         foreach(Transform child in transform)
+            if (child.TryGetComponent<Grab>(out Grab grab))
+                grab.GrabTrash(_cleanItem);
     }
 }
