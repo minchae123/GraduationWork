@@ -200,8 +200,9 @@ public class Shop : MonoSingleton<Shop>
         {
             case PurchaseItem.NONE:
                 break;
-            case PurchaseItem.inventoryUpgrade:
-                UpgradeInventory(price); print("1");
+            case PurchaseItem.Debt:
+                // ºú°±±â
+                print("ºú°±±â");
                 break;
             case PurchaseItem.cleanerUpgrade:
                 UpgradeCleaner(price);

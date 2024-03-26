@@ -76,6 +76,7 @@ public class SellingShopTable : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void IncreaseAmount()
     {
+        if (currentItem == null) return;    
         if (Shop.Instance.shopDictionary.TryGetValue(currentItem, out InventoryItem i)) // shopdictionary에 있느면
         {
             Shop.Instance.RemoveItem(currentItem);
