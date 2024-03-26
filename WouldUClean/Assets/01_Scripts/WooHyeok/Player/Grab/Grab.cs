@@ -12,6 +12,7 @@ public class Grab : MonoBehaviour
 
     public void GrabTrash(DivideObj obj)
     {
+        _isGrabbing = false;
         StartCoroutine(GrabMotion(obj));
     }
 
@@ -29,7 +30,6 @@ public class Grab : MonoBehaviour
                 if (CatchObj(obj))
                 {
                     transform.localScale = Vector3.one;
-                    print("ss");
                     break;
                 }
             }
@@ -58,7 +58,6 @@ public class Grab : MonoBehaviour
                 CollectedPlanets.Instance.AddTrashCollected(obj);//도감에 추가
                 obj.PickUpItem();
 
-                _isGrabbing = false;
                 answer = true;
             });
 
