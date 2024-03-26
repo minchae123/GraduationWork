@@ -21,7 +21,7 @@ public class PlayerMoveMent : PlayerMain
     {
         _rb = GetComponent<Rigidbody>();
 
-        _input.OnMovement += OnMovement;
+        //_input.OnMovement += OnMovement;
         _input.OnFKeyDown += OnFKeyDown;
         _input.OnQKeyDown += OnQKeyDown;
         _input.OnMousePos += OnMousePos;
