@@ -8,19 +8,30 @@ public class Bullet : PoolableMono
     Vector3 playerDirection;
     Rigidbody rigid;
 
-    public override void Init()
+    private void Start()
     {
+
         rigid = GetComponent<Rigidbody>();
         playerDirection = (GameManager.Instance._playerTrm.position - transform.position).normalized;
         rigid.velocity = playerDirection * speed;
+    }
+
+    public override void Init()
+    {
+        playerDirection = (GameManager.Instance._playerTrm.position - transform.position).normalized;
     }
 
     private void OnEnable()
     {
     }
 
-    private void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        //transform.position += Vector3.forward * speed * Time.deltaTime;
+        if (other.CompareTag("Player"))
+        {
+            print("데미지를 추가해야한다");
+            PoolManager.Instance.Push(this);
+        }
     }
+
 }

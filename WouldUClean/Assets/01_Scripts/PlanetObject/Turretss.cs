@@ -26,7 +26,6 @@ public class Turretss : MonoBehaviour
         if (Vector3.Distance(transform.position, GameManager.Instance._playerTrm.position) < _shootRange) // 범위에 들어오면 회전하기
         {
             transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(playerDirection), 5 * Time.deltaTime);
-            print("보는중");
         }
 
         if (Physics.Raycast(firePos.position, transform.forward, out hit, _shootRange)) // 보고있으면 쏘기
@@ -34,7 +33,6 @@ public class Turretss : MonoBehaviour
             Debug.DrawRay(firePos.position, transform.forward * hit.distance, Color.red);
             if (hit.collider.CompareTag("Player") && !isShooting)
             {
-                print("사격!!!!!!");
                 isShooting = true;
                 StartCoroutine(Attack());
             }
@@ -54,7 +52,6 @@ public class Turretss : MonoBehaviour
             if (isShooting)
             {
                 Bullet bullet = PoolManager.Instance.Pop("Bullet") as Bullet;
-                print("shoot");
                 bullet.transform.position = firePos.position;
                 yield return new WaitForSeconds(0.2f);
             }
