@@ -13,5 +13,5 @@ public class PoolingPair
 [CreateAssetMenu(menuName = "SO/Pool/List")]
 public class PoolingListSO : ScriptableObject
 {
-    public List<PoolingPair> lis;
+    public List<PoolingPair> list;
 }

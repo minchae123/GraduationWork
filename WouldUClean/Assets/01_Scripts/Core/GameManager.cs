@@ -9,13 +9,20 @@ public class GameManager : MonoSingleton<GameManager>
     public Transform _playerTrm;
     public Transform SpaceShipTrm;
     public Camera mainCam;
+    public PoolingListSO poolingListSO;
 
 
     // Start is called before the first frame update
     void Awake()
     {
         mainCam = Camera.main;
+        MakePool();
+    }
 
+    private void MakePool()
+    {
+        PoolManager.Instance = new PoolManager(transform);
+        poolingListSO.list.ForEach(p => PoolManager.Instance.CreatePool(p.prefab, p.poolCount));
     }
 
 
