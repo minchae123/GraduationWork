@@ -8,11 +8,11 @@ public class InputReader : MonoBehaviour
 {
     private PlayerInputs _inputAction;
 
-    public event Action<Vector2> OnMovement;
+    public event Action<Vector2> OnMove;
     public event Action<Vector2> OnMousePos;
-    public event Action<bool> OnFKeyDown;
-    public event Action<bool> OnQKeyDown;
-    public event Action OnLeftMouseClick;
+    public event Action<bool> OnDivide;
+    public event Action<bool> OnDictionary;
+    public event Action OnMouseClick;
 
     void Start()
     {
@@ -25,13 +25,13 @@ public class InputReader : MonoBehaviour
 
     private void OnLeftMouseClickHandle(InputAction.CallbackContext context)
     {
-        OnLeftMouseClick?.Invoke();
+        OnMouseClick?.Invoke();
     }
 
     void Update()
     {
         Vector2 inputDir = _inputAction.Player.Move.ReadValue<Vector2>();
-        OnMovement.Invoke(inputDir);
+        OnMove.Invoke(inputDir);
 
         Vector2 dir = _inputAction.Player.MousePos.ReadValue<Vector2>();
         OnMousePos?.Invoke(dir);
@@ -40,13 +40,13 @@ public class InputReader : MonoBehaviour
         bool isQclick = _inputAction.Player.Dictionaly.IsPressed();
 
         if (isFclick)
-            OnFKeyDown?.Invoke(true);
+            OnDivide?.Invoke(true);
         else
-            OnFKeyDown?.Invoke(false);
+            OnDivide?.Invoke(false);
         
         if (isQclick)
-            OnQKeyDown?.Invoke(true);
+            OnDictionary?.Invoke(true);
         else
-            OnQKeyDown?.Invoke(false);
+            OnDictionary?.Invoke(false);
     }
 }
