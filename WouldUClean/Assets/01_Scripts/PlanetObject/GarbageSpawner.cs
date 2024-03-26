@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GarbageSpawner : MonoBehaviour
+public class GarbageSpawner : MonoBehaviour////////////////////////////////////////////////////이것은사용하지않지않지않아요
 {
     [SerializeField] DivideObj _garbagePrefab;
 
