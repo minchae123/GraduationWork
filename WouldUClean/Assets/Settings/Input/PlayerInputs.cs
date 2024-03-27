@@ -14,7 +14,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
-//
+//asdf
 public partial class @PlayerInputs: IInputActionCollection2, IDisposable
 {
     public InputActionAsset asset { get; }
