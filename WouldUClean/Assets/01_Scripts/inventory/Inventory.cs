@@ -200,11 +200,13 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
         }
 
         if (isInInventory) return; // 휠 못 움직이게
+
         Vector2 wheel = Input.mouseScrollDelta;
         if (wheel.y > 0)
         {
             UpdateSelectInven(1);
-        }else if (wheel.y < 0)
+        }
+        else if (wheel.y < 0)
         {
             UpdateSelectInven(-1);
         }
@@ -212,14 +214,18 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
 
     private void UpdateSelectInven(int sign)
     {
-        if (currentSelectedInven + sign > 3 || currentSelectedInven + sign < 0) return;
-        //print("dd");
-
-        currentSelectedInven += sign;
+        if (currentSelectedInven + sign > 3 || currentSelectedInven + sign < 0)
+        {
+            itemSlots[currentSelectedInven].transform.DOScale(1f, 0.5f);
+            currentSelectedInven = currentSelectedInven + sign < 0 ? 3 : 0;
+        }
+        else
+        {
+            currentSelectedInven += sign;
+            itemSlots[currentSelectedInven - sign].transform.DOScale(1f, 0.5f);
+        }
 
         itemSlots[currentSelectedInven].transform.DOScale(1.1f, 0.5f);
-        itemSlots[currentSelectedInven - sign].transform.DOScale(1f, 0.5f);
-        
         currentSelectedItem = itemSlots[currentSelectedInven].item;
     }
 
@@ -227,10 +233,12 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
     {
         int curLength = (inventoryLength - 1) / 4; 
         invenSlotParent.DOLocalMoveY(localPosY + (200 * curLength), 0.9f);
+        Cursor.lockState = CursorLockMode.None;
     }
     private void HideInventory()
     {
         invenSlotParent.DOLocalMoveY(localPosY, 0.7f);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void OnAndOffInventory(bool b)
