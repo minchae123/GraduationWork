@@ -36,7 +36,7 @@ public class SpaceShip : UpgradeStat
 
     private void Start()
     {
-        _input.OnMove += OnMove;
+        //_input.OnMovement += OnMove;
         spaceObjects = GameObject.FindObjectsOfType<PlanetInSpace>();
         spaceGarbages = GameObject.FindObjectsOfType<SpaceGarbage>();
     }

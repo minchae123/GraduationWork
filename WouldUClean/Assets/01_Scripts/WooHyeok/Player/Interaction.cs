@@ -29,32 +29,22 @@ public class Interaction : MonoBehaviour
                         _cleanItem = hit.transform.GetComponent<DivideObj>();
                         CleanItem();
                         break;
-                    default:
-                        EmptyGrab();
+                    case "Sell":
                         break;
                 }
             }
             else
-                EmptyGrab();
+                _input.interaction = false;
 
-            _input.interaction = false;
         }
     }
 
     private bool TrashRay() =>
-        Physics.Raycast(transform.position, transform.forward, out hit, 5f);
+        Physics.Raycast(transform.position, transform.forward, out hit, 10f);
 
     private void CleanItem()
     {
-        foreach (Transform child in transform)
-            if (child.TryGetComponent<Grab>(out Grab grab))
-                grab.GrabTrash(_cleanItem);
-    }
-
-    private void EmptyGrab()
-    {
-        foreach (Transform child in transform)
-            if (child.TryGetComponent<Grab>(out Grab grab))
-                grab.EmptyGrab();
+        CollectedPlanets.Instance.AddTrashCollected(_cleanItem);//도감에 추가
+        _cleanItem.PickUpItem();
     }
 }
