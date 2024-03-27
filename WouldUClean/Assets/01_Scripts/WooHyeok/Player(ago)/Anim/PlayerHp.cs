@@ -13,7 +13,6 @@ public class PlayerHp : MonoBehaviour
     [SerializeField] private float _limitBreath;
     [SerializeField] private float _value = 5f;
 
-    public bool _istest = false;
     private bool _isPlain = false;
 
     private float _breath;
@@ -30,8 +29,7 @@ public class PlayerHp : MonoBehaviour
 
     public void Update()
     {
-        _isPlain = _istest;
-
+        //¿©±â
         divideHp();
         UpdateSlider();
     }

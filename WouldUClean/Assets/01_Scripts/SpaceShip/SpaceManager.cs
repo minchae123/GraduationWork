@@ -8,7 +8,7 @@ using DG.Tweening;
 using UnityEditor.Rendering.LookDev;
 using StarterAssets;
 
-public class SpaceManager : MonoBehaviour
+public class SpaceManager : MonoSingleton<SpaceManager>
 {
     public Image FadePanel;
 
