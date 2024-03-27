@@ -6,7 +6,7 @@ using UnityEngine;
 public class VacuumCleaner : MonoBehaviour
 {
     public List<Transform> trashes;
-
+    
     [Range(2,10)]
     public float rebootTime;
     [Range(0,20)]
@@ -45,10 +45,11 @@ public class VacuumCleaner : MonoBehaviour
             yield return null;
         }
 
+        closestTrash.GetComponent<MeshRenderer>().material.color = Color.red; // 확인용, 추후 삭제
 
+        //yield return new WaitUntil(()=>) // 플레이어가 찾을 때까지 대기 (추후 추가)
         trashes.Remove(closestTrash); // 찾은 쓰레기 리스트에서 삭제 (더이상 찾을 필요X)
 
-        closestTrash.GetComponent<MeshRenderer>().material.color = Color.red; // 확인용, 추후 삭제
         yield return new WaitForSeconds(rebootTime); // 몇 초 있다가 다시 찾을 것인지
         FindClosetTrash(); // 다시 찾기
 

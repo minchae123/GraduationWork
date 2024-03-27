@@ -52,6 +52,8 @@ public class SpaceManager : MonoBehaviour
     [SerializeField] private GameObject _compass;
     public bool onCompass;
 
+    private bool CanSeeInventory = false;
+
     private void Awake()
     {
         canInteraction = true;
@@ -189,6 +191,8 @@ public class SpaceManager : MonoBehaviour
     private IEnumerator SpaceshipLanding()
     {
         Interacting();
+        CanSeeInventory = true;
+
         _targetSize = 5;
         _targetStarSize = 5;
 
@@ -210,6 +214,8 @@ public class SpaceManager : MonoBehaviour
     private IEnumerator SpaceshipLaunch()
     {
         Interacting();
+        CanSeeInventory = false;
+
         if (MainCam.gameObject.activeSelf)
         {
             StartCoroutine(CameraChange());
@@ -240,6 +246,7 @@ public class SpaceManager : MonoBehaviour
         //SpaceshipInputReader.enabled = !SpaceshipInputReader.enabled;
         //yield return new WaitForSeconds(1f);
         FadePanel.DOFade(0, .75f);
+        Inventory.Instance.OnAndOffInventory(CanSeeInventory);
     }
 
     //혹시 몰라 남겨놓기

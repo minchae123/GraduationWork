@@ -39,7 +39,6 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
         invenDictionary = new Dictionary<ObjectType, InventoryItem>();
         itemSlots = new ItemSlotUI[maxInventoryLength];
     }
-
     private void Start()
     {
         for (int i = 0; i < inventoryLength; ++i)
@@ -50,6 +49,7 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
         UpdateSlotUI();
 
         itemSlots[currentSelectedInven].transform.DOScale(1.1f, 0.5f);
+        OnAndOffInventory(false);
     }
 
     #region 전에 있던 것들
@@ -183,10 +183,6 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
     // 추가 딘 부분
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) // 디버깅
-        {
-            UpgradeInventory();
-        }
         if(Input.GetKeyDown(KeyCode.E))
         {
             if(!isInInventory)
@@ -235,6 +231,11 @@ public class Inventory : MonoSingleton<Inventory>, ISaveManager
     private void HideInventory()
     {
         invenSlotParent.DOLocalMoveY(localPosY, 0.7f);
+    }
+
+    public void OnAndOffInventory(bool b)
+    {
+        invenSlotParent.gameObject.SetActive(b);
     }
 
     #region 저장
