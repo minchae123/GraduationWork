@@ -29,14 +29,14 @@ public class PlayerHp : MonoBehaviour
 
     public void Update()
     {
-        //여기
+        //여기 
         divideHp();
         UpdateSlider();
     }
 
     private void UpdateSlider()
     {
-        if (_isPlain)
+        if (_isPlain || SpaceManager.Instance.isSpace)
         {
             _breath = IncValue(_breath, _limitBreath);
             _hp = IncValue(_hp, _limitHp);
