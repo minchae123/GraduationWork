@@ -32,7 +32,7 @@ public class Falling : MonoBehaviour
         }
 
         RaycastHit hit;
-        Physics.Raycast(transform.position, Vector3.down, out hit, LayerMask.GetMask("Ground"));
+        Physics.Raycast(transform.position, Vector3.down, out hit);
 
         float high = hit.distance;
         maxHigh = maxHigh > high ? maxHigh : high;
@@ -49,5 +49,5 @@ public class Falling : MonoBehaviour
     }
 
     private bool IsFall() => 
-        Physics.Raycast(transform.position, Vector3.down, 1f, LayerMask.GetMask("Ground"));
+        Physics.Raycast(transform.position, Vector3.down, 1f);
 }
