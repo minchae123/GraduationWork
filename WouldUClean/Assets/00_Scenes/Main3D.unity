@@ -691,7 +691,7 @@ MonoBehaviour:
   clean: 0
   interacted: 0
   _detectObj: {fileID: 1221820335}
-  inPlanet: {fileID: 1885732805}
+  inPlanet: {fileID: 1080231188}
 --- !u!50 &218847259
 Rigidbody2D:
   serializedVersion: 4
@@ -7628,7 +7628,7 @@ MonoBehaviour:
   clean: 0
   interacted: 0
   _detectObj: {fileID: 547124515}
-  inPlanet: {fileID: 1080231188}
+  inPlanet: {fileID: 1885732805}
 --- !u!50 &643988114
 Rigidbody2D:
   serializedVersion: 4
@@ -9429,7 +9429,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7529212264493428607, guid: 50da9a88f3d41d544b2b334db6d8c6cb, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 50da9a88f3d41d544b2b334db6d8c6cb, type: 3}
@@ -9438,6 +9438,51 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7529212264493428606, guid: 50da9a88f3d41d544b2b334db6d8c6cb, type: 3}
   m_PrefabInstance: {fileID: 1314521118}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1318672426
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1318672428}
+  - component: {fileID: 1318672427}
+  m_Layer: 0
+  m_Name: Platform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!65 &1318672427
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318672426}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!4 &1318672428
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1318672426}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 13.52, z: 32.27}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1330179150
 GameObject:
   m_ObjectHideFlags: 0
@@ -9626,7 +9671,7 @@ MonoBehaviour:
   clean: 0
   interacted: 0
   _detectObj: {fileID: 1306681790}
-  inPlanet: {fileID: 1936391910}
+  inPlanet: {fileID: 1080231188}
 --- !u!50 &1333875601
 Rigidbody2D:
   serializedVersion: 4
