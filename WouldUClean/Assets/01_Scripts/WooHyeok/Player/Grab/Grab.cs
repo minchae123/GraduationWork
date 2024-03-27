@@ -19,7 +19,7 @@ public class Grab : MonoBehaviour
 
     public void EmptyGrab()
     {
-        transform.DOScaleZ(15, 0.5f)
+        transform.DOScaleZ(30, 0.5f)
             .OnComplete(()=>
             {
                 transform.DOScaleZ(1, 0.5f);
@@ -81,7 +81,7 @@ public class Grab : MonoBehaviour
     private bool IsStop(DivideObj obj)
     {
         if (obj == null) return true;
-        if (transform.localScale.z > 15) return true;
+        if (transform.localScale.z > 30) return true;
 
         Vector3 dir = obj.transform.position - colPos.position;
         return Physics.Raycast(colPos.position, dir, 1f, LayerMask.GetMask("Trash"));

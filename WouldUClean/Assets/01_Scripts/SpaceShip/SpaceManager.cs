@@ -8,8 +8,10 @@ using DG.Tweening;
 using UnityEditor.Rendering.LookDev;
 using StarterAssets;
 
-public class SpaceManager : MonoBehaviour
+public class SpaceManager : MonoSingleton<SpaceManager>
 {
+    public bool isSpace;
+
     public Image FadePanel;
 
     public Camera MainCam;
@@ -71,6 +73,16 @@ public class SpaceManager : MonoBehaviour
         Interaction();
 
         VisualRange();
+
+        StateCheck();
+    }
+
+    private void StateCheck()
+    {
+        if (SpaceshipCam.gameObject.activeSelf)
+            isSpace = true;
+        else
+            isSpace = false;
 
         //콜라이더로 하시래요
         if (Vector2.Distance(_spaceshipPos.position, _player.transform.position) < 2)
