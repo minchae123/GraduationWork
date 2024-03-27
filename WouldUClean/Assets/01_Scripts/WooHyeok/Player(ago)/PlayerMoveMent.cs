@@ -22,10 +22,10 @@ public class PlayerMoveMent : PlayerMain
         _rb = GetComponent<Rigidbody>();
 
         //_input.OnMovement += OnMovement;
-        _input.OnDivide += OnFKeyDown;
-        _input.OnDictionary += OnQKeyDown;
+        _input.OnFKeyDown += OnFKeyDown;
+        _input.OnQKeyDown += OnQKeyDown;
         _input.OnMousePos += OnMousePos;
-        _input.OnMouseClick += OnLeftMouseClick;
+        _input.OnLeftMouseClick += OnLeftMouseClick;
     }
 
     void Update()
