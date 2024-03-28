@@ -40,26 +40,22 @@ public class SlimeFSM : EnemyFSM
 		{
 			case EnemyState.Idle:
 				{
-					print("Enter Idle");
 				}
 				break;
 			case EnemyState.Chase:
 				{
-					print("Enter Chase");
 					navMovement.PlayNavigation();
 					animator.SetWalkAniamtion(1);
 				}
 				break;
 			case EnemyState.Attack:
 				{
-					print("Enter Attack");
 					StartCoroutine(AttackCoroutine());
 				}
 				break;
 			case EnemyState.Die:
 				{
 					animator.DeadTrigger(true);
-					print("Enter Die");
 				}
 				break;
 		}
