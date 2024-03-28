@@ -12,6 +12,8 @@ namespace StarterAssets
         public Vector2 look;
         public bool jump;
         public bool interaction;
+        public bool LMouseClick;
+        public bool RMouseClick;
         public bool sprint;
 
         [Header("Movement Settings")]
@@ -45,6 +47,16 @@ namespace StarterAssets
             JumpInput(value.isPressed);
         }
 
+        public void OnCatchRight(InputValue value)
+        {
+            RMouseInput(value.isPressed);
+        }
+        
+        public void OnCatchLeft(InputValue value)
+        {
+            LMouseInput(value.isPressed);
+        }
+
         public void OnSprint(InputValue value)
         {
             SprintInput(value.isPressed);
@@ -65,6 +77,16 @@ namespace StarterAssets
         public void JumpInput(bool newJumpState)
         {
             jump = newJumpState;
+        }
+
+        public void LMouseInput(bool value)
+        {
+            LMouseClick = value;
+        }
+        
+        public void RMouseInput(bool value)
+        {
+            RMouseClick = value;
         }
 
         public void InteractionInput(bool value)
