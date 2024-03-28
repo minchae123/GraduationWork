@@ -13,13 +13,14 @@ public class PlayerHp : MonoBehaviour
     [SerializeField] private float _limitBreath;
     [SerializeField] private float _value = 5f;
 
-    private bool _isPlain = false;
+    public bool _isPlain { get; set; }
 
     private float _breath;
     private float _hp;
 
     private void Awake()
     {
+        _isPlain = false;
         _hp = _limitHp;
         _breath = _limitBreath;
 

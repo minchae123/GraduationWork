@@ -23,7 +23,6 @@ public class DivideObj : MonoBehaviour
         if (Inventory.Instance.CheckInventoryIdx(type)) // 인벤토리 자리 남아있을 때에만
         {
             Inventory.Instance.AddItem(type, false); // 추가하고
-            MapManager.Instance.RemoveTrash(this);
 
             Destroy(gameObject); // 삭제하고 여기서 삭제 안하는데 어디서 삭제하는지 모르겟음
         }
