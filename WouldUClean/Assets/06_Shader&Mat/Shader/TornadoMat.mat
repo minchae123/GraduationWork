@@ -7,10 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: VacuumMat
+  m_Name: TornadoMat
   m_Shader: {fileID: -6465566751694194690, guid: c28ced6cfa833064398fd663903909b2, type: 3}
   m_ValidKeywords: []
-  m_InvalidKeywords: []
+  m_InvalidKeywords:
+  - _SURFACE_TYPE_TRANSPARENT
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -38,13 +39,23 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Dissolve: 0.334
-    - _NoiseScale: 20
+    - _AlphaClip: 1
+    - _Blend: 0
+    - _CastShadows: 1
+    - _Cull: 2
+    - _Dissolve: 0.256
+    - _DstBlend: 10
+    - _NoiseScale: 10
     - _QueueControl: 0
     - _QueueOffset: 0
+    - _SrcBlend: 5
+    - _Surface: 1
+    - _ZTest: 4
+    - _ZWrite: 0
+    - _ZWriteControl: 0
     m_Colors:
-    - _Color: {r: 1, g: 1, b: 1, a: 0.3137255}
-    - _NoiseSpeed: {r: 1, g: 0, b: 0, a: 0}
+    - _Color: {r: 4.759381, g: 4.759381, b: 4.759381, a: 0}
+    - _NoiseSpeed: {r: 0, g: -5, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &1293388388956150415
 MonoBehaviour:
