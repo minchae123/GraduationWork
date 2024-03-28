@@ -7,6 +7,8 @@ using DG.Tweening;
 
 public class MapInfoUI : MonoSingleton<MapInfoUI>
 {
+    public bool IsInMap;
+
     [SerializeField] private GameObject map;
     private CanvasGroup mapGrounp;
 
@@ -28,16 +30,18 @@ public class MapInfoUI : MonoSingleton<MapInfoUI>
         mapGrounp = map.GetComponent<CanvasGroup>();
     }
     private void Start()
-    { 
+    {
         map.SetActive(false);
         mapGrounp.alpha = 0;
+        IsInMap = false;
     }
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.K)) // 디버깅
         {
-            OnMapInfo();
+            if (IsInMap) OffMapInfo();
+            else OnMapInfo();
         }
     }
 
@@ -49,7 +53,7 @@ public class MapInfoUI : MonoSingleton<MapInfoUI>
 
         // 리셋
         nameText.text = "행성을 선택하세요";
-        mapGrounp.DOFade(1, 0.5f).SetUpdate(true);
+        mapGrounp.DOFade(1, 0.5f).SetUpdate(true).OnComplete(() => IsInMap = true);
     }
     public void OffMapInfo()
     {
@@ -57,7 +61,7 @@ public class MapInfoUI : MonoSingleton<MapInfoUI>
         Time.timeScale = 1;
         planetImage.DOFade(0, 0.3f);
 
-        mapGrounp.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() => map.SetActive(false));
+        mapGrounp.DOFade(0, 0.5f).SetUpdate(true).OnComplete(() => { map.SetActive(false); IsInMap = false; });
     }
 
     public void SetSelectedMap(MapInfoSO mapInfo)
