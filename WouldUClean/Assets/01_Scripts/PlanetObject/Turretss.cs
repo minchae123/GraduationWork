@@ -6,10 +6,9 @@ using UnityEngine;
 public class Turretss : MonoBehaviour
 {
     [SerializeField] private Transform firePos;
-    [SerializeField] private GameObject bullet;
 
     public bool isShooting = false;
-    public float _shootRange; // start에서 초기화
+    public float _shootRange; // start에서 초기화 했으니 주의하셈
 
     private RaycastHit hit;
     private Vector3 playerDirection;
