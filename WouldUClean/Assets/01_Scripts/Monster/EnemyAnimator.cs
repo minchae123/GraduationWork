@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAnimationController : MonoBehaviour
+public class EnemyAnimator : MonoBehaviour
 {
 	private Animator animator;
 
-	private readonly int walkHash = Animator.StringToHash("Walk");
+	private readonly int walkHash = Animator.StringToHash("speed");
 	private readonly int attackHash = Animator.StringToHash("Attack");
 	private readonly int deadHash = Animator.StringToHash("Dead");
 

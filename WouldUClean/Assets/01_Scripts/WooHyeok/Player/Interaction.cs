@@ -10,6 +10,9 @@ public class Interaction : MonoBehaviour
     private DivideObj _cleanItem;
     private RaycastHit hit;
 
+    private string leftTag = "LMouse";
+    private string rightTag = "RMouse";
+
     void Start()
     {
         _input = GetComponent<StarterAssetsInputs>();
@@ -17,45 +20,39 @@ public class Interaction : MonoBehaviour
 
     void Update()
     {
-        Debug.DrawRay(transform.position, transform.forward * 100, Color.red);
+        if (_input.LMouseClick)
+            _input.LMouseClick = DivGrab(leftTag);
+        else if(_input.RMouseClick)
+            _input.RMouseClick = DivGrab(rightTag);
+    }
 
-        if (_input.interaction)
+    private bool DivGrab(string tag)
+    {
+        if (TrashRay())
         {
-            if (TrashRay())
+            switch (hit.collider.tag)
             {
-                switch (hit.collider.tag)
-                {
-                    case "Trash":
-                        _cleanItem = hit.transform.GetComponent<DivideObj>();
-                        CleanItem();
-                        break;
-                    default:
-                        EmptyGrab();
-                        break;
-                }
+                default:
+                    EmptyGrab(tag);
+                    break;
             }
-            else
-                EmptyGrab();
-
-            _input.interaction = false;
-
         }
+        else
+            EmptyGrab(tag);
+
+        return false;
+
     }
 
     private bool TrashRay() =>
-        Physics.Raycast(transform.position, transform.forward, out hit, 10f);
+        Physics.Raycast(transform.position + new Vector3(0, 1, 0), transform.forward, out hit, 10f);
 
-    private void CleanItem()
+    private void EmptyGrab(string tag)
     {
         foreach (Transform child in transform)
-            if (child.TryGetComponent<Grab>(out Grab grab))
-                grab.GrabTrash(_cleanItem);
-    }
-
-    private void EmptyGrab()
-    {
-        foreach (Transform child in transform)
-            if (child.TryGetComponent<Grab>(out Grab grab))
+            if (child.TryGetComponent<Grab>(out Grab grab) && grab.CompareTag(tag))
+            {
                 grab.EmptyGrab();
+            }
     }
 }

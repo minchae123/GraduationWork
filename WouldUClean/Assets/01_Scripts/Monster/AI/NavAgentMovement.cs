@@ -49,6 +49,11 @@ public class NavAgentMovement : MonoBehaviour
         return false;
     }
 
+    public void PlayNavigation()
+	{
+        navAgent.isStopped = false;
+	}
+
     public void StopImmediately()
     {
         navAgent.SetDestination(transform.position); //자기자신을 목적지로 놓으면 바로 정지됨.
