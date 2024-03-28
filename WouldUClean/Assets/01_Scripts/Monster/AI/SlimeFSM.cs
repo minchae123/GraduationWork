@@ -6,20 +6,30 @@ public class SlimeFSM : EnemyFSM
 {
 	[SerializeField] private float chaseDecision = 6;
 	[SerializeField] private float attackDecision = 2;
+	[SerializeField] private EnemyAnimator animator;
+
+	public override void Awake()
+	{
+		base.Awake();
+		animator = GetComponentInChildren<EnemyAnimator>();
+	}
 
 	protected override void Update()
 	{
 		base.Update();
-		if(decision < attackDecision)
+		if(decision < attackDecision && curState != EnemyState.Attack)
 		{
+			print(curState);
 			ChangeState(EnemyState.Attack);
 		}
-		else if(decision < chaseDecision)
+		else if(decision < chaseDecision && curState != EnemyState.Chase)
 		{
+			print(curState);
 			ChangeState(EnemyState.Chase);
 		}
-		else if(decision > chaseDecision)
+		else if(decision > chaseDecision && curState != EnemyState.Idle)
 		{
+			print(curState);
 			ChangeState(EnemyState.Idle);
 		}
 	}
@@ -36,7 +46,8 @@ public class SlimeFSM : EnemyFSM
 			case EnemyState.Chase:
 				{
 					print("Enter Chase");
-					navMovement.SetSpeed(moveSpeed);
+					navMovement.PlayNavigation();
+					animator.SetWalkAniamtion(1);
 				}
 				break;
 			case EnemyState.Attack:
@@ -46,7 +57,10 @@ public class SlimeFSM : EnemyFSM
 				}
 				break;
 			case EnemyState.Die:
+				{
+					animator.DeadTrigger(true);
 					print("Enter Die");
+				}
 				break;
 		}
 	}
@@ -62,7 +76,8 @@ public class SlimeFSM : EnemyFSM
 				break;
 			case EnemyState.Chase:
 				{
-					navMovement.SetSpeed(0);
+					animator.SetWalkAniamtion(-1);
+					navMovement.StopNavigation();
 				}
 				break;
 			case EnemyState.Attack:
@@ -82,6 +97,9 @@ public class SlimeFSM : EnemyFSM
 			case EnemyState.Idle:
 				break;
 			case EnemyState.Chase:
+				{
+					navMovement.MoveToTarget(targetTrm.position);
+				}
 				break;
 			case EnemyState.Attack:
 				break;
@@ -96,12 +114,11 @@ public class SlimeFSM : EnemyFSM
 		{
 			case EnemyState.Idle:
 				{
-					print("Idle");
+
 				}
 				break;
 			case EnemyState.Chase:
 				{
-					navMovement.MoveToTarget(targetTrm.position);
 				}
 				break;
 			case EnemyState.Attack:
@@ -117,6 +134,8 @@ public class SlimeFSM : EnemyFSM
 	IEnumerator AttackCoroutine()
 	{
 		print("¶§¸®±â");
+		animator.AttackTrigger(true);
+		animator.AttackTrigger(false);
 		yield return new WaitForSeconds(1);
 	}
 }
