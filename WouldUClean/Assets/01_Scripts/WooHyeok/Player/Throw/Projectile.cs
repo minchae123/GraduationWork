@@ -5,12 +5,12 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private DivideObj _divideObj;
-    [SerializeField] private Transform _FirePoint;
-    [SerializeField] private LineRenderer _Line;
+    [SerializeField] private Transform _firePoint;
+    [SerializeField] private LineRenderer _line;
     [SerializeField] private Camera _cam;
-    [SerializeField] private float _InitialVelocity;
-    [SerializeField] private float _Angle;
-    [SerializeField] private float _Step;
+    [SerializeField] private float _limitDistamce;
+    [SerializeField] private float _angle;
+    [SerializeField] private float _step;
 
     private Inventory _inven;
 
@@ -29,8 +29,8 @@ public class Projectile : MonoBehaviour
 
     private void ResetLine()
     {
-        if (_Line.positionCount != 0)
-            _Line.positionCount = 0;
+        if (_line.positionCount != 0)
+            _line.positionCount = 0;
     }
 
     private void StartRay()
@@ -46,21 +46,31 @@ public class Projectile : MonoBehaviour
 
         if (Physics.Raycast(_ray, out _hit))
         {
-            Vector3 direction = _hit.point - _FirePoint.position;
-            Vector3 groundDirection = new Vector3(direction.x, 0, direction.z);
-            Vector3 targetPos = new Vector3(groundDirection.magnitude, direction.y, 0);
-
-            float height = targetPos.y + targetPos.magnitude / 3f;
-            float angle;
-            float v0;
-            float time;
-
-            height = Mathf.Max(0.01f, height);
-
-            CalculatePathWithHeight(targetPos, height, out v0, out angle, out time);
-            DrawPath(groundDirection.normalized, v0, angle, time, _Step);
-            FireTrash(groundDirection, v0, angle, time);
+            DrawParabola(_hit.point);
         }
+        else
+        {
+
+            //DrawParabola();
+        }
+    }
+
+    private void DrawParabola(Vector3 hitPos)
+    {
+        Vector3 direction = hitPos - _firePoint.position;
+        Vector3 groundDirection = new Vector3(direction.x, 0, direction.z);
+        Vector3 targetPos = new Vector3(groundDirection.magnitude, direction.y, 0);
+
+        float height = targetPos.y + targetPos.magnitude / 3f;
+        float angle;
+        float v0;
+        float time;
+
+        height = Mathf.Max(0.01f, height);
+
+        CalculatePathWithHeight(targetPos, height, out v0, out angle, out time);
+        DrawPath(groundDirection.normalized, v0, angle, time, _step);
+        FireTrash(groundDirection, v0, angle, time);
     }
 
     private void FireTrash(Vector3 direction, float v0, float angle, float time)
@@ -99,25 +109,27 @@ public class Projectile : MonoBehaviour
         angle = Mathf.Atan(b * time / xt);
 
         v0 = b / Mathf.Sin(angle);
+        if (v0 > _limitDistamce)
+            v0 = _limitDistamce;
     }
 
     private void DrawPath(Vector3 direction, float v0, float angle, float time, float step)
     {
         step = Mathf.Max(0.01f, step);
-        _Line.positionCount = (int)(time / step) + 2;
+        _line.positionCount = (int)(time / step) + 2;
         int count = 0;
         for (float i = 0; i < time; i += step)
         {
             float x = v0 * i * Mathf.Cos(angle);
             float y = v0 * i * Mathf.Sin(angle) - 0.5f * -Physics.gravity.y * Mathf.Pow(i, 2);
-            _Line.SetPosition(count, _FirePoint.position + direction * x + Vector3.up * y);
+            _line.SetPosition(count, _firePoint.position + direction * x + Vector3.up * y);
             count++;
         }
 
         float xfinal = v0 * time * Mathf.Cos(angle);
         float yfinal = v0 * time * Mathf.Sin(angle) - 0.5f * -Physics.gravity.y * Mathf.Pow(time, 2);
 
-        _Line.SetPosition(count, _FirePoint.position + direction * xfinal + Vector3.up * yfinal);
+        _line.SetPosition(count, _firePoint.position + direction * xfinal + Vector3.up * yfinal);
     }
 
     private void CalculatePath(Vector3 targetPos, float angle, out float v0, out float time)
@@ -141,7 +153,7 @@ public class Projectile : MonoBehaviour
         {
             float x = v0 * t * Mathf.Cos(angle);
             float y = v0 * t * Mathf.Sin(angle) - (1f / 2f) * -Physics.gravity.y * Mathf.Pow(t, 2);
-            obj.transform.position = _FirePoint.position + direction * x + Vector3.up * y;
+            obj.transform.position = _firePoint.position + direction * x + Vector3.up * y;
             t += Time.deltaTime;
             yield return null;
         }

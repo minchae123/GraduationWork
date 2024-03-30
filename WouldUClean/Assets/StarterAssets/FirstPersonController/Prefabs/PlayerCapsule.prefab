@@ -483,7 +483,7 @@ LineRenderer:
   - {x: 0, y: 0, z: 1}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 1
+    widthMultiplier: 0.1
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -1066,7 +1066,7 @@ GameObject:
   - component: {fileID: 5393215578589016640}
   m_Layer: 8
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1199,7 +1199,7 @@ MonoBehaviour:
   _colPos: {fileID: 8691523367367566709}
   _player: {fileID: 0}
   _speed: 50
-  _distance: 5
+  _distance: 3
   _isTurning: 1
 --- !u!1 &6812852003591311242
 GameObject:
@@ -1460,7 +1460,7 @@ MonoBehaviour:
   _colPos: {fileID: 1356960321727190223}
   _player: {fileID: 0}
   _speed: 50
-  _distance: 5
+  _distance: 3
   _isTurning: 1
 --- !u!1 &7902595969403127154
 GameObject:
@@ -1610,7 +1610,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8616685848737228372}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
@@ -1824,9 +1824,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _divideObj: {fileID: 731754113533685334, guid: 747fe138c0b06ce468af362959ff6cf6, type: 3}
-  _FirePoint: {fileID: 1647385945953509241}
-  _Line: {fileID: 8016003290471738553}
+  _firePoint: {fileID: 1356960321727190223}
+  _line: {fileID: 8016003290471738553}
   _cam: {fileID: 0}
-  _InitialVelocity: 5
-  _Angle: 45
-  _Step: 0.1
+  _limitDistamce: 12
+  _angle: 25
+  _step: 0.1
