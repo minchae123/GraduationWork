@@ -8,12 +8,11 @@ public class Grab : MonoBehaviour
     [SerializeField] private Transform _colPos;
     [SerializeField] private Transform _player;
     [SerializeField] private float _speed;
+    [SerializeField] private float _distance;
 
     private RaycastHit _hit;
 
     public bool _isTurning = true;
-    private bool _isGrabbing = false;
-    private bool _isShrink = true;
 
     private float _length = 20f;
     private float _time = 0.5f;
@@ -59,27 +58,26 @@ public class Grab : MonoBehaviour
 
     public void EmptyGrab()
     {
+        bool isDestroyObj = true;
+
         transform.DOScaleZ(_length, _time)
             .OnUpdate(() =>
             {
-                if (FindTrash())
+                if (FindTrash() && isDestroyObj)
                     if (_hit.transform.TryGetComponent<DivideObj>(out DivideObj obj))
                     {
-                        _isShrink = false;
                         transform.DOScaleZ(1, _time);
 
                         CatchObj(obj);
+                        isDestroyObj = false;
                     }
 
                 RotGrab();
             })
             .OnComplete(() =>
             {
-                if (_isShrink)
                     transform.DOScaleZ(1, _time);
             });
-
-        _isShrink = true;
     }
 
     private bool CatchObj(DivideObj obj)
@@ -117,7 +115,7 @@ public class Grab : MonoBehaviour
     }
     private bool FindTrash()
     {
-        return Physics.Raycast(_colPos.position, transform.forward, out _hit, 2f, LayerMask.GetMask("Trash"));
+        return Physics.Raycast(_colPos.position, transform.forward, out _hit, _distance, LayerMask.GetMask("Trash"));
     }
     private void RotGrab()
     {

@@ -7,7 +7,6 @@ public class Interaction : MonoBehaviour
 {
     StarterAssetsInputs _input;
 
-    private DivideObj _cleanItem;
     private RaycastHit hit;
 
     private string leftTag = "LMouse";
