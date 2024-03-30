@@ -6,6 +6,7 @@ public class GolemFSM : EnemyFSM
 {
     [SerializeField] float chaseDecision = 6;
     [SerializeField] float attackDecision = 2;
+    [SerializeField] GameObject rock;
     private EnemyAnimator animator;
     public override void Awake()
     {
@@ -74,7 +75,6 @@ public class GolemFSM : EnemyFSM
                 break;
             case EnemyState.Attack:
                 {
-                    print("¿©±â");
                     StopCoroutine(AttackCoroutine());
                 }
                 break;
