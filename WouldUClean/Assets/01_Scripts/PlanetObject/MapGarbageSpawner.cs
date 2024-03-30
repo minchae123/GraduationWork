@@ -24,7 +24,7 @@ public class MapGarbageSpawner : MonoBehaviour
             {
                 if (_garbage[i].transform.position.y < -20) // 쓰레기 잘못 생성시 할것트 탈출시 제거하기러기러기차는길어길면바나나바나나는맛있어맛있으면사과
                 {
-                    Destroy(_garbage[i].gameObject);
+                    Destroy(_garbage[i]);
                     _garbage.RemoveAt(i);
                     DestoryCount++;
                     PrintDestroyCount();

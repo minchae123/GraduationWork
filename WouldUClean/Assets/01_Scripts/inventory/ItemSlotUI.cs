@@ -92,7 +92,8 @@ public class ItemSlotUI : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        if (item == null) return; // null 이면 드래그 되지도 않도록
+        if (item == null) return;
+
         _isDragging = true;
 
         dragImage = Instantiate(itemImage);
@@ -104,6 +105,8 @@ public class ItemSlotUI : MonoBehaviour,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (item == null) return;
+
         Vector3 pos = Camera.main.ScreenToWorldPoint(eventData.position);
         pos.z = 0f;
         dragImage.transform.position = pos;
@@ -111,8 +114,9 @@ public class ItemSlotUI : MonoBehaviour,
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        _isDragging = false;
+        if (item == null) return;
 
+        _isDragging = false;
         dragImage.raycastTarget = true;
         Destroy(dragImage.gameObject);
     }

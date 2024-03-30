@@ -13,14 +13,15 @@ public abstract class EnemyFSM : MonoBehaviour
 	public Transform targetTrm;
 	[SerializeField] protected float moveSpeed = 10;
 
-    private EnemyState curState = EnemyState.Idle;
+    protected EnemyState curState = EnemyState.Idle;
     protected NavAgentMovement navMovement;
 
     protected float decision;
 
-    private void Awake()
+    public virtual void Awake()
 	{
 		navMovement = GetComponent<NavAgentMovement>();
+        //targetTrm = GameManager.Instance._playerTrm; // GameManager 넣으면 플레이어 위치 넣어주기
 	}
 
 	public virtual void Initialize()
