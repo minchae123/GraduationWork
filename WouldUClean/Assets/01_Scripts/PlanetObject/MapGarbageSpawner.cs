@@ -20,17 +20,21 @@ public class MapGarbageSpawner : MonoBehaviour
     {
         for (int i = 0; i < _garbage.Count; i++)
         {
-            if (_garbage.Any()) // List.Any() 요소가 있으면 true
+            if (_garbage[i] != null)
             {
-                if (_garbage[i].transform.position.y < -20) // 쓰레기 잘못 생성시 할것트 탈출시 제거하기러기러기차는길어길면바나나바나나는맛있어맛있으면사과
+                if (_garbage.Any()) // List.Any() 요소가 있으면 true
                 {
-                    Destroy(_garbage[i]);
-                    _garbage.RemoveAt(i);
-                    DestoryCount++;
-                    PrintDestroyCount();
+                    if (_garbage[i].transform.position.y < -20) // 쓰레기 잘못 생성시 할것트 탈출시 제거하기러기러기차는길어길면바나나바나나는맛있어맛있으면사과
+                    {
+                        Destroy(_garbage[i]);
+                        _garbage.RemoveAt(i);
+                        DestoryCount++;
+                        PrintDestroyCount();
+                    }
                 }
             }
         }
+
     }
 
     private void PrintDestroyCount()
