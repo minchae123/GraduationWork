@@ -16,6 +16,7 @@ public class Projectile : MonoBehaviour
 
     private Ray _ray;
     private RaycastHit _hit;
+    private RaycastHit _enemyHit;
 
     private void Start()
     {
@@ -45,13 +46,11 @@ public class Projectile : MonoBehaviour
         _ray = _cam.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(_ray, out _hit))
-        {
             DrawParabola(_hit.point);
-        }
-        else
+
+        if(Physics.Raycast(_ray, out _enemyHit, _limitDistamce))
         {
 
-            //DrawParabola();
         }
     }
 
