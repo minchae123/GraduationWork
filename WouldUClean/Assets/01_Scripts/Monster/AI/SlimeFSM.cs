@@ -20,18 +20,18 @@ public class SlimeFSM : EnemyFSM
 		base.Update();
 		if(decision < attackDecision && curState != EnemyState.Attack)
 		{
-			print(curState);
 			ChangeState(EnemyState.Attack);
-		}
-		else if(decision < chaseDecision && curState != EnemyState.Chase)
-		{
 			print(curState);
+		}
+		else if(decision < chaseDecision && decision > attackDecision && curState != EnemyState.Chase)
+		{
 			ChangeState(EnemyState.Chase);
+			print(curState);
 		}
 		else if(decision > chaseDecision && curState != EnemyState.Idle)
 		{
-			print(curState);
 			ChangeState(EnemyState.Idle);
+			print(curState);
 		}
 	}
 

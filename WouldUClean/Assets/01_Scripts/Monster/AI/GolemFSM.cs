@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class GolemFSM : EnemyFSM
 {
-    [SerializeField] float chaseDecision = 6;
-    [SerializeField] float attackDecision = 2;
+    [SerializeField] float chaseDecision = 20;
+    [SerializeField] float attackDecision = 10;
     [SerializeField] GameObject rock;
     private EnemyAnimator animator;
     public override void Awake()
@@ -19,19 +19,21 @@ public class GolemFSM : EnemyFSM
         base.Update();
         if (decision < attackDecision && curState != EnemyState.Attack)
         {
-            print(curState);
             ChangeState(EnemyState.Attack);
-        }
-        else if (decision < chaseDecision && curState != EnemyState.Chase)
-        {
             print(curState);
+        }
+        else if (decision < chaseDecision && decision > attackDecision && curState != EnemyState.Chase)
+        {
             ChangeState(EnemyState.Chase);
+            print(curState);
         }
         else if (decision > chaseDecision && curState != EnemyState.Idle)
         {
-            print(curState);
             ChangeState(EnemyState.Idle);
+            print(curState);
         }
+        //print("°Å¸®: " + decision);
+        //print(navMovement.NavAgent.isStopped);
     }
 
     public override void OnStateEnter(EnemyState state)
@@ -51,6 +53,7 @@ public class GolemFSM : EnemyFSM
             case EnemyState.Attack:
                 {
                     StartCoroutine(AttackCoroutine());
+                    navMovement.StopNavigation();
                 }
                 break;
             case EnemyState.Die:
@@ -118,8 +121,22 @@ public class GolemFSM : EnemyFSM
 
     IEnumerator AttackCoroutine()
     {
-        animator.AttackTrigger(true);
-        animator.AttackTrigger(false);
-        yield return new WaitForSeconds(1);
+        while (true)
+        {
+            animator.AttackTrigger(true);
+            animator.AttackTrigger(false);
+            yield return null;
+        }
+    }
+
+    public void RockThrowEvent()
+    {
+        Vector3 direction = (targetTrm.position - transform.position).normalized;
+        Quaternion rotation = Quaternion.LookRotation(direction);
+
+        GameObject obj = Instantiate(rock, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
+
+        Vector3 dir = targetTrm.position - transform.position;
+        obj.GetComponent<Rigidbody>().velocity = dir * obj.GetComponent<Rock>().Speed;
     }
 }
