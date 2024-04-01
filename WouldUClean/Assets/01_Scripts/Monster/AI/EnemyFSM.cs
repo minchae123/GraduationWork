@@ -21,7 +21,7 @@ public abstract class EnemyFSM : MonoBehaviour
     public virtual void Awake()
 	{
 		navMovement = GetComponent<NavAgentMovement>();
-        //targetTrm = GameManager.Instance._playerTrm; // GameManager 넣으면 플레이어 위치 넣어주기
+        targetTrm = GameManager.Instance._playerTrm; // GameManager 넣으면 플레이어 위치 넣어주기
 	}
 
 	public virtual void Initialize()
