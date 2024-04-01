@@ -13,6 +13,8 @@ public class PlanetInSpace : SpaceObject
     [SerializeField] private GameObject _detectObj;
     public GameObject inPlanet;
 
+    public Transform LandPos;
+
     private void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();

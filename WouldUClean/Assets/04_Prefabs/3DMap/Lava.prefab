@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1959047428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1959047429}
+  m_Layer: 0
+  m_Name: LavaPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1959047429
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1959047428}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -33.48, y: -12.589996, z: 70.45}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 9001908289481676780}
+  m_RootOrder: 60
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3211187922624716748
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,6 +261,7 @@ Transform:
   - {fileID: 1730507677157534600}
   - {fileID: 7994877413094846439}
   - {fileID: 7698165166275348432}
+  - {fileID: 1959047429}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -290,19 +322,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: -1270432.1
+      value: 2.9602307e+21
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.x
-      value: 6.979025e+22
+      value: 1.05e-43
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 4.510385e+27
+      value: NaN
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 9.684843e-39
+      value: 1.0691825e-38
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
@@ -492,7 +524,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.w
-      value: 2.5e-44
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.x
@@ -500,11 +532,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.y
-      value: 0
+      value: 395
       objectReference: {fileID: 0}
     - target: {fileID: 4776023692703108799, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
       propertyPath: m_BoundingSphereOverride.z
-      value: 0
+      value: -128.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 86192ed2a7af2164ead6ff798f14921b, type: 3}
@@ -794,7 +826,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4792337082775007425, guid: a1b80a979de92ca41aa955da014b2898, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -35.6
+      value: -28.46
       objectReference: {fileID: 0}
     - target: {fileID: 4792337082775007425, guid: a1b80a979de92ca41aa955da014b2898, type: 3}
       propertyPath: m_LocalPosition.y
@@ -802,7 +834,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4792337082775007425, guid: a1b80a979de92ca41aa955da014b2898, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 69.2
+      value: 55.15
       objectReference: {fileID: 0}
     - target: {fileID: 4792337082775007425, guid: a1b80a979de92ca41aa955da014b2898, type: 3}
       propertyPath: m_LocalRotation.w

@@ -211,7 +211,8 @@ public class SpaceManager : MonoSingleton<SpaceManager>
         _targetSize = 5;
         _targetStarSize = 5;
 
-        _player.transform.position = _spaceshipPos.position;
+        _spaceshipPos.transform.position = curPlanet.LandPos.position;
+        _player.transform.position = _spaceshipPos.transform.position;
 
         isFlight = false;
         isLanding = true;
