@@ -28,4 +28,9 @@ public class TitleScene : MonoBehaviour
         info.DOScaleY(0, 0.5f).SetUpdate(true).SetEase(Ease.InOutCubic)
             .OnComplete(() => Time.timeScale = 1);
     }
+
+    public void QuitGame()
+	{
+        Application.Quit();
+	}
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class MapGarbageSpawner : MonoBehaviour
 {
-    public GameObject resourcePrefab;
+    public GameObject[] resourcePrefab;
 
     public int Count;
 
@@ -13,7 +13,7 @@ public class MapGarbageSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnGarbage(Count);
+        Count = Random.Range(20, 25);
     }
 
     private void Update()
@@ -42,11 +42,13 @@ public class MapGarbageSpawner : MonoBehaviour
         print($"제거된 쓰레기 개수: {DestoryCount}");
     }
 
-    private void SpawnGarbage(int count) // 맵 활성화시 이걸하면 쓰레기가 소환돼요
+    public void SpawnGarbage() // 맵 활성화시 이걸하면 쓰레기가 소환돼요
     {
-        for (int i = 0; i < count; i++)
+        for (int i = 0; i < Count; i++)
         {
-            GameObject obj = Instantiate(resourcePrefab, RandomPos(), Quaternion.identity);
+            int randIdx = Random.Range(0, resourcePrefab.Length);
+            print(randIdx);
+            GameObject obj = Instantiate(resourcePrefab[randIdx], RandomPos(), Quaternion.identity);
             _garbage.Add(obj);
         }
     }

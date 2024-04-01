@@ -26,6 +26,7 @@ public class UIManager : MonoSingleton<UIManager>
     private void Start()
     {
         OnExitSettingPanel();
+        settingPanel.transform.localScale = new Vector3(1, 0, 1);
 
         Sensitivity = 1f;
 
@@ -49,7 +50,7 @@ public class UIManager : MonoSingleton<UIManager>
         Cursor.lockState = CursorLockMode.Locked;
 
         isSetting = false;
-        settingPanel.SetActive(false);
+        settingPanel.transform.DOScaleY(0, 0.5f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => settingPanel.SetActive(false));
 
         Time.timeScale = 1;
     }
@@ -58,6 +59,7 @@ public class UIManager : MonoSingleton<UIManager>
         Cursor.lockState = CursorLockMode.None;
 
         isSetting = true;
+        settingPanel.transform.DOScaleY(1, 0.3f).SetEase(Ease.InOutQuart).SetUpdate(true);
         settingPanel.SetActive(true);
 
         Time.timeScale = 0;

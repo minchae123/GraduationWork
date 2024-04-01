@@ -62,12 +62,12 @@ public class Mine3D : MonoBehaviour
         switch (newState)
         {
             case State.Emergency:
-                print("지뢰가 선명하고 소리는 삐이이이이이");
+                //print("지뢰가 선명하고 소리는 삐이이이이이");
                 break;
             case State.Warn:
                 break;
             case State.None:
-                print("지뢰가 안보이고 모든게 원 상태로");
+                //print("지뢰가 안보이고 모든게 원 상태로");
                 break;
         }
         _state = newState;
