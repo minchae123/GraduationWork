@@ -35,7 +35,7 @@ public class SpaceManager : MonoSingleton<SpaceManager>
 
     [Header("Player")]
     [SerializeField] private GameObject _player;
-    [SerializeField] private Transform _spaceshipPos;
+    public Transform _spaceshipPos;
     //[SerializeField] private Transform _inPlanetPos;
     public bool nearSpaceship;
 

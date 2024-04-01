@@ -42,6 +42,8 @@ GameObject:
   - component: {fileID: 2523065557007183093}
   - component: {fileID: 3540675932319946647}
   - component: {fileID: 8421724371494955992}
+  - component: {fileID: 1963350413}
+  - component: {fileID: 1963350412}
   m_Layer: 0
   m_Name: Magma
   m_TagString: Untagged
@@ -114,6 +116,32 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &1963350413
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211187922624716748}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1963350412
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3211187922624716748}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb5ed055f3f7cea4c95def69c641291f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9001908289369793115
 GameObject:
   m_ObjectHideFlags: 0
@@ -188,7 +216,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &9001908289481676780
 Transform:
   m_ObjectHideFlags: 0

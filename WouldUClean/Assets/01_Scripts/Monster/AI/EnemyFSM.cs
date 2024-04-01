@@ -5,13 +5,13 @@ using UnityEngine.AI;
 
 public enum EnemyState
 {
-	Idle, Chase, Attack, Die
+    Idle, Chase, Attack, Die
 }
 
 public abstract class EnemyFSM : MonoBehaviour
 {
-	public Transform targetTrm;
-	[SerializeField] protected float moveSpeed = 10;
+    public Transform targetTrm;
+    [SerializeField] protected float moveSpeed = 10;
 
     protected EnemyState curState = EnemyState.Idle;
     protected NavAgentMovement navMovement;
@@ -19,12 +19,12 @@ public abstract class EnemyFSM : MonoBehaviour
     protected float decision;
 
     public virtual void Awake()
-	{
-		navMovement = GetComponent<NavAgentMovement>();
+    {
+        navMovement = GetComponent<NavAgentMovement>();
         targetTrm = GameManager.Instance._playerTrm; // GameManager 넣으면 플레이어 위치 넣어주기
-	}
+    }
 
-	public virtual void Initialize()
+    public virtual void Initialize()
     {
         ChangeState(curState);
     }
@@ -44,7 +44,8 @@ public abstract class EnemyFSM : MonoBehaviour
     {
         if (newState == curState)
             return;
-        OnStateExit(curState); curState = newState;
+        OnStateExit(curState);
+        curState = newState;
         OnStateEnter(curState);
     }
 

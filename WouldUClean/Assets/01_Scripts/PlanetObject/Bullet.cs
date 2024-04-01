@@ -21,7 +21,6 @@ public class Bullet : PoolableMono
         playerDirection = (GameManager.Instance._playerTrm.position - transform.position).normalized;
     }
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

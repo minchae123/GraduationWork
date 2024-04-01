@@ -13,6 +13,8 @@ public class PlayerHp : MonoBehaviour
     [SerializeField] private float _limitBreath;
     [SerializeField] private float _value = 5f;
 
+    [SerializeField] private Material _hurtShader;
+
     public bool _isPlain { get; set; }
 
     private float _breath;
@@ -32,12 +34,19 @@ public class PlayerHp : MonoBehaviour
     {
         //¿©±â 
         divideHp();
+        ResetValue();
         UpdateSlider();
+    }
+
+    private void ResetValue()
+    {
+        if (SpaceManager.Instance.isSpace)
+            FullValue();
     }
 
     private void UpdateSlider()
     {
-        if (_isPlain || SpaceManager.Instance.isSpace)
+        if (_isPlain || SpaceManager.Instance.nearSpaceship)
         {
             _breath = IncValue(_breath, _limitBreath);
             _hp = IncValue(_hp, _limitHp);
@@ -46,8 +55,8 @@ public class PlayerHp : MonoBehaviour
         {
             _breath = DecValue(_breath);
 
-            if(_breath <= 0)
-            _hp = DecValue(_hp);
+            if (_breath <= 0)
+                _hp = DecValue(_hp);
         }
 
         _hpBar.value = _hp;
@@ -63,7 +72,7 @@ public class PlayerHp : MonoBehaviour
 
     private float IncValue(float value, float limit)
     {
-        if (_isPlain && value < limit)
+        if (value < limit)
             value += _value * Time.deltaTime;
 
         return value;
@@ -71,7 +80,7 @@ public class PlayerHp : MonoBehaviour
 
     private float DecValue(float value)
     {
-        if (!_isPlain && value > 0)
+        if (value > 0)
             value -= _value * Time.deltaTime;
 
         return value;
@@ -80,16 +89,36 @@ public class PlayerHp : MonoBehaviour
     private void Die()
     {
         //if(_hp <= 0)
-            //Á×À½
+        //Á×À½
     }
 
     public void OnDamage(float damage)
     {
         _hp -= damage;
+        //µô·¹ÀÌ³Ö¾î¾ßÇÔ
+        StartCoroutine(Hurt());
+    }
+
+    private IEnumerator Hurt()
+    {
+        _hurtShader.SetFloat("_ScreenIntensity", .5f);
+        yield return new WaitForSeconds(.25f);
+        _hurtShader.SetFloat("_ScreenIntensity", .0f);
+    }
+
+    public void OnlimitHp(float value)
+    {
+        _limitHp += value;
     }
 
     public void OnlimitBreath(float value)
     {
         _limitBreath += value;
+    }
+
+    public void FullValue()
+    {
+        _hp = _limitHp;
+        _breath = _limitBreath;
     }
 }

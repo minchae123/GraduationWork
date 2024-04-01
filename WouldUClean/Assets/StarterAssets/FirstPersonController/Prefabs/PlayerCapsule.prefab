@@ -1817,6 +1817,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   minFallDamage: 5
+  respawnDamage: 70
   fallingTime: 2
   damage: 5
 --- !u!114 &3969516069002918943
@@ -1835,7 +1836,8 @@ MonoBehaviour:
   _hpBar: {fileID: 4650370043858492137}
   _limitHp: 500
   _limitBreath: 500
-  _value: 5
+  _value: 10
+  _hurtShader: {fileID: 2100000, guid: 71991ad278ef6aa49a8412683bc17b56, type: 2}
 --- !u!114 &7025727867752682616
 MonoBehaviour:
   m_ObjectHideFlags: 0
