@@ -4,10 +4,15 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    [Header("참조")]
     [SerializeField] private DivideObj _divideObj;
     [SerializeField] private Transform _firePoint;
     [SerializeField] private LineRenderer _line;
     [SerializeField] private Camera _cam;
+    [SerializeField] private Material _outLine;
+    [SerializeField] private Material _originLine;
+
+    [Header("수치")]
     [SerializeField] private float _limitDistamce;
     [SerializeField] private float _angle;
     [SerializeField] private float _step;
@@ -16,6 +21,8 @@ public class Projectile : MonoBehaviour
 
     private Ray _ray;
     private RaycastHit _hit;
+    private RaycastHit _enemyHit;
+    private Transform _enemy;
 
     private void Start()
     {
@@ -33,9 +40,10 @@ public class Projectile : MonoBehaviour
             _line.positionCount = 0;
     }
 
+    #region 시작
     private void StartRay()
     {
-        if (_inven.currentSelectedItem?.itemData == null || 
+        if (_inven.currentSelectedItem?.itemData == null ||
             !_inven.invenDictionary.ContainsKey(_inven.currentSelectedItem.itemData))
         {
             ResetLine();
@@ -44,15 +52,8 @@ public class Projectile : MonoBehaviour
 
         _ray = _cam.ScreenPointToRay(Input.mousePosition);
 
-        if (Physics.Raycast(_ray, out _hit))
-        {
-            DrawParabola(_hit.point);
-        }
-        else
-        {
-
-            //DrawParabola();
-        }
+        ParabolaRay();
+        OutLineRay();
     }
 
     private void DrawParabola(Vector3 hitPos)
@@ -85,6 +86,30 @@ public class Projectile : MonoBehaviour
             StartCoroutine(Coroutine_Movement(obj, direction.normalized, v0, angle, time));
         }
     }
+    #endregion
+
+    #region Ray
+    private void ParabolaRay()
+    {
+        if (Physics.Raycast(_ray, out _hit))
+            DrawParabola(_hit.point);
+    }
+
+    private void OutLineRay()
+    {
+        if (Physics.Raycast(_ray, out _enemyHit, _limitDistamce, LayerMask.GetMask("Enemy")))
+        {
+            _enemy = _enemyHit.transform;
+
+            _enemy.GetComponent<MeshRenderer>().material = _outLine;
+        }
+        else
+        {
+            if (_enemy != null)
+                _enemy.GetComponent<MeshRenderer>().material = _originLine;
+        }
+    }
+    #endregion
 
     #region 계산
     private float QuadraticEquation(float a, float b, float c, float sign)
