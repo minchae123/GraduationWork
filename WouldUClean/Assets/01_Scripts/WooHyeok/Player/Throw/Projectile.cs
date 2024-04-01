@@ -24,6 +24,8 @@ public class Projectile : MonoBehaviour
     private RaycastHit _enemyHit;
     private Transform _enemy;
 
+    private string _hitTag;
+
     private void Start()
     {
         _inven = Inventory.Instance;
@@ -97,17 +99,43 @@ public class Projectile : MonoBehaviour
 
     private void OutLineRay()
     {
-        if (Physics.Raycast(_ray, out _enemyHit, _limitDistamce, LayerMask.GetMask("Enemy")))
+        if (Physics.Raycast(_ray, out _enemyHit, _limitDistamce, LayerMask.GetMask("Trash") | LayerMask.GetMask("Enemy")))
         {
             _enemy = _enemyHit.transform;
+            _hitTag = _enemyHit.transform.tag;
 
-            _enemy.GetComponent<MeshRenderer>().material = _outLine;
+            SwitchTag(_outLine);
         }
         else
         {
             if (_enemy != null)
-                _enemy.GetComponent<MeshRenderer>().material = _originLine;
+                SwitchTag(_originLine);
         }
+    }
+
+    private void SwitchTag(Material mat)
+    {
+        switch (_hitTag)
+        {
+            case "Trash":
+                TrashTag(mat);
+                break;
+            case "Enemy":
+                EnemyTag(mat);
+                break;
+        }
+    }
+    #endregion
+
+    #region æ∆øÙ∂Û¿Œ
+    private void TrashTag(Material mat)
+    {
+        _enemy.GetComponentInChildren<MeshRenderer>().material = _outLine;
+    }
+
+    private void EnemyTag(Material mat)
+    {
+        _enemy.GetComponentInChildren<SkinnedMeshRenderer>().material = _outLine;
     }
     #endregion
 

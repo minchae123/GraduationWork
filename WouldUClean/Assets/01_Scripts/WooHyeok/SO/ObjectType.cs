@@ -10,6 +10,7 @@ public class ObjectType : ScriptableObject
 
     #region º¯¼öµé
     public Mesh _ItemMesh;
+    public Material _Material;
     public Sprite _ItemSprite;
     public string _ObjectName;
     [TextArea]

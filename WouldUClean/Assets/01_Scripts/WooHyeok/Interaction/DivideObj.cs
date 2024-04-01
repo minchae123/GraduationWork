@@ -7,15 +7,18 @@ public class DivideObj : MonoBehaviour
 {
     public ObjectType type;
 
-    private Mesh mesh;
+    private MeshFilter meshFilter;
+    private MeshRenderer meshRen;
 
     private void Awake()
     {
-        mesh = GetComponent<Mesh>();
+        meshFilter = GetComponentInChildren<MeshFilter>();
+        meshRen = GetComponentInChildren<MeshRenderer>();
     }
     private void Start()
     {
-        mesh = type._ItemMesh;
+        meshFilter.mesh = type._ItemMesh;
+        meshRen.material = type._Material;
     }
 
     public void PickUpItem() // Ãß°¡
