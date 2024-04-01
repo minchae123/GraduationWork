@@ -46,7 +46,7 @@ public class PlayerHp : MonoBehaviour
 
     private void UpdateSlider()
     {
-        if (_isPlain)
+        if (_isPlain || SpaceManager.Instance.nearSpaceship)
         {
             _breath = IncValue(_breath, _limitBreath);
             _hp = IncValue(_hp, _limitHp);
@@ -72,7 +72,7 @@ public class PlayerHp : MonoBehaviour
 
     private float IncValue(float value, float limit)
     {
-        if (_isPlain && value < limit)
+        if (value < limit)
             value += _value * Time.deltaTime;
 
         return value;
@@ -80,7 +80,7 @@ public class PlayerHp : MonoBehaviour
 
     private float DecValue(float value)
     {
-        if (!_isPlain && value > 0)
+        if (value > 0)
             value -= _value * Time.deltaTime;
 
         return value;
