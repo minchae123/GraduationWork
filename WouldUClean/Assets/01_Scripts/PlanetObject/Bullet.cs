@@ -30,4 +30,13 @@ public class Bullet : PoolableMono
             PoolManager.Instance.Push(this);
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.collider.CompareTag("Turrets"))
+        {
+            print("벽에 박음");
+            PoolManager.Instance.Push(this);
+        }
+    }
 }
