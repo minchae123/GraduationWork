@@ -32,12 +32,19 @@ public class PlayerHp : MonoBehaviour
     {
         //¿©±â 
         divideHp();
+        ResetValue();
         UpdateSlider();
+    }
+
+    private void ResetValue()
+    {
+        if (SpaceManager.Instance.isSpace)
+            FullValue();
     }
 
     private void UpdateSlider()
     {
-        if (_isPlain || SpaceManager.Instance.isSpace)
+        if (_isPlain)
         {
             _breath = IncValue(_breath, _limitBreath);
             _hp = IncValue(_hp, _limitHp);
@@ -46,8 +53,8 @@ public class PlayerHp : MonoBehaviour
         {
             _breath = DecValue(_breath);
 
-            if(_breath <= 0)
-            _hp = DecValue(_hp);
+            if (_breath <= 0)
+                _hp = DecValue(_hp);
         }
 
         _hpBar.value = _hp;
@@ -80,7 +87,7 @@ public class PlayerHp : MonoBehaviour
     private void Die()
     {
         //if(_hp <= 0)
-            //Á×À½
+        //Á×À½
     }
 
     public void OnDamage(float damage)
@@ -91,5 +98,11 @@ public class PlayerHp : MonoBehaviour
     public void OnlimitBreath(float value)
     {
         _limitBreath += value;
+    }
+
+    public void FullValue()
+    {
+        _hp = _limitHp;
+        _breath = _limitBreath;
     }
 }

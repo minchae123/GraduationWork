@@ -5,11 +5,13 @@ using UnityEngine;
 public class Falling : MonoBehaviour
 {
     [SerializeField] private float minFallDamage = 10f;
+    [SerializeField] private float respawnDamage = 50f;
     [SerializeField] private float fallingTime = 5f;
     [SerializeField] private float damage = 5f;
 
     private PlayerHp _hp;
 
+    private bool isFall = false;
     private float maxHigh = 0f;
 
     private void Awake()
@@ -24,6 +26,8 @@ public class Falling : MonoBehaviour
 
     private void CheckFalling()
     {
+        if (SpaceManager.Instance.isSpace) return;
+
         if (IsFall())
         {
             FallDamage(maxHigh < minFallDamage);
@@ -34,8 +38,11 @@ public class Falling : MonoBehaviour
         RaycastHit hit;
         Physics.Raycast(transform.position, Vector3.down, out hit, 100);
 
-        if(hit.collider == null)
+        if(hit.collider == null && !isFall)
+        {
+            isFall = true;
             StartCoroutine(ReStart());
+        }
 
         float high = hit.distance;
         maxHigh = maxHigh > high ? maxHigh : high;
@@ -45,7 +52,12 @@ public class Falling : MonoBehaviour
     {
         yield return new WaitForSeconds(fallingTime);
 
-        //플레이어 소환 위치에서 재 시작
+        _hp.OnDamage(respawnDamage);
+        transform.position = SpaceManager.Instance._spaceshipPos.position;
+        maxHigh = 0;
+
+        yield return new WaitForSeconds(0.5f);
+        isFall = false;
     }
 
     private void FallDamage(bool value)
