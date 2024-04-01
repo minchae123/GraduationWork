@@ -12,6 +12,7 @@ public class SlimeFSM : EnemyFSM
 	{
 		base.Awake();
 		animator = GetComponentInChildren<EnemyAnimator>();
+		
 	}
 
 	protected override void Update()
