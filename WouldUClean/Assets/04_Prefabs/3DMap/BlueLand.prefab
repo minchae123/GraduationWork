@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &789203811
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 789203812}
+  m_Layer: 0
+  m_Name: BlueLandPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &789203812
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789203811}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.5, y: 11.7, z: 36.225}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4155591822165452643}
+  m_RootOrder: 169
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3587764850606020304
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +237,7 @@ Transform:
   m_GameObject: {fileID: 4155591822165452642}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4332591370754102879}
@@ -378,6 +409,7 @@ Transform:
   - {fileID: 4912398942124429142}
   - {fileID: 8419565035483590089}
   - {fileID: 6021160360280376515}
+  - {fileID: 789203812}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14374,14 +14406,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8558955108488269494, guid: 0b54b8587eef46b4d8c6d9793d80b599, type: 3}
       propertyPath: m_LocalScale.y
-      value: 7.58
+      value: 2.82
       objectReference: {fileID: 0}
     - target: {fileID: 8558955108488269494, guid: 0b54b8587eef46b4d8c6d9793d80b599, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 21.9
+      value: 18.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660276942289866508, guid: 0b54b8587eef46b4d8c6d9793d80b599, type: 3}
+      propertyPath: m_Convex
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8660276942289866508, guid: 0b54b8587eef46b4d8c6d9793d80b599, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8660276942289866508, guid: 0b54b8587eef46b4d8c6d9793d80b599, type: 3}
+      propertyPath: m_IsTrigger
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

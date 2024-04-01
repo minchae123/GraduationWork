@@ -53,6 +53,7 @@ public class Projectile : MonoBehaviour
 
         if (wheel.y != 0)
             _isStart = false;
+
         if (Input.GetMouseButtonDown(2))
             _isStart = !_isStart;
 
