@@ -5,6 +5,7 @@ using UnityEngine;
 public class SoundManager : MonoSingleton<SoundManager>
 {
     private AudioSource audioSource;
+	[SerializeField] private AudioSource bgmAudioSource;
 
     private string bgmKey = "BGMVolume";
     private string effectKey = "EffectVolume";
@@ -18,14 +19,14 @@ public class SoundManager : MonoSingleton<SoundManager>
     }
     private void Start()
     {
-        GameManager.Instance.mainCam.GetComponent<AudioSource>().volume = PlayerPrefs.GetFloat(bgmKey); // 설정된 bgm 음악 소리
-        GameManager.Instance.mainCam.GetComponent<AudioSource>().loop = true;
+        bgmAudioSource.volume = PlayerPrefs.GetFloat(bgmKey); // 설정된 bgm 음악 소리
+        bgmAudioSource.loop = true;
         audioSource.volume = PlayerPrefs.GetFloat(effectKey); // 설정된 effect 음악 소리
     }
 
     public void SetBGMVolume(float value)
     {
-        GameManager.Instance.mainCam.GetComponent<AudioSource>().volume = value;
+        bgmAudioSource.volume = value;
         PlayerPrefs.SetFloat(bgmKey, value);
     }
     public void SetEffectVolume(float value)
