@@ -25,6 +25,7 @@ public class Projectile : MonoBehaviour
     private Transform _enemy;
 
     private string _hitTag;
+    private bool _isStart;
 
     private void Start()
     {
@@ -33,7 +34,10 @@ public class Projectile : MonoBehaviour
 
     private void Update()
     {
+        _ray = _cam.ScreenPointToRay(Input.mousePosition);
+
         StartRay();
+        OutLineRay();
     }
 
     private void ResetLine()
@@ -43,19 +47,32 @@ public class Projectile : MonoBehaviour
     }
 
     #region 시작
+    private bool IsStart()
+    {
+        Vector2 wheel = Input.mouseScrollDelta;
+
+        if (wheel.y != 0)
+            _isStart = false;
+        if (Input.GetMouseButtonDown(2))
+            _isStart = !_isStart;
+
+        if (_isStart)
+            return _isStart;
+
+        return
+            _inven.currentSelectedItem?.itemData == null ||
+            !_inven.invenDictionary.ContainsKey(_inven.currentSelectedItem.itemData);
+    }
+
     private void StartRay()
     {
-        if (_inven.currentSelectedItem?.itemData == null ||
-            !_inven.invenDictionary.ContainsKey(_inven.currentSelectedItem.itemData))
+        if (IsStart())
         {
             ResetLine();
             return;
         } // 선택된 쓰레기가 없을 때
 
-        _ray = _cam.ScreenPointToRay(Input.mousePosition);
-
         ParabolaRay();
-        OutLineRay();
     }
 
     private void DrawParabola(Vector3 hitPos)
@@ -93,7 +110,7 @@ public class Projectile : MonoBehaviour
     #region Ray
     private void ParabolaRay()
     {
-        if (Physics.Raycast(_ray, out _hit))
+        if (Physics.Raycast(_ray, out _hit, 100))
             DrawParabola(_hit.point);
     }
 
@@ -121,6 +138,7 @@ public class Projectile : MonoBehaviour
                 TrashTag(mat);
                 break;
             case "Enemy":
+                mat.color = Color.red;
                 EnemyTag(mat);
                 break;
         }
@@ -130,12 +148,12 @@ public class Projectile : MonoBehaviour
     #region 아웃라인
     private void TrashTag(Material mat)
     {
-        _enemy.GetComponentInChildren<MeshRenderer>().material = _outLine;
+        _enemy.GetComponentInChildren<MeshRenderer>().material = mat;
     }
 
     private void EnemyTag(Material mat)
     {
-        _enemy.GetComponentInChildren<SkinnedMeshRenderer>().material = _outLine;
+        _enemy.GetComponentInChildren<SkinnedMeshRenderer>().material = mat;
     }
     #endregion
 
