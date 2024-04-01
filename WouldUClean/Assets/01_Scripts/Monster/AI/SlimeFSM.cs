@@ -135,4 +135,9 @@ public class SlimeFSM : EnemyFSM
 		animator.AttackTrigger(false);
 		yield return new WaitForSeconds(1);
 	}
+
+	private void OnTriggerEnter(Collider other)
+	{
+		
+	}
 }
