@@ -88,7 +88,7 @@ public class ShopSlotUI : MonoBehaviour, IPointerClickHandler// IBeginDragHandle
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        //if (sellingItem == null || sellingItem.itemData == null) { print("nothing to sell"); return; }
+        if (sellingItem == null || sellingItem.itemData == null) { print("nothing to sell"); return; }
         Shop.Instance.SetTable(sellingItem.itemData); // Å¬¸¯
     }
 }
