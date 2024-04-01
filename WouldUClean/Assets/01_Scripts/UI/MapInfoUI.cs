@@ -38,7 +38,7 @@ public class MapInfoUI : MonoSingleton<MapInfoUI>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) // µð¹ö±ë
+        if (Input.GetKeyDown(KeyCode.M)) // µð¹ö±ë
         {
             if (IsInMap) OffMapInfo();
             else OnMapInfo();
