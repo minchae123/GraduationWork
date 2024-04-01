@@ -13,6 +13,8 @@ public class PlayerHp : MonoBehaviour
     [SerializeField] private float _limitBreath;
     [SerializeField] private float _value = 5f;
 
+    [SerializeField] private Material _hurtShader;
+
     public bool _isPlain { get; set; }
 
     private float _breath;
@@ -93,6 +95,20 @@ public class PlayerHp : MonoBehaviour
     public void OnDamage(float damage)
     {
         _hp -= damage;
+        //딜레이넣어야함
+        StartCoroutine(Hurt());
+    }
+
+    private IEnumerator Hurt()
+    {
+        _hurtShader.SetFloat("_ScreenIntensity", .5f);
+        yield return new WaitForSeconds(.25f);
+        _hurtShader.SetFloat("_ScreenIntensity", .0f);
+    }
+
+    public void OnlimitHp(float value)
+    {
+        _limitHp += value;
     }
 
     public void OnlimitBreath(float value)

@@ -117,7 +117,7 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
-			if (_input.look.sqrMagnitude >= _threshold && !UIManager.Instance.isSetting)
+			if (_input.look.sqrMagnitude >= _threshold && !UIManager.Instance.IsInSetting)
 			{
 				float deltaTimeMultiplier = IsCurrentDeviceMouse ? 1.0f : Time.deltaTime;
 				
