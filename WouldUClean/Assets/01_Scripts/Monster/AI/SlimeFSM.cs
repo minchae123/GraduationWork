@@ -8,11 +8,15 @@ public class SlimeFSM : EnemyFSM
 	[SerializeField] private float attackDecision = 2;
 	[SerializeField] private EnemyAnimator animator;
 
+	private Slime slime;
+
+	private bool isAttack;
+
 	public override void Awake()
 	{
 		base.Awake();
 		animator = GetComponentInChildren<EnemyAnimator>();
-		
+		slime = GetComponent<Slime>();
 	}
 
 	protected override void Update()
@@ -133,11 +137,24 @@ public class SlimeFSM : EnemyFSM
 		print("¶§¸®±â");
 		animator.AttackTrigger(true);
 		animator.AttackTrigger(false);
+		isAttack = true;
 		yield return new WaitForSeconds(1);
+		isAttack = false;
 	}
 
 	private void OnTriggerEnter(Collider other)
 	{
-		
+		if(other.gameObject.layer == LayerMask.NameToLayer("Trash"))
+		{
+			slime.ReduceHP(5);
+		}
+	}
+
+	private void OnTriggerStay(Collider other)
+	{
+		if(other.CompareTag("Player") && isAttack)
+		{
+			other.GetComponent<PlayerHp>().OnDamage(4);
+		}
 	}
 }
