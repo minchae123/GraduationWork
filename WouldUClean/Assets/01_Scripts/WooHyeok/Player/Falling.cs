@@ -5,11 +5,11 @@ using UnityEngine;
 public class Falling : MonoBehaviour
 {
     [SerializeField] private float minFallDamage = 10f;
+    [SerializeField] private float fallingTime = 5f;
     [SerializeField] private float damage = 5f;
 
     private PlayerHp _hp;
 
-    //private int layer = LayerMask.GetMask("Ground");
     private float maxHigh = 0f;
 
     private void Awake()
@@ -32,10 +32,20 @@ public class Falling : MonoBehaviour
         }
 
         RaycastHit hit;
-        Physics.Raycast(transform.position, Vector3.down, out hit);
+        Physics.Raycast(transform.position, Vector3.down, out hit, 100);
+
+        if(hit.collider == null)
+            StartCoroutine(ReStart());
 
         float high = hit.distance;
         maxHigh = maxHigh > high ? maxHigh : high;
+    }
+
+    IEnumerator ReStart()
+    {
+        yield return new WaitForSeconds(fallingTime);
+
+        //플레이어 소환 위치에서 재 시작
     }
 
     private void FallDamage(bool value)
