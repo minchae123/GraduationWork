@@ -61,12 +61,15 @@ public class SpaceManager : MonoSingleton<SpaceManager>
     private void Awake()
     {
         canInteraction = true;
-
         _curSize = SpaceshipCam.orthographicSize;
+
+        FadePanel.color = new Vector4(0, 0, 0, 1);
     }
 
     private void Start()
     {
+        FadePanel.DOFade(0, 2.5f);
+
         Planets = GameObject.FindObjectsOfType<PlanetInSpace>();
         _garbageSpawner = GetComponent<MapGarbageSpawner>();
     }
