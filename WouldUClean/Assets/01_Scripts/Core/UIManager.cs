@@ -9,7 +9,7 @@ using UnityEngine.UI;
 public class UIManager : MonoSingleton<UIManager>
 {
     [Header("Setting UI")]
-    [HideInInspector] public bool isSetting = false;
+    [HideInInspector] public bool IsInSetting = false;
 
     [Header("Setting UI")]
     [SerializeField] private GameObject settingPanel;
@@ -49,7 +49,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         Cursor.lockState = CursorLockMode.Locked;
 
-        isSetting = false;
+        IsInSetting = false;
         settingPanel.transform.DOScaleY(0, 0.5f).SetEase(Ease.InOutExpo).SetUpdate(true).OnComplete(() => settingPanel.SetActive(false));
 
         Time.timeScale = 1;
@@ -58,7 +58,7 @@ public class UIManager : MonoSingleton<UIManager>
     {
         Cursor.lockState = CursorLockMode.None;
 
-        isSetting = true;
+        IsInSetting = true;
         settingPanel.transform.DOScaleY(1, 0.3f).SetEase(Ease.InOutQuart).SetUpdate(true);
         settingPanel.SetActive(true);
 
@@ -77,7 +77,15 @@ public class UIManager : MonoSingleton<UIManager>
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (!isSetting) // ????? ?? ???? ???? ??
+            if (MapInfoUI.Instance.IsInMap)
+            {
+                MapInfoUI.Instance.OffMapInfo(); return;
+            }
+            else if (Shop.Instance.IsInShop)
+            {
+                Shop.Instance.ExitShop(); return;
+            }
+            if (!IsInSetting) // ????? ?? ???? ???? ??
             {
                 OnEntrySettingPanel();
             }

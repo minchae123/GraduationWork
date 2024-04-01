@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class Shop : MonoSingleton<Shop>
 {
+    public bool IsInShop;
+
     [Header("==== Core ====")]
     public List<InventoryItem> mainShopItem; // 메인 인벤토리
     public Dictionary<ObjectType, InventoryItem> shopDictionary; // 인벤토리 딕셔너리
@@ -54,13 +56,18 @@ public class Shop : MonoSingleton<Shop>
     {
         if(Input.GetKeyDown(KeyCode.B))
         {
-            EnterShop();
+            if (UIManager.Instance.IsInSetting || MapInfoUI.Instance.IsInMap) return;
+            if (!IsInShop) EnterShop();
+            else ExitShop();
         }
     }
 
     #region 버튼 클릭
     public void EnterShop()
     {
+        IsInShop = true;
+
+        Cursor.lockState = CursorLockMode.None;
         mainShopTrm.gameObject.SetActive(true);
 
         foreach(var i in Inventory.Instance.ReturnInvenList())
@@ -81,6 +88,9 @@ public class Shop : MonoSingleton<Shop>
     }
     public void ExitShop()
     {
+        IsInShop = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
         //print("CLick");
         mainShopTrm.gameObject.SetActive(false);
 
