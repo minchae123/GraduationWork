@@ -56,6 +56,8 @@ public class SpaceManager : MonoSingleton<SpaceManager>
 
     private bool CanSeeInventory = false;
 
+    private MapGarbageSpawner _garbageSpawner;
+
     private void Awake()
     {
         canInteraction = true;
@@ -66,6 +68,7 @@ public class SpaceManager : MonoSingleton<SpaceManager>
     private void Start()
     {
         Planets = GameObject.FindObjectsOfType<PlanetInSpace>();
+        _garbageSpawner = GetComponent<MapGarbageSpawner>();
     }
 
     private void Update()
@@ -216,6 +219,9 @@ public class SpaceManager : MonoSingleton<SpaceManager>
         PlayerInput.enabled = true;
         input.enabled = false;
         spaceship.enabled = false;
+
+        _garbageSpawner.SpawnGarbage();
+        print("积己");
 
         //快林急 救栏肺
         yield return new WaitForSeconds(1f);
