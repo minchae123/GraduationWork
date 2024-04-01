@@ -14,6 +14,7 @@ public class PlayerHp : MonoBehaviour
     [SerializeField] private float _value = 5f;
 
     [SerializeField] private Material _hurtShader;
+    private bool _delayDmg = false;
 
     public bool _isPlain { get; set; }
 
@@ -96,14 +97,18 @@ public class PlayerHp : MonoBehaviour
     {
         _hp -= damage;
         //딜레이넣어야함
-        StartCoroutine(Hurt());
+        if (!_delayDmg)
+            StartCoroutine(Hurt());
     }
 
     private IEnumerator Hurt()
     {
+        _delayDmg = true;
         _hurtShader.SetFloat("_ScreenIntensity", .5f);
         yield return new WaitForSeconds(.25f);
         _hurtShader.SetFloat("_ScreenIntensity", .0f);
+        yield return new WaitForSeconds(.25f);
+        _delayDmg = false;
     }
 
     public void OnlimitHp(float value)
