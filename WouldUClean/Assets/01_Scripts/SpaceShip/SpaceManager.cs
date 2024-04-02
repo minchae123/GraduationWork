@@ -1,12 +1,8 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
-using UnityEngine.UI;
 using DG.Tweening;
-using UnityEditor.Rendering.LookDev;
 using StarterAssets;
+using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class SpaceManager : MonoSingleton<SpaceManager>
 {

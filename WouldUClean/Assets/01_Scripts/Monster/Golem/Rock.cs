@@ -36,7 +36,9 @@ public class Rock : PoolableMono
     {
         if (other.CompareTag("Player"))
         {
-            print("¾ÆÇÁ±â");
+            FindObjectOfType<PlayerHp>().OnDamage(10);
         }
+
+        Destroy(gameObject, 0.6f);
     }
 }
