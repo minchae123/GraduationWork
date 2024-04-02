@@ -98,7 +98,10 @@ public class PlayerHp : MonoBehaviour
         _hp -= damage;
         //딜레이넣어야함
         if (!_delayDmg)
+		{
             StartCoroutine(Hurt());
+            print("아야");
+		}
     }
 
     private IEnumerator Hurt()

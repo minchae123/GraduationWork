@@ -47,7 +47,6 @@ public class MapGarbageSpawner : MonoBehaviour
         for (int i = 0; i < Count; i++)
         {
             int randIdx = Random.Range(0, resourcePrefab.Length);
-            print(randIdx);
             GameObject obj = Instantiate(resourcePrefab[randIdx], RandomPos(), Quaternion.identity);
             _garbage.Add(obj);
         }

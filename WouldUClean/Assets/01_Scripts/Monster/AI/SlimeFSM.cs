@@ -83,6 +83,7 @@ public class SlimeFSM : EnemyFSM
 				break;
 			case EnemyState.Attack:
 				{
+					print("¤²¤·");
 					StopCoroutine(AttackCoroutine());
 				}
 				break;
@@ -134,12 +135,14 @@ public class SlimeFSM : EnemyFSM
 
 	IEnumerator AttackCoroutine()
 	{
-		print("¶§¸®±â");
-		animator.AttackTrigger(true);
-		animator.AttackTrigger(false);
-		isAttack = true;
-		yield return new WaitForSeconds(1);
-		isAttack = false;
+		while(true)
+		{
+			animator.AttackTrigger(true);
+			isAttack = true; 
+			animator.AttackTrigger(false);
+			yield return new WaitForSeconds(1.5f);
+			isAttack = false;
+		}
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -150,11 +153,12 @@ public class SlimeFSM : EnemyFSM
 		}
 	}
 
-	private void OnTriggerStay(Collider other)
+	private void OnCollisionStay(Collision collision)
 	{
-		if(other.CompareTag("Player") && isAttack)
+		if (collision.gameObject.CompareTag("Player") && isAttack)
 		{
-			other.GetComponent<PlayerHp>().OnDamage(4);
+			FindObjectOfType<PlayerHp>().OnDamage(4);
 		}
 	}
+
 }

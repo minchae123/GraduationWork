@@ -25,7 +25,7 @@ public class Bullet : PoolableMono
     {
         if (other.CompareTag("Player"))
         {
-            print("데미지를 추가해야한다");
+            FindObjectOfType<PlayerHp>().OnDamage(5);
             PoolManager.Instance.Push(this);
         }
     }
