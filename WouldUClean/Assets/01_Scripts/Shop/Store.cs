@@ -14,6 +14,7 @@ public class Store : MonoSingleton<Store>
     
     // ===================================
 
+    [Header("===================================")] 
     [Header("Stat")]
     // 여긴 나중에 다른 스크립트로 변경
     private int O2Lv = 1;
@@ -41,8 +42,8 @@ public class Store : MonoSingleton<Store>
 
     [Header("===================================")]
     [Header("CheckPanel")]
-    [SerializeField] private Transform checkPanel;
     [SerializeField] private ShopItemSO currentItem;
+    [SerializeField] private Transform checkPanel;
 
     [Header("UI")]
     private TextMeshProUGUI itemPrice;
@@ -66,8 +67,15 @@ public class Store : MonoSingleton<Store>
         SetPurchaseItem();
 
         ResetShop();
-        coinText.text = $"{Coin.Instance.currentCoin}원";
+        coinText.text = "Loading. . .";
     }
+
+    private void CoinTextTyping()
+    {
+        coinText.maxVisibleCharacters = 0;
+        DOTween.To(x => coinText.maxVisibleCharacters = (int)x, 0f, coinText.text.Length, 0.3f).SetUpdate(true);
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.B))
@@ -85,6 +93,10 @@ public class Store : MonoSingleton<Store>
         Cursor.lockState = CursorLockMode.None;
 
         shop.SetActive(true);
+        
+        coinText.text = "Loading. . .";
+        CoinTextTyping();
+
         shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); SetPlayerStatLevel(); });
 
         IsInShop = true;
@@ -126,8 +138,7 @@ public class Store : MonoSingleton<Store>
         // currentItem 돈 만큼 제외
         Coin.Instance.RemoveCoin(currentItem.itemPrice);
 
-        UpdateStat();
-        OnClickBtn();
+        SetPlayerStatLevel(); OnClickBtn();
     }
     public void OnClickBtn()
     {
@@ -141,14 +152,12 @@ public class Store : MonoSingleton<Store>
     }
     #endregion
 
-    public void UpdateStat()
-    {
-        SetPlayerStatLevel();
-    }
-
     private void SetPlayerStatLevel()
     {
         coinText.text = $"{Coin.Instance.currentCoin}원";
+        coinText.transform.DOScale(1.02f, 0.1f).
+            OnComplete(() => coinText.transform.DOScale(1f, 0.05f).SetUpdate(true))
+            .SetUpdate(true);
 
         O2stat.DOScaleX(1f / 5f * O2Lv, 0.2f).SetUpdate(true);
         HPstat.DOScaleX(1f / 5f * HPLv, 0.2f).SetUpdate(true);

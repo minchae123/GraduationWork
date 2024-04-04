@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class Shop : MonoSingleton<Shop>
+public class Shop : MonoSingleton<Shop> // ¾È¾¸!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 {
     public bool IsInShop;
 
