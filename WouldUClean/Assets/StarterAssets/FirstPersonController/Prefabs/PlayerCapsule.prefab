@@ -1580,6 +1580,7 @@ GameObject:
   - component: {fileID: 460831276981306847}
   - component: {fileID: 3969516069002918943}
   - component: {fileID: 7025727867752682616}
+  - component: {fileID: 399746750176900431}
   m_Layer: 8
   m_Name: PlayerCapsule
   m_TagString: Player
@@ -1636,9 +1637,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8616685848737228372}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
+  m_Script: {fileID: 11500000, guid: acefc4ad4a0c57749b5f0372e96e6578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SlowPercent: 0.7
   MoveSpeed: 4
   SprintSpeed: 6
   SpeedChangeRate: 10
@@ -1651,10 +1653,13 @@ MonoBehaviour:
   GroundedRadius: 0.5
   GroundLayers:
     serializedVersion: 2
-    m_Bits: 641
+    m_Bits: 129
   CinemachineCameraTarget: {fileID: 4135013735270702863}
-  TopClamp: 89
-  BottomClamp: -89
+  TopClamp: 90
+  BottomClamp: -90
+  isFasten: 0
+  _speed: 0
+  _windDir: {x: 0, y: 0, z: 0}
 --- !u!114 &1978471637655604388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1834,10 +1839,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _breathBar: {fileID: 5950223468926679924}
   _hpBar: {fileID: 4650370043858492137}
+  _hurtShader: {fileID: 2100000, guid: 71991ad278ef6aa49a8412683bc17b56, type: 2}
   _limitHp: 500
   _limitBreath: 500
   _value: 10
-  _hurtShader: {fileID: 2100000, guid: 71991ad278ef6aa49a8412683bc17b56, type: 2}
+  _decCoin: 30
 --- !u!114 &7025727867752682616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1859,3 +1865,15 @@ MonoBehaviour:
   _limitDistamce: 12
   _angle: 25
   _step: 0.1
+--- !u!114 &399746750176900431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c943cd8d62dfe4b4689cff950cb384f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

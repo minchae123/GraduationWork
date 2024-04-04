@@ -10,6 +10,10 @@ public class PlanetInSpace : SpaceObject
     public bool found;
     public bool clean;
     public bool interacted;
+    [Space(15)]
+    public bool rainPlanet;
+    public bool snowPlanet;
+    public bool windPlanet;
     [SerializeField] private GameObject _detectObj;
     public GameObject inPlanet;
 
