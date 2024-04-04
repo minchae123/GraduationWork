@@ -19,6 +19,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Awake()
     {
+        _currentHealth = _maxHealth;
         _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
     }
 

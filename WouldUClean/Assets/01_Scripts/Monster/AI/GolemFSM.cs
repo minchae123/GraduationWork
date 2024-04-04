@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GolemFSM : EnemyFSM
 {
-    [SerializeField] float chaseDecision = 20;
-    [SerializeField] float attackDecision = 10;
     [SerializeField] GameObject rock;
     private EnemyAnimator animator;
     public override void Awake()
