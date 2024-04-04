@@ -5,24 +5,38 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class PurchaseSlotUI : MonoBehaviour, IPointerClickHandler
+public class PurchaseSlotUI : MonoBehaviour//, IPointerClickHandler
 {
-
-    [Header("")]
-    public ShopItemSO sellingItem; // 현재 팔고 있는 거:ㄴ
+    [Header("ITEM")]
+    private ShopItemSO sellingItem;
 
     [Header("UI")]
+    [SerializeField] private Button buyButton;
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
+    [SerializeField] private TextMeshProUGUI itemPrice;
 
-    public void SetItem()
+    public void SetItem(ShopItemSO item)
     {
+        sellingItem = item;
+
         itemIcon.sprite = sellingItem.itemIcon;
         itemName.text = sellingItem.itemName;
+        itemPrice.text = $"{sellingItem.itemPrice}원";
     }
 
-    public void OnPointerClick(PointerEventData eventData) // 클릭햇을때
+    public void OnClickPurchaseBtn()
+    {
+        Store.Instance.SetCheckPanel(sellingItem);
+    }
+
+    public void ButtonInteractive(bool b)
+    {
+        buyButton.interactable = b;
+    }
+
+    /*public void OnPointerClick(PointerEventData eventData) // 클릭햇을때
     {
         Shop.Instance.SetItem(sellingItem);
-    }
+    }*/
 }

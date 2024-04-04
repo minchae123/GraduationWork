@@ -186,8 +186,7 @@ public class Shop : MonoSingleton<Shop>
         for(int i=0;i< sellingItemList.itemList.Count;++i)
         {
             PurchaseSlotUI obj = Instantiate(purchaseSlot, purchaseParent);
-            obj.sellingItem = sellingItemList.itemList[i];
-            obj.SetItem();
+            obj.SetItem(sellingItemList.itemList[i]);
         }
     }
     public void DestoryItemInShop()
@@ -205,7 +204,7 @@ public class Shop : MonoSingleton<Shop>
 
     public void BuyItem(ShopItemSO item)
     {
-        int price = item.itemPrice;
+       /* int price = item.itemPrice;
         switch (item.Item)
         {
             case PurchaseItem.NONE:
@@ -214,15 +213,15 @@ public class Shop : MonoSingleton<Shop>
                 // ºú°±±â
                 print("ºú°±±â");
                 break;
-            case PurchaseItem.cleanerUpgrade:
+            case PurchaseItem.CleanerUpgrade:
                 UpgradeCleaner(price);
                 break;
-            case PurchaseItem.o2Tank:
+            case PurchaseItem.O:
                 UpgradeO2Tank(price);
                 break;
             case PurchaseItem.item:
                 break;
-        }
+        }*/
     }
 
     public void UpgradeInventory(int price)
