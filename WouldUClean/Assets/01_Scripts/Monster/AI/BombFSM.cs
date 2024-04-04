@@ -4,11 +4,7 @@ using UnityEngine;
 
 public class BombFSM : EnemyFSM
 {
-	//[SerializeField] private float chaseDecision = 6;
-	//[SerializeField] private float attackDecision = 2;
 	[SerializeField] private EnemyAnimator animator;
-
-	private bool isAttack;
 
 	public override void Awake()
 	{
@@ -131,13 +127,8 @@ public class BombFSM : EnemyFSM
 
 	IEnumerator AttackCoroutine()
 	{
-		while (true)
-		{
-			animator.AttackTrigger(true);
-			isAttack = true;
-			animator.AttackTrigger(false);
-			yield return new WaitForSeconds(1.5f);
-		}
+		
+		yield return new WaitForSeconds(1.5f);
 	}
 
 	private void OnTriggerEnter(Collider other)
@@ -145,14 +136,6 @@ public class BombFSM : EnemyFSM
 		if (other.gameObject.layer == LayerMask.NameToLayer("Trash"))
 		{
 			// hp ±ð±â
-		}
-	}
-
-	private void OnCollisionStay(Collision collision)
-	{
-		if (collision.gameObject.CompareTag("Player") && isAttack)
-		{
-			FindObjectOfType<PlayerHp>().OnDamage(4);
 		}
 	}
 }
