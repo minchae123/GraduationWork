@@ -186,8 +186,7 @@ public class Shop : MonoSingleton<Shop>
         for(int i=0;i< sellingItemList.itemList.Count;++i)
         {
             PurchaseSlotUI obj = Instantiate(purchaseSlot, purchaseParent);
-            obj.sellingItem = sellingItemList.itemList[i];
-            obj.SetItem();
+            obj.SetItem(sellingItemList.itemList[i]);
         }
     }
     public void DestoryItemInShop()

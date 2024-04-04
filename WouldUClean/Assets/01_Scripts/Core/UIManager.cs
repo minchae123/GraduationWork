@@ -81,10 +81,10 @@ public class UIManager : MonoSingleton<UIManager>
             {
                 MapInfoUI.Instance.OffMapInfo(); return;
             }
-            else if (Shop.Instance.IsInShop)
+            /*else if (Shop.Instance.IsInShop)
             {
                 Shop.Instance.ExitShop(); return;
-            }
+            }*/
             if (!IsInSetting) // ????? ?? ???? ???? ??
             {
                 OnEntrySettingPanel();
