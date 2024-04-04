@@ -12,12 +12,12 @@ public class SpaceManager : MonoSingleton<SpaceManager>
 
     public Camera MainCam;
     public Camera SpaceshipCam;
-    public FirstPersonController PlayerInput;
+    public PlayerController PlayerInput;
     public InputReader SpaceshipInputReader;
 
     [Header("Planet")]
     public PlanetInSpace[] Planets;
-    private PlanetInSpace curPlanet = null;
+    public PlanetInSpace curPlanet = null;
     private PlanetInSpace nearPlanet = null;
 
     private float _targetSize = 5;
