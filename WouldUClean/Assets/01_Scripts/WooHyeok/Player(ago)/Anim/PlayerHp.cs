@@ -8,12 +8,15 @@ public class PlayerHp : MonoBehaviour
 {
     [SerializeField] private Slider _breathBar;
     [SerializeField] private Slider _hpBar;
+    [SerializeField] private Material _hurtShader;
 
+    [Space(10)]
     [SerializeField] private float _limitHp;
     [SerializeField] private float _limitBreath;
     [SerializeField] private float _value = 5f;
 
-    [SerializeField] private Material _hurtShader;
+    [Space(10)]
+    [SerializeField] private int _decCoin = 30;
     private bool _delayDmg = false;
 
     public bool _isPlain { get; set; }
@@ -33,7 +36,7 @@ public class PlayerHp : MonoBehaviour
 
     public void Update()
     {
-        //¿©±â 
+        Die();
         divideHp();
         ResetValue();
         UpdateSlider();
@@ -89,8 +92,13 @@ public class PlayerHp : MonoBehaviour
 
     private void Die()
     {
-        //if(_hp <= 0)
-        //Á×À½
+        if (_hp > 0) return;
+
+        Coin.Instance.currentCoin -= _decCoin;
+        Inventory.Instance.invenDictionary.Clear();
+
+        transform.position = SpaceManager.Instance._spaceshipPos.position;
+        FullValue();
     }
 
     public void OnDamage(float damage)

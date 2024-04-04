@@ -119,6 +119,9 @@ public class Projectile : MonoBehaviour
     {
         if (Physics.Raycast(_ray, out _enemyHit, _limitDistamce, LayerMask.GetMask("Trash") | LayerMask.GetMask("Enemy")))
         {
+            if(_enemy != null && _enemy != _enemyHit.transform)
+                SwitchTag(_originLine);
+
             _enemy = _enemyHit.transform;
             _hitTag = _enemyHit.transform.tag;
 
