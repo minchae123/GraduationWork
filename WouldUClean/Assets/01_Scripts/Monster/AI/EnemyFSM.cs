@@ -18,6 +18,9 @@ public abstract class EnemyFSM : MonoBehaviour
 
     protected float decision;
 
+    [SerializeField] protected float chaseDecision = 6;
+    [SerializeField] protected float attackDecision = 2;
+
     public virtual void Awake()
     {
         navMovement = GetComponent<NavAgentMovement>();

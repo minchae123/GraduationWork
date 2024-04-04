@@ -50,7 +50,6 @@ public class Turretss : MonoBehaviour
             //총알발솨두두두두두더지렁이잡아먹기러기새우깡뺏기
             if (isShooting)
             {
-                print("포탑발사함.");
                 Bullet bullet = PoolManager.Instance.Pop("Bullet") as Bullet;
                 bullet.transform.position = firePos.position;
                 yield return new WaitForSeconds(0.2f);

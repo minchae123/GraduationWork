@@ -221,7 +221,6 @@ public class SpaceManager : MonoSingleton<SpaceManager>
         spaceship.enabled = false;
 
         _garbageSpawner.SpawnGarbage();
-        print("积己");
 
         //快林急 救栏肺
         yield return new WaitForSeconds(1f);
