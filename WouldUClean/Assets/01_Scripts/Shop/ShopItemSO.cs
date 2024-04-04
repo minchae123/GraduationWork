@@ -6,9 +6,9 @@ public enum PurchaseItem
 {   
     NONE = 0,
     Debt = 1,
-    cleanerUpgrade = 2,
-    o2Tank = 3,
-    item = 4
+    Inventory = 2,
+    O2Tank = 3,
+    item = 4,  
 }
 [CreateAssetMenu(menuName ="SO/Shop/ShopItem")]
 public class ShopItemSO : ScriptableObject

@@ -21,12 +21,17 @@ public class Store : MonoSingleton<Store>
     private int UFOLv = 1;
     //
 
+    [Header("Fill UI")]
     [SerializeField] private Transform O2stat;
     [SerializeField] private Transform HPstat;
     [SerializeField] private Transform UFOstat;
 
+    [Header("UI")]
+    [SerializeField] private TextMeshProUGUI coinText;
+
     // ===================================
 
+    [Header("===================================")]
     [Header("Purchase")]
     [SerializeField] private SellingItemList SellingItemList;
     [SerializeField] private Transform purchaseScrollViewParent;
@@ -34,19 +39,23 @@ public class Store : MonoSingleton<Store>
 
     [SerializeField] private PurchaseSlotUI[] purchaseSlots;
 
+    [Header("===================================")]
     [Header("CheckPanel")]
     [SerializeField] private Transform checkPanel;
     [SerializeField] private ShopItemSO currentItem;
 
+    [Header("UI")]
+    private TextMeshProUGUI itemPrice;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemInfo;
     private Image itemImage;
 
     private void Awake()
     {
-        itemName = checkPanel.Find("NameText").GetComponentInChildren<TextMeshProUGUI>();
-        itemInfo = checkPanel.Find("InfoText").GetComponentInChildren<TextMeshProUGUI>();
-        itemImage = checkPanel.Find("ItemImage").GetComponentInChildren<Image>();
+        itemName = checkPanel.Find("InfoContainer/NameText").GetComponentInChildren<TextMeshProUGUI>();
+        itemInfo = checkPanel.Find("InfoContainer/InfoText").GetComponentInChildren<TextMeshProUGUI>();
+        itemPrice = checkPanel.Find("ButtonContainer/YES/Text (TMP)").GetComponentInChildren<TextMeshProUGUI>();
+        itemImage = checkPanel.Find("InfoContainer/ItemImage").GetComponentInChildren<Image>();
     }
     private void Start()
     {
@@ -55,7 +64,9 @@ public class Store : MonoSingleton<Store>
 
         purchaseSlots = new PurchaseSlotUI[SellingItemList.itemList.Count];
         SetPurchaseItem();
+
         ResetShop();
+        coinText.text = $"{Coin.Instance.currentCoin}원";
     }
     private void Update()
     {
@@ -74,7 +85,7 @@ public class Store : MonoSingleton<Store>
         Cursor.lockState = CursorLockMode.None;
 
         shop.SetActive(true);
-        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => SetPlayerStatLevel());
+        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); SetPlayerStatLevel(); });
 
         IsInShop = true;
 
@@ -102,6 +113,7 @@ public class Store : MonoSingleton<Store>
 
         itemName.text = currentItem.itemName;
         itemInfo.text = currentItem.itemInfo;
+        itemPrice.text = $"{currentItem.itemPrice}원";
         itemImage.sprite = currentItem.itemIcon;
 
         for(int i =0;i< purchaseSlots.Length; i++)
@@ -112,6 +124,9 @@ public class Store : MonoSingleton<Store>
     public void OnClickBuyButton()
     {
         // currentItem 돈 만큼 제외
+        Coin.Instance.RemoveCoin(currentItem.itemPrice);
+
+        UpdateStat();
         OnClickBtn();
     }
     public void OnClickBtn()
@@ -126,11 +141,18 @@ public class Store : MonoSingleton<Store>
     }
     #endregion
 
+    public void UpdateStat()
+    {
+        SetPlayerStatLevel();
+    }
+
     private void SetPlayerStatLevel()
     {
+        coinText.text = $"{Coin.Instance.currentCoin}원";
+
         O2stat.DOScaleX(1f / 5f * O2Lv, 0.2f).SetUpdate(true);
         HPstat.DOScaleX(1f / 5f * HPLv, 0.2f).SetUpdate(true);
-        UFOstat.DOScaleX(1f / 5f * UFOLv, 0.2f).SetUpdate(true).OnComplete(() => SetAnimPurchaseList());
+        UFOstat.DOScaleX(1f / 5f * UFOLv, 0.2f).SetUpdate(true);
     }
 
     private void SetAnimPurchaseList()
@@ -155,8 +177,7 @@ public class Store : MonoSingleton<Store>
 
     private void ResetShop()
     {
-        checkPanel.gameObject.SetActive(false);
-        checkPanel.localScale = new Vector3(1, 0, 1);
+        checkPanel.DOScaleY(0, 0.15f).OnComplete(() => checkPanel.gameObject.SetActive(false));
 
         O2stat.DOScaleX(0, 0.2f);
         HPstat.DOScaleX(0, 0.2f);
