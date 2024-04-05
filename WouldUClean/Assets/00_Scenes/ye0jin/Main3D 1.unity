@@ -324,7 +324,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 569168435}
         m_TargetAssemblyTypeName: Store, Assembly-CSharp
         m_MethodName: OnClickBuyButton
         m_Mode: 1
@@ -684,83 +684,6 @@ RectTransform:
   m_AnchoredPosition: {x: -350, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: -2.5, y: 0.5}
---- !u!1 &83202472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 83202473}
-  - component: {fileID: 83202475}
-  - component: {fileID: 83202474}
-  m_Layer: 5
-  m_Name: ShopBackground
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &83202473
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83202472}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 511922350}
-  m_Father: {fileID: 656083203}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -140, y: 0}
-  m_SizeDelta: {x: 1000, y: 800}
-  m_Pivot: {x: 1, y: 0.5}
---- !u!114 &83202474
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83202472}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.5038804, g: 0.5044273, b: 0.7924528, a: 0.73333335}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 7c30d9c8abebf1448a5dbbfb67c745f5, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &83202475
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 83202472}
-  m_CullTransparentMesh: 1
 --- !u!1 &93016431
 GameObject:
   m_ObjectHideFlags: 0
@@ -1749,6 +1672,7 @@ MonoBehaviour:
   SpaceshipInputReader: {fileID: 1391132213}
   Planets:
   - {fileID: 0}
+  curPlanet: {fileID: 0}
   _sr: {fileID: 1075151753}
   _player: {fileID: 441931126}
   _spaceshipPos: {fileID: 543450652843021747}
@@ -1855,6 +1779,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1221820335}
   inPlanet: {fileID: 1080231188}
   LandPos: {fileID: 1317057683}
@@ -2921,6 +2848,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1556913027}
   inPlanet: {fileID: 2022522533}
   LandPos: {fileID: 1934253014}
@@ -3132,7 +3062,7 @@ RectTransform:
   - {fileID: 1163654908}
   - {fileID: 331637769}
   m_Father: {fileID: 656083203}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3483,6 +3413,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1586394764}
   inPlanet: {fileID: 1085869522}
   LandPos: {fileID: 1829763220}
@@ -9426,7 +9359,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 441931126}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
+  m_Script: {fileID: 11500000, guid: acefc4ad4a0c57749b5f0372e96e6578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &499343816
@@ -9497,42 +9430,6 @@ RectTransform:
   - {fileID: 1468626151}
   m_Father: {fileID: 743420854}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &511922349
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 511922350}
-  m_Layer: 5
-  m_Name: Sell
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &511922350
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 511922349}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 83202473}
-  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -9888,6 +9785,7 @@ GameObject:
   m_Component:
   - component: {fileID: 569168434}
   - component: {fileID: 569168435}
+  - component: {fileID: 569168436}
   m_Layer: 0
   m_Name: Shop
   m_TagString: Untagged
@@ -9924,16 +9822,28 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   IsInShop: 0
   shop: {fileID: 656083202}
-  O2stat: {fileID: 1966836308}
-  HPstat: {fileID: 1111411003}
-  UFOstat: {fileID: 1589469702}
-  coinText: {fileID: 846917584}
   SellingItemList: {fileID: 11400000, guid: 1f521db71c6f1ed428d1eb392dad918e, type: 2}
   purchaseScrollViewParent: {fileID: 236632693}
   purchaseSlotUI: {fileID: 5291097779728265711, guid: 2ac6c7a7a22510f4da6a716620f3c89c, type: 3}
   purchaseSlots: []
   currentItem: {fileID: 0}
   checkPanel: {fileID: 314775196}
+--- !u!114 &569168436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569168433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b8c11c3349c7db4c9d3d5f3264ba10f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  O2stat: {fileID: 1966836308}
+  HPstat: {fileID: 1111411003}
+  UFOstat: {fileID: 1589469702}
+  coinText: {fileID: 846917584}
 --- !u!1 &572244653
 GameObject:
   m_ObjectHideFlags: 0
@@ -10264,6 +10174,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1964984299}
   inPlanet: {fileID: 242045403}
   LandPos: {fileID: 789203812}
@@ -10453,7 +10366,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 166343500}
+  m_AnchoredPosition: {x: 0, y: 166643550}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &597169111
@@ -10970,6 +10883,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 547124515}
   inPlanet: {fileID: 1885732805}
   LandPos: {fileID: 1140327254}
@@ -11098,7 +11014,6 @@ RectTransform:
   - {fileID: 2089403902}
   - {fileID: 752482132}
   - {fileID: 901556099}
-  - {fileID: 83202473}
   - {fileID: 314775196}
   m_Father: {fileID: 926771939}
   m_RootOrder: 0
@@ -16000,6 +15915,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 708732640}
   inPlanet: {fileID: 228550140}
   LandPos: {fileID: 1434462443}
@@ -16765,6 +16683,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1306681790}
   inPlanet: {fileID: 1080231188}
   LandPos: {fileID: 1317057683}
@@ -17622,6 +17543,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1643464406}
   inPlanet: {fileID: 425266024}
   LandPos: {fileID: 1997834169}
@@ -17884,7 +17808,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 569168435}
         m_TargetAssemblyTypeName: Store, Assembly-CSharp
         m_MethodName: OnClickBtn
         m_Mode: 1
@@ -18641,6 +18565,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1409852112}
   inPlanet: {fileID: 524539458}
   LandPos: {fileID: 1959047429}
@@ -19636,6 +19563,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1541004047}
   inPlanet: {fileID: 1183008817}
   LandPos: {fileID: 204084032}

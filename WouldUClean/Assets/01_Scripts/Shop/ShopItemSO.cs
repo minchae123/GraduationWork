@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum PurchaseItem
-{   
+{       
     NONE = 0,
     Debt = 1,
     Inventory = 2,
     O2Tank = 3,
-    item = 4,  
+    HP = 4,  
+    UFO = 5,
+    Item = 6,  
 }
 [CreateAssetMenu(menuName ="SO/Shop/ShopItem")]
 public class ShopItemSO : ScriptableObject
