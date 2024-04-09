@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Security.Cryptography;
 using UnityEngine;
 
-
-
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
     protected int health;
@@ -14,12 +12,14 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     [SerializeField]
     protected int _maxHealth;
 
+    [SerializeField] private EnemyAnimator animator;
 
     private HealthBarUI _healthBarUI;
 
     private void Awake()
     {
         _currentHealth = _maxHealth;
+        animator = GetComponentInChildren<EnemyAnimator>();
         _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
     }
 
@@ -28,9 +28,8 @@ public class EnemyHealth : MonoBehaviour, IDamageable
     {
         health -= damage;
 
-
         _healthBarUI.SetHealth(_currentHealth);
-
+        animator.HitTrigger(true);
 
         if (health <= 0)
             Die();
@@ -38,5 +37,7 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Die()
     {
+        animator.DeadTrigger(true);
+        Destroy(gameObject, 1f);
     }
 }

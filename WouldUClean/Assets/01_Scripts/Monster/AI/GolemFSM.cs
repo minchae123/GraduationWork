@@ -5,11 +5,10 @@ using UnityEngine;
 public class GolemFSM : EnemyFSM
 {
     [SerializeField] GameObject rock;
-    private EnemyAnimator animator;
+
     public override void Awake()
     {
         base.Awake();
-        animator = GetComponentInChildren<EnemyAnimator>();
     }
 
     protected override void Update()

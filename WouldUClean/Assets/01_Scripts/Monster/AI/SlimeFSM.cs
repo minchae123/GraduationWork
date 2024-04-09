@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class SlimeFSM : EnemyFSM
 {
-
-    [SerializeField] private EnemyAnimator animator;
-
     private Slime slime;
     private EnemyHealth _enemyHealth;
 
@@ -15,7 +12,6 @@ public class SlimeFSM : EnemyFSM
     public override void Awake()
     {
         base.Awake();
-        animator = GetComponentInChildren<EnemyAnimator>();
         slime = GetComponent<Slime>();
         _enemyHealth = GetComponent<EnemyHealth>();
     }

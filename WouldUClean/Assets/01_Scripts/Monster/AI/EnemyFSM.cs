@@ -20,10 +20,12 @@ public abstract class EnemyFSM : MonoBehaviour
 
     [SerializeField] protected float chaseDecision = 6;
     [SerializeField] protected float attackDecision = 2;
+    [SerializeField] protected EnemyAnimator animator;
 
     public virtual void Awake()
     {
         navMovement = GetComponent<NavAgentMovement>();
+        animator = GetComponentInChildren<EnemyAnimator>();
         targetTrm = GameManager.Instance._playerTrm; // GameManager 넣으면 플레이어 위치 넣어주기
     }
 

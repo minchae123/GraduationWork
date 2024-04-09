@@ -1,15 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BombFSM : EnemyFSM
 {
-	[SerializeField] private EnemyAnimator animator;
+	private bool isAttack;
 
 	public override void Awake()
 	{
 		base.Awake();
-		animator = GetComponentInChildren<EnemyAnimator>();
 	}
 
 	protected override void Update()
@@ -127,7 +127,8 @@ public class BombFSM : EnemyFSM
 
 	IEnumerator AttackCoroutine()
 	{
-		
+		animator.AttackTrigger(true);
+		animator.AttackTrigger(false);
 		yield return new WaitForSeconds(1.5f);
 	}
 
@@ -137,5 +138,15 @@ public class BombFSM : EnemyFSM
 		{
 			// hp ±ð±â
 		}
+	}
+
+	private void OnCollisionStay(Collision collision)
+	{
+		isAttack = true;	
+	}
+
+	private void OnCollisionExit(Collision collision)
+	{
+		isAttack = false;
 	}
 }
