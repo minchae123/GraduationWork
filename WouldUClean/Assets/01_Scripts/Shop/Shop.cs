@@ -12,26 +12,6 @@ public class Shop : MonoSingleton<Shop>
     [Header("ShopUI")]
     [SerializeField] private GameObject shop;
     
-    // ===================================
-
-    /*[Header("===================================")] 
-    [Header("Stat")]
-    // 여긴 나중에 다른 스크립트로 변경
-    private int O2Lv = 1;
-    private int HPLv = 1;
-    private int UFOLv = 1;
-    //
-
-    [Header("Fill UI")]
-    [SerializeField] private Transform O2stat;
-    [SerializeField] private Transform HPstat;
-    [SerializeField] private Transform UFOstat;
-
-    [Header("UI")]
-    [SerializeField] private TextMeshProUGUI coinText;
-
-    // ===================================*/
-
     [Header("===================================")]
     [Header("Purchase")]
     [SerializeField] private SellingItemList SellingItemList;
@@ -41,7 +21,7 @@ public class Shop : MonoSingleton<Shop>
     [SerializeField] private PurchaseSlotUI[] purchaseSlots;
 
     private ScrollRect scrollRect;
-    private UpgradeSys upgrade;
+    private Purchase purchaseSys;
 
     [Header("===================================")]
 
@@ -50,12 +30,16 @@ public class Shop : MonoSingleton<Shop>
     [Header("CheckPanel")]
     [SerializeField] private ShopItemSO currentItem;
     [SerializeField] private Transform checkPanel;
+    [SerializeField] private Transform debtPanel;
 
     [Header("UI")]
     private TextMeshProUGUI itemPrice;
     private TextMeshProUGUI itemName;
     private TextMeshProUGUI itemInfo;
     private Image itemImage;
+
+    [Header("TEST")]
+    [SerializeField] private TextMeshProUGUI testText;
 
     private void Awake()
     {
@@ -65,7 +49,7 @@ public class Shop : MonoSingleton<Shop>
         itemImage = checkPanel.Find("InfoContainer/ItemImage").GetComponentInChildren<Image>();
 
         scrollRect = purchaseScrollViewParent.GetComponentInParent<ScrollRect>();
-        upgrade = GetComponent<UpgradeSys>();
+        purchaseSys = GetComponent<Purchase>();
     }
     private void Start()
     {
@@ -96,9 +80,9 @@ public class Shop : MonoSingleton<Shop>
 
         shop.SetActive(true);
 
-        upgrade.EnterShop();
+        purchaseSys.EnterShop();
 
-        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); upgrade.SetPlayerStatLevel(); });
+        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); purchaseSys.SetPlayerStatLevel(); });
 
         IsInShop = true;
 
@@ -118,7 +102,8 @@ public class Shop : MonoSingleton<Shop>
     private void ResetShop()
     {
         checkPanel.DOScaleY(0, 0.15f).OnComplete(() => checkPanel.gameObject.SetActive(false));
-        upgrade.ResetShop();
+        debtPanel.DOScaleY(0, 0.15f).OnComplete(() => debtPanel.gameObject.SetActive(false));
+        purchaseSys.ResetShop();
 
         for (int i = 0; i < SellingItemList.itemList.Count; i++)
         {
@@ -146,24 +131,17 @@ public class Shop : MonoSingleton<Shop>
         PurchaseItem type = currentItem.Item;
         if (type == PurchaseItem.NONE)
         {
-            Debug.LogWarning("아이템 정보 체크 바람");
+            Debug.LogWarning("아이템 정보 체크 바람"); return;
         }
 
-        if(upgrade.CheckCanBuy(type)) // 최대 업그레이드 아직X
-        {        
-            // currentItem 돈 만큼 제외
-            Coin.Instance.RemoveCoin(currentItem.itemPrice);
-            upgrade.BuyItem(type);
-        }
-        else // 최대 업그레이드일 경우
-        {
-            print("업그레이드 끝남"); // 추후 최대 업그레이드 된 건 구매 불가로 만들 예정
-        }
+        Coin.Instance.RemoveCoin(currentItem.itemPrice);
+        purchaseSys.BuyItem(currentItem);
         OnClickBtn();
     }
     public void OnClickBtn()
     {
         checkPanel.DOScaleY(0f, 0.15f).SetUpdate(true).OnComplete(() => checkPanel.gameObject.SetActive(false));
+        debtPanel.DOScaleY(0f, 0.15f).SetUpdate(true).OnComplete(() => debtPanel.gameObject.SetActive(false));
         currentItem = null;
 
         OnMoveWhileCheckPanel(true);
@@ -179,6 +157,33 @@ public class Shop : MonoSingleton<Shop>
     }
     #endregion
 
+    public void SetDebtPanel(ShopItemSO item)
+    {
+        debtPanel.gameObject.SetActive(true);
+        debtPanel.DOScaleY(1f, 0.2f).SetUpdate(true);
+
+        currentItem = item;
+    }
+
+    public void OnClickDebt()
+    {
+        int value = 0;
+        string txt = testText.text.Replace("\u200B", "");
+
+        if (int.TryParse(txt, out value))
+        {
+            Coin.Instance.RemoveCoin(value);
+            purchaseSys.BuyItem(currentItem);
+            OnClickBtn();
+        }
+        else
+        {
+            print("숫자가 아님니다");
+        }
+
+        testText.text = string.Empty;
+    }
+
     private void SetAnimPurchaseList()
     {
         for (int i = 0; i < SellingItemList.itemList.Count; i++)
@@ -186,7 +191,6 @@ public class Shop : MonoSingleton<Shop>
             purchaseSlots[i].transform.DOScaleX(1, 0.1f).SetUpdate(true);
         }
     }
-
     public void SetPurchaseItem()
     {
         for(int i=0;i< SellingItemList.itemList.Count; i++)
@@ -198,4 +202,6 @@ public class Shop : MonoSingleton<Shop>
             purchaseSlots[i].transform.localScale = new Vector3(0, 1, 1);
         }
     }
+    
+
 }

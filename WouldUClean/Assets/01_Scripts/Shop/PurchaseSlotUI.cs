@@ -27,16 +27,24 @@ public class PurchaseSlotUI : MonoBehaviour//, IPointerClickHandler
 
     public void OnClickPurchaseBtn()
     {
-        Shop.Instance.SetCheckPanel(sellingItem);
+        PurchaseItem type = sellingItem.Item;
+        if (type == PurchaseItem.NONE)
+        {
+            return;
+        }
+
+        if(type == PurchaseItem.Debt)
+        {
+            Shop.Instance.SetDebtPanel(sellingItem);
+        }
+        else if(Purchase.Instance.CheckCanBuy(type))
+        {
+            Shop.Instance.SetCheckPanel(sellingItem);
+        }
     }
 
     public void ButtonInteractive(bool b)
     {
         buyButton.interactable = b;
     }
-
-    /*public void OnPointerClick(PointerEventData eventData) // 클릭햇을때
-    {
-        Shop.Instance.SetItem(sellingItem);
-    }*/
 }

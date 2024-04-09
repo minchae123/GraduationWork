@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ShopSlotUI : MonoBehaviour
+public class SellSlotUI : MonoBehaviour
 {
-
+    
 }

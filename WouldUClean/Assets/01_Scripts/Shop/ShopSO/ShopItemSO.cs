@@ -27,8 +27,10 @@ public class ShopItemSO : ScriptableObject
     //가격
     public int itemPrice;
 
-    public void IsOnSale(int discountPercentage) // 세일 같은거? 나중에 쓰
+    public void PayBackDebt()
     {
-        itemPrice = (int)(itemPrice + itemPrice * (discountPercentage / 100));
+        if(Item != PurchaseItem.Debt) return;
+
+
     }
 }

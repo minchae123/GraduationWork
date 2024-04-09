@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UpgradeSys : MonoBehaviour
+public class Purchase : MonoSingleton<Purchase>
 {
     private PlayerHp upgradePlayer;
 
@@ -42,13 +42,11 @@ public class UpgradeSys : MonoBehaviour
         HPstat.DOScaleX(0, 0.2f);
         UFOstat.DOScaleX(0, 0.2f);
     }
-
     private void CoinTextTyping()
     {
         coinText.maxVisibleCharacters = 0;
         DOTween.To(x => coinText.maxVisibleCharacters = (int)x, 0f, coinText.text.Length, 0.3f).SetUpdate(true);
     }
-
     public void SetPlayerStatLevel()
     {
         // 혹시 모르니까
@@ -86,17 +84,22 @@ public class UpgradeSys : MonoBehaviour
     }
 
     // purchase 
-    public void BuyItem(PurchaseItem type)
+    public void BuyItem(ShopItemSO current)
     {
+        PurchaseItem type = current.Item;
+
         switch (type)
         {
             case PurchaseItem.Debt:
-                break;
+                {
+                    //current.DebtPayBack();
+                    break;
+                }
             
             case PurchaseItem.Inventory:
                 {
                     Inventory.Instance.UpgradeInventory(); 
-                    
+                
                     break;
                 }
 
@@ -116,7 +119,7 @@ public class UpgradeSys : MonoBehaviour
 
             case PurchaseItem.UFO:
                 {
-                    ++UFOLv;
+                    ++UFOLv; // 기름 추가
                     break;
                 }
             
