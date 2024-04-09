@@ -2119,6 +2119,7 @@ MonoBehaviour:
   SpaceshipInputReader: {fileID: 1391132213}
   Planets:
   - {fileID: 0}
+  curPlanet: {fileID: 0}
   _sr: {fileID: 1075151753}
   _player: {fileID: 441931126}
   _spaceshipPos: {fileID: 543450652843021747}
@@ -2225,6 +2226,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1221820335}
   inPlanet: {fileID: 1080231188}
   LandPos: {fileID: 1317057683}
@@ -3239,6 +3243,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1556913027}
   inPlanet: {fileID: 2022522533}
   LandPos: {fileID: 1934253014}
@@ -3921,6 +3928,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1586394764}
   inPlanet: {fileID: 1085869522}
   LandPos: {fileID: 1829763220}
@@ -9999,7 +10009,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 441931126}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
+  m_Script: {fileID: 11500000, guid: acefc4ad4a0c57749b5f0372e96e6578, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &495236650
@@ -10967,6 +10977,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1964984299}
   inPlanet: {fileID: 242045403}
   LandPos: {fileID: 789203812}
@@ -11156,7 +11169,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 167305970}
+  m_AnchoredPosition: {x: 0, y: 167318130}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &597169111
@@ -11902,6 +11915,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 547124515}
   inPlanet: {fileID: 1885732805}
   LandPos: {fileID: 1140327254}
@@ -15968,6 +15984,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 708732640}
   inPlanet: {fileID: 228550140}
   LandPos: {fileID: 1434462443}
@@ -16802,6 +16821,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1306681790}
   inPlanet: {fileID: 1080231188}
   LandPos: {fileID: 1317057683}
@@ -17596,6 +17618,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1643464406}
   inPlanet: {fileID: 425266024}
   LandPos: {fileID: 1997834169}
@@ -18597,6 +18622,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1409852112}
   inPlanet: {fileID: 524539458}
   LandPos: {fileID: 1959047429}
@@ -19424,6 +19452,9 @@ MonoBehaviour:
   found: 0
   clean: 0
   interacted: 0
+  rainPlanet: 0
+  snowPlanet: 0
+  windPlanet: 0
   _detectObj: {fileID: 1541004047}
   inPlanet: {fileID: 1183008817}
   LandPos: {fileID: 204084032}
