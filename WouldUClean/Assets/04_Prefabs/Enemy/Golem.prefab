@@ -422,6 +422,8 @@ GameObject:
   - component: {fileID: 1334098958}
   - component: {fileID: 1334098960}
   - component: {fileID: 1334098961}
+  - component: {fileID: 2693851775189282539}
+  - component: {fileID: 6854647354269227763}
   m_Layer: 9
   m_Name: Golem
   m_TagString: Untagged
@@ -521,6 +523,33 @@ MonoBehaviour:
   chaseDecision: 20
   attackDecision: 10
   rock: {fileID: 4012732938918121634, guid: 8f0a988369715fa4da10740bfb160bfc, type: 3}
+--- !u!114 &2693851775189282539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409782236273322604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a57ffecba51329438e81c890eb6cafa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _currentHealth: 0
+  MaxHealth: 30
+--- !u!65 &6854647354269227763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2409782236273322604}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 3.8867688, y: 4.360596, z: 2.025795}
+  m_Center: {x: -0.015699863, y: 1.6802983, z: 0.1912913}
 --- !u!1 &2409782236363025521
 GameObject:
   m_ObjectHideFlags: 0
@@ -1275,7 +1304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 353116991365533645, guid: a1d797f305e3b9d44ba2844efc7e3e33, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 4.41
       objectReference: {fileID: 0}
     - target: {fileID: 353116991365533645, guid: a1d797f305e3b9d44ba2844efc7e3e33, type: 3}
       propertyPath: m_LocalPosition.z
