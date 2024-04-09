@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slime : MonoBehaviour
+public class Slime : MonoBehaviour // ¾È¾¸ ¾Æ¸¶µµ
 {
 	[SerializeField] private int hp;
 

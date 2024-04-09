@@ -7,8 +7,8 @@ public class SlimeFSM : EnemyFSM
 
     [SerializeField] private EnemyAnimator animator;
 
-    private Slime slime;
     private EnemyHealth _enemyHealth;
+
 
     private bool isAttack;
 
@@ -16,7 +16,6 @@ public class SlimeFSM : EnemyFSM
     {
         base.Awake();
         animator = GetComponentInChildren<EnemyAnimator>();
-        slime = GetComponent<Slime>();
         _enemyHealth = GetComponent<EnemyHealth>();
     }
 
@@ -150,10 +149,7 @@ public class SlimeFSM : EnemyFSM
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Trash"))
         {
-            slime.ReduceHP(5);
             _enemyHealth.TakeDamage(5);
-
-            print("¿©±â");
         }
     }
 
