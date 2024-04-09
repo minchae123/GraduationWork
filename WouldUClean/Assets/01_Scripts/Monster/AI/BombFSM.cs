@@ -142,7 +142,8 @@ public class BombFSM : EnemyFSM
 
 	private void OnCollisionStay(Collision collision)
 	{
-		isAttack = true;	
+		if(collision.collider.CompareTag("Player"))
+			isAttack = true;	
 	}
 
 	private void OnCollisionExit(Collision collision)
