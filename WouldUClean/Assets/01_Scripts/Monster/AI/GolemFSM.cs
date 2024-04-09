@@ -6,9 +6,13 @@ public class GolemFSM : EnemyFSM
 {
     [SerializeField] GameObject rock;
 
+    private EnemyHealth _enemyHealth;
+
+
     public override void Awake()
     {
         base.Awake();
+        _enemyHealth = GetComponent<EnemyHealth>();
     }
 
     protected override void Update()
@@ -29,7 +33,7 @@ public class GolemFSM : EnemyFSM
             ChangeState(EnemyState.Idle);
             print(curState);
         }
-        //print("°Å¸®: " + decision);
+        //print("ï¿½Å¸ï¿½: " + decision);
         //print(navMovement.NavAgent.isStopped);
     }
 
@@ -122,6 +126,8 @@ public class GolemFSM : EnemyFSM
         {
             animator.AttackTrigger(true);
             animator.AttackTrigger(false);
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(targetTrm.position - transform.position), 1 * Time.deltaTime);
+            print("ï¿½ï¿½ï¿½ï¿½");
             yield return null;
         }
     }
@@ -135,5 +141,13 @@ public class GolemFSM : EnemyFSM
 
         Vector3 dir = targetTrm.position - transform.position;
         obj.GetComponent<Rigidbody>().velocity = dir * obj.GetComponent<Rock>().Speed;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Trash"))
+        {
+            _enemyHealth.TakeDamage(5);
+        }
     }
 }

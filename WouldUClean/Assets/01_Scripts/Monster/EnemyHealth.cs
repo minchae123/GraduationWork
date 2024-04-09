@@ -5,12 +5,10 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    protected int health;
-
+    [SerializeField]
     protected int _currentHealth;
 
-    [SerializeField]
-    protected int _maxHealth;
+    public int MaxHealth;
 
     [SerializeField] private EnemyAnimator animator;
 
@@ -18,20 +16,20 @@ public class EnemyHealth : MonoBehaviour, IDamageable
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
         animator = GetComponentInChildren<EnemyAnimator>();
         _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
+        //_healthBarUI.SetHealth(MaxHealth);
     }
 
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        _currentHealth -= damage;
 
         _healthBarUI.SetHealth(_currentHealth);
         animator.HitTrigger(true);
 
-        if (health <= 0)
+        if (_currentHealth <= 0)
             Die();
     }
 

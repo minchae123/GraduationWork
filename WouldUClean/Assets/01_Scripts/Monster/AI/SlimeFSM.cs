@@ -7,6 +7,7 @@ public class SlimeFSM : EnemyFSM
     private Slime slime;
     private EnemyHealth _enemyHealth;
 
+
     private bool isAttack;
 
     public override void Awake()
@@ -80,7 +81,7 @@ public class SlimeFSM : EnemyFSM
                 break;
             case EnemyState.Attack:
                 {
-                    print("¤²¤·");
+                    print("ï¿½ï¿½ï¿½ï¿½");
                     StopCoroutine(AttackCoroutine());
                 }
                 break;
@@ -146,10 +147,7 @@ public class SlimeFSM : EnemyFSM
     {
         if (other.gameObject.layer == LayerMask.NameToLayer("Trash"))
         {
-            slime.ReduceHP(5);
             _enemyHealth.TakeDamage(5);
-
-            print("¿©±â");
         }
     }
 
