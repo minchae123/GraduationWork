@@ -24,12 +24,4 @@ public class GameManager : MonoSingleton<GameManager>
         PoolManager.Instance = new PoolManager(transform);
         poolingListSO.list.ForEach(p => PoolManager.Instance.CreatePool(p.prefab, p.poolCount));
     }
-
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

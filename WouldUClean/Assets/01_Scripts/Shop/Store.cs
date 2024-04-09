@@ -15,7 +15,7 @@ public class Store : MonoSingleton<Store>
     // ===================================
 
     [Header("===================================")] 
-    [Header("Stat")]
+    /*[Header("Stat")]
     // 여긴 나중에 다른 스크립트로 변경
     private int O2Lv = 1;
     private int HPLv = 1;
@@ -28,7 +28,7 @@ public class Store : MonoSingleton<Store>
     [SerializeField] private Transform UFOstat;
 
     [Header("UI")]
-    [SerializeField] private TextMeshProUGUI coinText;
+    [SerializeField] private TextMeshProUGUI coinText;*/
 
     // ===================================
 
@@ -36,9 +36,12 @@ public class Store : MonoSingleton<Store>
     [Header("Purchase")]
     [SerializeField] private SellingItemList SellingItemList;
     [SerializeField] private Transform purchaseScrollViewParent;
+    
     [SerializeField] private PurchaseSlotUI purchaseSlotUI;
-
     [SerializeField] private PurchaseSlotUI[] purchaseSlots;
+
+    private ScrollRect scrollRect;
+    private UpgradeSys upgrade;
 
     [Header("===================================")]
     [Header("CheckPanel")]
@@ -57,6 +60,9 @@ public class Store : MonoSingleton<Store>
         itemInfo = checkPanel.Find("InfoContainer/InfoText").GetComponentInChildren<TextMeshProUGUI>();
         itemPrice = checkPanel.Find("ButtonContainer/YES/Text (TMP)").GetComponentInChildren<TextMeshProUGUI>();
         itemImage = checkPanel.Find("InfoContainer/ItemImage").GetComponentInChildren<Image>();
+
+        scrollRect = purchaseScrollViewParent.GetComponentInParent<ScrollRect>();
+        upgrade = GetComponent<UpgradeSys>();
     }
     private void Start()
     {
@@ -67,13 +73,6 @@ public class Store : MonoSingleton<Store>
         SetPurchaseItem();
 
         ResetShop();
-        coinText.text = "Loading. . .";
-    }
-
-    private void CoinTextTyping()
-    {
-        coinText.maxVisibleCharacters = 0;
-        DOTween.To(x => coinText.maxVisibleCharacters = (int)x, 0f, coinText.text.Length, 0.3f).SetUpdate(true);
     }
 
     private void Update()
@@ -93,11 +92,10 @@ public class Store : MonoSingleton<Store>
         Cursor.lockState = CursorLockMode.None;
 
         shop.SetActive(true);
-        
-        coinText.text = "Loading. . .";
-        CoinTextTyping();
 
-        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); SetPlayerStatLevel(); });
+        upgrade.EnterShop();
+
+        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); upgrade.SetPlayerStatLevel(); });
 
         IsInShop = true;
 
@@ -128,41 +126,45 @@ public class Store : MonoSingleton<Store>
         itemPrice.text = $"{currentItem.itemPrice}원";
         itemImage.sprite = currentItem.itemIcon;
 
-        for(int i =0;i< purchaseSlots.Length; i++)
-        {
-            purchaseSlots[i].ButtonInteractive(false);
-        }
+        OnMoveWhileCheckPanel(false);
     }
     public void OnClickBuyButton()
     {
-        // currentItem 돈 만큼 제외
-        Coin.Instance.RemoveCoin(currentItem.itemPrice);
+        PurchaseItem type = currentItem.Item;
+        if (type == PurchaseItem.NONE)
+        {
+            Debug.LogWarning("아이템 정보 체크 바람");
+        }
 
-        SetPlayerStatLevel(); OnClickBtn();
+        if(upgrade.CheckCanBuy(type)) // 최대 업그레이드 아직X
+        {        
+            // currentItem 돈 만큼 제외
+            Coin.Instance.RemoveCoin(currentItem.itemPrice);
+            upgrade.BuyItem(type);
+        }
+        else // 최대 업그레이드일 경우
+        {
+            print("업그레이드 끝남"); // 추후 최대 업그레이드 된 건 구매 불가로 만들 예정
+        }
+        OnClickBtn();
     }
     public void OnClickBtn()
     {
         checkPanel.DOScaleY(0f, 0.15f).SetUpdate(true).OnComplete(() => checkPanel.gameObject.SetActive(false));
         currentItem = null;
 
+        OnMoveWhileCheckPanel(true);
+    }
+    public void OnMoveWhileCheckPanel(bool b)
+    {
         for (int i = 0; i < purchaseSlots.Length; i++)
         {
-            purchaseSlots[i].ButtonInteractive(true);
+            purchaseSlots[i].ButtonInteractive(b);
         }
+
+        scrollRect.vertical = b;
     }
     #endregion
-
-    private void SetPlayerStatLevel()
-    {
-        coinText.text = $"{Coin.Instance.currentCoin}원";
-        coinText.transform.DOScale(1.02f, 0.1f).
-            OnComplete(() => coinText.transform.DOScale(1f, 0.05f).SetUpdate(true))
-            .SetUpdate(true);
-
-        O2stat.DOScaleX(1f / 5f * O2Lv, 0.2f).SetUpdate(true);
-        HPstat.DOScaleX(1f / 5f * HPLv, 0.2f).SetUpdate(true);
-        UFOstat.DOScaleX(1f / 5f * UFOLv, 0.2f).SetUpdate(true);
-    }
 
     private void SetAnimPurchaseList()
     {
@@ -187,17 +189,12 @@ public class Store : MonoSingleton<Store>
     private void ResetShop()
     {
         checkPanel.DOScaleY(0, 0.15f).OnComplete(() => checkPanel.gameObject.SetActive(false));
+        upgrade.ResetShop();
 
-        O2stat.DOScaleX(0, 0.2f);
-        HPstat.DOScaleX(0, 0.2f);
-        UFOstat.DOScaleX(0, 0.2f).OnComplete(()=>
+        for (int i = 0; i < SellingItemList.itemList.Count; i++)
         {
-            for (int i = 0; i < SellingItemList.itemList.Count; i++)
-            {
-                purchaseSlots[i].transform.DOScaleX(0, 0.1f);
-            }
-        });
-
+            purchaseSlots[i].transform.DOScaleX(0, 0.1f);
+        }
         OnClickBtn();
     }
 }
