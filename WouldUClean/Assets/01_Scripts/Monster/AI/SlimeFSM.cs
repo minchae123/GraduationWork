@@ -8,7 +8,6 @@ public class SlimeFSM : EnemyFSM
     [SerializeField] private EnemyAnimator animator;
 
     private EnemyHealth _enemyHealth;
-    private HealthBarUI _healthBarUI;
 
 
     private bool isAttack;
@@ -18,7 +17,6 @@ public class SlimeFSM : EnemyFSM
         base.Awake();
         animator = GetComponentInChildren<EnemyAnimator>();
         _enemyHealth = GetComponent<EnemyHealth>();
-        _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
     }
 
     protected override void Update()

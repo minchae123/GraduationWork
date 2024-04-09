@@ -22,6 +22,7 @@ public class HealthBarUI : MonoBehaviour
     private void Start()
     {
         SetHealth(_maxHealth);
+
     }
 
     private void Update()
