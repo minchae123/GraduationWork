@@ -7,36 +7,37 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour, IDamageable
 {
-    protected int health;
-
+    [SerializeField]
     protected int _currentHealth;
 
-    [SerializeField]
-    protected int _maxHealth;
+    public int MaxHealth;
 
 
     private HealthBarUI _healthBarUI;
 
     private void Awake()
     {
-        _currentHealth = _maxHealth;
+        _currentHealth = MaxHealth;
         _healthBarUI = transform.Find("HealthBar").GetComponent<HealthBarUI>();
+        //_healthBarUI.SetHealth(MaxHealth);
     }
 
 
     public void TakeDamage(int damage)
     {
-        health -= damage;
+        _currentHealth -= damage;
 
 
         _healthBarUI.SetHealth(_currentHealth);
 
 
-        if (health <= 0)
+        if (_currentHealth <= 0)
             Die();
     }
 
     private void Die()
     {
+        GetComponentInChildren<EnemyAnimator>().DeadTrigger(true);
+        Destroy(gameObject, 1f);
     }
 }
