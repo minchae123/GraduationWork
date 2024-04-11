@@ -140,7 +140,8 @@ public class GolemFSM : EnemyFSM
         GameObject obj = Instantiate(rock, new Vector3(transform.position.x, transform.position.y + 3, transform.position.z), Quaternion.identity);
 
         Vector3 dir = targetTrm.position - transform.position;
-        obj.GetComponent<Rigidbody>().velocity = dir * obj.GetComponent<Rock>().Speed;
+        //obj.GetComponent<Rigidbody>().velocity = dir * obj.GetComponent<Rock>().Speed;
+        print("돌 던지기 이벤트");
     }
 
     private void OnTriggerEnter(Collider other)
