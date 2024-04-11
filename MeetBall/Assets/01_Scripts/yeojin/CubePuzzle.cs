@@ -92,7 +92,7 @@ public class CubePuzzle : MonoBehaviour
             if (r != checkR)
             {
                 IsPushed = true;
-                routeStack.Push(currentR); // 키 계쏙 눌리면 스택에 쌓여서... 이것만 막아주면 될듯 (범위 벗어날 경우에는 스택에 쌓이지 않도록)
+                routeStack.Push(currentR);
             }
             else
             {
