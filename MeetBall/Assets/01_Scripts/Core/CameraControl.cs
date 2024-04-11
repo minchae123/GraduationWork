@@ -11,8 +11,8 @@ public class CameraControl : MonoBehaviour
 
 	[SerializeField] private float rotateSpeed = 500f;
 	[SerializeField] private float zoomScale = 10f;
-	[SerializeField] private float minZoom;
-	[SerializeField] private float maxZoom;
+	[SerializeField] private float minZoom = 0.1f;
+	[SerializeField] private float maxZoom = 10f;
 
 	private Vector3 mouseWorldPosStart;
 
@@ -37,7 +37,7 @@ public class CameraControl : MonoBehaviour
 		{
 			float vertical = Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime;
 			float horizontal = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
-			transform.Rotate(Vector3.right, vertical);
+			transform.Rotate(Vector3.left, vertical);
 			transform.Rotate(Vector3.down, horizontal, Space.World);
 		}
 	}

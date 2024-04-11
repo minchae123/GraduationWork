@@ -17,7 +17,12 @@ public class SpaceShip : UpgradeStat
 
     [SerializeField] private SpaceBackground background;
 
+    [Space(10)]
+    [SerializeField] private float StunAndRotSpeed;
+    [SerializeField] private float dicFuel;
+
     private float _chargingTime;
+    private bool _isConfused = false;
 
     public bool isCrash;
 
@@ -45,7 +50,10 @@ public class SpaceShip : UpgradeStat
     {
         fuelSlider.value = curfuel / maxfuel;
 
-        Move();
+        if (!_isConfused)
+            Move();
+        else
+            transform.Rotate(0f, 0f, StunAndRotSpeed * Time.deltaTime);
 
         //나중에 지울거
         if (Input.GetKeyDown(KeyCode.R))
@@ -69,9 +77,28 @@ public class SpaceShip : UpgradeStat
         }
     }
 
+    public void ConFuse()
+    {
+        _isConfused = true;
+
+        StartCoroutine(StopConfusion());
+    }
+
+    IEnumerator StopConfusion()
+    {
+        yield return new WaitForSeconds(3f);
+
+        _isConfused = false;
+    }
+
     public void FillFuel()
     {
         curfuel = maxfuel;
+    }
+
+    public void DicFuel()
+    {
+        curfuel -= dicFuel;
     }
 
     private void Booster()
