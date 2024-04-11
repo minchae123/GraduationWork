@@ -4,6 +4,17 @@ using UnityEngine;
 
 public class CubePuzzle : MonoBehaviour
 {
+    public enum route
+    {
+        none = 0,
+        left = 1,
+        right = 2,
+        up = 3,
+        down = 4,
+        front = 5,
+        back = 6
+    }
+
     [SerializeField] private Cube cubePref;
     [SerializeField] private Transform cubeParent;
 
@@ -13,15 +24,21 @@ public class CubePuzzle : MonoBehaviour
     private int currentVertical = 0;
     private int currentFloor = 0;
 
+    [SerializeField] private Stack<route> routeStack;
+
     private void Awake()
     {
+        routeStack = new Stack<route>();
+        cubeList = new Cube[10, 10, 10];
+
         currentHorizontal = 0;
         currentVertical = 0;
         currentFloor = 0;
     }
     private void Start()
     {
-        cubeList = new Cube[10,10,10]; 
+        routeStack.Push(route.none);
+        print(cubeParent.childCount);
 
         // floor -> vertical -> horizontal
         for (int i = 0; i < 3; i++) 
@@ -42,45 +59,55 @@ public class CubePuzzle : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.front, route.back);
             currentHorizontal++;
             SetCube();
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.left, route.right);
             currentVertical--;
             SetCube();
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.back, route.front);
             currentHorizontal--;
             SetCube();
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.right, route.left);
             currentVertical++;
             SetCube();
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.up, route.down);
             currentFloor++;
             SetCube();
         }
         if(Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
         {
-            cubeList[currentFloor, currentVertical, currentHorizontal].ResetVisit();
-
+            SetStack(route.down, route.up);
             currentFloor--;
             SetCube();
+        }
+    }
+
+    private void SetStack(route currentR, route checkR)
+    {
+        route r = route.none;
+        if (routeStack.TryPeek(out r))
+        {
+            if (r != checkR)
+            {
+                routeStack.Push(currentR); // 키 계쏙 눌리면 스택에 쌓여서... 이것만 막아주면 될듯 (범위 벗어날 경우에는 스택에 쌓이지 않도록)
+                return;
+            }
+
+            routeStack.Pop();
+            cubeList[currentFloor, currentVertical, currentHorizontal]?.ResetVisit();
         }
     }
 
@@ -91,6 +118,7 @@ public class CubePuzzle : MonoBehaviour
         currentFloor = Mathf.Clamp(currentFloor, 0, 2);
 
         cubeList[currentFloor, currentVertical, currentHorizontal]?.SetVisit();
-        print($"{currentFloor}층, v : {currentVertical}, h : {currentHorizontal}");
+        //print($"{currentFloor}층, v : {currentVertical}, h : {currentHorizontal}");
+        print($"{routeStack.Peek()}, {routeStack.Count}");
     }
 }
