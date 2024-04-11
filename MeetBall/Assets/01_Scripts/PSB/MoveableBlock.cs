@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class MoveableBlock : MonoBehaviour
 {
+    public bool canMove;
     public bool isIn;
 }
