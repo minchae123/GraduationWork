@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class CubePuzzle : MonoBehaviour
 {
-    public enum route
+    public enum Route
     {
         none = 0,
         left = 1,
@@ -24,11 +24,11 @@ public class CubePuzzle : MonoBehaviour
     private int currentVertical = 0;
     private int currentFloor = 0;
 
-    [SerializeField] private Stack<route> routeStack;
+    [SerializeField] private Stack<Route> routeStack;
 
     private void Awake()
     {
-        routeStack = new Stack<route>();
+        routeStack = new Stack<Route>();
         cubeList = new Cube[10, 10, 10];
 
         currentHorizontal = 0;
@@ -37,7 +37,7 @@ public class CubePuzzle : MonoBehaviour
     }
     private void Start()
     {
-        routeStack.Push(route.none);
+        routeStack.Push(Route.none);
         print(cubeParent.childCount);
 
         // floor -> vertical -> horizontal
@@ -59,57 +59,86 @@ public class CubePuzzle : MonoBehaviour
     {
         if(Input.GetKeyDown(KeyCode.W))
         {
-            SetStack(route.front, route.back);
-            currentHorizontal++;
-            SetCube();
+            SetStack(Route.front, Route.back);
         }
         if(Input.GetKeyDown(KeyCode.A))
         {
-            SetStack(route.left, route.right);
-            currentVertical--;
-            SetCube();
+            SetStack(Route.left, Route.right);
         }
         if (Input.GetKeyDown(KeyCode.S))
         {
-            SetStack(route.back, route.front);
-            currentHorizontal--;
-            SetCube();
+            SetStack(Route.back, Route.front);
         }
         if (Input.GetKeyDown(KeyCode.D))
         {
-            SetStack(route.right, route.left);
-            currentVertical++;
-            SetCube();
+            SetStack(Route.right, Route.left);
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            SetStack(route.up, route.down);
-            currentFloor++;
-            SetCube();
+            SetStack(Route.up, Route.down);
         }
         if(Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
         {
-            SetStack(route.down, route.up);
-            currentFloor--;
-            SetCube();
+            SetStack(Route.down, Route.up);
         }
     }
 
-    private void SetStack(route currentR, route checkR)
+    private void SetStack(Route currentR, Route checkR)
     {
-        route r = route.none;
+        Route r = Route.none;
+        bool IsPushed = false;
         if (routeStack.TryPeek(out r))
         {
             if (r != checkR)
             {
-                routeStack.Push(currentR); // 키 계쏙 눌리면 스택에 쌓여서... 이것만 막아주면 될듯 (범위 벗어날 경우에는 스택에 쌓이지 않도록)
-                return;
+                IsPushed = true;
+                routeStack.Push(currentR);
             }
-
-            routeStack.Pop();
-            cubeList[currentFloor, currentVertical, currentHorizontal]?.ResetVisit();
+            else
+            {
+                routeStack.Pop();
+                cubeList[currentFloor, currentVertical, currentHorizontal]?.ResetVisit();
+            }
         }
+
+        CheckIdx(currentR, IsPushed);
+        SetCube();
     }
+
+    private void CheckIdx(Route currentR, bool IsPushed)
+    {
+        switch (currentR)
+        {
+            case Route.none:
+                break;
+            case Route.left:
+                currentVertical--;
+                break;
+            case Route.right:
+                currentVertical++;
+                break;
+            case Route.up:
+                currentFloor++;
+                break;
+            case Route.down:
+                currentFloor--;
+                break;
+            case Route.front:
+                currentHorizontal++;
+                break;
+            case Route.back:
+                currentHorizontal--;
+                break;
+        }
+
+        if (currentHorizontal > 2 || currentHorizontal < 0 || currentFloor > 2 || currentFloor < 0 || currentVertical > 2 || currentVertical < 0) 
+        {
+            if (IsPushed)
+            {
+                routeStack.Pop();
+            }
+        }
+   }
 
     private void SetCube()
     {
