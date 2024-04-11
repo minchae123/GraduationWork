@@ -18,10 +18,16 @@ public class Meteor : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             collision.GetComponentInParent<PlayerHp>().OnDamage(20);
+            print("ss");
             DestroyObj();//풀링으로 바꾸기
+        }
+        if (collision.TryGetComponent(out SpaceShip ship))
+        {
+            ship.DicFuel();
+            ship.ConFuse();
         }
     }
 
