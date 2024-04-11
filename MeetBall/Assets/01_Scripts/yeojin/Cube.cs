@@ -30,7 +30,7 @@ public class Cube : MonoBehaviour
     {
         if(!canVisit || cannotVisitCube)
         {
-            print("이미 누가 방문 중 / 방문 불가 큐브");
+            print("Dddddd");
             return;
         }
 
@@ -42,7 +42,6 @@ public class Cube : MonoBehaviour
     {
         if(canVisit || cannotVisitCube)
         {
-            print("이미 방문 가능 상태 / 방문 불가");
             return;
         }
 
