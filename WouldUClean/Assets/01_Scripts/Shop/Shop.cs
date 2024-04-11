@@ -1,55 +1,65 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using DG.Tweening;
+using TMPro;
+using UnityEngine.UI;
 
-public class Shop : MonoSingleton<Shop> // 안씀!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+public class Shop : MonoSingleton<Shop>
 {
-    public bool IsInShop;
+    public bool IsInShop = false;
 
-    [Header("==== Core ====")]
-    public List<InventoryItem> mainShopItem; // 메인 인벤토리
-    public Dictionary<ObjectType, InventoryItem> shopDictionary; // 인벤토리 딕셔너리
-
-    [Header("==== Main ShopSystem ====")]
-    [SerializeField] private Transform mainShopTrm;
-
-
-
-    [Header("==== SELLING SHOP ====")]
-
-    [Header("Slot")]
-    [SerializeField] private ShopSlotUI slotPrefab;
-    public ShopSlotUI[] shopSlots; // 슬롯 부모에서 가져올 slotUI들 (prefab)
-    private int currentInventoryCnt = 0;
-
-    [Header("UI")]
-    [SerializeField] private Transform sellingShop;
-    [SerializeField] private Transform sellingParent;
-    [SerializeField] private SellingShopTable sellingItemTable;
-
-
-
-    [Header("==== PURCHASE SHOP ====")]
-    [SerializeField] private SellingItemList sellingItemList;
-
-    [Header("Slot")]
-    [SerializeField] private PurchaseSlotUI purchaseSlot;
+    [Header("ShopUI")]
+    [SerializeField] private GameObject shop;
     
+    [Header("===================================")]
+    [Header("Purchase")]
+    [SerializeField] private SellingItemList SellingItemList;
+    [SerializeField] private Transform purchaseScrollViewParent;
+    
+    [SerializeField] private PurchaseSlotUI purchaseSlotUI;
+    [SerializeField] private PurchaseSlotUI[] purchaseSlots;
+
+    private ScrollRect scrollRect;
+    private Purchase purchaseSys;
+
+    [Header("===================================")]
+
+    [Header("===================================")]
+
+    [Header("CheckPanel")]
+    [SerializeField] private ShopItemSO currentItem;
+    [SerializeField] private Transform checkPanel;
+    [SerializeField] private Transform debtPanel;
+
     [Header("UI")]
-    [SerializeField] private Transform purchaseShop;
-    [SerializeField] private Transform purchaseParent;
-    [SerializeField] private PurchaseShopTable purchaseItemTable;
+    private TextMeshProUGUI itemPrice;
+    private TextMeshProUGUI itemName;
+    private TextMeshProUGUI itemInfo;
+    private Image itemImage;
 
+    [Header("TEST")]
+    [SerializeField] private TextMeshProUGUI testText;
 
+    private void Awake()
+    {
+        itemName = checkPanel.Find("InfoContainer/NameText").GetComponentInChildren<TextMeshProUGUI>();
+        itemInfo = checkPanel.Find("InfoContainer/InfoText").GetComponentInChildren<TextMeshProUGUI>();
+        itemPrice = checkPanel.Find("ButtonContainer/YES/Text (TMP)").GetComponentInChildren<TextMeshProUGUI>();
+        itemImage = checkPanel.Find("InfoContainer/ItemImage").GetComponentInChildren<Image>();
+
+        scrollRect = purchaseScrollViewParent.GetComponentInParent<ScrollRect>();
+        purchaseSys = GetComponent<Purchase>();
+    }
     private void Start()
     {
-        mainShopTrm.gameObject.SetActive(false);
+        shop.SetActive(false);
+        shop.transform.localScale = new Vector3(1, 0, 1);
 
-        shopSlots = sellingParent.GetComponentsInChildren<ShopSlotUI>();
-        mainShopItem = new List<InventoryItem>();
-        shopDictionary = new Dictionary<ObjectType, InventoryItem>();
+        purchaseSlots = new PurchaseSlotUI[SellingItemList.itemList.Count];
+        SetPurchaseItem();
+
+        ResetShop();
     }
 
     private void Update()
@@ -57,190 +67,141 @@ public class Shop : MonoSingleton<Shop> // 안씀!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         if(Input.GetKeyDown(KeyCode.B))
         {
             if (UIManager.Instance.IsInSetting || MapInfoUI.Instance.IsInMap) return;
+
             if (!IsInShop) EnterShop();
             else ExitShop();
         }
     }
 
-    #region 버튼 클릭
+    // enter & exit
     public void EnterShop()
     {
+        Cursor.lockState = CursorLockMode.None;
+
+        shop.SetActive(true);
+
+        purchaseSys.EnterShop();
+
+        shop.transform.DOScaleY(1, 0.6f).SetEase(Ease.OutCubic).SetUpdate(true).OnComplete(() => { SetAnimPurchaseList(); purchaseSys.SetPlayerStatLevel(); });
+
         IsInShop = true;
 
-        Cursor.lockState = CursorLockMode.None;
-        mainShopTrm.gameObject.SetActive(true);
-
-        foreach(var i in Inventory.Instance.ReturnInvenList())
-        {
-            mainShopItem.Add(i);
-        }
-        foreach (var i in Inventory.Instance.ReturnInvenDictionary())
-        {
-            shopDictionary.Add(i.Key, i.Value);
-        }
-
-        currentInventoryCnt = mainShopItem.Count;
-
         Time.timeScale = 0;
-
-        OnClickSellingShopBtn(); // 기본은 판매로
-        UpdateSlotUI();
     }
     public void ExitShop()
     {
-        IsInShop = false;
         Cursor.lockState = CursorLockMode.Locked;
 
-        //print("CLick");
-        mainShopTrm.gameObject.SetActive(false);
+        shop.transform.DOScaleY(0, 0.4f).SetEase(Ease.InCubic).SetUpdate(true).OnComplete(() => shop.SetActive(false));
 
-        Inventory.Instance.SetChangedInventory(mainShopItem, shopDictionary);
+        IsInShop = false;
 
-        mainShopItem.Clear();
-        shopDictionary.Clear();
-        currentInventoryCnt = 0;
-        
         Time.timeScale = 1;
+        ResetShop();
+    }
+    private void ResetShop()
+    {
+        checkPanel.DOScaleY(0, 0.15f).OnComplete(() => checkPanel.gameObject.SetActive(false));
+        debtPanel.DOScaleY(0, 0.15f).OnComplete(() => debtPanel.gameObject.SetActive(false));
+        purchaseSys.ResetShop();
+
+        for (int i = 0; i < SellingItemList.itemList.Count; i++)
+        {
+            purchaseSlots[i].transform.DOScaleX(0, 0.1f);
+        }
+        OnClickBtn();
     }
 
-    public void OnClickPurchaseShopBtn() // 구매 클릭
+    #region PurchaseCheckPanel
+    public void SetCheckPanel(ShopItemSO item)
     {
-        sellingShop.gameObject.SetActive(false); // 판매는 끄고
-        purchaseShop.gameObject.SetActive(true);// 구매는 킴
-        //print("Purchase");
-        DestoryItemInShop();
-        SetItemInShop();
+        checkPanel.gameObject.SetActive(true);
+        checkPanel.DOScaleY(1f, 0.2f).SetUpdate(true);
+
+        currentItem = item;
+        itemName.text = currentItem.itemName;
+        itemInfo.text = currentItem.itemInfo;
+        itemPrice.text = $"{currentItem.itemPrice}원";
+        itemImage.sprite = currentItem.itemIcon;
+
+        OnMoveWhileCheckPanel(false);
     }
-    public void OnClickSellingShopBtn() // 판매
+    public void OnClickBuyButton()
     {
-        sellingShop.gameObject.SetActive(true); // 위랑 반대
-        purchaseShop.gameObject.SetActive(false);//
-        //print("Sell");
-        DestoryItemInShop();
+        PurchaseItem type = currentItem.Item;
+        if (type == PurchaseItem.NONE)
+        {
+            Debug.LogWarning("아이템 정보 체크 바람"); return;
+        }
+
+        Coin.Instance.RemoveCoin(currentItem.itemPrice);
+        purchaseSys.BuyItem(currentItem);
+        OnClickBtn();
+    }
+    public void OnClickBtn()
+    {
+        checkPanel.DOScaleY(0f, 0.15f).SetUpdate(true).OnComplete(() => checkPanel.gameObject.SetActive(false));
+        debtPanel.DOScaleY(0f, 0.15f).SetUpdate(true).OnComplete(() => debtPanel.gameObject.SetActive(false));
+        currentItem = null;
+
+        OnMoveWhileCheckPanel(true);
+    }
+    public void OnMoveWhileCheckPanel(bool b)
+    {
+        for (int i = 0; i < purchaseSlots.Length; i++)
+        {
+            purchaseSlots[i].ButtonInteractive(b);
+        }
+
+        scrollRect.vertical = b;
     }
     #endregion
 
-
-    #region 파는 곳
-    public bool IsInTable() => sellingItemTable.IsTable;
-
-    public void SetTable(ObjectType item)
+    public void SetDebtPanel(ShopItemSO item)
     {
-        sellingItemTable.SetItem(item);
-        UpdateSlotUI();
+        debtPanel.gameObject.SetActive(true);
+        debtPanel.DOScaleY(1f, 0.2f).SetUpdate(true);
+
+        currentItem = item;
     }
-    public void AddItem(ObjectType item, int cnt = 1)
+
+    public void OnClickDebt()
     {
-        if (shopDictionary.TryGetValue(item, out InventoryItem i)) // 해당 아이템이 inventory에 있을 경우
+        int value = 0;
+        string txt = testText.text.Replace("\u200B", "");
+
+        if (int.TryParse(txt, out value))
         {
-            i.AddItemCnt(cnt);
+            Coin.Instance.RemoveCoin(value);
+            purchaseSys.BuyItem(currentItem);
+            OnClickBtn();
         }
-        else 
+        else
         {
-            InventoryItem newItem = new InventoryItem(item);
-            
-            shopSlots[++currentInventoryCnt].SetItem(newItem);
-
-            mainShopItem.Add(newItem);
-            shopDictionary.Add(item, newItem);
-
-            newItem.AddItemCnt(cnt - 1);
+            print("숫자가 아님니다");
         }
 
-        UpdateSlotUI();
+        testText.text = string.Empty;
     }
-    public void RemoveItem(ObjectType item, int cnt = 1)
-    {
-        if (shopDictionary.TryGetValue(item, out InventoryItem i))
-        {
-            if (i.itemCnt <= cnt)
-            {
-                shopDictionary.Remove(item);
-                mainShopItem.Remove(i);
-            }
-            else
-            {
-                i.RemoveItemCnt(cnt);
-            }
-        }
 
-        UpdateSlotUI();
-    }
-    public void UpdateSlotUI()
+    private void SetAnimPurchaseList()
     {
-        for (int i = 0; i < shopSlots.Length; ++i)
+        for (int i = 0; i < SellingItemList.itemList.Count; i++)
         {
-            shopSlots[i].CleanUpSlot(); // cleanUp
-        }
-
-        for (int i = 0; i < mainShopItem.Count; ++i)
-        {
-            shopSlots[i].UpdateSlot(mainShopItem[i]); // redraw
+            purchaseSlots[i].transform.DOScaleX(1, 0.1f).SetUpdate(true);
         }
     }
-    #endregion
-
-    #region 사는 곳
-    public void SetItemInShop()
+    public void SetPurchaseItem()
     {
-        for(int i=0;i< sellingItemList.itemList.Count;++i)
+        for(int i=0;i< SellingItemList.itemList.Count; i++)
         {
-            PurchaseSlotUI obj = Instantiate(purchaseSlot, purchaseParent);
-            obj.SetItem(sellingItemList.itemList[i]);
+            PurchaseSlotUI slot = Instantiate(purchaseSlotUI, purchaseScrollViewParent);
+            slot.SetItem(SellingItemList.itemList[i]);
+
+            purchaseSlots[i] = slot;
+            purchaseSlots[i].transform.localScale = new Vector3(0, 1, 1);
         }
     }
-    public void DestoryItemInShop()
-    {
-        foreach (Transform t in purchaseParent)
-        {
-            Destroy(t.gameObject);
-        }
-    }
-
-    public void SetItem(ShopItemSO item)
-    {
-        purchaseItemTable.SetItem(item);
-    }
-
-    public void BuyItem(ShopItemSO item)
-    {
-       /* int price = item.itemPrice;
-        switch (item.Item)
-        {
-            case PurchaseItem.NONE:
-                break;
-            case PurchaseItem.Debt:
-                // 빚갚기
-                print("빚갚기");
-                break;
-            case PurchaseItem.CleanerUpgrade:
-                UpgradeCleaner(price);
-                break;
-            case PurchaseItem.O:
-                UpgradeO2Tank(price);
-                break;
-            case PurchaseItem.item:
-                break;
-        }*/
-    }
-
-    public void UpgradeInventory(int price)
-    {
-        Inventory.Instance.UpgradeInventory();
-        Coin.Instance.RemoveCoin(price);
-    }
-
-    public void UpgradeCleaner(int price)
-    {
-        print("청소기 업그레이드");
-        Coin.Instance.RemoveCoin(price);
-    }
-
-    public void UpgradeO2Tank(int price)
-    {
-        print("산소통업글");
-        Coin.Instance.RemoveCoin(price);
-    }
-    #endregion
+    
 
 }

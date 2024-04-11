@@ -40,7 +40,7 @@ public class MapInfoUI : MonoSingleton<MapInfoUI>
     {
         if (Input.GetKeyDown(KeyCode.M)) // µð¹ö±ë
         {
-            if (UIManager.Instance.IsInSetting || Store.Instance.IsInShop) return;
+            if (UIManager.Instance.IsInSetting || Shop.Instance.IsInShop) return;
             if (IsInMap) OffMapInfo();
             else OnMapInfo();
         }

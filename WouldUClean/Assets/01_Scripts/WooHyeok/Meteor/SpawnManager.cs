@@ -26,7 +26,7 @@ public class SpawnManager : MonoBehaviour
         spawnPosY += 3f;
 
         StartCoroutine(SpawnMeteor());
-        StartCoroutine(SpawnAilen());
+        //StartCoroutine(SpawnAilen());
     }
 
     private void Update()
@@ -44,10 +44,12 @@ public class SpawnManager : MonoBehaviour
         {
             yield return new WaitForSeconds(_meteorSpawnTime);
 
+            float posY = spawnPosY + Camera.main.transform.position.y;
             float posX = Random.Range(-meteorPosX, meteorPosX);
+            posX += Camera.main.transform.position.x;
 
             var obj = Instantiate(_meteor);
-            obj.transform.position = new Vector2(posX, spawnPosY);
+            obj.transform.position = new Vector2(posX, posY);
 
             Vector2 dir = (Vector2.right + Vector2.down * 2).normalized;
             obj.GetComponent<Rigidbody2D>().velocity = dir * _speed;
