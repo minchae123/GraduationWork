@@ -53,6 +53,9 @@ public class CubePuzzle : MonoBehaviour
         }
 
         cubeList[currentFloor, currentVertical, currentHorizontal]?.SetStart();
+        cubeList[currentFloor + 2, currentVertical, currentHorizontal]?.SetWall();
+        cubeList[currentFloor + 1, currentVertical, currentHorizontal+1]?.SetWall();
+        cubeList[currentFloor + 1, currentVertical + 2, currentHorizontal+1]?.SetEnd();
     }
 
     private void Update()
@@ -115,7 +118,7 @@ public class CubePuzzle : MonoBehaviour
                 routeStack.Pop();
             }
         }
-        else if(cubeList[currentFloor, currentVertical, currentHorizontal].Visit)
+        else if(!cubeList[currentFloor, currentVertical, currentHorizontal].CheckCanGO())
         {
             if (IsPushed)
             {
