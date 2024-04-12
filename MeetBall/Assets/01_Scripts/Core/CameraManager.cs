@@ -15,11 +15,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private float moveSpeed = 10;
     [SerializeField] private float rotationSpeed = 10;
 
-    	[SerializeField] private float zoomScale = 10f;
+    [SerializeField] private float zoomScale = 10f;
 	[SerializeField] private float minZoom = 0.1f;
 	[SerializeField] private float maxZoom = 10f;
 
-	private Vector3 mouseWorldPosStart;
 	private float xRotation;
     private Camera cam;
 
@@ -72,6 +71,8 @@ public class CameraManager : MonoBehaviour
             transform.Rotate(new Vector3(xRotation, delta.x * rotationSpeed, 0));
             transform.rotation = Quaternion.Euler(xRotation, transform.rotation.eulerAngles.y, 0);
         }
+
+		CameraZoom(Input.GetAxis("Mouse ScrollWheel"));
 	}
 
     private void SnapRotation()
@@ -98,10 +99,7 @@ public class CameraManager : MonoBehaviour
 	{
 		if (scale != 0)
 		{
-			mouseWorldPosStart = cam.ScreenToWorldPoint(Input.mousePosition);
 			cam.orthographicSize = Mathf.Clamp(cam.orthographicSize - scale * zoomScale, minZoom, maxZoom);
-			Vector3 mouseDiff = mouseWorldPosStart - cam.ScreenToWorldPoint(Input.mousePosition);
-			transform.position += mouseDiff;
 		}
 	}
 }
