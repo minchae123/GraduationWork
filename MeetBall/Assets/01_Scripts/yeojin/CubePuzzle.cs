@@ -52,7 +52,7 @@ public class CubePuzzle : MonoBehaviour
             }
         }
 
-        cubeList[currentFloor, currentVertical, currentHorizontal]?.SetVisit();
+        cubeList[currentFloor, currentVertical, currentHorizontal]?.SetStart();
     }
 
     private void Update()
@@ -102,34 +102,11 @@ public class CubePuzzle : MonoBehaviour
         }
 
         CheckIdx(currentR, IsPushed);
-        SetCube();
     }
 
     private void CheckIdx(Route currentR, bool IsPushed)
     {
-        switch (currentR)
-        {
-            case Route.none:
-                break;
-            case Route.left:
-                currentVertical--;
-                break;
-            case Route.right:
-                currentVertical++;
-                break;
-            case Route.up:
-                currentFloor++;
-                break;
-            case Route.down:
-                currentFloor--;
-                break;
-            case Route.front:
-                currentHorizontal++;
-                break;
-            case Route.back:
-                currentHorizontal--;
-                break;
-        }
+        PorM(currentR, 1);
 
         if (currentHorizontal > 2 || currentHorizontal < 0 || currentFloor > 2 || currentFloor < 0 || currentVertical > 2 || currentVertical < 0) 
         {
@@ -138,14 +115,54 @@ public class CubePuzzle : MonoBehaviour
                 routeStack.Pop();
             }
         }
-   }
+        else if(cubeList[currentFloor, currentVertical, currentHorizontal].Visit)
+        {
+            if (IsPushed)
+            {
+                PorM(currentR, -1);
+                routeStack.Pop();
+            }
+        }
+        else
+        {
+            SetCube();
+        }
 
-    private void SetCube()
-    {
         currentHorizontal = Mathf.Clamp(currentHorizontal, 0, 2);
         currentVertical = Mathf.Clamp(currentVertical, 0, 2);
         currentFloor = Mathf.Clamp(currentFloor, 0, 2);
+    }
 
+    private void PorM(Route currentR, int checkI)
+    {
+
+        switch (currentR)
+        {
+            case Route.none:
+                break;
+            case Route.left:
+                currentVertical-= checkI;
+                break;
+            case Route.right:
+                currentVertical+= checkI;
+                break;
+            case Route.up:
+                currentFloor+= checkI;
+                break;
+            case Route.down:
+                currentFloor-= checkI;
+                break;
+            case Route.front:
+                currentHorizontal+= checkI;
+                break;
+            case Route.back:
+                currentHorizontal-= checkI;
+                break;
+        }
+    }
+
+    private void SetCube()
+    {
         cubeList[currentFloor, currentVertical, currentHorizontal]?.SetVisit();
         //print($"{currentFloor}Ãþ, v : {currentVertical}, h : {currentHorizontal}");
         print($"{routeStack.Peek()}, {routeStack.Count}");
