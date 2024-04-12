@@ -118,7 +118,7 @@ public class CubePuzzle : MonoBehaviour
                 routeStack.Pop();
             }
         }
-        else if(!cubeList[currentFloor, currentVertical, currentHorizontal].CheckCanGO())
+        else if(cubeList[currentFloor, currentVertical, currentHorizontal].CheckCanGO())
         {
             if (IsPushed)
             {

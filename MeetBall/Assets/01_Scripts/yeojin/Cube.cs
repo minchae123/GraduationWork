@@ -69,7 +69,6 @@ public class Cube : MonoBehaviour
 
     public bool CheckCanGO()
     {
-        if (visit || wall) return false;
-        return true;
+        return visit || wall;
     }
 }
