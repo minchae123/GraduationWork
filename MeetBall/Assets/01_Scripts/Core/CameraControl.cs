@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
+using DG.Tweening;
 
 public class CameraControl : MonoBehaviour
 {
@@ -15,6 +16,11 @@ public class CameraControl : MonoBehaviour
 	[SerializeField] private float maxZoom = 10f;
 
 	private Vector3 mouseWorldPosStart;
+	private Quaternion orginRotate;
+
+	[SerializeField] private bool isVertical;
+
+	[SerializeField] private GameObject otherCam;
 
 	private void Awake()
 	{
@@ -27,6 +33,40 @@ public class CameraControl : MonoBehaviour
 		{
 			CameraOrbit();
 		}
+		else if(Input.GetMouseButtonUp(1))
+		{
+			transform.rotation = orginRotate;
+		}
+
+		if(Input.GetKey(KeyCode.LeftShift) && isVertical == false)
+		{
+			Vector3 rot = transform.rotation.eulerAngles;
+			if(Input.GetKeyDown(KeyCode.A))
+			{
+				rot.x += 90;
+				transform.DORotate(rot, 0.5f);
+			}
+			if (Input.GetKeyDown(KeyCode.D))
+			{
+				rot.x -= 90;
+				transform.DORotate(rot, 0.5f);
+			}
+		}
+
+		if (Input.GetKey(KeyCode.LeftShift) && isVertical)
+		{
+			Vector3 rot = transform.rotation.eulerAngles;
+			if (Input.GetKeyDown(KeyCode.W))
+			{
+				rot.y += 90;
+				transform.DORotate(rot, 0.5f);
+			}
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				rot.y -= 90;
+				transform.DORotate(rot, 0.5f);
+			}
+		}
 
 		CameraZoom(Input.GetAxis("Mouse ScrollWheel"));
 	}
@@ -35,6 +75,7 @@ public class CameraControl : MonoBehaviour
 	{
 		if (Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Mouse X") != 0)
 		{
+			orginRotate = cam.transform.localRotation;
 			float vertical = Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime;
 			float horizontal = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;
 			transform.Rotate(Vector3.left, vertical);
@@ -51,6 +92,5 @@ public class CameraControl : MonoBehaviour
 			Vector3 mouseDiff = mouseWorldPosStart - cam.ScreenToWorldPoint(Input.mousePosition);
 			transform.position += mouseDiff;
 		}
-
 	}
 }

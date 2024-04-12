@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class Cube : MonoBehaviour
 {
-    private bool cannotVisitCube = false;
-    private bool canVisit = true;
-    public bool CanVisit => canVisit;
+    private bool visit;
+    public bool Visit => visit;
     private MeshRenderer mr;
+
+    private bool start;
 
     private void Awake()
     {
@@ -19,33 +20,31 @@ public class Cube : MonoBehaviour
         ResetVisit();
     }
 
-    public void SetCannotVisitCube()
+    public void SetStart()
     {
-        cannotVisitCube = true;
-        canVisit = false;
+        start = true;
         mr.material.color = Color.green;
     }
 
     public void ResetVisit()
     {
-        if(!canVisit || cannotVisitCube)
+        if(!visit || start)
         {
-            print("Dddddd");
             return;
         }
 
-        canVisit = false;
+        visit = false;
         mr.material.color = Color.gray;
     }
 
     public void SetVisit()
     {
-        if(canVisit || cannotVisitCube)
+        if(visit || start)
         {
             return;
         }
 
-        canVisit = true;
+        visit = true;
         mr.material.color = Color.red;
     }
 }
