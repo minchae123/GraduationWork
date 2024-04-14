@@ -4,33 +4,42 @@ using UnityEngine;
 
 public class LeftControl : MonoBehaviour
 {
-	public int moveCount;
+	private Vector3 targetPosition; // 플레이어가 이동할 목표 위치
+	[SerializeField] private GameObject target;
 
-	private void Update()
+	void Start()
 	{
-		if(Input.GetKeyDown(KeyCode.W))
+		targetPosition = transform.position; // 초기 위치를 목표 위치로 설정
+	}
+
+	void Update()
+	{
+		// 플레이어 이동
+		if (Input.GetKeyDown(KeyCode.W))
 		{
-			Vector3 pos = transform.position;
-			pos.x += 2;
-			transform.position = pos;
+			targetPosition += target.transform.forward;
 		}
-		if (Input.GetKeyDown(KeyCode.S))
+		else if (Input.GetKeyDown(KeyCode.S))
 		{
-			Vector3 pos = transform.position;
-			pos.x -= 2;
-			transform.position = pos;
+			targetPosition -= target.transform.forward;
 		}
-		if (Input.GetKeyDown(KeyCode.A))
+		else if (Input.GetKeyDown(KeyCode.A))
 		{
-			Vector3 pos = transform.position;
-			pos.z -= 2;
-			transform.position = pos;
+			targetPosition -= target.transform.right;
 		}
-		if (Input.GetKeyDown(KeyCode.D))
+		else if (Input.GetKeyDown(KeyCode.D))
 		{
-			Vector3 pos = transform.position;
-			pos.z += 2;
-			transform.position = pos;
+			targetPosition += target.transform.right;
 		}
+		else if (Input.GetKeyDown(KeyCode.Space))
+		{
+			targetPosition += target.transform.up;
+		}
+		else if (Input.GetKeyDown(KeyCode.LeftShift))
+		{
+			targetPosition -= target.transform.up;
+		}
+
+		transform.position = targetPosition;
 	}
 }

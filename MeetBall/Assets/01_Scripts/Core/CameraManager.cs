@@ -22,6 +22,8 @@ public class CameraManager : MonoBehaviour
 	private float xRotation;
 	private Camera cam;
 
+	[SerializeField] private List<float> rotates = new List<float>();
+
 	private void Awake()
 	{
 		xRotation = transform.rotation.eulerAngles.x;
@@ -50,7 +52,7 @@ public class CameraManager : MonoBehaviour
 	{
 		isRoatating = context.started || context.performed;
 
-		if (context.canceled)
+		if (context.canceled) // 손을 떼면
 		{
 			isBusy = true;
 			SnapRotation();
@@ -77,19 +79,19 @@ public class CameraManager : MonoBehaviour
 
 	private void SnapRotation()
 	{
-		transform.DORotate(SnapVector(), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => isBusy = false);
+		transform.DORotate(SnapVector(), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => isBusy = false); // isbusy일땐 못움직이게
 	}
 
 	private Vector3 SnapVector()
 	{
-		float curY = Mathf.Ceil(transform.rotation.eulerAngles.y);
+		float curY = Mathf.Ceil(transform.rotation.eulerAngles.y); // 소수 내림
 
 		float endValue = curY switch
 		{
-			>= 0 and <= 90 => 45f, // 0 ~ 90 사이는 45 
-			>= 91 and <= 180 => 135f,
-			>= 181 and <= 270 => 225f,
-			_ => 315f // 다 아니면 315
+			>= 0 and <= 90 => rotates[0], // 0 ~ 90 사이는
+			>= 91 and <= 180 => rotates[1],
+			>= 181 and <= 270 => rotates[2],
+			_ => rotates[3]// 다 아니면 
 		};
 
 		return new Vector3(xRotation, endValue, 0);
