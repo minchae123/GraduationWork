@@ -4,8 +4,18 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
 
+public enum DIRECTION
+{
+	East, West, South, North
+}
+
+
 public class CameraManager : MonoBehaviour
 {
+	public static CameraManager Instance;
+
+	public DIRECTION direction;
+
 	private Vector2 delta;
 
 	private bool isMoving;
@@ -24,8 +34,12 @@ public class CameraManager : MonoBehaviour
 
 	[SerializeField] private List<float> rotates = new List<float>();
 
+	[SerializeField] private LeftControl leftControl;
+
 	private void Awake()
 	{
+		Instance = this;
+
 		xRotation = transform.rotation.eulerAngles.x;
 		cam = Camera.main;
 	}
@@ -94,6 +108,16 @@ public class CameraManager : MonoBehaviour
 			_ => rotates[3]// 다 아니면 
 		};
 
+		direction = curY switch
+		{
+			>= 0 and <= 90 => DIRECTION.South,
+			>= 91 and <= 180 => DIRECTION.West,
+			>= 181 and <= 270 => DIRECTION.North,
+			_ => DIRECTION.East// 다 아니면 
+		};
+
+		leftControl.Move(direction);
+		
 		return new Vector3(xRotation, endValue, 0);
 	}
 

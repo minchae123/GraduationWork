@@ -2,44 +2,88 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+struct WASD
+{
+	public Vector3 w;
+	public Vector3 s;
+	public Vector3 a;
+	public Vector3 d;
+}
+
 public class LeftControl : MonoBehaviour
 {
-	private Vector3 targetPosition; // 플레이어가 이동할 목표 위치
 	[SerializeField] private GameObject target;
+
+	private WASD WASD;
 
 	void Start()
 	{
-		targetPosition = transform.position; // 초기 위치를 목표 위치로 설정
 	}
 
 	void Update()
 	{
-		// 플레이어 이동
 		if (Input.GetKeyDown(KeyCode.W))
 		{
-			targetPosition += target.transform.forward;
+			transform.position += WASD.w;
 		}
-		else if (Input.GetKeyDown(KeyCode.S))
+		if (Input.GetKeyDown(KeyCode.S))
 		{
-			targetPosition -= target.transform.forward;
+			transform.position += WASD.s;
 		}
-		else if (Input.GetKeyDown(KeyCode.A))
+		if (Input.GetKeyDown(KeyCode.D))
 		{
-			targetPosition -= target.transform.right;
+			transform.position += WASD.d;
 		}
-		else if (Input.GetKeyDown(KeyCode.D))
+		if (Input.GetKeyDown(KeyCode.A))
 		{
-			targetPosition += target.transform.right;
+			transform.position += WASD.a;
 		}
-		else if (Input.GetKeyDown(KeyCode.Space))
+		if(Input.GetKeyDown(KeyCode.Space))
 		{
-			targetPosition += target.transform.up;
+			transform.position += Vector3.up;
 		}
-		else if (Input.GetKeyDown(KeyCode.LeftShift))
+		if(Input.GetKeyDown (KeyCode.LeftShift))
 		{
-			targetPosition -= target.transform.up;
+			transform.position += Vector3.down;
 		}
+	}
 
-		transform.position = targetPosition;
+	public void Move(DIRECTION dir)
+	{
+		switch (dir)
+		{
+			case DIRECTION.East:
+				{
+					WASD.w = -Vector3.right;
+					WASD.s = Vector3.right;
+					WASD.a = -Vector3.forward;
+					WASD.d = Vector3.forward;
+				}
+				break;
+			case DIRECTION.West:
+				{
+					WASD.w = Vector3.right;
+					WASD.s = -Vector3.right;
+					WASD.a = Vector3.forward;
+					WASD.d = -Vector3.forward;
+				}
+				break;
+			case DIRECTION.South:
+				{
+					WASD.w = Vector3.forward;
+					WASD.s = -Vector3.forward;
+					WASD.a = -Vector3.right;
+					WASD.d = Vector3.right;
+				}
+				break;
+			case DIRECTION.North:
+				{
+					WASD.w = -Vector3.forward;
+					WASD.s = Vector3.forward;
+					WASD.a = Vector3.right;
+					WASD.d = -Vector3.right;
+				}
+				break;
+		}
 	}
 }
