@@ -12,12 +12,12 @@ public class CombineColor : MonoBehaviour
         _mat = GetComponent<MeshRenderer>().material;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (other.gameObject.CompareTag("Player"))
         {
-            _mat.color += collision.gameObject.GetComponent<Renderer>().material.color;
-            Destroy(collision.gameObject);
+            _mat.color += other.gameObject.GetComponent<Renderer>().material.color;
+            Destroy(other.gameObject);
         }
     }
 }

@@ -39,7 +39,7 @@ public class PlayerMain : MonoBehaviour
     {
         switch(key)
         {
-            case Direction.W.Tostring():
+            //case Direction.W.Tostring():
         }
     }
 }
