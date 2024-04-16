@@ -6,6 +6,7 @@ public class RightControl : MonoBehaviour
 {
 	private WASD WASD;
 
+	[SerializeField] private Box box;
 	[SerializeField] private int moveCount;
 	private int curCount;
 	private Vector3 startPos;
@@ -20,36 +21,44 @@ public class RightControl : MonoBehaviour
 	{
 		if(curCount > 0)
 		{
-			if (Input.GetKeyDown(KeyCode.UpArrow))
+			if (Input.GetKeyDown(KeyCode.UpArrow)
+				&& WASD.w != box._player2Dir)
 			{
 				transform.position += WASD.w;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.DownArrow))
+			if (Input.GetKeyDown(KeyCode.DownArrow)
+				&& WASD.s != box._player2Dir)
 			{
 				transform.position += WASD.s;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.RightArrow))
+			if (Input.GetKeyDown(KeyCode.RightArrow)
+				&& WASD.d != box._player2Dir)
 			{
 				transform.position += WASD.d;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftArrow))
+			if (Input.GetKeyDown(KeyCode.LeftArrow)
+				&& WASD.a != box._player2Dir)
 			{
 				transform.position += WASD.a;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.Return))
+			if (Input.GetKeyDown(KeyCode.Return)
+				&& Vector3.up != box._player2Dir)
 			{
 				transform.position += Vector3.up;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.RightShift))
+			if (Input.GetKeyDown(KeyCode.RightShift)
+				&& Vector3.down != box._player2Dir)
 			{
 				transform.position += Vector3.down;
 				curCount--;
 			}
+
+			box.Determine();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))

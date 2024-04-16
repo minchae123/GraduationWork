@@ -12,12 +12,14 @@ struct WASD
 
 public class LeftControl : MonoBehaviour
 {
+	[SerializeField] private Box box;
+	[SerializeField] private int moveCount;
+
 	private WASD WASD;
 
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
-	[SerializeField] private int moveCount;
 	private int curCount; 
 	private Vector3 startPos;
 
@@ -60,36 +62,44 @@ public class LeftControl : MonoBehaviour
 
 		if(curCount > 0)
 		{
-			if (Input.GetKeyDown(KeyCode.W))
+			if (Input.GetKeyDown(KeyCode.W)
+				&& WASD.w != box._player1Dir)
 			{
 				transform.position += WASD.w;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.S))
+			if (Input.GetKeyDown(KeyCode.S)
+				&& WASD.s != box._player1Dir)
 			{
 				transform.position += WASD.s;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.D))
+			if (Input.GetKeyDown(KeyCode.D)
+				&& WASD.d != box._player1Dir)
 			{
 				transform.position += WASD.d;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.A))
+			if (Input.GetKeyDown(KeyCode.A)
+				&& WASD.a != box._player1Dir)
 			{
 				transform.position += WASD.a;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space)
+				&& Vector3.up != box._player1Dir)
 			{
 				transform.position += Vector3.up;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftShift))
+			if (Input.GetKeyDown(KeyCode.LeftShift)
+				&& Vector3.down != box._player1Dir)
 			{
 				transform.position += Vector3.down;
 				curCount--;
 			}
+
+			box.Determine();
 		}
 
 		if(Input.GetKeyDown(KeyCode.R))
