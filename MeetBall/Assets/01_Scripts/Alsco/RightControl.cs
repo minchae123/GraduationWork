@@ -6,13 +6,15 @@ public class RightControl : MonoBehaviour
 {
 	private WASD WASD;
 
-	[SerializeField] private int moveCount;
+	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageinfo;
+
 	private int curCount;
 	private Vector3 startPos;
 
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
-	[SerializeField] private LayerMask whatIsBox;
+
 	private bool[] isCanMove = new bool[6];
 
 	private void Start()
@@ -26,7 +28,7 @@ public class RightControl : MonoBehaviour
 		ray[5].direction = -transform.forward;
 
 		startPos = transform.position;
-		curCount = moveCount;
+		curCount = stageinfo.RmoveCnt;
 	}
 
 	void Update()
@@ -73,7 +75,7 @@ public class RightControl : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			transform.position = startPos;
-			curCount = moveCount;
+			curCount = stageinfo.RmoveCnt;
 		}
 	}
 

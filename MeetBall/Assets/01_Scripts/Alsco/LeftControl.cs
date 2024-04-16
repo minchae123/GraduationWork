@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 struct WASD
 {
@@ -18,10 +19,11 @@ public class LeftControl : MonoBehaviour
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
-	[SerializeField] private int moveCount;
+	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageinfo;
+
 	private int curCount;
 	private Vector3 startPos;
-	[SerializeField] private LayerMask whatIsBox;
 
 	private bool[] isCanMove = new bool[6];
 
@@ -36,7 +38,7 @@ public class LeftControl : MonoBehaviour
 		ray[5].direction = -transform.forward;
 
 		startPos = transform.position;
-		curCount = moveCount;
+		curCount = stageinfo.LmoveCnt;
 	}
 
 	void Update()
@@ -83,7 +85,7 @@ public class LeftControl : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			transform.position = startPos;
-			curCount = moveCount;
+			curCount = stageinfo.LmoveCnt;
 		}
 	}
 
