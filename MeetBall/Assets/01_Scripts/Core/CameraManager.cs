@@ -92,6 +92,12 @@ public class CameraManager : MonoBehaviour
 		CameraZoom(Input.GetAxis("Mouse ScrollWheel"));
 	}
 
+	public void NewControl()
+	{
+		leftControl = FindObjectOfType<LeftControl>();
+		rightControl = FindObjectOfType<RightControl>();
+	}
+
 	private void SnapRotation()
 	{
 		transform.DORotate(SnapVector(), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => isBusy = false); // isbusy일땐 못움직이게
@@ -119,7 +125,7 @@ public class CameraManager : MonoBehaviour
 
 		leftControl.Move(direction);
 		rightControl.Move(direction);
-		
+
 		return new Vector3(xRotation, endValue, 0);
 	}
 
