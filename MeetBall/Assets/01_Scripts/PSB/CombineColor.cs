@@ -17,6 +17,7 @@ public class CombineColor : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             _mat.color += other.gameObject.GetComponent<Renderer>().material.color;
+            _mat.SetColor("_EmissionColor", _mat.color);
             Destroy(other.gameObject);
         }
     }

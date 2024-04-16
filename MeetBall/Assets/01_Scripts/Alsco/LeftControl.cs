@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 struct WASD
 {
@@ -12,16 +14,18 @@ struct WASD
 
 public class LeftControl : MonoBehaviour
 {
-	[SerializeField] private Box box;
-	[SerializeField] private int moveCount;
-
 	private WASD WASD;
 
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
-	private int curCount; 
+	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageinfo;
+
+	private int curCount;
 	private Vector3 startPos;
+
+	private bool[] isCanMove = new bool[6];
 
 	private void Start()
 	{
@@ -31,81 +35,79 @@ public class LeftControl : MonoBehaviour
 		ray[2].direction = -transform.right;
 		ray[3].direction = transform.right;
 		ray[4].direction = transform.forward;
-		ray[5].direction = -transform.forward;	
-		
+		ray[5].direction = -transform.forward;
+
 		startPos = transform.position;
-		curCount = moveCount;
+		curCount = stageinfo.LmoveCnt;
 	}
 
 	void Update()
 	{
-		ray[0].origin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
-		ray[1].origin = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
-		ray[2].origin = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z);
-		ray[3].origin = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
-		ray[4].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z + .5f);
-		ray[5].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z - .5f);
+		if (Input.anyKeyDown)
+		{
+			RayCheck();
+		}
+
+		if (curCount > 0)
+		{
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
+			{
+				transform.position += WASD.w;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
+			{
+				transform.position += WASD.s;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
+			{
+				transform.position += WASD.d;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
+			{
+				transform.position += WASD.a;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
+			{
+				transform.position += Vector3.up;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
+			{
+				transform.position += Vector3.down;
+				curCount--;
+			}
+		}
+
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			transform.position = startPos;
+			curCount = stageinfo.LmoveCnt;
+		}
+	}
+
+	public void RayCheck()
+	{
+		ray[0].origin = transform.position;
+		ray[1].origin = transform.position;
+		ray[2].origin = transform.position;
+		ray[3].origin = transform.position;
+		ray[4].origin = transform.position;
+		ray[5].origin = transform.position;
 
 		for (int i = 0; i < ray.Length; i++)
 		{
 			Debug.DrawRay(ray[i].origin, ray[i].direction);
 
-			if (Physics.Raycast(ray[i], out hit, 0.5f))
+			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
 			{
-				if (hit.collider.CompareTag("Moveable"))
-				{
-					Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
-					//Debug.Log(ray[i]);
-				}
+				isCanMove[i] = true;
 			}
-		}
-
-		if(curCount > 0)
-		{
-			if (Input.GetKeyDown(KeyCode.W)
-				&& WASD.w != box._player1Dir)
-			{
-				transform.position += WASD.w;
-				curCount--;
-			}
-			if (Input.GetKeyDown(KeyCode.S)
-				&& WASD.s != box._player1Dir)
-			{
-				transform.position += WASD.s;
-				curCount--;
-			}
-			if (Input.GetKeyDown(KeyCode.D)
-				&& WASD.d != box._player1Dir)
-			{
-				transform.position += WASD.d;
-				curCount--;
-			}
-			if (Input.GetKeyDown(KeyCode.A)
-				&& WASD.a != box._player1Dir)
-			{
-				transform.position += WASD.a;
-				curCount--;
-			}
-			if (Input.GetKeyDown(KeyCode.Space)
-				&& Vector3.up != box._player1Dir)
-			{
-				transform.position += Vector3.up;
-				curCount--;
-			}
-			if (Input.GetKeyDown(KeyCode.LeftShift)
-				&& Vector3.down != box._player1Dir)
-			{
-				transform.position += Vector3.down;
-				curCount--;
-			}
-
-			box.Determine();
-		}
-
-		if(Input.GetKeyDown(KeyCode.R))
-		{
-			transform.position = startPos;
-			curCount = moveCount;
+			else
+				isCanMove[i] = false;
 		}
 	}
 
@@ -119,6 +121,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.right;
 					WASD.a = -Vector3.forward;
 					WASD.d = Vector3.forward;
+
+					ray[2].direction = -transform.forward;
+					ray[3].direction = transform.forward;
+					ray[4].direction = -transform.right;
+					ray[5].direction = transform.right;
 				}
 				break;
 			case DIRECTION.West:
@@ -127,6 +134,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.right;
 					WASD.a = Vector3.forward;
 					WASD.d = -Vector3.forward;
+
+					ray[2].direction = transform.forward;
+					ray[3].direction = -transform.forward;
+					ray[4].direction = transform.right;
+					ray[5].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.South:
@@ -135,6 +147,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.forward;
 					WASD.a = -Vector3.right;
 					WASD.d = Vector3.right;
+
+					ray[2].direction = -transform.right; 
+					ray[3].direction = transform.right; 
+					ray[4].direction = transform.forward;
+					ray[5].direction = -transform.forward;
 				}
 				break;
 			case DIRECTION.North:
@@ -143,6 +160,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.forward;
 					WASD.a = Vector3.right;
 					WASD.d = -Vector3.right;
+
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
+					ray[4].direction = -transform.forward;
+					ray[5].direction = transform.forward;
 				}
 				break;
 		}
