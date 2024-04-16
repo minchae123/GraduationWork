@@ -17,6 +17,10 @@ public class LeftControl : MonoBehaviour
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
+	[SerializeField] private int moveCount;
+	private int curCount; 
+	private Vector3 startPos;
+
 	private void Start()
 	{
 		//상하좌우앞뒤
@@ -25,7 +29,10 @@ public class LeftControl : MonoBehaviour
 		ray[2].direction = -transform.right;
 		ray[3].direction = transform.right;
 		ray[4].direction = transform.forward;
-		ray[5].direction = -transform.forward;		
+		ray[5].direction = -transform.forward;	
+		
+		startPos = transform.position;
+		curCount = moveCount;
 	}
 
 	void Update()
@@ -51,29 +58,44 @@ public class LeftControl : MonoBehaviour
 			}
 		}
 
-		if (Input.GetKeyDown(KeyCode.W))
+		if(curCount > 0)
 		{
-			transform.position += WASD.w;
+			if (Input.GetKeyDown(KeyCode.W))
+			{
+				transform.position += WASD.w;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.S))
+			{
+				transform.position += WASD.s;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.D))
+			{
+				transform.position += WASD.d;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.A))
+			{
+				transform.position += WASD.a;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.Space))
+			{
+				transform.position += Vector3.up;
+				curCount--;
+			}
+			if (Input.GetKeyDown(KeyCode.LeftShift))
+			{
+				transform.position += Vector3.down;
+				curCount--;
+			}
 		}
-		if (Input.GetKeyDown(KeyCode.S))
+
+		if(Input.GetKeyDown(KeyCode.R))
 		{
-			transform.position += WASD.s;
-		}
-		if (Input.GetKeyDown(KeyCode.D))
-		{
-			transform.position += WASD.d;
-		}
-		if (Input.GetKeyDown(KeyCode.A))
-		{
-			transform.position += WASD.a;
-		}
-		if (Input.GetKeyDown(KeyCode.Space))
-		{
-			transform.position += Vector3.up;
-		}
-		if (Input.GetKeyDown(KeyCode.LeftShift))
-		{
-			transform.position += Vector3.down;
+			transform.position = startPos;
+			curCount = moveCount;
 		}
 	}
 
