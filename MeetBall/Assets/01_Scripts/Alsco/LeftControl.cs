@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering.LookDev;
 
 struct WASD
 {
@@ -17,9 +19,14 @@ public class LeftControl : MonoBehaviour
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
-	[SerializeField] private int moveCount;
-	private int curCount; 
+	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageinfo;
+
+	private int curCount;
+	private int maxCount;
 	private Vector3 startPos;
+
+	private bool[] isCanMove = new bool[6];
 
 	private void Start()
 	{
@@ -29,76 +36,85 @@ public class LeftControl : MonoBehaviour
 		ray[2].direction = -transform.right;
 		ray[3].direction = transform.right;
 		ray[4].direction = transform.forward;
-		ray[5].direction = -transform.forward;	
-		
-		startPos = transform.position;
-		curCount = moveCount;
-	}
+		ray[5].direction = -transform.forward;
 
+		startPos = transform.position;
+
+		curCount = 0;
+		maxCount = stageinfo.LmoveCnt;
+	}
 	void Update()
 	{
-		ray[0].origin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
-		ray[1].origin = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
-		ray[2].origin = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z);
-		ray[3].origin = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
-		ray[4].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z + .5f);
-		ray[5].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z - .5f);
-
-		for (int i = 0; i < ray.Length; i++)
+		if (Input.anyKeyDown)
 		{
-			Debug.DrawRay(ray[i].origin, ray[i].direction);
-
-			if (Physics.Raycast(ray[i], out hit, 0.5f))
-			{
-				if (hit.collider.CompareTag("Moveable"))
-				{
-					Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
-					//Debug.Log(ray[i]);
-				}
-			}
+			RayCheck();
 		}
 
-		if(curCount > 0)
+		if (curCount <= maxCount)
 		{
-			if (Input.GetKeyDown(KeyCode.W))
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
 			{
 				transform.position += WASD.w;
-				curCount--;
+				curCount++;
 			}
-			if (Input.GetKeyDown(KeyCode.S))
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
 			{
 				transform.position += WASD.s;
-				curCount--;
+				curCount++;
 			}
-			if (Input.GetKeyDown(KeyCode.D))
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
 			{
 				transform.position += WASD.d;
-				curCount--;
+				curCount++;
 			}
-			if (Input.GetKeyDown(KeyCode.A))
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
 			{
 				transform.position += WASD.a;
-				curCount--;
+				curCount++;
 			}
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
 			{
 				transform.position += Vector3.up;
-				curCount--;
+				curCount++;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftShift))
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
 			{
 				transform.position += Vector3.down;
-				curCount--;
+				curCount++;
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.R))
 		{
 			transform.position = startPos;
-			curCount = moveCount;
+			curCount = stageinfo.LmoveCnt;
 		}
 	}
+	public void RayCheck()
+	{
+		/*
+		ray[0].origin = transform.position;
+		ray[1].origin = transform.position;
+		ray[2].origin = transform.position;
+		ray[3].origin = transform.position;
+		ray[4].origin = transform.position;
+		ray[5].origin = transform.position;
+		*/
+		for (int i = 0; i < ray.Length; i++)
+		{
+			ray[i].origin = transform.position;
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
 
+			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
+			{
+				isCanMove[i] = true;
+			}
+			else
+			{
+				isCanMove[i] = false;
+			}
+		}
+	}
 	public void Move(DIRECTION dir)
 	{
 		switch (dir)
@@ -109,6 +125,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.right;
 					WASD.a = -Vector3.forward;
 					WASD.d = Vector3.forward;
+
+					ray[2].direction = -transform.forward;
+					ray[3].direction = transform.forward;
+					ray[4].direction = -transform.right;
+					ray[5].direction = transform.right;
 				}
 				break;
 			case DIRECTION.West:
@@ -117,6 +138,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.right;
 					WASD.a = Vector3.forward;
 					WASD.d = -Vector3.forward;
+
+					ray[2].direction = transform.forward;
+					ray[3].direction = -transform.forward;
+					ray[4].direction = transform.right;
+					ray[5].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.South:
@@ -125,6 +151,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.forward;
 					WASD.a = -Vector3.right;
 					WASD.d = Vector3.right;
+
+					ray[2].direction = -transform.right;
+					ray[3].direction = transform.right;
+					ray[4].direction = transform.forward;
+					ray[5].direction = -transform.forward;
 				}
 				break;
 			case DIRECTION.North:
@@ -133,8 +164,14 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.forward;
 					WASD.a = Vector3.right;
 					WASD.d = -Vector3.right;
+
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
+					ray[4].direction = -transform.forward;
+					ray[5].direction = transform.forward;
 				}
 				break;
 		}
 	}
+
 }
