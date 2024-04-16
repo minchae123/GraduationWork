@@ -6,12 +6,12 @@ public class MapCube : MonoBehaviour
 {
     [SerializeField] private Material originMat;
     [SerializeField] private Material visitMat;
+    [SerializeField] private Material startMat;
 
     private MeshRenderer mr;
 
-    private bool visit;
-    public bool Visit => visit;
-
+    public bool isVisit = false;
+    public bool isStart = false;
 
     private void Awake()
     {
@@ -19,14 +19,21 @@ public class MapCube : MonoBehaviour
         CancelVisit();
     }
 
+    public void SetStart()
+    {
+        isStart = true;
+        mr.material = startMat;
+        print("start");
+    }
     public void SetVisit()
     {
-        visit = true;
+        isVisit = true;
         mr.material = visitMat;
+        print("visit");
     }
     public void CancelVisit()
     {
-        visit = false;
+        isVisit = false;
         mr.material = originMat;
         print("cancel");
     }

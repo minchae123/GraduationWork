@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class HoverButton : MonoBehaviour
 {
     [SerializeField] private Door connectDoor; //이어진 문 넣어주기
 
