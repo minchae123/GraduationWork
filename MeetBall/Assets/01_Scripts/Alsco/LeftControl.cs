@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 
 struct WASD
@@ -24,7 +25,6 @@ public class LeftControl : MonoBehaviour
 
 	private bool[] isCanMove = new bool[6];
 
-
 	private void Start()
 	{
 		//상하좌우앞뒤
@@ -48,32 +48,32 @@ public class LeftControl : MonoBehaviour
 
 		if (curCount > 0)
 		{
-			if (Input.GetKeyDown(KeyCode.W))
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
 			{
 				transform.position += WASD.w;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.S))
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
 			{
 				transform.position += WASD.s;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.D))
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
 			{
 				transform.position += WASD.d;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.A))
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
 			{
 				transform.position += WASD.a;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.Space))
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
 			{
 				transform.position += Vector3.up;
 				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftShift))
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
 			{
 				transform.position += Vector3.down;
 				curCount--;
@@ -104,6 +104,8 @@ public class LeftControl : MonoBehaviour
 			{
 				isCanMove[i] = true;
 			}
+			else
+				isCanMove[i] = false;
 		}
 	}
 
@@ -117,6 +119,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.right;
 					WASD.a = -Vector3.forward;
 					WASD.d = Vector3.forward;
+
+					ray[2].direction = -transform.forward;
+					ray[3].direction = transform.forward;
+					ray[4].direction = -transform.right;
+					ray[5].direction = transform.right;
 				}
 				break;
 			case DIRECTION.West:
@@ -125,6 +132,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.right;
 					WASD.a = Vector3.forward;
 					WASD.d = -Vector3.forward;
+
+					ray[2].direction = transform.forward;
+					ray[3].direction = -transform.forward;
+					ray[4].direction = transform.right;
+					ray[5].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.South:
@@ -133,6 +145,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = -Vector3.forward;
 					WASD.a = -Vector3.right;
 					WASD.d = Vector3.right;
+
+					ray[2].direction = -transform.right; 
+					ray[3].direction = transform.right; 
+					ray[4].direction = transform.forward;
+					ray[5].direction = -transform.forward;
 				}
 				break;
 			case DIRECTION.North:
@@ -141,6 +158,11 @@ public class LeftControl : MonoBehaviour
 					WASD.s = Vector3.forward;
 					WASD.a = Vector3.right;
 					WASD.d = -Vector3.right;
+
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
+					ray[4].direction = -transform.forward;
+					ray[5].direction = transform.forward;
 				}
 				break;
 		}
