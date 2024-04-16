@@ -1953,7 +1953,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &2063006882
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -2060,8 +2060,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  box: {fileID: 1493496293}
-  moveCount: 100
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 0
+  stageinfo: {fileID: 0}
 --- !u!114 &2063006888
 MonoBehaviour:
   m_ObjectHideFlags: 0
