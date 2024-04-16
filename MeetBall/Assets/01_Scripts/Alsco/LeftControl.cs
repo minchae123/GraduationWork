@@ -18,8 +18,12 @@ public class LeftControl : MonoBehaviour
 	private Ray[] ray = new Ray[6];
 
 	[SerializeField] private int moveCount;
-	private int curCount; 
+	private int curCount;
 	private Vector3 startPos;
+	[SerializeField] private LayerMask whatIsBox;
+
+	private bool[] isCanMove = new bool[6];
+
 
 	private void Start()
 	{
@@ -29,36 +33,20 @@ public class LeftControl : MonoBehaviour
 		ray[2].direction = -transform.right;
 		ray[3].direction = transform.right;
 		ray[4].direction = transform.forward;
-		ray[5].direction = -transform.forward;	
-		
+		ray[5].direction = -transform.forward;
+
 		startPos = transform.position;
 		curCount = moveCount;
 	}
 
 	void Update()
 	{
-		ray[0].origin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
-		ray[1].origin = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
-		ray[2].origin = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z);
-		ray[3].origin = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
-		ray[4].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z + .5f);
-		ray[5].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z - .5f);
-
-		for (int i = 0; i < ray.Length; i++)
+		if (Input.anyKeyDown)
 		{
-			Debug.DrawRay(ray[i].origin, ray[i].direction);
-
-			if (Physics.Raycast(ray[i], out hit, 0.5f))
-			{
-				if (hit.collider.CompareTag("Moveable"))
-				{
-					Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
-					//Debug.Log(ray[i]);
-				}
-			}
+			RayCheck();
 		}
 
-		if(curCount > 0)
+		if (curCount > 0)
 		{
 			if (Input.GetKeyDown(KeyCode.W))
 			{
@@ -92,10 +80,30 @@ public class LeftControl : MonoBehaviour
 			}
 		}
 
-		if(Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.R))
 		{
 			transform.position = startPos;
 			curCount = moveCount;
+		}
+	}
+
+	public void RayCheck()
+	{
+		ray[0].origin = transform.position;
+		ray[1].origin = transform.position;
+		ray[2].origin = transform.position;
+		ray[3].origin = transform.position;
+		ray[4].origin = transform.position;
+		ray[5].origin = transform.position;
+
+		for (int i = 0; i < ray.Length; i++)
+		{
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
+
+			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
+			{
+				isCanMove[i] = true;
+			}
 		}
 	}
 
