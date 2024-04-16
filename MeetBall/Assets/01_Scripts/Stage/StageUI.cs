@@ -3,13 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using DG.Tweening;
 
-public class StageUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class StageUI : MonoBehaviour, IPointerClickHandler
 {
     private int stageNum = 0;
     [SerializeField] private TextMeshProUGUI stageText;
-
 
     public void SetNumber(int num)
     {
@@ -23,15 +21,5 @@ public class StageUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     {
         print(stageNum);
         Stage.Instance.LoadStage(stageNum);
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        transform.DOScale(1.0f, 0.3f);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        transform.DOShakeScale(1, 1, 10, 1, false);
     }
 }
