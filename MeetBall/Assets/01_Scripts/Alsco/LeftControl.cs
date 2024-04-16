@@ -12,16 +12,45 @@ struct WASD
 
 public class LeftControl : MonoBehaviour
 {
-	[SerializeField] private GameObject target;
-
 	private WASD WASD;
 
-	void Start()
+	private RaycastHit hit;
+	private Ray[] ray = new Ray[6];
+
+	private void Start()
 	{
+		//상하좌우앞뒤
+		ray[0].direction = transform.up;
+		ray[1].direction = -transform.up;
+		ray[2].direction = -transform.right;
+		ray[3].direction = transform.right;
+		ray[4].direction = transform.forward;
+		ray[5].direction = -transform.forward;		
 	}
 
 	void Update()
 	{
+		ray[0].origin = new Vector3(transform.position.x, transform.position.y + .5f, transform.position.z);
+		ray[1].origin = new Vector3(transform.position.x, transform.position.y - .5f, transform.position.z);
+		ray[2].origin = new Vector3(transform.position.x - .5f, transform.position.y, transform.position.z);
+		ray[3].origin = new Vector3(transform.position.x + .5f, transform.position.y, transform.position.z);
+		ray[4].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z + .5f);
+		ray[5].origin = new Vector3(transform.position.x, transform.position.y, transform.position.z - .5f);
+
+		for (int i = 0; i < ray.Length; i++)
+		{
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
+
+			if (Physics.Raycast(ray[i], out hit, 0.5f))
+			{
+				if (hit.collider.CompareTag("Moveable"))
+				{
+					Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
+					//Debug.Log(ray[i]);
+				}
+			}
+		}
+
 		if (Input.GetKeyDown(KeyCode.W))
 		{
 			transform.position += WASD.w;
@@ -38,11 +67,11 @@ public class LeftControl : MonoBehaviour
 		{
 			transform.position += WASD.a;
 		}
-		if(Input.GetKeyDown(KeyCode.Space))
+		if (Input.GetKeyDown(KeyCode.Space))
 		{
 			transform.position += Vector3.up;
 		}
-		if(Input.GetKeyDown (KeyCode.LeftShift))
+		if (Input.GetKeyDown(KeyCode.LeftShift))
 		{
 			transform.position += Vector3.down;
 		}

@@ -35,6 +35,7 @@ public class CameraManager : MonoBehaviour
 	[SerializeField] private List<float> rotates = new List<float>();
 
 	[SerializeField] private LeftControl leftControl;
+	[SerializeField] private RightControl rightControl;
 
 	private void Awake()
 	{
@@ -117,6 +118,7 @@ public class CameraManager : MonoBehaviour
 		};
 
 		leftControl.Move(direction);
+		rightControl.Move(direction);
 		
 		return new Vector3(xRotation, endValue, 0);
 	}
