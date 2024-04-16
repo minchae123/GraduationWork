@@ -109,12 +109,12 @@ public class CameraManager : MonoBehaviour
 			_ => rotates[3]// 다 아니면 
 		};
 
-		direction = curY switch
+		direction = curY switch // 방향 상태 정해주기
 		{
 			>= 0 and <= 90 => DIRECTION.South,
 			>= 91 and <= 180 => DIRECTION.West,
 			>= 181 and <= 270 => DIRECTION.North,
-			_ => DIRECTION.East// 다 아니면 
+			_ => DIRECTION.East
 		};
 
 		leftControl.Move(direction);
