@@ -42,50 +42,38 @@ public class LeftControl : MonoBehaviour
 
 		curCount = 0;
 		maxCount = stageinfo.LmoveCnt;
-
-		for(int i = 0; i < 6; ++i)
-        {
-			isCanMove[i] = true;
-        }
 	}
 	void Update()
 	{
-		if (Input.anyKeyDown)
-		{
-			//RayCheck();
+        if (Input.anyKeyDown)
+        {
+			RayCheck();
 		}
-
 		if (curCount < maxCount)
 		{
 			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
 			{
 				transform.position += WASD.w;
-				curCount++;
 			}
 			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
 			{
 				transform.position += WASD.s;
-				curCount++;
 			}
 			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
 			{
 				transform.position += WASD.d;
-				curCount++;
 			}
 			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
 			{
 				transform.position += WASD.a;
-				curCount++;
 			}
 			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
 			{
 				transform.position += Vector3.up;
-				curCount++;
 			}
 			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
 			{
 				transform.position += Vector3.down;
-				curCount++;
 			}
 		}
 
@@ -105,7 +93,27 @@ public class LeftControl : MonoBehaviour
 
 			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
 			{
-				isCanMove[i] = true;
+				if (hit.collider.TryGetComponent<MapCube>(out MapCube m))
+				{
+					if (m.isVisit) // 방문을 한 곳인데
+					{
+						if (mapVisited.TryPeek(out MapCube checkM))
+						{
+							if (m == checkM) // 전에 바로 왔던 곳일 경우
+							{
+								isCanMove[i] = true; // 가능
+							}
+                            else
+                            {
+								isCanMove[i] = false; // 불가능
+                            }
+						}
+					}
+                    else // 방문 안 한 곳이면
+                    {
+						isCanMove[i] = true; // 가능
+                    }
+				}
 			}
 			else
 			{
@@ -113,6 +121,7 @@ public class LeftControl : MonoBehaviour
 			}
 		}
 	}
+
 	public void Move(DIRECTION dir)
 	{
 		switch (dir)
@@ -172,42 +181,41 @@ public class LeftControl : MonoBehaviour
 		}
 	}
 
-    /*
-	 * private Stack<MapCube> MovedCubeSt = new Stack<MapCube>();
-		private MapCube before;
-		private void OnTriggerEnter(Collider other)
-		{
-			if (other.TryGetComponent<MapCube>(out MapCube m))
-			{
-				if (transform.position == startPos) // 시작점일 경우
-				{
-					m.SetStart();
-					return;
-				}
-				else if (m.isVisit) // 방문을 했던 곳
-				{
-					if (MovedCubeSt.TryPeek(out MapCube m2))
-					{
-						if (m2 == m) // 가장 전에 왔던 곳이라면 돌아가도 돼
-						{
-							MovedCubeSt.Pop();
-							m.CancelVisit();
-							before.CancelVisit();
+	public MapCube beforeCube;
+	private Stack<MapCube> mapVisited = new Stack<MapCube>();
 
-							curCount--;
-						}// 다른 건 안돼
-					}
-				}
-				else // 방문 안했음
-				{
-					curCount++;
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Moveable") && other.TryGetComponent<MapCube>(out MapCube m)) // 
+        {
+            if (m.isVisit)
+            {
+				if(mapVisited.TryPeek(out MapCube checkM))
+                {
+                    if (m == checkM)
+                    {
+						mapVisited.Pop();
+						checkM.CancelVisit();
 
-					m.SetVisit();
-					if (before != null) MovedCubeSt.Push(before);
-					before = m;
+						if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
+						else beforeCube = m;
+
+						curCount--;
+                    }
+                }
+            }
+            else
+            {
+				if (beforeCube != null)
+                {
+					mapVisited.Push(beforeCube);
+					beforeCube.SetVisit();
 				}
+				beforeCube = m;
+				curCount++;
 			}
+		}
 
-			print(curCount);
-		}*/
+		print(curCount);
+    }
 }
