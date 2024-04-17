@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class CombineColor : MonoBehaviour
 {
-    public string ColorName;
+    public Animator ClearAnim;
 
     private Material _mat;
 
@@ -21,7 +21,7 @@ public class CombineColor : MonoBehaviour
             _mat.color += other.gameObject.GetComponent<Renderer>().material.color;
             _mat.SetColor("_EmissionColor", _mat.color);
             Destroy(other.gameObject);
-            
+            ClearAnim.SetTrigger("Clear");
         }
     }
 }
