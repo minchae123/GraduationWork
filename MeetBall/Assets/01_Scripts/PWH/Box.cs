@@ -10,9 +10,10 @@ enum Save
 
 public class Box : MonoBehaviour
 {
-    [Header("플레이어")]
+    [Header("참조")]
     [SerializeField] private Transform _player1;
     [SerializeField] private Transform _player2;
+    [SerializeField] private LayerMask _layer;
 
     [Header("수치")]
     [SerializeField] private float _distance;
