@@ -22,7 +22,7 @@ public class StageUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler
     public void OnPointerClick(PointerEventData eventData)
     {
         print(stageNum);
-        Stage.Instance.LoadStage(stageNum);
+        StageManager.Instance.LoadStage(stageNum);
     }
 
     public void OnPointerExit(PointerEventData eventData)

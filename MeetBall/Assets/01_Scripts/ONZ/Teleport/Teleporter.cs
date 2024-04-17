@@ -13,7 +13,7 @@ public class Teleporter : MonoBehaviour
 
     private void Awake()
     {
-        teleportManager = transform.parent.GetComponent<TeleportManager>();
+        teleportManager = transform.parent.GetComponentInChildren<TeleportManager>();
     }
     private void Start()
     {
