@@ -61,6 +61,7 @@ public class CameraManager : MonoBehaviour
 			isBusy = true;
 			SnapRotation();
 		}
+
 	}
 
 	public void OnRatate(InputAction.CallbackContext context)
