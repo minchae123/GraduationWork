@@ -16,18 +16,23 @@ public class CombineColor : MonoBehaviour
 		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();	
     }
 
-
-	private void OnCollisionEnter(Collision collision)
+	private void OnTriggerEnter(Collider other)
 	{
-		if (collision.gameObject.CompareTag("Player"))
+		if (other.gameObject.CompareTag("Player"))
 		{
-			_mat.color += collision.gameObject.GetComponent<Renderer>().material.color;
+			_mat.color += other.gameObject.GetComponent<Renderer>().material.color;
 			_mat.SetColor("_EmissionColor", _mat.color);
-			Destroy(collision.gameObject);
+			Destroy(other.gameObject);
 			ClearAnim.SetTrigger("Clear");
 
 			StartCoroutine(LevelClear());
 		}
+	}
+
+
+	private void OnCollisionEnter(Collision collision)
+	{
+
 	}
 
 	IEnumerator LevelClear()

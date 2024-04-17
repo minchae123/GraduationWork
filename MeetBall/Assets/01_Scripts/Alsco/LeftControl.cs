@@ -40,7 +40,7 @@ public class LeftControl : MonoBehaviour
 
 		startPos = transform.position;
 
-		curCount = 0;
+		curCount = -1;
 		maxCount = stageinfo.LmoveCnt;
 	}
 	void Update()
@@ -114,6 +114,10 @@ public class LeftControl : MonoBehaviour
 						isCanMove[i] = true; // 가능
                     }
 				}
+				else
+				{
+					isCanMove[i] = true; // 가능
+				}
 			}
 			else
 			{
@@ -186,36 +190,41 @@ public class LeftControl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Moveable") && other.TryGetComponent<MapCube>(out MapCube m)) // 
+        if (other.CompareTag("Moveable")) // 
         {
-            if (m.isVisit)
-            {
-				if(mapVisited.TryPeek(out MapCube checkM))
-                {
-                    if (m == checkM)
-                    {
-						mapVisited.Pop();
-						checkM.CancelVisit();
+			if(other.TryGetComponent<MapCube>(out MapCube m))
+			{
+				if (m.isVisit)
+				{
+					if (mapVisited.TryPeek(out MapCube checkM))
+					{
+						if (m == checkM)
+						{
+							mapVisited.Pop();
+							checkM.CancelVisit();
 
-						if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
-						else beforeCube = m;
+							if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
+							else beforeCube = m;
 
-						curCount--;
-                    }
-                }
-            }
-            else
-            {
-				if (beforeCube != null)
-                {
-					mapVisited.Push(beforeCube);
-					beforeCube.SetVisit();
+							curCount--;
+						}
+					}
 				}
-				beforeCube = m;
+				else
+				{
+					if (beforeCube != null)
+					{
+						mapVisited.Push(beforeCube);
+						beforeCube.SetVisit();
+					}
+					beforeCube = m;
+					curCount++;
+				}
+			}
+			else
+			{
 				curCount++;
 			}
 		}
-
-		print(curCount);
     }
 }
