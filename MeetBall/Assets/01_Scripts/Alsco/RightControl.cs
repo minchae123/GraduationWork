@@ -11,7 +11,6 @@ public class RightControl : MonoBehaviour
 	[SerializeField] private LayerMask whatIsBox;
 	[SerializeField] private StageSO stageinfo;
 	[SerializeField] private Box box;
-	[SerializeField] private int moveCount;
 
 	private int curCount;
 	private int maxCount;
