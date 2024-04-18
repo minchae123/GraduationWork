@@ -197,8 +197,7 @@ public class RightControl : MonoBehaviour
 							mapVisited.Pop();
 							checkM.CancelVisit();
 
-							if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
-							else beforeCube = m;
+							beforeCube = m;
 
 							curCount--;
 						}
