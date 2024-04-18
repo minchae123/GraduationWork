@@ -21,6 +21,7 @@ public class LeftControl : MonoBehaviour
 
 	[SerializeField] private LayerMask whatIsBox;
 	[SerializeField] private StageSO stageinfo;
+	[SerializeField] private Box box;
 
 	private int curCount;
 	private int maxCount;
@@ -51,37 +52,53 @@ public class LeftControl : MonoBehaviour
 		}
 		if (curCount < maxCount)
 		{
-			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4] && WASD.w != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.w;
 			}
-			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5] && WASD.s != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.s;
 			}
-			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3] && WASD.d != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.d;
 			}
-			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2] && WASD.a != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.a;
 			}
-			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0] && Vector3.up != returnBox(box)?._player2Dir)
 			{
 				transform.position += Vector3.up;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1] && Vector3.down != returnBox(box)?._player2Dir)
 			{
 				transform.position += Vector3.down;
 			}
+
+			returnBox(box)?.Determine();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			beforeCube = null;
+			while (mapVisited.Count > 0)
+			{
+				mapVisited.Peek().CancelVisit();
+				mapVisited.Pop();
+			}
 			transform.position = startPos;
-			curCount = stageinfo.LmoveCnt;
+			curCount = 0;
 		}
+	}
+
+	private Box returnBox(Box box)
+	{
+		if (box != null)
+			return box;
+
+		return null;
 	}
 
 	public void RayCheck()
@@ -211,7 +228,7 @@ public class LeftControl : MonoBehaviour
 				}
 				else
 				{
-					if (beforeCube != null)
+					if (beforeCube != null && beforeCube != m)
 					{
 						mapVisited.Push(beforeCube);
 						beforeCube.SetVisit();
