@@ -6,7 +6,7 @@ public class HoverButton : MonoBehaviour
 {
     [SerializeField] private List<Door> connectDoor; //이어진 문 넣어주기
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Moveable"))
         {
