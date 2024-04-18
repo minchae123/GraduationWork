@@ -66,4 +66,20 @@ public class Box : MonoBehaviour
 
         return -toPlayerDir.normalized;
     }
+       
+    private void DeleteObj() => Destroy(gameObject);
+
+    #region Trigger
+    private void OnTriggerEnter(Collider other)
+    {
+        transform.GetComponent<Rigidbody>().useGravity = false;
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        transform.GetComponent<Rigidbody>().useGravity = true;
+        Invoke("DeleteObj", 3);
+
+    }
+    #endregion
 }

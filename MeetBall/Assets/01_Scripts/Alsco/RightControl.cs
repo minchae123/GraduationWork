@@ -43,32 +43,32 @@ public class RightControl : MonoBehaviour
 
 		if (curCount < maxCount)
 		{
-			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4])
+			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4] && WASD.w != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.w;
 			}
-			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5])
+			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5] && WASD.s != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.s;
 			}
-			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3])
+			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3] && WASD.d != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.d;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2])
+			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2] && WASD.a != returnBox(box)?._player2Dir)
 			{
 				transform.position += WASD.a;
 			}
-			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0])
+			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0] && Vector3.up != returnBox(box)?._player2Dir)
 			{
 				transform.position += Vector3.up;
 			}
-			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1])
+			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1] && Vector3.down != returnBox(box)?._player2Dir)
 			{
 				transform.position += Vector3.down;
 			}
 
-			box?.Determine();
+			returnBox(box)?.Determine();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
@@ -77,6 +77,14 @@ public class RightControl : MonoBehaviour
 			curCount = stageinfo.RmoveCnt;
 		}
 	}
+
+	private Box returnBox(Box box)
+    {
+		if(box != null)
+			return box;
+
+		return null;
+    }
 
 	public void RayCheck()
 	{
