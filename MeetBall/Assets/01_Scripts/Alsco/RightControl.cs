@@ -73,8 +73,14 @@ public class RightControl : MonoBehaviour
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
+			beforeCube = null;
+            while (mapVisited.Count > 0)
+            {
+				mapVisited.Peek().CancelVisit();
+				mapVisited.Pop();
+            }
 			transform.position = startPos;
-			curCount = stageinfo.RmoveCnt;
+			curCount = 0;
 		}
 	}
 
@@ -205,8 +211,7 @@ public class RightControl : MonoBehaviour
 							mapVisited.Pop();
 							checkM.CancelVisit();
 
-							if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
-							else beforeCube = m;
+							beforeCube = m;
 
 							curCount--;
 						}
@@ -214,7 +219,7 @@ public class RightControl : MonoBehaviour
 				}
 				else
 				{
-					if (beforeCube != null)
+					if (beforeCube != null && beforeCube != m)
 					{
 						mapVisited.Push(beforeCube);
 						beforeCube.SetVisit();
