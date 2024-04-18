@@ -62,12 +62,14 @@ public class StageManager : MonoBehaviour
 
     public void ClearStage()
     {
+        BoxManager.Instance.ClearBox();
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
         Destroy(curStageGameObject);
 		curStage = GameManager.Instance.curStage;
+        LoadStage(curStage);
 
-		LoadStage(curStage);
+        BoxManager.Instance.FindBox();
     }
 
     public void ResetStage()

@@ -20,7 +20,7 @@ public class Box : MonoBehaviour
     [SerializeField] private float _saveDis;
 
     public Vector3 _leftPlayerDir { get; private set; } = Vector3.zero;
-    public Vector3 _player2Dir { get; private set; } = Vector3.zero;
+    public Vector3 _rightPlayerDir { get; private set; } = Vector3.zero;
 
     private Dictionary<Save, Vector3> _saveDir = new Dictionary<Save, Vector3>();
 
@@ -34,7 +34,7 @@ public class Box : MonoBehaviour
         else
         {
             _leftPlayerDir = Vector3.zero;
-            _player2Dir = Vector3.zero;
+            _rightPlayerDir = Vector3.zero;
         }
 
         if (player1Dis <= _saveDis)
@@ -46,9 +46,9 @@ public class Box : MonoBehaviour
     private bool SameWay()
     {
         _leftPlayerDir = (transform.position - _leftPlayer.position).normalized;
-        _player2Dir = (transform.position - _rightPlayer.position).normalized;
+        _rightPlayerDir = (transform.position - _rightPlayer.position).normalized;
 
-        return _leftPlayerDir == -_player2Dir;
+        return _leftPlayerDir == -_rightPlayerDir;
     }
 
     private void MoveBox(float dis, Transform player, Save save)
@@ -66,20 +66,31 @@ public class Box : MonoBehaviour
 
         return -toPlayerDir.normalized;
     }
-       
-    private void DeleteObj() => Destroy(gameObject);
 
-    #region Trigger
+    #region ¹Ú½º ³«ÇÏ
+    private bool _isFall = false;
+
     private void OnTriggerEnter(Collider other)
     {
         transform.GetComponent<Rigidbody>().useGravity = false;
+        _isFall = false;
     }
-    
+
     private void OnTriggerExit(Collider other)
     {
         transform.GetComponent<Rigidbody>().useGravity = true;
-        Invoke("DeleteObj", 3);
+        _isFall = true;
 
+        StartCoroutine(DeleteBox());
+
+    }
+
+    private IEnumerator DeleteBox()
+    {
+        yield return new WaitForSeconds(3);
+
+        if (_isFall)
+            Destroy(gameObject);
     }
     #endregion
 }
