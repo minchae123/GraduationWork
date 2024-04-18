@@ -67,7 +67,8 @@ public class RightControl : MonoBehaviour
 			{
 				transform.position += Vector3.down;
 			}
-			//box?.Determine();
+
+			box?.Determine();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
