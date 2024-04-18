@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class HoverButton : MonoBehaviour
 {
-    [SerializeField] private Door connectDoor; //이어진 문 넣어주기
+    [SerializeField] private List<Door> connectDoor; //이어진 문 넣어주기
 
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Moveable"))
         {
-            connectDoor.Open();
+            connectDoor.ForEach(door => { door.Open(); });
         }
     }
     private void OnTriggerExit(Collider other)
     {
-        connectDoor.Close();
+        connectDoor.ForEach(door => { door.Close(); });
     }
 }
