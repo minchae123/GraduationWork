@@ -30,10 +30,8 @@ public class RightControl : MonoBehaviour
 
 		startPos = transform.position;
 
-		curCount = 0;
-		maxCount = stageinfo.LmoveCnt;
-		//startPos = transform.position;
-		//curCount = moveCount;
+		curCount = -1;
+		maxCount = stageinfo.RmoveCnt;
 	}
 
 	void Update()
@@ -43,65 +41,44 @@ public class RightControl : MonoBehaviour
 			RayCheck();
 		}
 
-		if (curCount <= maxCount)
+		if (curCount < maxCount)
 		{
-			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4]
-				&& WASD.w != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4])
 			{
 				transform.position += WASD.w;
-				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5]
-				&& WASD.s != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5])
 			{
 				transform.position += WASD.s;
-				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3]
-				&& WASD.d != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3])
 			{
 				transform.position += WASD.d;
-				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2]
-				&& WASD.a != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2])
 			{
 				transform.position += WASD.a;
-				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0]
-				&& Vector3.up != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0])
 			{
 				transform.position += Vector3.up;
-				curCount--;
 			}
-			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1]
-				&& Vector3.down != box?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1])
 			{
 				transform.position += Vector3.down;
-				curCount--;
 			}
-
-			box?.Determine();
+			//box?.Determine();
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
 		{
 			transform.position = startPos;
-			curCount = stageinfo.LmoveCnt;
+			curCount = stageinfo.RmoveCnt;
 		}
 	}
 
 	public void RayCheck()
 	{
-		/*
-		ray[0].origin = transform.position;
-		ray[1].origin = transform.position;
-		ray[2].origin = transform.position;
-		ray[3].origin = transform.position;
-		ray[4].origin = transform.position;
-		ray[5].origin = transform.position;
-		*/
 		for (int i = 0; i < ray.Length; i++)
 		{
 			ray[i].origin = transform.position;
@@ -109,7 +86,31 @@ public class RightControl : MonoBehaviour
 
 			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
 			{
-				isCanMove[i] = true;
+				if (hit.collider.TryGetComponent<MapCube>(out MapCube m))
+				{
+					if (m.isVisit) // 방문을 한 곳인데
+					{
+						if (mapVisited.TryPeek(out MapCube checkM))
+						{
+							if (m == checkM) // 전에 바로 왔던 곳일 경우
+							{
+								isCanMove[i] = true; // 가능
+							}
+							else
+							{
+								isCanMove[i] = false; // 불가능
+							}
+						}
+					}
+					else // 방문 안 한 곳이면
+					{
+						isCanMove[i] = true; // 가능
+					}
+				}
+				else
+				{
+					isCanMove[i] = true; // 가능
+				}
 			}
 			else
 			{
@@ -174,6 +175,49 @@ public class RightControl : MonoBehaviour
 					ray[5].direction = transform.forward;
 				}
 				break;
+		}
+	}
+
+	public MapCube beforeCube;
+	private Stack<MapCube> mapVisited = new Stack<MapCube>();
+
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Moveable")) // 
+		{
+			if (other.TryGetComponent<MapCube>(out MapCube m))
+			{
+				if (m.isVisit)
+				{
+					if (mapVisited.TryPeek(out MapCube checkM))
+					{
+						if (m == checkM)
+						{
+							mapVisited.Pop();
+							checkM.CancelVisit();
+
+							if (mapVisited.Count > 0) beforeCube = mapVisited.Peek();
+							else beforeCube = m;
+
+							curCount--;
+						}
+					}
+				}
+				else
+				{
+					if (beforeCube != null)
+					{
+						mapVisited.Push(beforeCube);
+						beforeCube.SetVisit();
+					}
+					beforeCube = m;
+					curCount++;
+				}
+			}
+			else
+			{
+				curCount++;
+			}
 		}
 	}
 }
