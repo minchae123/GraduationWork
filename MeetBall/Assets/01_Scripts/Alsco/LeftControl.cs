@@ -15,7 +15,6 @@ struct WASD
 public class LeftControl : MonoBehaviour
 {
 	private WASD WASD;
-
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
@@ -26,6 +25,7 @@ public class LeftControl : MonoBehaviour
 	private int curCount;
 	private int maxCount;
 	private Vector3 startPos;
+	private Vector3 direction;
 
 	private bool[] isCanMove = new bool[6];
 
@@ -44,40 +44,50 @@ public class LeftControl : MonoBehaviour
 		curCount = -1;
 		maxCount = stageinfo.LmoveCnt;
 	}
+
 	void Update()
 	{
         if (Input.anyKeyDown)
         {
 			RayCheck();
-		}
-		if (curCount < maxCount)
-		{
-			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4] && WASD.w != returnBox(box)?._player2Dir)
-			{
-				transform.position += WASD.w;
-			}
-			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5] && WASD.s != returnBox(box)?._player2Dir)
-			{
-				transform.position += WASD.s;
-			}
-			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3] && WASD.d != returnBox(box)?._player2Dir)
-			{
-				transform.position += WASD.d;
-			}
-			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2] && WASD.a != returnBox(box)?._player2Dir)
-			{
-				transform.position += WASD.a;
-			}
-			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0] && Vector3.up != returnBox(box)?._player2Dir)
-			{
-				transform.position += Vector3.up;
-			}
-			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1] && Vector3.down != returnBox(box)?._player2Dir)
-			{
-				transform.position += Vector3.down;
-			}
+			box = BoxManager.Instance.ReturnBox(transform.position);
 
 			returnBox(box)?.Determine();
+		}
+
+		if (curCount < maxCount)
+		{
+			direction = Vector3.zero;
+
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
+			{
+				direction = WASD.w;
+			}
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
+			{
+				direction = WASD.s;
+			}
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
+			{
+				direction = WASD.d;
+			}
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
+			{
+				direction = WASD.a;
+			}
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
+			{
+				direction = Vector3.up;
+			}
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
+			{
+				direction = Vector3.down;
+			}
+
+			if (returnBox(box)?._leftPlayerDir == direction)
+				direction = Vector3.zero;
+
+			transform.position += direction;
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))

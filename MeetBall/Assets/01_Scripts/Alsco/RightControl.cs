@@ -15,6 +15,7 @@ public class RightControl : MonoBehaviour
 	private int curCount;
 	private int maxCount;
 	private Vector3 startPos;
+	private Vector3 direction;
 
 	private bool[] isCanMove = new bool[6];
 
@@ -39,36 +40,44 @@ public class RightControl : MonoBehaviour
 		if (Input.anyKeyDown)
 		{
 			RayCheck();
+			box = BoxManager.Instance.ReturnBox(transform.position);
+
+			returnBox(box)?.Determine();
 		}
 
 		if (curCount < maxCount)
 		{
-			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4] && WASD.w != returnBox(box)?._player2Dir)
+			direction = Vector3.zero;
+
+			if (Input.GetKeyDown(KeyCode.UpArrow) && isCanMove[4])
 			{
-				transform.position += WASD.w;
+				direction = WASD.w;
 			}
-			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5] && WASD.s != returnBox(box)?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.DownArrow) && isCanMove[5])
 			{
-				transform.position += WASD.s;
+				direction = WASD.s;
 			}
-			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3] && WASD.d != returnBox(box)?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.RightArrow) && isCanMove[3])
 			{
-				transform.position += WASD.d;
+				direction = WASD.d;
 			}
-			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2] && WASD.a != returnBox(box)?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.LeftArrow) && isCanMove[2])
 			{
-				transform.position += WASD.a;
+				direction = WASD.a;
 			}
-			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0] && Vector3.up != returnBox(box)?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.Return) && isCanMove[0])
 			{
-				transform.position += Vector3.up;
+				direction = Vector3.up;
 			}
-			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1] && Vector3.down != returnBox(box)?._player2Dir)
+			if (Input.GetKeyDown(KeyCode.RightShift) && isCanMove[1])
 			{
-				transform.position += Vector3.down;
+				direction = Vector3.down;
 			}
 
-			returnBox(box)?.Determine();
+			if (returnBox(box)?._rightPlayerDir == direction)
+				direction = Vector3.zero;
+
+			transform.position += direction;
 		}
 
 		if (Input.GetKeyDown(KeyCode.R))
