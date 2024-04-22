@@ -48,6 +48,7 @@ public class Box : MonoBehaviour
         _leftPlayerDir = (transform.position - _leftPlayer.position).normalized;
         _rightPlayerDir = (transform.position - _rightPlayer.position).normalized;
 
+        if (_leftPlayerDir == Vector3.zero) return false;
         return _leftPlayerDir == -_rightPlayerDir;
     }
 
@@ -90,7 +91,10 @@ public class Box : MonoBehaviour
         yield return new WaitForSeconds(3);
 
         if (_isFall)
+        {
+            BoxManager.Instance.RemoveBox(transform.GetComponent<Box>());
             Destroy(gameObject);
+        }
     }
     #endregion
 }
