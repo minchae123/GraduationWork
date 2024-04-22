@@ -8,23 +8,19 @@ public class BoxManager : MonoSingleton<BoxManager>
 
     public void FindBox()
     {
-        SearchBox();
-           Box[] boxes = GameObject.FindObjectsOfType<Box>();
+        Box[] boxes = GameObject.FindObjectsOfType<Box>();
 
-        if (boxes.Length == 0)
-            Boxes.Clear();
+        Boxes.Clear();
 
         foreach (Box box in boxes)
         {
-            if (!Boxes.Contains(box))
-            {
-                print(box);
+            if (!Boxes.Contains(box) && box != null)
                 Boxes.Add(box);
-            }
         }
     }
 
-    public void ClearBox() => Boxes.Clear();
+    public void RemoveBox(Box box) => Boxes.Remove(box);
+
     private void SearchBox()
     {
         Box box = GameObject.FindObjectOfType<Box>();
@@ -44,7 +40,7 @@ public class BoxManager : MonoSingleton<BoxManager>
 
         foreach (Box box in Boxes)
         {
-            if(box is null) return null;
+            if (box is null) Boxes.Remove(box);
 
             float saveDis = Vector3.Distance(nealBox.transform.position, player);
             float newDis = Vector3.Distance(box.transform.position, player);
