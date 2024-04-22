@@ -13,6 +13,7 @@ public class TeleportManager : MonoBehaviour
     {
         for (int i = 0; i < StartPortalList.Count; ++i)
         {
+            print("텔포초기화");
             tpPair.Add(StartPortalList[i], EndPortalList[i]);
         }
     }

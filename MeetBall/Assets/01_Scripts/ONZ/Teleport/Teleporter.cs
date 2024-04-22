@@ -27,10 +27,17 @@ public class Teleporter : MonoBehaviour
         {
             if (other.CompareTag("Teleport") && !isTP)
             {
-                isTP = true;
-                print(isTP);
-                print(teleportManager.tpPair[other.transform]); // �̵��� ��ġ
-                transform.position = teleportManager.tpPair[other.transform].position;
+                if (teleportManager.tpPair.ContainsKey(other.transform))
+                {
+                    isTP = true;
+                    print(isTP);
+                    print(teleportManager.tpPair[other.transform]); // �̵��� ��ġ
+                    transform.position = teleportManager.tpPair[other.transform].position;
+                }
+                else
+                {
+                    print("탈수없는것임.");
+                }
                 CoroutineUtil.CallWaitForSeconds(_tpDelayTime, null, () => isTP = false);
             }
         }
