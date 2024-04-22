@@ -42,6 +42,12 @@ public class StageManager : MonoBehaviour
         {
             ClearStage();
         }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+			Destroy(curStageGameObject);
+            LoadStage(curStage);
+		}
 	}
 
 	public void LoadStage(int stageNum)

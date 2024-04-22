@@ -90,7 +90,7 @@ public class LeftControl : MonoBehaviour
 			transform.position += direction;
 		}
 
-		if (Input.GetKeyDown(KeyCode.R))
+		/*if (Input.GetKeyDown(KeyCode.R))
 		{
 			beforeCube = null;
 			while (mapVisited.Count > 0)
@@ -100,7 +100,7 @@ public class LeftControl : MonoBehaviour
 			}
 			transform.position = startPos;
 			curCount = 0;
-		}
+		}*/
 	}
 
 	private Box returnBox(Box box)

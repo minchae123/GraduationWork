@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoxManager : MonoSingleton<BoxManager>
 {
-    private List<Box> Boxes = new List<Box>();
+    [SerializeField] private List<Box> Boxes = new List<Box>();
 
     public void FindBox()
     {
