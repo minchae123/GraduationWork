@@ -6,93 +6,91 @@ using UnityEngine.Rendering.LookDev;
 
 struct WASD
 {
-    public Vector3 w;
-    public Vector3 s;
-    public Vector3 a;
-    public Vector3 d;
+	public Vector3 w;
+	public Vector3 s;
+	public Vector3 a;
+	public Vector3 d;
 }
 
 public class LeftControl : MonoBehaviour
 {
-    private WASD WASD;
-    private RaycastHit hit;
-    private Ray[] ray = new Ray[6];
+	private WASD WASD;
+	private RaycastHit hit;
+	private Ray[] ray = new Ray[6];
 
-    [SerializeField] private LayerMask whatIsBox;
-    [SerializeField] private StageSO stageinfo;
-    [SerializeField] private Box box;
+	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageinfo;
+	[SerializeField] private Box box;
 
-    private int curCount;
-    private int maxCount;
-    private Vector3 startPos;
-    private Vector3 direction;
+	private int curCount;
+	private int maxCount;
+	private Vector3 startPos;
+	private Vector3 direction;
 
-    private bool[] isCanMove = new bool[6];
+	private bool[] isCanMove = new bool[6];
 
-    private void Start()
-    {
-        //ï¿½ï¿½ï¿½ï¿½ï¿½Â¿ï¿½Õµï¿½
-        ray[0].direction = transform.up;
-        ray[1].direction = -transform.up;
-        ray[2].direction = -transform.right;
-        ray[3].direction = transform.right;
-        ray[4].direction = transform.forward;
-        ray[5].direction = -transform.forward;
+	private void Start()
+	{
+		//»óÇÏÁÂ¿ì¾ÕµÚ
+		ray[0].direction = transform.up;
+		ray[1].direction = -transform.up;
+		ray[2].direction = -transform.right;
+		ray[3].direction = transform.right;
+		ray[4].direction = transform.forward;
+		ray[5].direction = -transform.forward;
 
-        startPos = transform.position;
+		startPos = transform.position;
 
-        curCount = -1;
-        maxCount = stageinfo.LmoveCnt;
-    }
+		curCount = 0;
+		maxCount = stageinfo.LmoveCnt;
+	}
 
-    void Update()
-    {
-        if (Input.anyKeyDown)
-        {
-            RayCheck();
-            box = BoxManager.Instance.ReturnBox(transform.position);
+	void Update()
+	{
+		if (Input.anyKeyDown)
+		{
+			RayCheck();
+			box = BoxManager.Instance.ReturnBox(transform.position);
+		}
+		returnBox(box)?.Determine();
 
-        }
-        returnBox(box)?.Determine();
+		//if (curCount < maxCount)
+		{
+			print(curCount);
+			direction = Vector3.zero;
 
-        if (curCount < maxCount)
-        {
-            direction = Vector3.zero;
+			if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
+			{
+				direction = WASD.w;
+			}
+			if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
+			{
+				direction = WASD.s;
+			}
+			if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
+			{
+				direction = WASD.d;
+			}
+			if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
+			{
+				direction = WASD.a;
+			}
+			if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
+			{
+				direction = Vector3.up;
+			}
+			if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
+			{
+				direction = Vector3.down;
+			}
 
-            if (Input.GetKeyDown(KeyCode.W) && isCanMove[4])
-            {
-                direction = WASD.w;
-            }
-            if (Input.GetKeyDown(KeyCode.S) && isCanMove[5])
-            {
-                direction = WASD.s;
-            }
-            if (Input.GetKeyDown(KeyCode.D) && isCanMove[3])
-            {
-                direction = WASD.d;
-            }
-            if (Input.GetKeyDown(KeyCode.A) && isCanMove[2])
-            {
-                direction = WASD.a;
-            }
-            if (Input.GetKeyDown(KeyCode.Space) && isCanMove[0])
-            {
-                direction = Vector3.up;
-            }
-            if (Input.GetKeyDown(KeyCode.LeftShift) && isCanMove[1])
-            {
-                direction = Vector3.down;
-            }
+			if (returnBox(box)?._leftPlayerDir == direction)
+				direction = Vector3.zero;
 
-            if (returnBox(box)?._leftPlayerDir == direction)
-            {
-                direction = Vector3.zero;
-            }
+			transform.position += direction;
+		}
 
-            transform.position += direction;
-        }
-
-		/*if (Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.R))
 		{
 			beforeCube = null;
 			while (mapVisited.Count > 0)
@@ -102,157 +100,169 @@ public class LeftControl : MonoBehaviour
 			}
 			transform.position = startPos;
 			curCount = 0;
-		}*/
+		}
 	}
 
-    private Box returnBox(Box box)
-    {
-        if (box != null)
-            return box;
+	private Box returnBox(Box box)
+	{
+		if (box != null)
+			return box;
 
-        return null;
-    }
+		return null;
+	}
 
-    public void RayCheck()
-    {
-        for (int i = 0; i < ray.Length; i++)
-        {
-            ray[i].origin = transform.position;
-            Debug.DrawRay(ray[i].origin, ray[i].direction);
+	public void RayCheck()
+	{
+		for (int i = 0; i < ray.Length; i++)
+		{
+			ray[i].origin = transform.position;
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
 
-            if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
-            {
-                if (hit.collider.TryGetComponent<MapCube>(out MapCube m))
-                {
-                    if (m.isVisit) // ï¿½æ¹®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Îµï¿½
-                    {
-                        if (mapVisited.TryPeek(out MapCube checkM))
-                        {
-                            if (m == checkM) // ï¿½ï¿½ï¿½ï¿½ ï¿½Ù·ï¿½ ï¿½Ô´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
-                            {
-                                isCanMove[i] = true; // ï¿½ï¿½ï¿½ï¿½
-                            }
-                            else
-                            {
-                                isCanMove[i] = false; // ï¿½Ò°ï¿½ï¿½ï¿½
-                            }
-                        }
-                    }
-                    else // ï¿½æ¹® ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¸ï¿½
-                    {
-                        isCanMove[i] = true; // ï¿½ï¿½ï¿½ï¿½
-                    }
-                }
-                else
-                {
-                    isCanMove[i] = true; // ï¿½ï¿½ï¿½ï¿½
-                }
-            }
-            else
-            {
-                isCanMove[i] = false;
-            }
-        }
-    }
+			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
+			{
+				if (hit.collider.TryGetComponent<MapCube>(out MapCube m))
+				{
+					if (curCount >= maxCount) // ÀÌµ¿À»´ÙÇßÀ½ (µÚ·Î´Â °¥¼öÀÕ°ÔÇØÁà¾ßÇÔ)
+					{
+						print("dd");
+						if (m == mapVisited.Peek())
+						{
+							print(m);
+							isCanMove[i] = true; // °¡´É
+							break;
+						}
+						else
+						{
+							isCanMove[i] = false;
+							continue;
+						}
+					}
 
-    public void Move(DIRECTION dir)
-    {
-        switch (dir)
-        {
-            case DIRECTION.East:
-                {
-                    WASD.w = -Vector3.right;
-                    WASD.s = Vector3.right;
-                    WASD.a = -Vector3.forward;
-                    WASD.d = Vector3.forward;
+					if (m.isVisit) // ¹æ¹®À» ÇÑ °÷ÀÎµ¥
+					{
+						if (mapVisited.TryPeek(out MapCube checkM))
+						{
+							if (m == checkM) // Àü¿¡ ¹Ù·Î ¿Ô´ø °÷ÀÏ °æ¿ì
+							{
+								isCanMove[i] = true; // °¡´É
+							}
+							else
+							{
+								isCanMove[i] = false; // ºÒ°¡´É
+							}
+						}
+					}
+					else // ¹æ¹® ¾È ÇÑ °÷ÀÌ¸é
+					{
+						isCanMove[i] = true; // °¡´É
+					}
+				}
+			}
+			else
+			{
+				isCanMove[i] = false;
+			}
+		}
+	}
 
-                    ray[2].direction = -transform.forward;
-                    ray[3].direction = transform.forward;
-                    ray[4].direction = -transform.right;
-                    ray[5].direction = transform.right;
-                }
-                break;
-            case DIRECTION.West:
-                {
-                    WASD.w = Vector3.right;
-                    WASD.s = -Vector3.right;
-                    WASD.a = Vector3.forward;
-                    WASD.d = -Vector3.forward;
+	public void Move(DIRECTION dir)
+	{
+		switch (dir)
+		{
+			case DIRECTION.East:
+				{
+					WASD.w = -Vector3.right;
+					WASD.s = Vector3.right;
+					WASD.a = -Vector3.forward;
+					WASD.d = Vector3.forward;
 
-                    ray[2].direction = transform.forward;
-                    ray[3].direction = -transform.forward;
-                    ray[4].direction = transform.right;
-                    ray[5].direction = -transform.right;
-                }
-                break;
-            case DIRECTION.South:
-                {
-                    WASD.w = Vector3.forward;
-                    WASD.s = -Vector3.forward;
-                    WASD.a = -Vector3.right;
-                    WASD.d = Vector3.right;
+					ray[2].direction = -transform.forward;
+					ray[3].direction = transform.forward;
+					ray[4].direction = -transform.right;
+					ray[5].direction = transform.right;
+				}
+				break;
+			case DIRECTION.West:
+				{
+					WASD.w = Vector3.right;
+					WASD.s = -Vector3.right;
+					WASD.a = Vector3.forward;
+					WASD.d = -Vector3.forward;
 
-                    ray[2].direction = -transform.right;
-                    ray[3].direction = transform.right;
-                    ray[4].direction = transform.forward;
-                    ray[5].direction = -transform.forward;
-                }
-                break;
-            case DIRECTION.North:
-                {
-                    WASD.w = -Vector3.forward;
-                    WASD.s = Vector3.forward;
-                    WASD.a = Vector3.right;
-                    WASD.d = -Vector3.right;
+					ray[2].direction = transform.forward;
+					ray[3].direction = -transform.forward;
+					ray[4].direction = transform.right;
+					ray[5].direction = -transform.right;
+				}
+				break;
+			case DIRECTION.South:
+				{
+					WASD.w = Vector3.forward;
+					WASD.s = -Vector3.forward;
+					WASD.a = -Vector3.right;
+					WASD.d = Vector3.right;
 
-                    ray[2].direction = transform.right;
-                    ray[3].direction = -transform.right;
-                    ray[4].direction = -transform.forward;
-                    ray[5].direction = transform.forward;
-                }
-                break;
-        }
-    }
+					ray[2].direction = -transform.right;
+					ray[3].direction = transform.right;
+					ray[4].direction = transform.forward;
+					ray[5].direction = -transform.forward;
+				}
+				break;
+			case DIRECTION.North:
+				{
+					WASD.w = -Vector3.forward;
+					WASD.s = Vector3.forward;
+					WASD.a = Vector3.right;
+					WASD.d = -Vector3.right;
 
-    public MapCube beforeCube;
-    private Stack<MapCube> mapVisited = new Stack<MapCube>();
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
+					ray[4].direction = -transform.forward;
+					ray[5].direction = transform.forward;
+				}
+				break;
+		}
+	}
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Moveable")) // 
-        {
-            if (other.TryGetComponent<MapCube>(out MapCube m))
-            {
-                if (m.isVisit)
-                {
-                    if (mapVisited.TryPeek(out MapCube checkM))
-                    {
-                        if (m == checkM)
-                        {
-                            mapVisited.Pop();
-                            checkM.CancelVisit();
+	public MapCube beforeCube;
+	private Stack<MapCube> mapVisited = new Stack<MapCube>();
 
-                            beforeCube = m;
+	private void OnTriggerEnter(Collider other)
+	{
+		if (other.CompareTag("Moveable")) // 
+		{
+			if (other.TryGetComponent<MapCube>(out MapCube m))
+			{
+				if (m.isVisit)
+				{
+					if (mapVisited.TryPeek(out MapCube checkM))
+					{
+						if (m == checkM)
+						{
+							mapVisited.Pop();
+							checkM.CancelVisit();
 
-                            curCount--;
-                        }
-                    }
-                }
-                else
-                {
-                    if (beforeCube != null && beforeCube != m)
-                    {
-                        mapVisited.Push(beforeCube);
-                        beforeCube.SetVisit();
-                    }
-                    beforeCube = m;
-                    curCount++;
-                }
-            }
-            else
-            {
-                curCount++;
-            }
-        }
-    }
+							beforeCube = m;
+
+							curCount--;
+						}
+					}
+				}
+				else
+				{
+					if (beforeCube != null && beforeCube != m)
+					{
+						mapVisited.Push(beforeCube);
+						beforeCube.SetVisit();
+					}
+					beforeCube = m;
+					curCount++;
+				}
+			}
+			else
+			{
+				curCount++;
+			}
+		}
+	}
 }
