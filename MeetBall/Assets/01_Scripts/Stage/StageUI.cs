@@ -4,34 +4,25 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
+using System;
 
-public class StageUI : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class StageUI : MonoBehaviour
 {
-    private int stageNum = 0;
-    [SerializeField] private TextMeshProUGUI stageText;
+    public bool IsSelected = false;
 
-
-    public void SetNumber(int num)
+    private void Start()
     {
-        stageNum = num;
-        stageText.text = $"{stageNum}";
-
-        if (stageNum < 10) stageText.text = $"0{stageNum}";
+        IsSelected = false;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void Selected()
     {
-        print(stageNum);
-        StageManager.Instance.LoadStage(stageNum);
+        IsSelected = true;
+        transform.DOScale(2f, 0.6f);
     }
-
-    public void OnPointerExit(PointerEventData eventData)
+    public void UnSelected()
     {
-        transform.DOScale(1.0f, 0.3f);
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        transform.DOShakeScale(1, 1, 10, 1, false);
+        IsSelected = false;
+        transform.DOScale(1f, 0.6f);
     }
 }
