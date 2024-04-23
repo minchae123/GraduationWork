@@ -8,9 +8,12 @@ public class HoverButton : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!other.CompareTag("Moveable"))
+        if(connectDoor.Count > 0)
         {
-            connectDoor.ForEach(door => { door.Open(); });
+            if (!other.CompareTag("Moveable"))
+            {
+                connectDoor.ForEach(door => { door.Open(); });
+            }
         }
     }
     private void OnTriggerExit(Collider other)
