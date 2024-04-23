@@ -50,10 +50,12 @@ public class LeftControl : MonoBehaviour
         if (Input.anyKeyDown)
         {
             RayCheck();
+        }
+
             box = BoxManager.Instance.ReturnBox(transform.position);
 
-        }
-        returnBox(box)?.Determine();
+        if (box != null)
+            returnBox(box)?.Determine();
 
         if (curCount < maxCount)
         {
@@ -84,10 +86,8 @@ public class LeftControl : MonoBehaviour
                 direction = Vector3.down;
             }
 
-            if (returnBox(box)?._leftPlayerDir == direction)
-            {
+            if (box != null && returnBox(box)?._leftPlayerDir == direction)
                 direction = Vector3.zero;
-            }
 
             transform.position += direction;
         }
@@ -107,7 +107,10 @@ public class LeftControl : MonoBehaviour
 
     private Box returnBox(Box box)
     {
-        if (box != null)
+        if (GameObject.FindObjectOfType<Box>() is null)
+            return null;
+
+        if (box is not null)
             return box;
 
         return null;

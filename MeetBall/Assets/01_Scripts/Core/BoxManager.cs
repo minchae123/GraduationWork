@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BoxManager : MonoSingleton<BoxManager>
 {
-    private List<Box> Boxes = new List<Box>();
+    public List<Box> Boxes = new List<Box>();
 
     public void FindBox()
     {
@@ -19,6 +19,7 @@ public class BoxManager : MonoSingleton<BoxManager>
         }
     }
 
+    public void CleanBox() => Boxes.Clear();
     public void RemoveBox(Box box) => Boxes.Remove(box);
 
     private void SearchBox()
@@ -27,6 +28,25 @@ public class BoxManager : MonoSingleton<BoxManager>
 
         if (box is null)
             Boxes.Clear();
+    }
+
+    public void boxDec(Vector3 player)
+    {
+        SearchBox();
+
+        if (Boxes.Count == 0)
+            return;
+
+        foreach (Box box in Boxes)
+        {
+            if (box is null)
+            {
+                Boxes.Remove(box);
+                continue;
+            }
+
+            box.Determine();
+        }
     }
 
     public Box ReturnBox(Vector3 player)
@@ -41,14 +61,17 @@ public class BoxManager : MonoSingleton<BoxManager>
         foreach (Box box in Boxes)
         {
             if (box is null) Boxes.Remove(box);
+            if (nealBox != null)
+            {
+                float saveDis = Vector3.Distance(nealBox.transform.position, player);
+                float newDis = Vector3.Distance(box.transform.position, player);
 
-            float saveDis = Vector3.Distance(nealBox.transform.position, player);
-            float newDis = Vector3.Distance(box.transform.position, player);
-
-            if (newDis < saveDis)
-                nealBox = box;
+                if (newDis < saveDis)
+                    nealBox = box;
+            }
         }
 
         return nealBox;
     }
 }
+
