@@ -20,6 +20,8 @@ public class StageGenerator : MonoBehaviour
     private void Start()
     {
         ResetStage();
+
+        StageLoad();
     }
 
     private void Update()
@@ -38,7 +40,7 @@ public class StageGenerator : MonoBehaviour
     {
         foreach (var block in Blocks)
         {
-            block.transform.position = new Vector3(Random.Range(5, 10), Random.Range(5, 10), Random.Range(5, 10));
+            block.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
         }
     }
 }
