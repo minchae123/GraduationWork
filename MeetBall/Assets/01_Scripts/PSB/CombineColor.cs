@@ -25,6 +25,7 @@ public class CombineColor : MonoBehaviour
 			Destroy(other.gameObject);
 			ClearAnim.SetTrigger("Clear");
 
+			BoxManager.Instance.CleanBox();
 			StartCoroutine(LevelClear());
 		}
 	}

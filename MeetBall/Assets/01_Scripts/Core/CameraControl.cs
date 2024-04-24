@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UIElements;
 using DG.Tweening;
+using System;
 
 public class CameraControl : MonoBehaviour
 {
@@ -75,6 +76,7 @@ public class CameraControl : MonoBehaviour
 	{
 		if (Input.GetAxis("Mouse Y") != 0 || Input.GetAxis("Mouse X") != 0)
 		{
+
 			orginRotate = cam.transform.localRotation;
 			float vertical = Input.GetAxis("Mouse Y") * rotateSpeed * Time.deltaTime;
 			float horizontal = Input.GetAxis("Mouse X") * rotateSpeed * Time.deltaTime;

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(menuName ="SO/Stage")]
+[CreateAssetMenu(menuName ="SO/StageInfo")]
 public class StageSO : ScriptableObject
 {
     public GameObject stagePref;
