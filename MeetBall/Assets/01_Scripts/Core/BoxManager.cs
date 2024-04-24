@@ -30,7 +30,7 @@ public class BoxManager : MonoSingleton<BoxManager>
             Boxes.Clear();
     }
 
-    public void boxDec(Vector3 player)
+    public void boxDec(Transform player)
     {
         SearchBox();
 
@@ -45,7 +45,13 @@ public class BoxManager : MonoSingleton<BoxManager>
                 continue;
             }
 
-            box.Determine();
+            if (box != null)
+                box.Determine();
+
+            if (player.TryGetComponent(out LeftControl left) && box._leftPlayerDir == left.direction)
+                left.direction = Vector3.zero;
+            else if (player.TryGetComponent(out RightControl right) && box._rightPlayerDir == right.direction)
+                right.direction = Vector3.zero;
         }
     }
 

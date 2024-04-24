@@ -16,7 +16,7 @@ public class RightControl : MonoBehaviour
     private int curCount;
     private int maxCount;
     private Vector3 startPos;
-    private Vector3 direction;
+    public Vector3 direction;
 
     private bool[] isCanMove = new bool[6];
 
@@ -43,10 +43,10 @@ public class RightControl : MonoBehaviour
             RayCheck();
 
         }
-            box = BoxManager.Instance.ReturnBox(transform.position);
+        //box = BoxManager.Instance.ReturnBox(transform.position);
 
-        if (box != null)
-            returnBox(box)?.Determine();
+        //if (box != null)
+        //    returnBox(box)?.Determine();
 
         if (curCount < maxCount)
         {
@@ -77,8 +77,10 @@ public class RightControl : MonoBehaviour
                 direction = Vector3.down;
             }
 
-            if (box != null && returnBox(box)?._rightPlayerDir == direction)
-                direction = Vector3.zero;
+            BoxManager.Instance.boxDec(transform);
+
+            //if (box != null && returnBox(box)?._rightPlayerDir == direction)
+            //    direction = Vector3.zero;
 
             transform.position += direction;
         }
