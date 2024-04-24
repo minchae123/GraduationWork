@@ -25,7 +25,7 @@ public class LeftControl : MonoBehaviour
     private int curCount;
     private int maxCount;
     private Vector3 startPos;
-    private Vector3 direction;
+    public Vector3 direction;
 
     private bool[] isCanMove = new bool[6];
 
@@ -52,10 +52,10 @@ public class LeftControl : MonoBehaviour
             RayCheck();
         }
 
-            box = BoxManager.Instance.ReturnBox(transform.position);
+        //    box = BoxManager.Instance.ReturnBox(transform.position);
 
-        if (box != null)
-            returnBox(box)?.Determine();
+        //if (box != null)
+        //    returnBox(box)?.Determine();
 
         if (curCount < maxCount)
         {
@@ -86,8 +86,9 @@ public class LeftControl : MonoBehaviour
                 direction = Vector3.down;
             }
 
-            if (box != null && returnBox(box)?._leftPlayerDir == direction)
-                direction = Vector3.zero;
+            BoxManager.Instance.boxDec(transform);
+            //if (box != null && returnBox(box)?._leftPlayerDir == direction)
+            //    direction = Vector3.zero;
 
             transform.position += direction;
         }
