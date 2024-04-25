@@ -48,6 +48,7 @@ public class CameraManager : MonoBehaviour
 	public void OnLook(InputAction.CallbackContext context)
 	{
 		delta = context.ReadValue<Vector2>(); // 마우스 위치 받아오기
+		print("dd");
 	}
 
 	public void OnMove(InputAction.CallbackContext context)
