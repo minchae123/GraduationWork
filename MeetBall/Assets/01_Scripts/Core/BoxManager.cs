@@ -4,7 +4,10 @@ using UnityEngine;
 
 public class BoxManager : MonoSingleton<BoxManager>
 {
-    public List<Box> Boxes = new List<Box>();
+    private List<Box> Boxes = new List<Box>();
+
+    public void CleanBox() => Boxes.Clear();
+    public void RemoveBox(Box box) => Boxes.Remove(box);
 
     public void FindBox()
     {
@@ -19,9 +22,6 @@ public class BoxManager : MonoSingleton<BoxManager>
         }
     }
 
-    public void CleanBox() => Boxes.Clear();
-    public void RemoveBox(Box box) => Boxes.Remove(box);
-
     private void SearchBox()
     {
         Box box = GameObject.FindObjectOfType<Box>();
@@ -29,6 +29,28 @@ public class BoxManager : MonoSingleton<BoxManager>
         if (box is null)
             Boxes.Clear();
     }
+
+    public bool SameBox(Box ownerBox, Transform player, Vector3 dir)
+    {
+        foreach (Box box in Boxes)
+        {
+            if (box != ownerBox)
+            {
+                if (ownerBox.transform.position + dir == box.transform.position)
+                {
+                    if (player.TryGetComponent(out LeftControl left) && dir == left.direction)
+                        left.direction = Vector3.zero;
+                    else if (player.TryGetComponent(out RightControl right) && dir == right.direction)
+                        right.direction = Vector3.zero;
+                }
+                else if (ownerBox.transform.position == box.transform.position)
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
 
     public void boxDec(Transform player)
     {
@@ -39,12 +61,6 @@ public class BoxManager : MonoSingleton<BoxManager>
 
         foreach (Box box in Boxes)
         {
-            if (box is null)
-            {
-                Boxes.Remove(box);
-                continue;
-            }
-
             if (box != null)
                 box.Determine();
 
@@ -52,6 +68,7 @@ public class BoxManager : MonoSingleton<BoxManager>
                 left.direction = Vector3.zero;
             else if (player.TryGetComponent(out RightControl right) && box._rightPlayerDir == right.direction)
                 right.direction = Vector3.zero;
+
         }
     }
 
@@ -78,6 +95,6 @@ public class BoxManager : MonoSingleton<BoxManager>
         }
 
         return nealBox;
-    }
+    } // 안쓰이지만 혹시 모르니 두기
 }
 

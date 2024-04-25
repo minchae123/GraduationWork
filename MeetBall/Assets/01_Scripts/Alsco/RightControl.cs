@@ -10,8 +10,6 @@ public class RightControl : MonoBehaviour
 
     [SerializeField] private LayerMask whatIsBox;
     [SerializeField] private StageSO stageinfo;
-    [SerializeField] private Box box;
-    private Box[] boxs;
 
     private int curCount;
     private int maxCount;
@@ -41,12 +39,7 @@ public class RightControl : MonoBehaviour
         if (Input.anyKeyDown)
         {
             RayCheck();
-
         }
-        //box = BoxManager.Instance.ReturnBox(transform.position);
-
-        //if (box != null)
-        //    returnBox(box)?.Determine();
 
         if (curCount < maxCount)
         {
@@ -79,23 +72,8 @@ public class RightControl : MonoBehaviour
 
             BoxManager.Instance.boxDec(transform);
 
-            //if (box != null && returnBox(box)?._rightPlayerDir == direction)
-            //    direction = Vector3.zero;
-
             transform.position += direction;
         }
-
-    }
-
-    private Box returnBox(Box box)
-    {
-        if (GameObject.FindObjectOfType<Box>() is null)
-            return null;
-
-        if (box != null)
-            return box;
-
-        return null;
     }
 
     public void RayCheck()
