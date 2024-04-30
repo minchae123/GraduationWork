@@ -132,7 +132,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stageinfo: {fileID: 11400000, guid: 411d833d568849146a3bf8a6ce69366e, type: 2}
-  box: {fileID: 7288373827897314033}
   direction: {x: 0, y: 0, z: 0}
   beforeCube: {fileID: 0}
 --- !u!114 &5964099676280178689
@@ -281,7 +280,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stageinfo: {fileID: 11400000, guid: 411d833d568849146a3bf8a6ce69366e, type: 2}
-  box: {fileID: 7288373827897314033}
   direction: {x: 0, y: 0, z: 0}
   beforeCube: {fileID: 0}
 --- !u!114 &2630472168730257499
@@ -1263,6 +1261,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5107079194156830572}
     m_Modifications:
+    - target: {fileID: 1945103369334844865, guid: 0e6682578e02503479ba2a0531cba5a3, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1945103369334844867, guid: 0e6682578e02503479ba2a0531cba5a3, type: 3}
       propertyPath: m_RootOrder
       value: 8
@@ -1339,17 +1341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tpDelayTime: 0.2
---- !u!114 &7288373827897314033 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1945103369334844870, guid: 0e6682578e02503479ba2a0531cba5a3, type: 3}
-  m_PrefabInstance: {fileID: 9213208516415498039}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7288373827897313995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e7e7f4b13d7e2b54e837381a3d2e0c5a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &7288373827897314036 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1945103369334844867, guid: 0e6682578e02503479ba2a0531cba5a3, type: 3}
