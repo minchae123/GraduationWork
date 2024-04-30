@@ -42,9 +42,12 @@ public class LeftControl : MonoBehaviour
 
         curCount = -1;
         maxCount = stageinfo.LmoveCnt;
-    }
 
-    void Update()
+        Move(DIRECTION.East);
+		RayCheck();
+	}
+
+	void Update()
     {
         if (Input.anyKeyDown)
         {
