@@ -20,7 +20,6 @@ public class LeftControl : MonoBehaviour
 
     [SerializeField] private LayerMask whatIsBox;
     [SerializeField] private StageSO stageinfo;
-    [SerializeField] private Box box;
 
     private int curCount;
     private int maxCount;
@@ -52,11 +51,6 @@ public class LeftControl : MonoBehaviour
             RayCheck();
         }
 
-        //    box = BoxManager.Instance.ReturnBox(transform.position);
-
-        //if (box != null)
-        //    returnBox(box)?.Determine();
-
         if (curCount < maxCount)
         {
             direction = Vector3.zero;
@@ -87,24 +81,9 @@ public class LeftControl : MonoBehaviour
             }
 
             BoxManager.Instance.boxDec(transform);
-            //if (box != null && returnBox(box)?._leftPlayerDir == direction)
-            //    direction = Vector3.zero;
 
             transform.position += direction;
         }
-
-        
-    }
-
-    private Box returnBox(Box box)
-    {
-        if (GameObject.FindObjectOfType<Box>() is null)
-            return null;
-
-        if (box is not null)
-            return box;
-
-        return null;
     }
 
     public void RayCheck()

@@ -23,7 +23,6 @@ public class Box : MonoBehaviour
     public Vector3 _rightPlayerDir { get; private set; } = Vector3.zero;
 
     private Dictionary<Save, Vector3> _saveDir = new Dictionary<Save, Vector3>();
-    private Vector3 _abcd;
 
     private void Start()
     {
@@ -42,12 +41,6 @@ public class Box : MonoBehaviour
         {
             _leftPlayerDir = Vector3.zero;
             _rightPlayerDir = Vector3.zero;
-        }
-
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            print(gameObject);
-            print(player2Dis);
         }
 
         if (player1Dis <= _saveDis)
@@ -71,10 +64,15 @@ public class Box : MonoBehaviour
             _saveDir[save] = MoveDir(player);
         else
         {
-            print("ss");
             transform.position += _saveDir[save];
+
+            if(BoxManager.Instance.SameBox(this, player, _saveDir[save]))
+            {
+                transform.position -= _saveDir[save];
+            }
         }
-        _abcd = _saveDir[save];
+
+        BoxManager.Instance.SameBox(this, player, _saveDir[save]);
     }
 
     private Vector3 MoveDir(Transform player)

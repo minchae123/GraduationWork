@@ -47,6 +47,7 @@ public class StageManager : MonoBehaviour
         {
 			Destroy(curStageGameObject);
             LoadStage(curStage);
+            StartCoroutine(FindBox());
 		}
 	}
 
