@@ -16,6 +16,8 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
+	public bool isTurn;
+
 	private void Start()
 	{
 		ray[0].direction = transform.up; // y up
@@ -33,7 +35,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveLeft()
 	{
-		if (isCanMove[2])
+		if (isCanMove[2] && isTurn)
 		{
 			transform.position += WASD.a;
 			RayCheck();
@@ -42,7 +44,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveRight()
 	{
-		if (isCanMove[5])
+		if (isCanMove[5] && isTurn)
 		{
 			transform.position += WASD.d;
 			RayCheck();
@@ -51,7 +53,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveUp()
 	{
-		if (isCanMove[4])
+		if (isCanMove[4] && isTurn)
 		{
 			print(WASD.w);
 			transform.position += WASD.w;
@@ -61,27 +63,9 @@ public class Movement : MonoBehaviour
 
 	public void MoveDown()
 	{
-		if (isCanMove[5])
+		if (isCanMove[5] && isTurn)
 		{
 			transform.position += WASD.s;
-			RayCheck();
-		}
-	}
-
-	public void MoveJump()
-	{
-		if (isCanMove[0])
-		{
-			transform.position += transform.up;
-			RayCheck();
-		}
-	}
-
-	public void MoveUnder()
-	{
-		if (isCanMove[1])
-		{
-			transform.position += Vector3.down;
 			RayCheck();
 		}
 	}

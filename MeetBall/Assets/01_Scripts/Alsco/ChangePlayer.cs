@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class ChangePlayer : MonoBehaviour
 {
-	public GameObject player1;
-	public GameObject player2;
-
-	public GameObject curPlayer;
-
+	[SerializeField] private Movement player1;
+	[SerializeField] private Movement player2;
 
 	public void ChageMovePlayer()
 	{
-		curPlayer = curPlayer == player1 ? player2 : player1;
+		player1.isTurn = !player1.isTurn;
+		player2.isTurn = !player2.isTurn;
 	}
 }
