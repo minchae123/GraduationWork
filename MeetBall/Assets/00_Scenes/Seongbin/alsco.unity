@@ -291,6 +291,10 @@ MonoBehaviour:
   stageTrm: {fileID: 0}
   stages: []
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
+  player1Image: {fileID: 0}
+  player1CntTxt: {fileID: 0}
+  player2Image: {fileID: 0}
+  player2CntTxt: {fileID: 0}
 --- !u!1 &548576682
 GameObject:
   m_ObjectHideFlags: 0
@@ -1456,6 +1460,7 @@ MonoBehaviour:
   - 270
   leftControl: {fileID: 0}
   rightControl: {fileID: 0}
+  move: {fileID: 0}
 --- !u!1001 &4352538605914891809
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1571,6 +1576,10 @@ PrefabInstance:
     - target: {fileID: 6761393945012263587, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
       propertyPath: m_Name
       value: ClearParticle
+      objectReference: {fileID: 0}
+    - target: {fileID: 6761393945012263587, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
