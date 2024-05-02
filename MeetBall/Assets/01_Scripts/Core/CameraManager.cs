@@ -37,12 +37,19 @@ public class CameraManager : MonoBehaviour
 	[SerializeField] private LeftControl leftControl;
 	[SerializeField] private RightControl rightControl;
 
+	[SerializeField] private Movement move;
+
 	private void Awake()
 	{
 		Instance = this;
 
 		xRotation = transform.rotation.eulerAngles.x;
 		cam = Camera.main;
+	}
+
+	private void Start()
+	{
+		move?.Move(DIRECTION.South);
 	}
 
 	public void OnLook(InputAction.CallbackContext context)
@@ -124,8 +131,9 @@ public class CameraManager : MonoBehaviour
 			_ => DIRECTION.East
 		};
 
-		leftControl.Move(direction);
-		rightControl.Move(direction);
+		leftControl?.Move(direction);
+		rightControl?.Move(direction);
+		move?.Move(direction);
 
 		return new Vector3(xRotation, endValue, 0);
 	}

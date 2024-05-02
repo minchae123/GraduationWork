@@ -31,7 +31,7 @@ public class RightControl : MonoBehaviour
         startPos = transform.position;
 
         curCount = -1;
-        maxCount = stageinfo.RmoveCnt;
+        maxCount = stageinfo.player2MoveCount;
     }
 
     void Update()
