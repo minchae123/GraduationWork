@@ -9,9 +9,10 @@ public class Movement : MonoBehaviour
 	private Ray[] ray = new Ray[6];
 
 	[SerializeField] private LayerMask whatIsBox;
+	[SerializeField] private StageSO stageInfo;
 
 	private int curCount;
-	private int maxCount;
+	private int moveCount;
 	public Vector3 direction;
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
@@ -27,8 +28,7 @@ public class Movement : MonoBehaviour
 		ray[4].direction = transform.forward; // z up
 		ray[5].direction = -transform.forward; // z down
 
-		curCount = -1;
-		maxCount = 100;
+		moveCount = isTurn ? stageInfo.player1MoveCount : stageInfo.player2MoveCount;
 
 		RayCheck();
 	}
