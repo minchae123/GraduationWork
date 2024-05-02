@@ -25,8 +25,6 @@ public class StageManager : MonoBehaviour
     [SerializeField] private Image player2Image;
     [SerializeField] private TextMeshProUGUI player2CntTxt;
 
-    [SerializeField] private ParticleSystem clearParticle;
-
     private void Awake()
     {
         Instance = this;
@@ -83,13 +81,18 @@ public class StageManager : MonoBehaviour
 
     public void ClearStage()
     {
+        StartCoroutine(StageLoad());
+    }
+
+    private IEnumerator StageLoad()
+    {
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
-        clearParticle.DORestart();
         Destroy(curStageGameObject);
-		curStage = GameManager.Instance.curStage;
-        LoadStage(curStage);
+        curStage = GameManager.Instance.curStage;
 
+        yield return new WaitForSeconds(2);
+        LoadStage(curStage);
         StartCoroutine(FindBox());
     }
 

@@ -2808,6 +2808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
+  clearParticle: {fileID: 0}
 --- !u!114 &4043543982858508773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3172,6 +3173,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6504077624755238992}
+  - component: {fileID: 4497545957615868309}
   m_Layer: 0
   m_Name: Stage04-PWH
   m_TagString: Untagged
@@ -3197,6 +3199,66 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4497545957615868309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6504077624755238993}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c72563802b39404680d005fae2e358c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blocks:
+  - {fileID: 810732256639892091}
+  - {fileID: 2636163987360476471}
+  - {fileID: 6958317387761355557}
+  - {fileID: 8910795052443054970}
+  - {fileID: 2639377314063651319}
+  - {fileID: 1651076928042874163}
+  - {fileID: 1835892399840197599}
+  - {fileID: 7760298861645448688}
+  - {fileID: 826006974437067653}
+  - {fileID: 8223898981296793074}
+  - {fileID: 866815757912016377}
+  - {fileID: 866815758258238620}
+  - {fileID: 866815757831856393}
+  - {fileID: 866815757477977658}
+  - {fileID: 866815756961881917}
+  - {fileID: 866815757930782275}
+  - {fileID: 866815756898987063}
+  - {fileID: 866815757434133384}
+  - {fileID: 866815758554292117}
+  - {fileID: 866815756538042592}
+  - {fileID: 866815758328122673}
+  - {fileID: 8976362377950567477}
+  - {fileID: 2281344239779364795}
+  - {fileID: 802662906514881914}
+  - {fileID: 3588335672798069049}
+  - {fileID: 4811661127598205499}
+  - {fileID: 866815757078196615}
+  - {fileID: 3409162722397415410}
+  - {fileID: 7351813878243195455}
+  - {fileID: 8182030422297244396}
+  - {fileID: 3409162720546900499}
+  - {fileID: 7351813877963380702}
+  - {fileID: 8182030423661272845}
+  - {fileID: 3409162722163960301}
+  - {fileID: 7351813878544512032}
+  - {fileID: 8182030421926690035}
+  - {fileID: 9167563693436144818}
+  - {fileID: 9167563692900101663}
+  - {fileID: 9167563692180019706}
+  - {fileID: 9167563691975432092}
+  - {fileID: 9141377673042371492}
+  - {fileID: 6391109553338019855}
+  - {fileID: 6110059095366966959}
+  - {fileID: 7013828068757640654}
+  - {fileID: 4043543982858508781}
+  - {fileID: 1853466807231640653}
+  SaveBlocks: []
 --- !u!1 &6504077625655656108
 GameObject:
   m_ObjectHideFlags: 0

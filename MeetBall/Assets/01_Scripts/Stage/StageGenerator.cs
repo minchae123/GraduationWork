@@ -21,7 +21,7 @@ public class StageGenerator : MonoBehaviour
     {
         ResetStage();
 
-        StageLoad();
+       StartCoroutine( StageLoad());
     }
 
     private void Update()
@@ -30,17 +30,20 @@ public class StageGenerator : MonoBehaviour
             StageLoad();
     }
 
-    void StageLoad()
+    IEnumerator StageLoad()
     {
         for (int i = 0; i < Blocks.Count; i++)
-            Blocks[i].transform.DOMove(SaveBlocks[i], 1f);
+        {
+            Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
+            yield return new WaitForSeconds(.1f);
+        }
     }
 
     void ResetStage()
     {
         foreach (var block in Blocks)
         {
-            block.transform.position = new Vector3(Random.Range(-10, 10), Random.Range(-10, 10), Random.Range(-10, 10));
+            block.transform.position = new Vector3(block.transform.position.x, 10, block.transform.position.z);
         }
     }
 }
