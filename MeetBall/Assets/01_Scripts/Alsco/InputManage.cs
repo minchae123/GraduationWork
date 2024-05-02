@@ -23,6 +23,23 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		direction = Direction.None;
 	}
 
+	private void Start()
+	{
+	}
+
+	private void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+	       FindMap();
+        }
+	}
+
+	public void FindMap()
+	{
+		rotate = FindObjectOfType<MapRotate>();	
+	}
+
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		draggingStarted = true;
@@ -59,7 +76,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	{
 		if (draggingStarted && direction != Direction.None)
 		{
-			Debug.Log(direction);
+			//Debug.Log(direction);
 			rotate.Rotate(direction);
 		}
 

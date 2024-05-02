@@ -4,13 +4,6 @@ using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering.LookDev;
 
-struct WASD
-{
-    public Vector3 w;
-    public Vector3 s;
-    public Vector3 a;
-    public Vector3 d;
-}
 
 public class LeftControl : MonoBehaviour
 {

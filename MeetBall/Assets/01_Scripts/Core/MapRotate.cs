@@ -11,11 +11,6 @@ public class MapRotate : MonoBehaviour
 	public void Rotate(Direction dir)
 	{
 		Vector3 curRotate = transform.rotation.eulerAngles;
-		
-		Mathf.Floor(curRotate.x);
-		Mathf.Floor(curRotate.y);
-		Mathf.Floor(curRotate.z);
-
 		Vector3 targetRotate = curRotate;
 		if (!isRotating)
 		{
@@ -57,10 +52,11 @@ public class MapRotate : MonoBehaviour
 					}
 					break;
 			}
-			print(targetRotate);
 			transform.DORotate(targetRotate, 0.7f).SetEase(Ease.OutBounce).OnComplete(() => isRotating = false);
 		}
 		else
 			return;
+
+
 	}
 }

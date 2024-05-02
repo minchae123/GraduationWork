@@ -2,8 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+struct WASD
+{
+	public Vector3 w;
+	public Vector3 s;
+	public Vector3 a;
+	public Vector3 d;
+}
+
 public class Movement : MonoBehaviour
 {
+	public enum PlayerType
+	{
+		Player1, Player2
+	}
+
 	[SerializeField] private WASD WASD;
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
@@ -17,7 +30,13 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
-	public bool isTurn;
+	public PlayerType playerType;
+	private Dictionary<PlayerType, bool> playerDic = new Dictionary<PlayerType, bool>()
+	{
+		{PlayerType.Player1, true},
+		{PlayerType.Player2, false }
+	};
+
 
 	private void Start()
 	{
@@ -28,14 +47,24 @@ public class Movement : MonoBehaviour
 		ray[4].direction = transform.forward; // z up
 		ray[5].direction = -transform.forward; // z down
 
-		moveCount = isTurn ? stageInfo.player1MoveCount : stageInfo.player2MoveCount;
+		moveCount = PlayerType.Player1 == playerType ? stageInfo.player1MoveCount : stageInfo.player2MoveCount;
+
+		playerDic[playerType] = playerType == PlayerType.Player1 ? true : false;
+		print(playerDic[playerType]);
+
+		Move(DIRECTION.South);
 
 		RayCheck();
 	}
 
+	public void ChangeCanMove(bool value)
+	{
+		playerDic[playerType] = value;
+	}
+
 	public void MoveLeft()
 	{
-		if (isCanMove[2] && isTurn)
+		if (isCanMove[2] && playerDic[playerType])
 		{
 			transform.position += WASD.a;
 			RayCheck();
@@ -44,7 +73,8 @@ public class Movement : MonoBehaviour
 
 	public void MoveRight()
 	{
-		if (isCanMove[5] && isTurn)
+		print(playerDic[playerType]);
+		if (isCanMove[3] && playerDic[playerType])
 		{
 			transform.position += WASD.d;
 			RayCheck();
@@ -53,7 +83,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveUp()
 	{
-		if (isCanMove[4] && isTurn)
+		if (isCanMove[4] && playerDic[playerType])
 		{
 			print(WASD.w);
 			transform.position += WASD.w;
@@ -63,7 +93,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveDown()
 	{
-		if (isCanMove[5] && isTurn)
+		if (isCanMove[5] && playerDic[playerType])
 		{
 			transform.position += WASD.s;
 			RayCheck();
@@ -93,54 +123,29 @@ public class Movement : MonoBehaviour
 		{
 			case DIRECTION.East:
 				{
-					WASD.w = -Vector3.right;
-					WASD.s = Vector3.right;
-					WASD.a = -Vector3.forward;
-					WASD.d = Vector3.forward;
-
-					ray[2].direction = -transform.forward;
-					ray[3].direction = transform.forward;
-					ray[4].direction = -transform.right;
-					ray[5].direction = transform.right;
 				}
 				break;
 			case DIRECTION.West:
 				{
-					WASD.w = Vector3.right;
-					WASD.s = -Vector3.right;
-					WASD.a = Vector3.forward;
-					WASD.d = -Vector3.forward;
 
-					ray[2].direction = transform.forward;
-					ray[3].direction = -transform.forward;
-					ray[4].direction = transform.right;
-					ray[5].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.South:
 				{
-					WASD.w = Vector3.forward;
-					WASD.s = -Vector3.forward;
-					WASD.a = -Vector3.right;
-					WASD.d = Vector3.right;
+					WASD.w = transform.up;
+					WASD.s = -transform.up;
+					WASD.a = -transform.right;
+					WASD.d = transform.right;
 
-					ray[2].direction = -transform.right;
-					ray[3].direction = transform.right;
-					ray[4].direction = transform.forward;
-					ray[5].direction = -transform.forward;
+					ray[0].direction = transform.up;
+					ray[1].direction = -transform.up;
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.North:
 				{
-					WASD.w = -Vector3.forward;
-					WASD.s = Vector3.forward;
-					WASD.a = Vector3.right;
-					WASD.d = -Vector3.right;
 
-					ray[2].direction = transform.right;
-					ray[3].direction = -transform.right;
-					ray[4].direction = -transform.forward;
-					ray[5].direction = transform.forward;
 				}
 				break;
 		}

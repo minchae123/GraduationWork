@@ -5,7 +5,10 @@ using UnityEngine.UI;
 
 public class MoveButtonConnect : MonoBehaviour
 {
-	[SerializeField] private Button[] moveBtns = new Button[4]; 
+	[SerializeField] private Button[] moveBtns = new Button[5]; 
 
-	
+	public void ButtonConnect()
+	{
+
+	}
 }
