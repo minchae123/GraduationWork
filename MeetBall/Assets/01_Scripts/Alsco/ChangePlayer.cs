@@ -14,18 +14,23 @@ public class ChangePlayer : MonoBehaviour
 	[SerializeField] private Image colorImage;
 	[SerializeField] private TextMeshProUGUI moveCnt;
 
+	public void FindPlayer()
+	{
+		
+	}
+
 	public void ChageMovePlayer()
 	{
 		player1.isTurn = !player1.isTurn;
 		player2.isTurn = !player2.isTurn;
 
-        if (player1.isTurn) // 1Â÷·ÊÀÏ¶§
-        {
+		if (player1.isTurn) // 1Â÷·ÊÀÏ¶§
+		{
 			colorImage.color = player1.GetComponent<MeshRenderer>().material.color;
 			//moveCnt.text = player1.maxCount - player1.curCount;
 		}
 		else // 2Â÷·ÊÀÏ¶§
-        {
+		{
 			colorImage.color = player2.GetComponent<MeshRenderer>().material.color;
 			//moveCnt.text = player2.maxCount - player2.curCount;
 		}
