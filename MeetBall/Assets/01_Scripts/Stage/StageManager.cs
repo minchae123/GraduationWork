@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class StageManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI player1CntTxt;
     [SerializeField] private Image player2Image;
     [SerializeField] private TextMeshProUGUI player2CntTxt;
+
+    [SerializeField] private ParticleSystem clearParticle;
 
     private void Awake()
     {
@@ -82,6 +85,7 @@ public class StageManager : MonoBehaviour
     {
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
+        clearParticle.DORestart();
         Destroy(curStageGameObject);
 		curStage = GameManager.Instance.curStage;
         LoadStage(curStage);
