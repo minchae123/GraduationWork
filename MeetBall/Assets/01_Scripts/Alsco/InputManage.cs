@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+public enum Direction
+{
+	Left, Up, Right, Down, None
+}
+
 public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-	public enum Direction { Left, Up, Right, Down, None }
-
 	Direction direction;
 	Vector2 startPos, endPos;
 	public float swipeThreshold = 100f;
 	bool draggingStarted;
+
+	[SerializeField] private MapRotate rotate;
 
 	private void Awake()
 	{
@@ -30,15 +35,15 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		{
 			endPos = eventData.position;
 
-			Vector2 difference = endPos - startPos; 
+			Vector2 difference = endPos - startPos;
 
 			if (difference.magnitude > swipeThreshold)
 			{
-				if (Mathf.Abs(difference.x) > Mathf.Abs(difference.y)) 
+				if (Mathf.Abs(difference.x) > Mathf.Abs(difference.y))
 				{
-					direction = difference.x > 0 ? Direction.Right : Direction.Left; 
+					direction = difference.x > 0 ? Direction.Right : Direction.Left;
 				}
-				else 
+				else
 				{
 					direction = difference.y > 0 ? Direction.Up : Direction.Down;
 				}
@@ -54,7 +59,8 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	{
 		if (draggingStarted && direction != Direction.None)
 		{
-			Debug.Log("Swipe direction: " + direction);
+			Debug.Log(direction);
+			rotate.Rotate(direction);
 		}
 
 		startPos = Vector2.zero;

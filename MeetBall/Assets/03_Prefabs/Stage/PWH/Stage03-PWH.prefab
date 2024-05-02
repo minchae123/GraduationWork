@@ -123,6 +123,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 935363701239173887}
+  - component: {fileID: 1297005220262650483}
   m_Layer: 0
   m_Name: Stage03-PWH
   m_TagString: Untagged
@@ -148,6 +149,34 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1297005220262650483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935363701239173886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c72563802b39404680d005fae2e358c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blocks:
+  - {fileID: 8227440292135012248}
+  - {fileID: 3902611772846989706}
+  - {fileID: 3247575356811565525}
+  - {fileID: 8221540857870875480}
+  - {fileID: 4634760097856970652}
+  - {fileID: 8966647858901734014}
+  - {fileID: 5747246363304628592}
+  - {fileID: 4398375014966177631}
+  - {fileID: 6759520963184615722}
+  - {fileID: 2637170917068345181}
+  - {fileID: 845835372348446350}
+  - {fileID: 6771294831680770260}
+  - {fileID: 7972982825207919426}
+  - {fileID: 5692798739055976162}
+  SaveBlocks: []
 --- !u!1 &935363702242710531
 GameObject:
   m_ObjectHideFlags: 0
@@ -1418,6 +1447,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
+  clearParticle: {fileID: 0}
 --- !u!1 &8221540857870875480
 GameObject:
   m_ObjectHideFlags: 0
