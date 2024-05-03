@@ -9,11 +9,15 @@ public class CombineColor : MonoBehaviour
 
     private Material _mat;
 
+    [SerializeField] private ParticleSystem clearParticle;
+
     private void Awake()
     {
         _mat = GetComponent<MeshRenderer>().material;
 
-		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();	
+		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
+
+		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
     }
 
 	private void OnTriggerEnter(Collider other)
@@ -26,7 +30,8 @@ public class CombineColor : MonoBehaviour
 			ClearAnim.SetTrigger("Clear");
 
 			BoxManager.Instance.CleanBox();
-			StartCoroutine(LevelClear());
+            clearParticle.Play();
+            StageManager.Instance.ClearStage();
 		}
 	}
 
@@ -34,11 +39,5 @@ public class CombineColor : MonoBehaviour
 	private void OnCollisionEnter(Collision collision)
 	{
 
-	}
-
-	IEnumerator LevelClear()
-	{
-		yield return new WaitForSeconds(1);
-		StageManager.Instance.ClearStage();
 	}
 }

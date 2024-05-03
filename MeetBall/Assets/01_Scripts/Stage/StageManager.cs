@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
@@ -80,12 +81,18 @@ public class StageManager : MonoBehaviour
 
     public void ClearStage()
     {
+        StartCoroutine(StageLoad());
+    }
+
+    private IEnumerator StageLoad()
+    {
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
         Destroy(curStageGameObject);
-		curStage = GameManager.Instance.curStage;
-        LoadStage(curStage);
+        curStage = GameManager.Instance.curStage;
 
+        yield return new WaitForSeconds(2);
+        LoadStage(curStage);
         StartCoroutine(FindBox());
     }
 
