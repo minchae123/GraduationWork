@@ -17,14 +17,13 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
 	[SerializeField] private MapRotate rotate;
 
+	private int leftRightCnt = 0;
+	private int upDownCnt = 0;
+
 	private void Awake()
 	{
 		draggingStarted = false;
 		direction = Direction.None;
-	}
-
-	private void Start()
-	{
 	}
 
 	private void Update()
@@ -76,8 +75,31 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	{
 		if (draggingStarted && direction != Direction.None)
 		{
-			//Debug.Log(direction);
-			rotate.Rotate(direction);
+			switch (direction)
+			{
+				case Direction.Left:
+					{
+						leftRightCnt--;
+					}
+					break;
+				case Direction.Right:
+					{
+						leftRightCnt++;
+					}
+					break;
+				case Direction.Up:
+					{
+						upDownCnt++;
+					}
+					break;
+				case Direction.Down:
+					{
+						upDownCnt--;
+					}
+					break;
+			}
+
+			rotate.Rotate(direction, leftRightCnt, upDownCnt);
 		}
 
 		startPos = Vector2.zero;

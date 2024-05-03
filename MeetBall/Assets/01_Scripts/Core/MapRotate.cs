@@ -8,7 +8,7 @@ public class MapRotate : MonoBehaviour
 {
 	private bool isRotating = false;
 
-	public void Rotate(Direction dir)
+	public void Rotate(Direction dir, int x, int y)
 	{
 		Vector3 curRotate = transform.rotation.eulerAngles;
 		Vector3 targetRotate = curRotate;
@@ -19,36 +19,18 @@ public class MapRotate : MonoBehaviour
 			{
 				case Direction.Left:
 					{
-						targetRotate.y = curRotate.y + 90;
 					}
 					break;
 				case Direction.Right:
 					{
-						targetRotate.y = curRotate.y - 90;
 					}
 					break;
 				case Direction.Up:
 					{
-						if (Mathf.Abs(curRotate.y) % 180 == 0)
-						{
-							targetRotate.x = curRotate.x + 90;
-						}
-						else
-						{
-							targetRotate.z = curRotate.z - 90;
-						}
 					}
 					break;
 				case Direction.Down:
 					{
-						if (Mathf.Abs(curRotate.y) % 180 == 0)
-						{
-							targetRotate.x = curRotate.x - 90;
-						}
-						else
-						{
-							targetRotate.z = curRotate.z + 90;
-						}
 					}
 					break;
 			}
