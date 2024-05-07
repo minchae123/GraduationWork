@@ -75,8 +75,8 @@ public class Movement : MonoBehaviour
 		if (isCanMove[2] && playerDic[playerType])
 		{
 			transform.position += WASD.a;
-			RayCheck();
 		}
+		RayCheck();
 	}
 
 	public void MoveRight()
@@ -85,8 +85,8 @@ public class Movement : MonoBehaviour
 		if (isCanMove[3] && playerDic[playerType])
 		{
 			transform.position += WASD.d;
-			RayCheck();
 		}
+		RayCheck();
 	}
 
 	public void MoveUp()
@@ -95,8 +95,8 @@ public class Movement : MonoBehaviour
 		{
 			print(WASD.w);
 			transform.position += WASD.w;
-			RayCheck();
 		}
+		RayCheck();
 	}
 
 	public void MoveDown()
@@ -104,8 +104,8 @@ public class Movement : MonoBehaviour
 		if (isCanMove[5] && playerDic[playerType])
 		{
 			transform.position += WASD.s;
-			RayCheck();
 		}
+		RayCheck();
 	}
 
 	public void RayCheck()
@@ -113,9 +113,11 @@ public class Movement : MonoBehaviour
 		for (int i = 0; i < ray.Length; i++)
 		{
 			ray[i].origin = transform.position;
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
 
 			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
 			{
+				Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
 				isCanMove[i] = true;
 			}
 			else
