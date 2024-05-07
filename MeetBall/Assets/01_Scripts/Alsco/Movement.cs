@@ -54,13 +54,6 @@ public class Movement : MonoBehaviour
 		playerDic[playerType] = playerType == PlayerType.Player1 ? true : false;
 		print(playerDic[playerType]);
 
-
-		GameObject.Find("MoveLeft").GetComponent<Button>().onClick.AddListener(MoveLeft);
-		GameObject.Find("MoveRight").GetComponent<Button>().onClick.AddListener(MoveRight);
-		GameObject.Find("MoveUp").GetComponent<Button>().onClick.AddListener(MoveUp);
-		GameObject.Find("MoveDown").GetComponent<Button>().onClick.AddListener(MoveDown);
-
-
 		Move(DIRECTION.South);
 		RayCheck();
 	}
