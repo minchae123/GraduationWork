@@ -48,6 +48,7 @@ public class StageManager : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.Tab))
         {
+            StopAllCoroutines();
             ClearStage();
         }
 
