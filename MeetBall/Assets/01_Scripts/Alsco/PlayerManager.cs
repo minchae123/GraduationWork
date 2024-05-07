@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
@@ -10,8 +9,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
 	[Header("Player")]
 	[SerializeField] private Movement[] players;
-
-	public Movement selectedPlayer;
+	[SerializeField] private Movement selectedPlayer;
 	private int selectedNum = 0;
 
 	[Header("UI")]
@@ -33,18 +31,25 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 		for (int i = 0; i < players.Length; ++i)
         {
 			MoveUI move = Instantiate(moveUIPref, moveUITrm);
-			move.SetUI(players[i].GetComponent<MeshRenderer>().material.color, 1);
+			move.SetUI(players[i].GetComponent<MeshRenderer>().material.color, players[i].moveCount);
 
 			moveUIList.Add(move);
 		}
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
+		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
 	}
 
 	public void ChangeMovePlayer()
 	{
+		DOTween.Clear();
+		moveUIList.ForEach(m => m.transform.DOScale(1f, 0.4f));
+
 		selectedNum = ++selectedNum % players.Length; // 만약에 플레이어가 2명이면 0 1 0 1 0 1 / 3명이면 0 1 2 0 1 2
 		selectedPlayer = players[selectedNum];
+
+		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
+		selectedPlayer.RayCheck();
 	}
 
 	public void MoveLeft()

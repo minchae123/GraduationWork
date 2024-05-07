@@ -28,8 +28,8 @@ public class Movement : MonoBehaviour
 	[SerializeField] private LayerMask whatIsBox;
 	[SerializeField] private StageSO stageInfo;
 
-	private int curCount;
-	private int moveCount;
+	public int curCount;
+	public int moveCount;
 	public Vector3 direction;
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
@@ -56,7 +56,8 @@ public class Movement : MonoBehaviour
 		playerDic[playerType] = playerType == PlayerType.Player1 ? true : false;
 		print(playerDic[playerType]);
 
-		Move(DIRECTION.South);
+		camMovement = FindObjectOfType<CameraMovement>();
+
 		RayCheck();
 	}
 
@@ -67,7 +68,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveLeft()
 	{
-		if (isCanMove[2] && playerDic[playerType])
+		if (isCanMove[2])
 		{
 			transform.position += -camMovement.cinemachineCam.transform.right;
 		}
@@ -76,8 +77,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveRight()
 	{
-		print(playerDic[playerType]);
-		if (isCanMove[3] && playerDic[playerType])
+		if (isCanMove[3] )
 		{
 			transform.position += camMovement.cinemachineCam.transform.right;
 		}
@@ -86,7 +86,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveUp()
 	{
-		if (isCanMove[4] && playerDic[playerType])
+		if (isCanMove[4])
 		{
 			print(WASD.w);
 			transform.position += camMovement.cinemachineCam.transform.up;
@@ -96,7 +96,7 @@ public class Movement : MonoBehaviour
 
 	public void MoveDown()
 	{
-		if (isCanMove[5] && playerDic[playerType])
+		if (isCanMove[5])
 		{
 			transform.position += -camMovement.cinemachineCam.transform.up;
 		}
