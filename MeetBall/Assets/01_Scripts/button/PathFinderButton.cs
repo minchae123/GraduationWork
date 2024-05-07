@@ -21,6 +21,7 @@ public class PathFinderButton : MonoBehaviour
     {
         foreach (var path in hiddenPaths)
         {
+            path.gameObject.SetActive(false);
             meshs.Enqueue(path.gameObject);
         }
     }
