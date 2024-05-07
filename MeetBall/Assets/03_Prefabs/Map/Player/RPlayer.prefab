@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4898779629317210920}
   - component: {fileID: 4898779629317211095}
   - component: {fileID: 4898779629317210923}
+  - component: {fileID: 4927433077198292557}
   m_Layer: 0
   m_Name: RPlayer
   m_TagString: Player
@@ -133,3 +134,22 @@ MonoBehaviour:
   stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
   direction: {x: 0, y: 0, z: 0}
   beforeCube: {fileID: 0}
+--- !u!114 &4927433077198292557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4898779629317211092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
+  direction: {x: 0, y: 0, z: 0}
+  isCanMove: 000000000000
+  playerType: 1

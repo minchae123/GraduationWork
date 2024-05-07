@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.Rendering;
 using UnityEngine;
+using UnityEngine.UI;
 
 struct WASD
 {
@@ -34,7 +36,7 @@ public class Movement : MonoBehaviour
 	private Dictionary<PlayerType, bool> playerDic = new Dictionary<PlayerType, bool>()
 	{
 		{PlayerType.Player1, true},
-		{PlayerType.Player2, false }
+		{PlayerType.Player2, false}
 	};
 
 
@@ -52,8 +54,14 @@ public class Movement : MonoBehaviour
 		playerDic[playerType] = playerType == PlayerType.Player1 ? true : false;
 		print(playerDic[playerType]);
 
-		Move(DIRECTION.South);
 
+		GameObject.Find("MoveLeft").GetComponent<Button>().onClick.AddListener(MoveLeft);
+		GameObject.Find("MoveRight").GetComponent<Button>().onClick.AddListener(MoveRight);
+		GameObject.Find("MoveUp").GetComponent<Button>().onClick.AddListener(MoveUp);
+		GameObject.Find("MoveDown").GetComponent<Button>().onClick.AddListener(MoveDown);
+
+
+		Move(DIRECTION.South);
 		RayCheck();
 	}
 
@@ -123,29 +131,54 @@ public class Movement : MonoBehaviour
 		{
 			case DIRECTION.East:
 				{
+					WASD.w = -Vector3.right;
+					WASD.s = Vector3.right;
+					WASD.a = -Vector3.forward;
+					WASD.d = Vector3.forward;
+
+					ray[2].direction = -transform.forward;
+					ray[3].direction = transform.forward;
+					ray[4].direction = -transform.right;
+					ray[5].direction = transform.right;
 				}
 				break;
 			case DIRECTION.West:
 				{
+					WASD.w = Vector3.right;
+					WASD.s = -Vector3.right;
+					WASD.a = Vector3.forward;
+					WASD.d = -Vector3.forward;
 
+					ray[2].direction = transform.forward;
+					ray[3].direction = -transform.forward;
+					ray[4].direction = transform.right;
+					ray[5].direction = -transform.right;
 				}
 				break;
 			case DIRECTION.South:
 				{
-					WASD.w = transform.up;
-					WASD.s = -transform.up;
-					WASD.a = -transform.right;
-					WASD.d = transform.right;
+					WASD.w = Vector3.forward;
+					WASD.s = -Vector3.forward;
+					WASD.a = -Vector3.right;
+					WASD.d = Vector3.right;
 
-					ray[0].direction = transform.up;
-					ray[1].direction = -transform.up;
-					ray[2].direction = transform.right;
-					ray[3].direction = -transform.right;
+					ray[2].direction = -transform.right;
+					ray[3].direction = transform.right;
+					ray[4].direction = transform.forward;
+					ray[5].direction = -transform.forward;
 				}
 				break;
 			case DIRECTION.North:
 				{
+					WASD.w = -Vector3.forward;
+					WASD.s = Vector3.forward;
+					WASD.a = Vector3.right;
+					WASD.d = -Vector3.right;
 
+					ray[2].direction = transform.right;
+					ray[3].direction = -transform.right;
+					ray[4].direction = -transform.forward;
+					ray[5].direction = transform.forward;
 				}
 				break;
 		}

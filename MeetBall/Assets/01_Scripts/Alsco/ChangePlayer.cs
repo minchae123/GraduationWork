@@ -21,8 +21,6 @@ public class ChangePlayer : MonoBehaviour
 
 	public void ChageMovePlayer()
 	{
-		
-
 		if (player1) // 1Â÷·ÊÀÏ¶§
 		{
 			colorImage.color = player1.GetComponent<MeshRenderer>().material.color;

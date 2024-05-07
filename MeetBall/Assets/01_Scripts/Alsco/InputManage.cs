@@ -16,6 +16,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	bool draggingStarted;
 
 	[SerializeField] private MapRotate rotate;
+	[SerializeField] private CameraMovement camMovement;
 
 	private int leftRightCnt = 0;
 	private int upDownCnt = 0;
@@ -99,7 +100,8 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 					break;
 			}
 
-			rotate.Rotate(direction, leftRightCnt, upDownCnt);
+			rotate?.Rotate(direction, leftRightCnt, upDownCnt);
+			camMovement.MoveCam(direction);
 		}
 
 		startPos = Vector2.zero;
