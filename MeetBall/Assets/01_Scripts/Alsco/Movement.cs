@@ -19,10 +19,12 @@ public class Movement : MonoBehaviour
 		Player1, Player2
 	}
 
-	[SerializeField] private WASD WASD;
+	private CameraMovement camMovement;
+	
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
+	[SerializeField] private WASD WASD;
 	[SerializeField] private LayerMask whatIsBox;
 	[SerializeField] private StageSO stageInfo;
 
@@ -67,7 +69,7 @@ public class Movement : MonoBehaviour
 	{
 		if (isCanMove[2] && playerDic[playerType])
 		{
-			transform.position += WASD.a;
+			transform.position += -camMovement.cinemachineCam.transform.right;
 		}
 		RayCheck();
 	}
@@ -77,7 +79,7 @@ public class Movement : MonoBehaviour
 		print(playerDic[playerType]);
 		if (isCanMove[3] && playerDic[playerType])
 		{
-			transform.position += WASD.d;
+			transform.position += camMovement.cinemachineCam.transform.right;
 		}
 		RayCheck();
 	}
@@ -87,7 +89,7 @@ public class Movement : MonoBehaviour
 		if (isCanMove[4] && playerDic[playerType])
 		{
 			print(WASD.w);
-			transform.position += WASD.w;
+			transform.position += camMovement.cinemachineCam.transform.up;
 		}
 		RayCheck();
 	}
@@ -96,7 +98,7 @@ public class Movement : MonoBehaviour
 	{
 		if (isCanMove[5] && playerDic[playerType])
 		{
-			transform.position += WASD.s;
+			transform.position += -camMovement.cinemachineCam.transform.up;
 		}
 		RayCheck();
 	}
@@ -120,62 +122,4 @@ public class Movement : MonoBehaviour
 		}
 	}
 
-	public void Move(DIRECTION dir)
-	{
-		switch (dir)
-		{
-			case DIRECTION.East:
-				{
-					WASD.w = -Vector3.right;
-					WASD.s = Vector3.right;
-					WASD.a = -Vector3.forward;
-					WASD.d = Vector3.forward;
-
-					ray[2].direction = -transform.forward;
-					ray[3].direction = transform.forward;
-					ray[4].direction = -transform.right;
-					ray[5].direction = transform.right;
-				}
-				break;
-			case DIRECTION.West:
-				{
-					WASD.w = Vector3.right;
-					WASD.s = -Vector3.right;
-					WASD.a = Vector3.forward;
-					WASD.d = -Vector3.forward;
-
-					ray[2].direction = transform.forward;
-					ray[3].direction = -transform.forward;
-					ray[4].direction = transform.right;
-					ray[5].direction = -transform.right;
-				}
-				break;
-			case DIRECTION.South:
-				{
-					WASD.w = Vector3.forward;
-					WASD.s = -Vector3.forward;
-					WASD.a = -Vector3.right;
-					WASD.d = Vector3.right;
-
-					ray[2].direction = -transform.right;
-					ray[3].direction = transform.right;
-					ray[4].direction = transform.forward;
-					ray[5].direction = -transform.forward;
-				}
-				break;
-			case DIRECTION.North:
-				{
-					WASD.w = -Vector3.forward;
-					WASD.s = Vector3.forward;
-					WASD.a = Vector3.right;
-					WASD.d = -Vector3.right;
-
-					ray[2].direction = transform.right;
-					ray[3].direction = -transform.right;
-					ray[4].direction = -transform.forward;
-					ray[5].direction = transform.forward;
-				}
-				break;
-		}
-	}
 }

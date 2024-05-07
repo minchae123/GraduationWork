@@ -8,7 +8,6 @@ using Cinemachine;
 public class CameraMovement : MonoBehaviour
 {
 	public List<Transform> transforms = new List<Transform>();
-
 	public CinemachineVirtualCamera cinemachineCam;
 
 	public int left, up;
@@ -20,12 +19,14 @@ public class CameraMovement : MonoBehaviour
 
 	public void MoveCam(Direction dir)
 	{
+		FindMovement();
+
 		switch (dir)
 		{
 			case Direction.Left:
 				{
 					left++;
-					int i = Mathf.Abs(left) % 4;
+					int i = left % 4;
 					if (i == 0) i = 4;
 					cinemachineCam.transform.DOMove(transforms[i - 1].position, .5f);
 				}
@@ -39,7 +40,7 @@ public class CameraMovement : MonoBehaviour
 				{
 					left--;
 					if (left == -1) left = 3;
-					int i = Mathf.Abs(left) % 4;
+					int i = left % 4;
 					if (i == 0) i = 4;
 					cinemachineCam.transform.DOMove(transforms[i - 1].position, .5f);
 				}
@@ -50,5 +51,13 @@ public class CameraMovement : MonoBehaviour
 				}
 				break;
 		}
+	}
+
+	private void FindMovement()
+	{
+		Movement[] movement = FindObjectsOfType<Movement>();
+
+		foreach (Movement m in movement)
+			m.RayCheck();
 	}
 }
