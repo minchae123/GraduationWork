@@ -21,7 +21,7 @@ public class StageGenerator : MonoBehaviour
     {
         ResetStage();
 
-       StartCoroutine( StageLoad());
+        StartCoroutine(StageLoad());
     }
 
     private void Update()
@@ -35,7 +35,7 @@ public class StageGenerator : MonoBehaviour
         for (int i = 0; i < Blocks.Count; i++)
         {
             Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
-            yield return new WaitForSeconds(.1f);
+            yield return new WaitForSeconds(.5f / Blocks.Count);
         }
     }
 
