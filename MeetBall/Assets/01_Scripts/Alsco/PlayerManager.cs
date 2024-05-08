@@ -11,6 +11,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	[Header("Player")]
 	[SerializeField] private Movement[] players;
 	[SerializeField] private Movement selectedPlayer;
+
 	private int selectedNum = 0;
 
 	[Header("UI")]
@@ -33,11 +34,12 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 		for (int i = 0; i < players.Length; ++i)
         {
 			MoveUI move = Instantiate(moveUIPref, moveUITrm);
-			//Color playerColor = (i % 2 == 0) ? curStage.player1Color : curStage.player2Color;
-			//move.SetUI(playerColor, players[i].moveCount);
 
+			move.SetUI(curStage.playersColor[i], curStage.playersCount[i]);
 			moveUIList.Add(move);
 		}
+
+		curStage.SetPlayers();
 
 		targetImage.color = curStage.targetColor;
 

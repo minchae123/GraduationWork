@@ -34,7 +34,7 @@ public class LeftControl : MonoBehaviour
         startPos = transform.position;
 
         curCount = -1;
-        maxCount = stageinfo.player1MoveCount;
+        //maxCount = stageinfo.player1MoveCount;
 
         Move(DIRECTION.East);
 		RayCheck();
