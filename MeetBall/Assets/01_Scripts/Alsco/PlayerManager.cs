@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class PlayerManager : MonoSingleton<PlayerManager>
 {
@@ -18,8 +19,9 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	[SerializeField] private MoveUI moveUIPref;
 	[SerializeField] private List<MoveUI> moveUIList;
 
+	[SerializeField] private Image targetImage;
 
-	public void SetNewPlayers() // 스테이지 바뀔 때마다 마지막에 넣어주기
+	public void SetNewPlayers(StageSO curStage) // 스테이지 바뀔 때마다 마지막에 넣어주기
 	{
 		players = stageTrm.GetComponentsInChildren<Movement>(); // 스테이지에서 플레이어를 찾아
 		
@@ -31,10 +33,13 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 		for (int i = 0; i < players.Length; ++i)
         {
 			MoveUI move = Instantiate(moveUIPref, moveUITrm);
-			move.SetUI(players[i].GetComponent<MeshRenderer>().material.color, players[i].moveCount);
+			//Color playerColor = (i % 2 == 0) ? curStage.player1Color : curStage.player2Color;
+			//move.SetUI(playerColor, players[i].moveCount);
 
 			moveUIList.Add(move);
 		}
+
+		targetImage.color = curStage.targetColor;
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
 		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);

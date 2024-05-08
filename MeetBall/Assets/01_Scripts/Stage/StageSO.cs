@@ -10,8 +10,7 @@ public class StageSO : ScriptableObject
     public int player1MoveCount;
     public int player2MoveCount;
 
-    public Color player1Color;
-    public Color player2Color;
+    public Color[] playersColor;
     public Color targetColor;
 
     public bool IsClear= false;
