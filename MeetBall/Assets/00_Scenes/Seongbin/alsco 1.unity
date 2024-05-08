@@ -727,10 +727,6 @@ MonoBehaviour:
   stageTrm: {fileID: 0}
   stages: []
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
-  player1Image: {fileID: 2032530297}
-  player1CntTxt: {fileID: 708617444}
-  player2Image: {fileID: 838275888}
-  player2CntTxt: {fileID: 1445187117}
 --- !u!1 &519920624
 GameObject:
   m_ObjectHideFlags: 0
@@ -916,6 +912,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swipeThreshold: 100
   rotate: {fileID: 0}
+  camMovement: {fileID: 0}
 --- !u!1 &593151181
 GameObject:
   m_ObjectHideFlags: 0
@@ -2972,10 +2969,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ec5dde73ef04484ea7f63cfe68c56ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player1: {fileID: 0}
-  player2: {fileID: 0}
-  colorImage: {fileID: 2032530297}
-  moveCnt: {fileID: 708617444}
+  stageTrm: {fileID: 0}
+  players: []
+  selectedPlayer: {fileID: 0}
+  moveUITrm: {fileID: 0}
+  moveUIPref: {fileID: 0}
+  moveUIList: []
 --- !u!1 &1993329206
 GameObject:
   m_ObjectHideFlags: 0
@@ -3240,6 +3239,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swipeThreshold: 100
   rotate: {fileID: 83490774}
+  camMovement: {fileID: 0}
 --- !u!114 &2082734115
 MonoBehaviour:
   m_ObjectHideFlags: 0
