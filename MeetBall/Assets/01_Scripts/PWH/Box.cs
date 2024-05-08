@@ -64,6 +64,9 @@ public class Box : MonoBehaviour
         else
         {
             transform.position += _saveDir[save];
+
+            if (BoxManager.Instance.SameBox(this, player, _saveDir[save]))
+                transform.position -= _saveDir[save];
         }
 
         BoxManager.Instance.SameBox(this, player, _saveDir[save]);

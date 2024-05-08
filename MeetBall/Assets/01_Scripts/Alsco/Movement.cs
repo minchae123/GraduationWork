@@ -86,7 +86,9 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[2])
 		{
-			transform.position += -camMovement.cinemachineCam.transform.right;
+			Vector3 pos = Vector3Int.FloorToInt(-camMovement.cinemachineCam.transform.right);
+			transform.position += pos;
+			print(pos);
 		}
 	}
 
@@ -97,7 +99,8 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[3])
 		{
-			transform.position += camMovement.cinemachineCam.transform.right;
+			print(camMovement.cinemachineCam.transform.right.normalized);
+			transform.position += camMovement.cinemachineCam.transform.right.normalized;
 		}
 	}
 
@@ -108,7 +111,9 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[4])
 		{
-			transform.position += camMovement.cinemachineCam.transform.up;
+			Vector3 pos = Vector3Int.RoundToInt(camMovement.cinemachineCam.transform.up);
+			print(pos);
+			transform.position += pos;
 		}
 	}
 
@@ -119,7 +124,9 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[5])
 		{
-			transform.position += -camMovement.cinemachineCam.transform.up;
+			Vector3 pos = Vector3Int.RoundToInt(-camMovement.cinemachineCam.transform.up);
+			print(pos);
+			transform.position += pos;
 		}
 	}
 
