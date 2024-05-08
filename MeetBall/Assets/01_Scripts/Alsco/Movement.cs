@@ -4,6 +4,12 @@ using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.UI;
 
+public enum PlayerDir
+{
+	left,
+	right
+}
+
 struct WASD
 {
 	public Vector3 w;
@@ -26,6 +32,7 @@ public class Movement : MonoBehaviour
 	public int curCount;
 	public int moveCount;
 	public Vector3 direction;
+	public PlayerDir playerEnum;
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
@@ -50,7 +57,23 @@ public class Movement : MonoBehaviour
 		RayCheck();
 	}
 
-	public void SetPlayer(Color color, int moveCnt)
+    private void Update()
+	{
+		BoxManager.Instance.boxDec(transform);
+
+		for (int i = 0; i < ray.Length; i++)
+		{
+			ray[i].origin = transform.position;
+			Debug.DrawRay(ray[i].origin, ray[i].direction);
+
+			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
+			{
+				Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
+			}
+		}
+	}
+
+    public void SetPlayer(Color color, int moveCnt)
     {
 		mr.material.color = color;
 		moveCount = moveCnt;
@@ -58,6 +81,8 @@ public class Movement : MonoBehaviour
 
 	public void MoveLeft()
 	{
+		BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 		if (isCanMove[2])
 		{
@@ -67,6 +92,8 @@ public class Movement : MonoBehaviour
 
 	public void MoveRight()
 	{
+		BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 		if (isCanMove[3])
 		{
@@ -76,6 +103,8 @@ public class Movement : MonoBehaviour
 
 	public void MoveUp()
 	{
+		BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 		if (isCanMove[4])
 		{
@@ -85,6 +114,8 @@ public class Movement : MonoBehaviour
 
 	public void MoveDown()
 	{
+		BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 		if (isCanMove[5])
 		{
@@ -99,6 +130,17 @@ public class Movement : MonoBehaviour
 			ray[i].origin = transform.position;
 
 			Debug.DrawRay(ray[i].origin, ray[i].direction);
+
+			if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
+			{
+				ray[4].direction = -transform.forward; // z up
+				ray[5].direction = transform.forward; // z down
+            }
+			else
+            {
+				ray[4].direction = transform.forward; // z up
+				ray[5].direction = -transform.forward; // z down
+			}
 
 			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
 			{
