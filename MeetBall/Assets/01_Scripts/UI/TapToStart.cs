@@ -32,7 +32,6 @@ public class TapToStart : MonoBehaviour
 
 	public void AlphaRepeat()
 	{
-		print(1);
 		text.DOFade(0.2f, 1).SetLoops(-1, LoopType.Yoyo);
 	}
 }

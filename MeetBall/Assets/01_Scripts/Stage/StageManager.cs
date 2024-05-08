@@ -20,10 +20,10 @@ public class StageManager : MonoBehaviour
 
     private int curStage;
 
-    [SerializeField] private Image player1Image;
-    [SerializeField] private TextMeshProUGUI player1CntTxt;
-    [SerializeField] private Image player2Image;
-    [SerializeField] private TextMeshProUGUI player2CntTxt;
+    //[SerializeField] private Image player1Image;
+    //[SerializeField] private TextMeshProUGUI player1CntTxt;
+    //[SerializeField] private Image player2Image;
+    //[SerializeField] private TextMeshProUGUI player2CntTxt;
 
     private void Awake()
     {
@@ -64,11 +64,11 @@ public class StageManager : MonoBehaviour
     {
         if(stageNum <= stageList.Stages.Count)
         {
-            curStageGameObject = Instantiate(stageList.Stages[stageNum - 1].stagePref, Vector3.zero, Quaternion.identity); // 스테이지 생성
-            player1Image.color = stageList.Stages[stageNum - 1].player1Color;
-            player1CntTxt.text = stageList.Stages[stageNum - 1].player1MoveCount.ToString();
-            player2Image.color = stageList.Stages[stageNum - 1].player2Color;
-            player2CntTxt.text = stageList.Stages[stageNum - 1].player2MoveCount.ToString();
+            curStageGameObject = Instantiate(stageList.Stages[stageNum - 1].stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
+            //player1Image.color = stageList.Stages[stageNum - 1].player1Color;
+            //player1CntTxt.text = stageList.Stages[stageNum - 1].player1MoveCount.ToString();
+            //player2Image.color = stageList.Stages[stageNum - 1].player2Color;
+            //player2CntTxt.text = stageList.Stages[stageNum - 1].player2MoveCount.ToString();
             CameraManager.Instance.NewControl();
 
             isInStage = true;
@@ -78,6 +78,7 @@ public class StageManager : MonoBehaviour
             print("준비된 스테이지가 아닙니다람쥐");
         }
 
+        PlayerManager.Instance.SetNewPlayers();
     }
 
     public void ClearStage()

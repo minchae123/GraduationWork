@@ -49,7 +49,6 @@ public class CameraManager : MonoBehaviour
 
 	private void Start()
 	{
-		move?.Move(DIRECTION.South);
 	}
 
 	public void OnLook(InputAction.CallbackContext context)
@@ -133,7 +132,6 @@ public class CameraManager : MonoBehaviour
 
 		leftControl?.Move(direction);
 		rightControl?.Move(direction);
-		move?.Move(direction);
 
 		return new Vector3(xRotation, endValue, 0);
 	}

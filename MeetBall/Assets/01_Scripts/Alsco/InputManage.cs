@@ -16,11 +16,28 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	bool draggingStarted;
 
 	[SerializeField] private MapRotate rotate;
+	[SerializeField] private CameraMovement camMovement;
+
+	private int leftRightCnt = 0;
+	private int upDownCnt = 0;
 
 	private void Awake()
 	{
 		draggingStarted = false;
 		direction = Direction.None;
+	}
+
+	private void Update()
+	{
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+	       FindMap();
+        }
+	}
+
+	public void FindMap()
+	{
+		rotate = FindObjectOfType<MapRotate>();	
 	}
 
 	public void OnBeginDrag(PointerEventData eventData)
@@ -59,8 +76,32 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	{
 		if (draggingStarted && direction != Direction.None)
 		{
-			Debug.Log(direction);
-			rotate.Rotate(direction);
+			switch (direction)
+			{
+				case Direction.Left:
+					{
+						leftRightCnt--;
+					}
+					break;
+				case Direction.Right:
+					{
+						leftRightCnt++;
+					}
+					break;
+				case Direction.Up:
+					{
+						upDownCnt++;
+					}
+					break;
+				case Direction.Down:
+					{
+						upDownCnt--;
+					}
+					break;
+			}
+
+			rotate?.Rotate(direction, leftRightCnt, upDownCnt);
+			camMovement.MoveCam(direction);
 		}
 
 		startPos = Vector2.zero;

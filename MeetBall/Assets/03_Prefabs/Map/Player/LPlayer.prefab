@@ -13,8 +13,8 @@ GameObject:
   - component: {fileID: 7088294143665749501}
   - component: {fileID: 7088294143665749500}
   - component: {fileID: 7088294143665749496}
-  - component: {fileID: 7088294143665749497}
   - component: {fileID: 7088294143665749494}
+  - component: {fileID: 466900214703683144}
   m_Layer: 0
   m_Name: LPlayer
   m_TagString: Player
@@ -116,24 +116,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7088294143665749497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7088294143665749503}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 320
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &7088294143665749494
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -147,3 +129,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
+  clearParticle: {fileID: 0}
+--- !u!114 &466900214703683144
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088294143665749503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
+  direction: {x: 0, y: 0, z: 0}
+  isCanMove: 000000000000
+  playerType: 0
