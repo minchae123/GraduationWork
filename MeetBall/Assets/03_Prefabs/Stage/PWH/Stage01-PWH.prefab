@@ -80,6 +80,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 108555041796035878}
+  - component: {fileID: -6610882426996055453}
   m_Layer: 0
   m_Name: Stage01-PWH
   m_TagString: Untagged
@@ -105,6 +106,55 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-6610882426996055453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 108555041796035879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c72563802b39404680d005fae2e358c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Blocks:
+  - {fileID: 3532868220853291058}
+  - {fileID: 3532868221387710131}
+  - {fileID: 6562217472380089437}
+  - {fileID: 6562217470809866443}
+  - {fileID: 6562217471758258151}
+  - {fileID: 6562217471504398891}
+  - {fileID: 6562217472707594998}
+  - {fileID: 6562217471058396914}
+  - {fileID: 6562217472565515545}
+  - {fileID: 6562217472417619440}
+  - {fileID: 6562217472235470178}
+  - {fileID: 6562217470862972666}
+  - {fileID: 6562217471567273565}
+  - {fileID: 6562217471218600226}
+  - {fileID: 6562217471089813233}
+  - {fileID: 6562217472397802928}
+  - {fileID: 6562217471268048299}
+  - {fileID: 6562217470971817907}
+  - {fileID: 6562217471140375480}
+  - {fileID: 6592848462166532686}
+  - {fileID: 3569631599977326047}
+  - {fileID: 4744669102087187571}
+  - {fileID: 617371120161862078}
+  - {fileID: 2241628607742654829}
+  - {fileID: 5811420737595555409}
+  - {fileID: 718063960784924167}
+  - {fileID: 2292511613222703724}
+  - {fileID: 578830059340653112}
+  - {fileID: 4023506591542520205}
+  - {fileID: 1334111616872603224}
+  - {fileID: 615261254516352690}
+  - {fileID: 4715771227467207128}
+  - {fileID: 3070489318111173557}
+  - {fileID: 7196479301581911195}
+  - {fileID: 4790242455965030715}
+  SaveBlocks: []
 --- !u!1 &578830059340653112
 GameObject:
   m_ObjectHideFlags: 0
@@ -1621,7 +1671,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  box: {fileID: 3532868220853291016}
   direction: {x: 0, y: 0, z: 0}
   beforeCube: {fileID: 0}
 --- !u!1 &5811420737595555409
@@ -3841,7 +3890,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  box: {fileID: 0}
   direction: {x: 0, y: 0, z: 0}
   beforeCube: {fileID: 0}
 --- !u!114 &7196479301581911186
@@ -3857,3 +3905,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
+  clearParticle: {fileID: 0}

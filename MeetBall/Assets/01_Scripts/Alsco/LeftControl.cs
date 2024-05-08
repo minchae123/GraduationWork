@@ -4,13 +4,6 @@ using UnityEditor.Experimental.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering.LookDev;
 
-struct WASD
-{
-    public Vector3 w;
-    public Vector3 s;
-    public Vector3 a;
-    public Vector3 d;
-}
 
 public class LeftControl : MonoBehaviour
 {
@@ -41,10 +34,13 @@ public class LeftControl : MonoBehaviour
         startPos = transform.position;
 
         curCount = -1;
-        maxCount = stageinfo.LmoveCnt;
-    }
+        maxCount = stageinfo.player1MoveCount;
 
-    void Update()
+        Move(DIRECTION.East);
+		RayCheck();
+	}
+
+	void Update()
     {
         if (Input.anyKeyDown)
         {

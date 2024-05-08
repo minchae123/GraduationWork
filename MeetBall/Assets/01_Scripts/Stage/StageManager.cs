@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using DG.Tweening;
 
 public class StageManager : MonoBehaviour
 {
@@ -16,6 +19,11 @@ public class StageManager : MonoBehaviour
     private GameObject curStageGameObject;
 
     private int curStage;
+
+    //[SerializeField] private Image player1Image;
+    //[SerializeField] private TextMeshProUGUI player1CntTxt;
+    //[SerializeField] private Image player2Image;
+    //[SerializeField] private TextMeshProUGUI player2CntTxt;
 
     private void Awake()
     {
@@ -40,6 +48,7 @@ public class StageManager : MonoBehaviour
 	{
 		if(Input.GetKeyDown(KeyCode.Tab))
         {
+            StopAllCoroutines();
             ClearStage();
         }
 
@@ -55,7 +64,11 @@ public class StageManager : MonoBehaviour
     {
         if(stageNum <= stageList.Stages.Count)
         {
-            curStageGameObject = Instantiate(stageList.Stages[stageNum - 1].stagePref, Vector3.zero, Quaternion.identity); // 스테이지 생성
+            curStageGameObject = Instantiate(stageList.Stages[stageNum - 1].stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
+            //player1Image.color = stageList.Stages[stageNum - 1].player1Color;
+            //player1CntTxt.text = stageList.Stages[stageNum - 1].player1MoveCount.ToString();
+            //player2Image.color = stageList.Stages[stageNum - 1].player2Color;
+            //player2CntTxt.text = stageList.Stages[stageNum - 1].player2MoveCount.ToString();
             CameraManager.Instance.NewControl();
 
             isInStage = true;
@@ -65,16 +78,23 @@ public class StageManager : MonoBehaviour
             print("준비된 스테이지가 아닙니다람쥐");
         }
 
+        PlayerManager.Instance.SetNewPlayers();
     }
 
     public void ClearStage()
     {
+        StartCoroutine(StageLoad());
+    }
+
+    private IEnumerator StageLoad()
+    {
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
         Destroy(curStageGameObject);
-		curStage = GameManager.Instance.curStage;
-        LoadStage(curStage);
+        curStage = GameManager.Instance.curStage;
 
+        yield return new WaitForSeconds(2);
+        LoadStage(curStage);
         StartCoroutine(FindBox());
     }
 
