@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
 	}
 
 	private CameraMovement camMovement;
-	
+
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
 
@@ -68,39 +68,38 @@ public class Movement : MonoBehaviour
 
 	public void MoveLeft()
 	{
+		RayCheck();
 		if (isCanMove[2])
 		{
 			transform.position += -camMovement.cinemachineCam.transform.right;
 		}
-		RayCheck();
 	}
 
 	public void MoveRight()
 	{
-		if (isCanMove[3] )
+		RayCheck();
+		if (isCanMove[3])
 		{
 			transform.position += camMovement.cinemachineCam.transform.right;
 		}
-		RayCheck();
 	}
 
 	public void MoveUp()
 	{
+		RayCheck();
 		if (isCanMove[4])
 		{
-			print(WASD.w);
 			transform.position += camMovement.cinemachineCam.transform.up;
 		}
-		RayCheck();
 	}
 
 	public void MoveDown()
 	{
+		RayCheck();
 		if (isCanMove[5])
 		{
 			transform.position += -camMovement.cinemachineCam.transform.up;
 		}
-		RayCheck();
 	}
 
 	public void RayCheck()
@@ -108,6 +107,7 @@ public class Movement : MonoBehaviour
 		for (int i = 0; i < ray.Length; i++)
 		{
 			ray[i].origin = transform.position;
+
 			Debug.DrawRay(ray[i].origin, ray[i].direction);
 
 			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
