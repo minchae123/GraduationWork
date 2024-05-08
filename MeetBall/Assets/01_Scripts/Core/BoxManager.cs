@@ -38,10 +38,12 @@ public class BoxManager : MonoSingleton<BoxManager>
             {
                 if (ownerBox.transform.position + dir == box.transform.position)
                 {
-                    if (player.TryGetComponent(out LeftControl left) && dir == left.direction)
-                        left.direction = Vector3.zero;
-                    else if (player.TryGetComponent(out RightControl right) && dir == right.direction)
-                        right.direction = Vector3.zero;
+                    if (player.TryGetComponent(out Movement move) && dir == move.direction)
+                        move.direction = Vector3.zero;
+                    //if (player.TryGetComponent(out LeftControl left) && dir == left.direction)
+                    //    left.direction = Vector3.zero;
+                    //else if (player.TryGetComponent(out RightControl right) && dir == right.direction)
+                    //    right.direction = Vector3.zero;
                 }
                 else if (ownerBox.transform.position == box.transform.position)
                     return true;
@@ -64,11 +66,13 @@ public class BoxManager : MonoSingleton<BoxManager>
             if (box != null)
                 box.Determine();
 
-            if (player.TryGetComponent(out LeftControl left) && box._leftPlayerDir == left.direction)
-                left.direction = Vector3.zero;
-            else if (player.TryGetComponent(out RightControl right) && box._rightPlayerDir == right.direction)
-                right.direction = Vector3.zero;
-
+            if (player.TryGetComponent(out Movement move))
+            {
+                if (box._leftPlayerDir == move.direction && move.playerEnum == PlayerDir.left)
+                    move.direction = Vector3.zero;
+                else if (box._rightPlayerDir == move.direction && move.playerEnum == PlayerDir.right)
+                    move.direction = Vector3.zero;
+            }
         }
     }
 

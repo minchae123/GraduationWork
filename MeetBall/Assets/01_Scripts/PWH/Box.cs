@@ -13,7 +13,6 @@ public class Box : MonoBehaviour
     [Header("참조")]
     [SerializeField] private Transform _leftPlayer;
     [SerializeField] private Transform _rightPlayer;
-    [SerializeField] private LayerMask _layer;
 
     [Header("수치")]
     [SerializeField] private float _distance;
@@ -65,11 +64,6 @@ public class Box : MonoBehaviour
         else
         {
             transform.position += _saveDir[save];
-
-            if(BoxManager.Instance.SameBox(this, player, _saveDir[save]))
-            {
-                transform.position -= _saveDir[save];
-            }
         }
 
         BoxManager.Instance.SameBox(this, player, _saveDir[save]);
