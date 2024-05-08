@@ -12,6 +12,7 @@ public class StageSO : ScriptableObject
 
     public Color player1Color;
     public Color player2Color;
+    public Color targetColor;
 
     public bool IsClear= false;
 }
