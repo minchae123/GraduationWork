@@ -14,11 +14,6 @@ struct WASD
 
 public class Movement : MonoBehaviour
 {
-	public enum PlayerType
-	{
-		Player1, Player2
-	}
-
 	private CameraMovement camMovement;
 
 	private RaycastHit hit;
@@ -34,15 +29,14 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
-	public PlayerType playerType;
-	private Dictionary<PlayerType, bool> playerDic = new Dictionary<PlayerType, bool>()
-	{
-		{PlayerType.Player1, true},
-		{PlayerType.Player2, false}
-	};
+	private MeshRenderer mr;
 
+    private void Awake()
+    {
+		mr = GetComponent<MeshRenderer>();
+    }
 
-	private void Start()
+    private void Start()
 	{
 		ray[0].direction = transform.up; // y up
 		ray[1].direction = -transform.up; // y down
@@ -51,20 +45,16 @@ public class Movement : MonoBehaviour
 		ray[4].direction = transform.forward; // z up
 		ray[5].direction = -transform.forward; // z down
 
-		moveCount = PlayerType.Player1 == playerType ? stageInfo.player1MoveCount : stageInfo.player2MoveCount;
-
-		playerDic[playerType] = playerType == PlayerType.Player1 ? true : false;
-		print(playerDic[playerType]);
-
 		camMovement = FindObjectOfType<CameraMovement>();
 
 		RayCheck();
 	}
 
-	public void ChangeCanMove(bool value)
-	{
-		playerDic[playerType] = value;
-	}
+	public void SetPlayer(Color color, int moveCnt)
+    {
+		mr.material.color = color;
+		moveCount = moveCnt;
+    }
 
 	public void MoveLeft()
 	{

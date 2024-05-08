@@ -7,11 +7,20 @@ public class StageSO : ScriptableObject
 {
     public GameObject stagePref;
 
-    public int player1MoveCount;
-    public int player2MoveCount;
+    public Movement[] players;
 
-    public Color[] playersColor;
+    public int[] playersCount;
+
+    public Color[] playersColor;    
     public Color targetColor;
 
     public bool IsClear= false;
+
+    public void SetPlayers()
+    {
+        for(int i = 0; i < players.Length; ++i)
+        {
+            players[i].SetPlayer(playersColor[i], playersCount[i]);
+        }
+    }
 }

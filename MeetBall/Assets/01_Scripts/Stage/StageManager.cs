@@ -52,11 +52,15 @@ public class StageManager : MonoBehaviour
     {
         if(stageNum <= stageList.Stages.Count)
         {
-            curStageGameObject = Instantiate(stageList.Stages[stageNum - 1].stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
-            CameraManager.Instance.NewControl();
+            StageSO currentStage = stageList.Stages[stageNum - 1]; // 현재 스테이지
 
+            curStageGameObject = Instantiate(currentStage.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
             isInStage = true;
-            PlayerManager.Instance.SetNewPlayers(stageList.Stages[stageNum - 1]);
+            
+            currentStage.SetPlayers();
+
+            CameraManager.Instance.NewControl();
+            PlayerManager.Instance.SetNewPlayers(currentStage);
         }
         else
         {
