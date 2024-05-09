@@ -299,6 +299,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   playerEnum: 1
   isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1 &8786206441053034876
 GameObject:
   m_ObjectHideFlags: 0
@@ -428,8 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32378f6adc7744e4585c70a0f5b91dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearAnim: {fileID: 0}
-  clearParticle: {fileID: 0}
 --- !u!114 &6287005995850115340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,6 +463,7 @@ MonoBehaviour:
   direction: {x: 0, y: 0, z: 0}
   playerEnum: 0
   isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1001 &724781087147658989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -477,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4607857514626011684, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4607857514626011684, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
       propertyPath: m_LocalPosition.y
@@ -659,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7638509122878995806, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7638509122878995806, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1720,7 +1720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9046576096740898189, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9046576096740898189, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.z
