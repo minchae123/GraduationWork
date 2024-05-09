@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
-	private MeshRenderer render;
+	public MeshRenderer render;
 
 	private void Awake()
 	{
@@ -171,5 +171,4 @@ public class Movement : MonoBehaviour
 			}
 		}
 	}
-
 }

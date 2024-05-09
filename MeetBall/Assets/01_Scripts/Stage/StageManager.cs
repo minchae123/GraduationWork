@@ -16,6 +16,10 @@ public class StageManager : MonoBehaviour
 
     [SerializeField] private StageListSO stageList;
 
+    [Header("Clear")]
+    public Animator ClearAnim;
+    [SerializeField] private ParticleSystem clearParticle;
+
     private GameObject curStageGameObject;
 
     private int curStage;
@@ -27,12 +31,15 @@ public class StageManager : MonoBehaviour
 
     private void Start()
     {
-		curStage = GameManager.Instance.curStage;
+        clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+        ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
 
-        ClearStage();
-	}
+        curStage = GameManager.Instance.curStage;
 
-	private void Update()
+        StartCoroutine(StageLoad());
+    }
+
+    private void Update()
 	{
 		if(Input.GetKeyDown(KeyCode.Tab))
         {
@@ -70,6 +77,11 @@ public class StageManager : MonoBehaviour
 
     public void ClearStage()
     {
+        ClearAnim.SetTrigger("Clear");
+
+        BoxManager.Instance.CleanBox();
+        clearParticle.Play();
+
         StartCoroutine(StageLoad());
     }
 
