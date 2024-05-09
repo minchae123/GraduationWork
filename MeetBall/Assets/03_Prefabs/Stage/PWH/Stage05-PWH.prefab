@@ -1633,8 +1633,8 @@ GameObject:
   - component: {fileID: 5267847874485554854}
   - component: {fileID: 5267847874485554855}
   - component: {fileID: 5267847874485554851}
-  - component: {fileID: 5267847874485554850}
   - component: {fileID: 5267847874485554861}
+  - component: {fileID: 3242616827224554133}
   m_Layer: 0
   m_Name: LPlayer
   m_TagString: Player
@@ -1736,24 +1736,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5267847874485554850
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5267847874485554852}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &5267847874485554861
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1767,6 +1749,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
+  clearParticle: {fileID: 0}
+--- !u!114 &3242616827224554133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5267847874485554852}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 4bae5657a881e7f429534b333e4f9b0c, type: 2}
+  curCount: 0
+  moveCount: 14
+  direction: {x: 0, y: 0, z: 0}
+  playerEnum: 0
+  isCanMove: 000000000000
 --- !u!1 &6675055646516286342
 GameObject:
   m_ObjectHideFlags: 0
@@ -2236,7 +2240,7 @@ GameObject:
   - component: {fileID: 7547606720813851641}
   - component: {fileID: 7547606720813851640}
   - component: {fileID: 7547606720813851399}
-  - component: {fileID: 7547606720813851643}
+  - component: {fileID: 3026530234340624757}
   m_Layer: 0
   m_Name: RPlayer
   m_TagString: Player
@@ -2338,7 +2342,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7547606720813851643
+--- !u!114 &3026530234340624757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2347,15 +2351,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 7547606720813851396}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62baa15231a7b7a4e898b0a7ef75f061, type: 3}
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsBox:
     serializedVersion: 2
     m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
+  stageInfo: {fileID: 11400000, guid: 4bae5657a881e7f429534b333e4f9b0c, type: 2}
+  curCount: 0
+  moveCount: 14
   direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
+  playerEnum: 1
+  isCanMove: 000000000000
 --- !u!1 &8202618929614459271
 GameObject:
   m_ObjectHideFlags: 0

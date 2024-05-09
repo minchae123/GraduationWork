@@ -167,8 +167,8 @@ GameObject:
   - component: {fileID: 2279355242043749339}
   - component: {fileID: 2279355242043749338}
   - component: {fileID: 2279355242043749342}
-  - component: {fileID: 2279355242043749343}
   - component: {fileID: 2279355242043749328}
+  - component: {fileID: 7244179409919562842}
   m_Layer: 0
   m_Name: LPlayer
   m_TagString: Player
@@ -270,24 +270,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &2279355242043749343
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2279355242043749337}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &2279355242043749328
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +284,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
   clearParticle: {fileID: 0}
+--- !u!114 &7244179409919562842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2279355242043749337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 0f483714eea13d24fb2752fef2223fbe, type: 2}
+  curCount: 0
+  moveCount: 6
+  direction: {x: 0, y: 0, z: 0}
+  playerEnum: 0
+  isCanMove: 000000000000
 --- !u!1 &2841573771634380212
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +465,7 @@ GameObject:
   - component: {fileID: 4468906107985124996}
   - component: {fileID: 4468906107985124997}
   - component: {fileID: 4468906107985124986}
-  - component: {fileID: 4468906107985124998}
+  - component: {fileID: 4861045703035122736}
   m_Layer: 0
   m_Name: RPlayer
   m_TagString: Player
@@ -564,7 +567,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &4468906107985124998
+--- !u!114 &4861045703035122736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -573,15 +576,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 4468906107985124985}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62baa15231a7b7a4e898b0a7ef75f061, type: 3}
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsBox:
     serializedVersion: 2
     m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
+  stageInfo: {fileID: 11400000, guid: 0f483714eea13d24fb2752fef2223fbe, type: 2}
+  curCount: 0
+  moveCount: 6
   direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
+  playerEnum: 1
+  isCanMove: 000000000000
 --- !u!1 &5036616841010033547
 GameObject:
   m_ObjectHideFlags: 0
@@ -796,9 +802,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541159665456400
@@ -930,9 +933,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541159673861115
@@ -1178,9 +1178,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541159676827387
@@ -1312,9 +1309,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541159708913940
@@ -1902,9 +1896,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541159909939899
@@ -2264,9 +2255,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160036448304
@@ -2968,9 +2956,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160293850367
@@ -3900,9 +3885,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160473906655
@@ -4458,9 +4440,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160564217072
@@ -4934,9 +4913,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160658117580
@@ -5834,9 +5810,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541160949884897
@@ -6066,9 +6039,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161056109105
@@ -6428,9 +6398,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161086157929
@@ -6888,9 +6855,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161138938491
@@ -7022,9 +6986,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161144741776
@@ -7726,9 +7687,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161362282662
@@ -8088,9 +8046,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161442363556
@@ -9232,9 +9187,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 0}
   _rightPlayer: {fileID: 0}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &6578541161709622437

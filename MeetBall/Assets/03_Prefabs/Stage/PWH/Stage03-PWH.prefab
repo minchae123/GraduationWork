@@ -818,7 +818,7 @@ GameObject:
   - component: {fileID: 5692798739055975967}
   - component: {fileID: 5692798739055975966}
   - component: {fileID: 5692798739055976161}
-  - component: {fileID: 5692798739055975965}
+  - component: {fileID: 3321423821819345262}
   m_Layer: 0
   m_Name: RPlayer
   m_TagString: Player
@@ -920,7 +920,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &5692798739055975965
+--- !u!114 &3321423821819345262
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -929,15 +929,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 5692798739055976162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62baa15231a7b7a4e898b0a7ef75f061, type: 3}
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   whatIsBox:
     serializedVersion: 2
     m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
+  stageInfo: {fileID: 11400000, guid: ed25cf7ebff139145924dfa4dd5052dc, type: 2}
+  curCount: 0
+  moveCount: 6
   direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
+  playerEnum: 1
+  isCanMove: 000000000000
 --- !u!1 &5747246363304628592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1295,9 +1298,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftPlayer: {fileID: 7972982825207919430}
   _rightPlayer: {fileID: 5692798739055976163}
-  _layer:
-    serializedVersion: 2
-    m_Bits: 0
   _distance: 0.2
   _saveDis: 1
 --- !u!1 &7972982825207919426
@@ -1313,8 +1313,8 @@ GameObject:
   - component: {fileID: 7972982825207919424}
   - component: {fileID: 7972982825207919425}
   - component: {fileID: 7972982825207919429}
-  - component: {fileID: 7972982825207919428}
   - component: {fileID: 7972982825207919435}
+  - component: {fileID: 8403252476727702722}
   m_Layer: 0
   m_Name: LPlayer
   m_TagString: Player
@@ -1416,24 +1416,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &7972982825207919428
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7972982825207919426}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &7972982825207919435
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1448,6 +1430,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ClearAnim: {fileID: 0}
   clearParticle: {fileID: 0}
+--- !u!114 &8403252476727702722
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7972982825207919426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: ed25cf7ebff139145924dfa4dd5052dc, type: 2}
+  curCount: 0
+  moveCount: 8
+  direction: {x: 0, y: 0, z: 0}
+  playerEnum: 0
+  isCanMove: 000000000000
 --- !u!1 &8221540857870875480
 GameObject:
   m_ObjectHideFlags: 0
