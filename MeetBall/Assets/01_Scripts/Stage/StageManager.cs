@@ -11,18 +11,24 @@ public class StageManager : MonoBehaviour
 
     private bool isInStage = false;
 
+    [Header("Stage")]
     [SerializeField] private Transform stageTrm;
     [SerializeField] private StageUI[] stages;
 
     [SerializeField] private StageListSO stageList;
 
-    [Header("Clear")]
-    public Animator ClearAnim;
-    [SerializeField] private ParticleSystem clearParticle;
+    private StageSO currentStageSO;
+    public StageSO CurrentStageSO => currentStageSO;
 
     private GameObject curStageGameObject;
-
     private int curStage;
+
+    [Header("Clear")]
+    private Animator ClearAnim;
+    private ParticleSystem clearParticle;
+
+    [Header("ETC")]
+    [SerializeField] private GameObject gameCanvas;
 
     private void Awake()
     {
@@ -59,13 +65,15 @@ public class StageManager : MonoBehaviour
     {
         if(stageNum <= stageList.Stages.Count)
         {
-            StageSO currentStage = stageList.Stages[stageNum - 1]; // 현재 스테이지
+            currentStageSO = stageList.Stages[stageNum - 1]; // 현재 스테이지
 
-            curStageGameObject = Instantiate(currentStage.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
+            curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
             isInStage = true;
-            
+
+            gameCanvas.SetActive(true);
+
             CameraManager.Instance.NewControl();
-            PlayerManager.Instance.SetNewPlayers(currentStage);
+            PlayerManager.Instance.SetNewPlayers(currentStageSO);
         }
         else
         {
@@ -85,6 +93,7 @@ public class StageManager : MonoBehaviour
 
     private IEnumerator StageLoad()
     {
+        gameCanvas.SetActive(false);
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
         Destroy(curStageGameObject);
