@@ -24,6 +24,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
 	public void SetNewPlayers(StageSO curStage) // 스테이지 바뀔 때마다 마지막에 넣어주기
 	{
+		selectedNum = 0;
 		players = stageTrm.GetComponentsInChildren<Movement>(); // 스테이지에서 플레이어를 찾아
 		
 		moveUIList.ForEach(m => Destroy(m.gameObject));
@@ -39,12 +40,12 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 			moveUIList.Add(move);
 		}
 
-		curStage.SetPlayers();
-
 		targetImage.color = curStage.targetColor;
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
 		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
+
+		curStage.SetPlayers();
 	}
 
 	public void ChangeMovePlayer()
