@@ -45,13 +45,6 @@ public class Movement : MonoBehaviour
 
 	private void Start()
 	{
-		ray[0].direction = transform.up; // y up
-		ray[1].direction = -transform.up; // y down
-		ray[2].direction = -transform.right; // x left
-		ray[3].direction = transform.right; // x right
-		ray[4].direction = transform.forward; // z up
-		ray[5].direction = -transform.forward; // z down
-
 		camMovement = FindObjectOfType<CameraMovement>();
 
 		RayCheck();
@@ -61,23 +54,12 @@ public class Movement : MonoBehaviour
 	{
 		BoxManager.Instance.boxDec(transform);
 
-		for (int i = 0; i < ray.Length; i++)
-		{
-			ray[i].origin = transform.position;
-			Debug.DrawRay(ray[i].origin, ray[i].direction);
-
-			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
-			{
-				Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
-			}
-		}
+		RayCheck();
 	}
 	
 	public void SetPlayer(Color color, int moveCnt)
 	{
 		render = GetComponent<MeshRenderer>();
-		//print(render);\
-		//print(color);
 		render.sharedMaterial.SetColor("_PlayerColor", color);
 		moveCount = moveCnt;
 	}
@@ -91,8 +73,8 @@ public class Movement : MonoBehaviour
 		{
 			Vector3 pos = Vector3Int.FloorToInt(-camMovement.cinemachineCam.transform.right);
 			transform.position += pos;
-			print(pos);
 
+			print(curCount);
 			curCount++;
 		}
 	}
@@ -104,9 +86,10 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[3] && curCount < moveCount)
 		{
-			print(camMovement.cinemachineCam.transform.right.normalized);
-			transform.position += camMovement.cinemachineCam.transform.right.normalized;
+			Vector3 pos = Vector3Int.FloorToInt(camMovement.cinemachineCam.transform.right);
+			transform.position += pos;
 
+			print(curCount);
 			curCount++;
 		}
 	}
@@ -119,9 +102,9 @@ public class Movement : MonoBehaviour
 		if (isCanMove[4] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(camMovement.cinemachineCam.transform.up);
-			print(pos);
 			transform.position += pos;
 
+			print(curCount);
 			curCount++;
 		}
 	}
@@ -134,15 +117,22 @@ public class Movement : MonoBehaviour
 		if (isCanMove[5] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(-camMovement.cinemachineCam.transform.up);
-			print(pos);
 			transform.position += pos;
 
+			print(curCount);
 			curCount++;
 		}
 	}
 
 	public void RayCheck()
 	{
+		ray[0].direction = transform.up; // y up
+		ray[1].direction = -transform.up; // y down
+		ray[2].direction = -transform.right; // x left
+		ray[3].direction = transform.right; // x right
+		ray[4].direction = transform.forward; // z up
+		ray[5].direction = -transform.forward; // z down
+
 		for (int i = 0; i < ray.Length; i++)
 		{
 			ray[i].origin = transform.position;
