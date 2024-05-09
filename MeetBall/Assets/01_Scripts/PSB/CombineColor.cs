@@ -20,7 +20,7 @@ public class CombineColor : MonoBehaviour
 			Color c2 = other.gameObject.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_PlayerColor");
 
 			Color combineColor = new Color(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b, 1);
-			print($"c1: {c1}, c2: {c2}, combine: {combineColor}");
+			//print($"c1: {c1}, c2: {c2}, combine: {combineColor}");
 
 			render.sharedMaterial.SetColor("_PlayerColor", combineColor);
 			PlayerManager.Instance.DestroyPlayer(other.gameObject.GetComponent<Movement>());

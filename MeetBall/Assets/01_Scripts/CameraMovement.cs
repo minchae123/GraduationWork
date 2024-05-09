@@ -36,10 +36,12 @@ public class CameraMovement : MonoBehaviour
 				break;
 			case Direction.Up:
 				{
-					cinemachineCam.transform.DOMove(transforms[4].position, .5f);
-					cinemachineCam.LookAt = null;
+					cinemachineCam.transform.DOMove(transforms[4].position, .5f).OnComplete(() =>
+					{
+						cinemachineCam.LookAt = null;
+						cinemachineCam.transform.rotation = Quaternion.Euler(new Vector3(90, 0, 0));
+					});
 
-					cinemachineCam.transform.Rotate(new Vector3(90, 0 ,0));
 				}
 				break;
 			case Direction.Right:
@@ -53,10 +55,11 @@ public class CameraMovement : MonoBehaviour
 				break;
 			case Direction.Down:
 				{
-					cinemachineCam.transform.DOMove(transforms[5].position, .5f);
-
-					cinemachineCam.LookAt = null;
-					cinemachineCam.transform.Rotate(new Vector3(-90, 0, 0));
+					cinemachineCam.transform.DOMove(transforms[5].position, .5f).OnComplete(() =>
+					{
+						cinemachineCam.LookAt = null;
+						cinemachineCam.transform.rotation = Quaternion.Euler(new Vector3(-90, 0, 0));
+					});
 				}
 				break;
 		}
