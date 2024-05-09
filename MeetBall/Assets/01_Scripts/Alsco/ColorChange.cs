@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class ColorChange : MonoBehaviour
 {
-	private Material changeMat;
+	[SerializeField] private Color changeColor;
+	private MeshRenderer render;
 
-	private void Awake()
-	{
-		changeMat = GetComponent<Renderer>().material;
-	}
-
-	private void OnTriggerEnter(Collider other)
+    private void Start()
+    {
+		render = GetComponent<MeshRenderer>();
+		render.sharedMaterial.SetColor("_PlayerColor", changeColor);
+    }
+    private void OnTriggerEnter(Collider other)
 	{
 		if(other.CompareTag("Player"))
 		{
-			other.GetComponent<Renderer>().material = changeMat;
+			other.GetComponent<MeshRenderer>().sharedMaterial.SetColor("_PlayerColor", changeColor);
+			Destroy(gameObject);
 		}
 	}
 }
