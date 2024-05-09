@@ -101,7 +101,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			}
 
 			rotate?.Rotate(direction, leftRightCnt, upDownCnt);
-			camMovement.MoveCam(direction);
+			camMovement.ChangeCamera(direction);
 		}
 
 		startPos = Vector2.zero;
