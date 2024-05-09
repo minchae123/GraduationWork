@@ -36,7 +36,7 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
-	private MeshRenderer render;
+	public MeshRenderer render;
 
 	private void Awake()
 	{
@@ -77,7 +77,7 @@ public class Movement : MonoBehaviour
 	{
 		render = GetComponent<MeshRenderer>();
 		//print(render);\
-		print(color);
+		//print(color);
 		render.sharedMaterial.SetColor("_PlayerColor", color);
 		moveCount = moveCnt;
 	}
@@ -87,11 +87,13 @@ public class Movement : MonoBehaviour
 		BoxManager.Instance.boxDec(transform);
 
 		RayCheck();
-		if (isCanMove[2])
+		if (isCanMove[2] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.FloorToInt(-camMovement.cinemachineCam.transform.right);
 			transform.position += pos;
 			print(pos);
+
+			curCount++;
 		}
 	}
 
@@ -100,10 +102,12 @@ public class Movement : MonoBehaviour
 		BoxManager.Instance.boxDec(transform);
 
 		RayCheck();
-		if (isCanMove[3])
+		if (isCanMove[3] && curCount < moveCount)
 		{
 			print(camMovement.cinemachineCam.transform.right.normalized);
 			transform.position += camMovement.cinemachineCam.transform.right.normalized;
+
+			curCount++;
 		}
 	}
 
@@ -112,11 +116,13 @@ public class Movement : MonoBehaviour
 		BoxManager.Instance.boxDec(transform);
 
 		RayCheck();
-		if (isCanMove[4])
+		if (isCanMove[4] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(camMovement.cinemachineCam.transform.up);
 			print(pos);
 			transform.position += pos;
+
+			curCount++;
 		}
 	}
 
@@ -125,11 +131,13 @@ public class Movement : MonoBehaviour
 		BoxManager.Instance.boxDec(transform);
 
 		RayCheck();
-		if (isCanMove[5])
+		if (isCanMove[5] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(-camMovement.cinemachineCam.transform.up);
 			print(pos);
 			transform.position += pos;
+
+			curCount++;
 		}
 	}
 
@@ -163,5 +171,4 @@ public class Movement : MonoBehaviour
 			}
 		}
 	}
-
 }

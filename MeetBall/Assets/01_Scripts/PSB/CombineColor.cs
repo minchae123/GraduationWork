@@ -5,39 +5,25 @@ using UnityEngine;
 
 public class CombineColor : MonoBehaviour
 {
-    public Animator ClearAnim;
-
-    private Material _mat;
-
-    [SerializeField] private ParticleSystem clearParticle;
+	private MeshRenderer render;
 
     private void Awake()
     {
-        _mat = GetComponent<MeshRenderer>().material;
-
-		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-
-		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+		render = GetComponent<MeshRenderer>();
     }
 
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.gameObject.CompareTag("Player"))
-		{
-			_mat.color += other.gameObject.GetComponent<Renderer>().material.color;
-			_mat.SetColor("_EmissionColor", _mat.color);
-			Destroy(other.gameObject);
-			ClearAnim.SetTrigger("Clear");
+		if (other.CompareTag("Player"))
+		{ 
+			Color c1 = render.sharedMaterial.GetColor("_PlayerColor");
+			Color c2 = other.gameObject.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_PlayerColor");
 
-			BoxManager.Instance.CleanBox();
-            clearParticle.Play();
-            StageManager.Instance.ClearStage();
+			Color combineColor = new Color(c1.r + c2.r, c1.g + c2.g, c1.b + c2.b, 1);
+			print($"c1: {c1}, c2: {c2}, combine: {combineColor}");
+
+			render.sharedMaterial.SetColor("_PlayerColor", combineColor);
+			PlayerManager.Instance.DestroyPlayer(other.gameObject.GetComponent<Movement>());
 		}
-	}
-
-
-	private void OnCollisionEnter(Collision collision)
-	{
-
 	}
 }
