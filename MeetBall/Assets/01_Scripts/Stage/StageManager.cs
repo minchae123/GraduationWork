@@ -49,7 +49,7 @@ public class StageManager : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
         {
-			Destroy(curStageGameObject);
+            DestroyImmediate(curStageGameObject);
             LoadStage(curStage);
             StartCoroutine(FindBox());
 		}
@@ -64,8 +64,6 @@ public class StageManager : MonoBehaviour
             curStageGameObject = Instantiate(currentStage.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
             isInStage = true;
             
-            //currentStage.SetPlayers();
-
             CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStage);
         }

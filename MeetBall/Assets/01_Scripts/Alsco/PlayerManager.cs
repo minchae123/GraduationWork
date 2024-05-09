@@ -26,12 +26,16 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	public void SetNewPlayers(StageSO curStage) // 스테이지 바뀔 때마다 마지막에 넣어주기
 	{
 		selectedNum = 0;
-		players = stageTrm.GetComponentsInChildren<Movement>().ToList(); // 스테이지에서 플레이어를 찾아
-		
-		moveUIList.ForEach(m => Destroy(m.gameObject));
-		moveUIList.Clear();
 
+		players.Clear();
+		players = new List<Movement>();
+
+		moveUIList.ForEach(m => Destroy(m.gameObject));
+
+		moveUIList.Clear();
 		moveUIList = new List<MoveUI>();
+
+		players = stageTrm.GetComponentsInChildren<Movement>().ToList(); // 스테이지에서 플레이어를 찾아
 
 		for (int i = 0; i < players.Count; ++i)
         {
