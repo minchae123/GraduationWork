@@ -37,13 +37,15 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 			MoveUI move = Instantiate(moveUIPref, moveUITrm);
 
 			move.SetUI(curStage.playersColor[i], curStage.playersCount[i]);
+			move.UnSelect();
+			
 			moveUIList.Add(move);
 		}
 
 		targetImage.color = curStage.targetColor;
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
-		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
+		moveUIList[selectedNum].Select();
 
 		curStage.SetPlayers();
 	}
@@ -51,29 +53,39 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	public void ChangeMovePlayer()
 	{
 		DOTween.Clear();
-		moveUIList.ForEach(m => m.transform.DOScale(1f, 0.4f));
+		moveUIList.ForEach(m => m.UnSelect());
 
 		selectedNum = ++selectedNum % players.Length; // 만약에 플레이어가 2명이면 0 1 0 1 0 1 / 3명이면 0 1 2 0 1 2
 		selectedPlayer = players[selectedNum];
 
-		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
+		moveUIList[selectedNum].Select();
+
 		selectedPlayer.RayCheck();
 	}
 
 	public void MoveLeft()
     {
 		selectedPlayer.MoveLeft();
+		UpdateUI();
 	}
 	public void MoveRight()
     {
 		selectedPlayer.MoveRight();
+		UpdateUI();
     }
 	public void MoveUp()
     {
 		selectedPlayer.MoveUp();
+		UpdateUI();
     }
 	public void MoveDown()
     {
 		selectedPlayer.MoveDown();
-    }
+		UpdateUI();
+	}
+	
+	public void UpdateUI()
+    {
+		moveUIList[selectedNum].UpdateMove(selectedPlayer.moveCount - selectedPlayer.curCount);
+	}
 }
