@@ -76,8 +76,6 @@ public class Movement : MonoBehaviour
 	public void SetPlayer(Color color, int moveCnt)
 	{
 		render = GetComponent<MeshRenderer>();
-		//print(render);\
-		//print(color);
 		render.sharedMaterial.SetColor("_PlayerColor", color);
 		moveCount = moveCnt;
 	}

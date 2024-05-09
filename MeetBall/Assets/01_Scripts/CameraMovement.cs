@@ -21,6 +21,7 @@ public class CameraMovement : MonoBehaviour
 
 	public void MoveCam(Direction dir)
 	{
+		cinemachineCam.LookAt = transform;
 		FindMovement();
 
 		switch (dir)
@@ -35,21 +36,10 @@ public class CameraMovement : MonoBehaviour
 				break;
 			case Direction.Up:
 				{
-					Quaternion q = Quaternion.identity;
+					cinemachineCam.transform.DOMove(transforms[4].position, .5f);
+					cinemachineCam.LookAt = null;
 
-					if (cinemachineCam.transform.position.z > 0)
-					{
-						Quaternion.Euler(0, 180, 0);
-						print("¹Ú¿ìÇõfool"); 
-					}
-
-					cinemachineCam.transform.DOMove(transforms[4].position, .5f)
-					.OnComplete(() =>
-					{
-						//cinemachineCam.transform.rotation = q;
-						print(cinemachineCam.transform.rotation);
-						cinemachineCam.transform.DORotateQuaternion(q, 0.1f);
-					});
+					cinemachineCam.transform.Rotate(new Vector3(90, 0 ,0));
 				}
 				break;
 			case Direction.Right:
@@ -64,6 +54,9 @@ public class CameraMovement : MonoBehaviour
 			case Direction.Down:
 				{
 					cinemachineCam.transform.DOMove(transforms[5].position, .5f);
+
+					cinemachineCam.LookAt = null;
+					cinemachineCam.transform.Rotate(new Vector3(-90, 0, 0));
 				}
 				break;
 		}
