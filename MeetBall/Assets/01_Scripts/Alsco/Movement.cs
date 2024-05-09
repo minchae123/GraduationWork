@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Experimental.Rendering;
 using UnityEngine;
@@ -36,14 +36,14 @@ public class Movement : MonoBehaviour
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
 
-	private MeshRenderer mr;
+	private MeshRenderer render;
 
-    private void Awake()
-    {
-		mr = GetComponent<MeshRenderer>();
-    }
+	private void Awake()
+	{
+		//render = GetComponent<MeshRenderer>();
+	}
 
-    private void Start()
+	private void Start()
 	{
 		ray[0].direction = transform.up; // y up
 		ray[1].direction = -transform.up; // y down
@@ -57,7 +57,7 @@ public class Movement : MonoBehaviour
 		RayCheck();
 	}
 
-    private void Update()
+	private void Update()
 	{
 		BoxManager.Instance.boxDec(transform);
 
@@ -72,12 +72,15 @@ public class Movement : MonoBehaviour
 			}
 		}
 	}
-
-    public void SetPlayer(Color color, int moveCnt)
-    {
-		mr.material.color = color;
+	
+	public void SetPlayer(Color color, int moveCnt)
+	{
+		render = GetComponent<MeshRenderer>();
+		//print(render);\
+		print(color);
+		render.sharedMaterial.SetColor("_PlayerColor", color);
 		moveCount = moveCnt;
-    }
+	}
 
 	public void MoveLeft()
 	{
@@ -142,9 +145,9 @@ public class Movement : MonoBehaviour
 			{
 				ray[4].direction = -transform.forward; // z up
 				ray[5].direction = transform.forward; // z down
-            }
+			}
 			else
-            {
+			{
 				ray[4].direction = transform.forward; // z up
 				ray[5].direction = -transform.forward; // z down
 			}

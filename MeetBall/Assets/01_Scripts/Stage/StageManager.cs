@@ -57,7 +57,7 @@ public class StageManager : MonoBehaviour
             curStageGameObject = Instantiate(currentStage.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
             isInStage = true;
             
-            currentStage.SetPlayers();
+            //currentStage.SetPlayers();
 
             CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStage);

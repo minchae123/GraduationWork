@@ -11,6 +11,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	[Header("Player")]
 	[SerializeField] private Movement[] players;
 	[SerializeField] private Movement selectedPlayer;
+
 	private int selectedNum = 0;
 
 	[Header("UI")]
@@ -23,6 +24,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
 	public void SetNewPlayers(StageSO curStage) // 스테이지 바뀔 때마다 마지막에 넣어주기
 	{
+		selectedNum = 0;
 		players = stageTrm.GetComponentsInChildren<Movement>(); // 스테이지에서 플레이어를 찾아
 		
 		moveUIList.ForEach(m => Destroy(m.gameObject));
@@ -33,9 +35,8 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 		for (int i = 0; i < players.Length; ++i)
         {
 			MoveUI move = Instantiate(moveUIPref, moveUITrm);
-			//Color playerColor = (i % 2 == 0) ? curStage.player1Color : curStage.player2Color;
-			//move.SetUI(playerColor, players[i].moveCount);
 
+			move.SetUI(curStage.playersColor[i], curStage.playersCount[i]);
 			moveUIList.Add(move);
 		}
 
@@ -43,6 +44,8 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
 		moveUIList[selectedNum].transform.DOScale(1.1f, 0.8f);
+
+		curStage.SetPlayers();
 	}
 
 	public void ChangeMovePlayer()

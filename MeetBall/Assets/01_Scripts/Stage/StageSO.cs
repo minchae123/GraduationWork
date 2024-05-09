@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [CreateAssetMenu(menuName ="SO/StageInfo")]
 public class StageSO : ScriptableObject
 {
     public GameObject stagePref;
 
-    public Movement[] players;
+    private Movement[] players;
 
     public int[] playersCount;
 
@@ -18,7 +19,15 @@ public class StageSO : ScriptableObject
 
     public void SetPlayers()
     {
-        for(int i = 0; i < players.Length; ++i)
+        players = stagePref.transform.GetComponentsInChildren<Movement>();
+
+        if(players.Length != playersCount.Length || players.Length != playersColor.Length)
+        {
+            Debug.LogError("플레이어랑 안 맞소");
+            return;
+        }
+
+        for (int i = 0; i < players.Length; ++i)
         {
             players[i].SetPlayer(playersColor[i], playersCount[i]);
         }
