@@ -71,7 +71,8 @@ public class Movement : MonoBehaviour
 		RayCheck();
 		if (isCanMove[2] && curCount < moveCount)
 		{
-			Vector3 pos = Vector3Int.FloorToInt(-camMovement.curTransfrom.transform.right);
+			Vector3 pos = Vector3Int.FloorToInt(-camMovement.curTransfrom.transform.right); 
+			print(pos);
 			transform.position += pos;
 
 			curCount++;
@@ -86,6 +87,7 @@ public class Movement : MonoBehaviour
 		if (isCanMove[3] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.FloorToInt(camMovement.curTransfrom.transform.right);
+			print(camMovement.curTransfrom.transform.right);
 			transform.position += pos;
 
 			curCount++;
@@ -100,6 +102,7 @@ public class Movement : MonoBehaviour
 		if (isCanMove[4] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(camMovement.curTransfrom.transform.up);
+			print(pos);
 			transform.position += pos;
 
 			curCount++;
@@ -114,6 +117,7 @@ public class Movement : MonoBehaviour
 		if (isCanMove[5] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.RoundToInt(-camMovement.curTransfrom.transform.up);
+			print(pos);
 			transform.position += pos;
 
 			curCount++;
