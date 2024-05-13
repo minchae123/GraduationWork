@@ -173,7 +173,6 @@ MonoBehaviour:
   - {fileID: 6759520963184615722}
   - {fileID: 2637170917068345181}
   - {fileID: 845835372348446350}
-  - {fileID: 6771294831680770260}
   - {fileID: 7972982825207919426}
   - {fileID: 5692798739055976162}
   SaveBlocks: []
@@ -188,7 +187,7 @@ GameObject:
   - component: {fileID: 935363702242710652}
   - component: {fileID: 935363702242710653}
   m_Layer: 0
-  m_Name: Map
+  m_Name: Stage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -217,7 +216,6 @@ Transform:
   - {fileID: 6915130164429011316}
   - {fileID: 8359711670017209291}
   - {fileID: 7905591659937942159}
-  - {fileID: 6771294831680770283}
   m_Father: {fileID: 935363701239173887}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -494,7 +492,8 @@ Transform:
   m_LocalPosition: {x: -2, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6771294831680770283}
   m_Father: {fileID: 935363702242710652}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -937,10 +936,11 @@ MonoBehaviour:
     m_Bits: 64
   stageInfo: {fileID: 11400000, guid: ed25cf7ebff139145924dfa4dd5052dc, type: 2}
   curCount: 0
-  moveCount: 6
+  moveCount: 0
   direction: {x: 0, y: 0, z: 0}
   playerEnum: 1
   isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1 &5747246363304628592
 GameObject:
   m_ObjectHideFlags: 0
@@ -1198,12 +1198,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6771294831680770260}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -2, y: 1, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 935363702242710652}
-  m_RootOrder: 11
+  m_Father: {fileID: 5333750153058002689}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6771294831680770287
 MeshFilter:
@@ -1428,8 +1428,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32378f6adc7744e4585c70a0f5b91dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearAnim: {fileID: 0}
-  clearParticle: {fileID: 0}
 --- !u!114 &8403252476727702722
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1447,10 +1445,11 @@ MonoBehaviour:
     m_Bits: 64
   stageInfo: {fileID: 11400000, guid: ed25cf7ebff139145924dfa4dd5052dc, type: 2}
   curCount: 0
-  moveCount: 8
+  moveCount: 0
   direction: {x: 0, y: 0, z: 0}
   playerEnum: 0
   isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1 &8221540857870875480
 GameObject:
   m_ObjectHideFlags: 0
