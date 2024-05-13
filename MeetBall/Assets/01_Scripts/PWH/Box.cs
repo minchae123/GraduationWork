@@ -83,7 +83,7 @@ public class Box : MonoBehaviour
     #region ¹Ú½º ³«ÇÏ
     private bool _isFall = false;
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         transform.GetComponent<Rigidbody>().useGravity = false;
         _isFall = false;
@@ -93,7 +93,6 @@ public class Box : MonoBehaviour
     {
         transform.GetComponent<Rigidbody>().useGravity = true;
         _isFall = true;
-
         StartCoroutine(DeleteBox());
 
     }
