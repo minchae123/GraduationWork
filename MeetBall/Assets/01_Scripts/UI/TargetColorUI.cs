@@ -11,12 +11,14 @@ public class TargetColorUI : MonoBehaviour, IPointerClickHandler
     private Transform needTrm;
     private Image[] needImage;
 
-    private void Start()
+    private void Awake()
     {
         needTrm = transform.Find("NeedColor");
         needImage = needTrm.GetComponentsInChildren<Image>();
-
-        SetImages(false);
+    }
+    private void Start()
+    {
+        ResetUI();
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -55,6 +57,12 @@ public class TargetColorUI : MonoBehaviour, IPointerClickHandler
         {
             SetImages(false);
         }
+    }
+
+    public void ResetUI()
+    {
+        IsClick = false;
+        SetImages(false);
     }
 
     public void SetImages(bool value)
