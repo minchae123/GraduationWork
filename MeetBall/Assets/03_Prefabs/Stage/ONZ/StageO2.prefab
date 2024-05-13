@@ -162,8 +162,8 @@ GameObject:
   - component: {fileID: 6362385458093159457}
   - component: {fileID: 6362385458093159456}
   - component: {fileID: 6362385458093159647}
-  - component: {fileID: 6362385458093159459}
   - component: {fileID: 5669331903318430827}
+  - component: {fileID: 3268192262030543985}
   m_Layer: 0
   m_Name: RPlayer
   m_TagString: Player
@@ -265,24 +265,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &6362385458093159459
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6362385458093159644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62baa15231a7b7a4e898b0a7ef75f061, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &5669331903318430827
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -296,6 +278,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tpDelayTime: 0.1
+--- !u!114 &3268192262030543985
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6362385458093159644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 74bc3068851c80346b46d8174c225340, type: 2}
+  curCount: 0
+  moveCount: 0
+  direction: {x: 0, y: 0, z: 0}
+  playerEnum: 1
+  isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1 &8786206441053034876
 GameObject:
   m_ObjectHideFlags: 0
@@ -309,9 +313,9 @@ GameObject:
   - component: {fileID: 8786206441053034878}
   - component: {fileID: 8786206441053034879}
   - component: {fileID: 8786206441053034875}
-  - component: {fileID: 8786206441053034874}
   - component: {fileID: 8786206441053034869}
   - component: {fileID: 6287005995850115340}
+  - component: {fileID: 4541459381645213309}
   m_Layer: 0
   m_Name: LPlayer
   m_TagString: Player
@@ -413,24 +417,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &8786206441053034874
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8786206441053034876}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d70fea71445682f458220606c70fda43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsBox:
-    serializedVersion: 2
-    m_Bits: 64
-  stageinfo: {fileID: 11400000, guid: 04350ddd7124d3143ad6fe4657955810, type: 2}
-  direction: {x: 0, y: 0, z: 0}
-  beforeCube: {fileID: 0}
 --- !u!114 &8786206441053034869
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -443,8 +429,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32378f6adc7744e4585c70a0f5b91dc4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ClearAnim: {fileID: 0}
-  clearParticle: {fileID: 0}
 --- !u!114 &6287005995850115340
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -458,6 +442,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tpDelayTime: 0.1
+--- !u!114 &4541459381645213309
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8786206441053034876}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc3e76a42df6d794bb03a3a8c37e1385, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  whatIsBox:
+    serializedVersion: 2
+    m_Bits: 64
+  stageInfo: {fileID: 11400000, guid: 74bc3068851c80346b46d8174c225340, type: 2}
+  curCount: 0
+  moveCount: 0
+  direction: {x: 0, y: 0, z: 0}
+  playerEnum: 0
+  isCanMove: 000000000000
+  render: {fileID: 0}
 --- !u!1001 &724781087147658989
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -471,7 +477,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4607857514626011684, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4607857514626011684, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
       propertyPath: m_LocalPosition.y
@@ -653,7 +659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7638509122878995806, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7638509122878995806, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1714,7 +1720,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9046576096740898189, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9046576096740898189, guid: a4e514be40cc5954793420ded06edcce, type: 3}
       propertyPath: m_LocalPosition.z
