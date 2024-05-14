@@ -87,7 +87,7 @@ public class Movement : MonoBehaviour
 		if (isCanMove[3] && curCount < moveCount)
 		{
 			Vector3 pos = Vector3Int.FloorToInt(camMovement.curTransfrom.transform.right);
-			print(camMovement.curTransfrom.transform.right);
+			print(pos);
 			transform.position += pos;
 
 			curCount++;
