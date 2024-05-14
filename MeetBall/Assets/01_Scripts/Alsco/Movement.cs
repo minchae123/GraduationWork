@@ -6,159 +6,160 @@ using UnityEngine.UI;
 
 public enum PlayerDir
 {
-	left,
-	right
+    left,
+    right
 }
 
 struct WASD
 {
-	public Vector3 w;
-	public Vector3 s;
-	public Vector3 a;
-	public Vector3 d;
+    public Vector3 w;
+    public Vector3 s;
+    public Vector3 a;
+    public Vector3 d;
 }
 
 public class Movement : MonoBehaviour
 {
-	private CameraMovement camMovement;
+    private CameraMovement camMovement;
 
-	private RaycastHit hit;
-	private Ray[] ray = new Ray[6];
+    private RaycastHit hit;
+    private Ray[] ray = new Ray[6];
 
-	[SerializeField] private WASD WASD;
-	[SerializeField] private LayerMask whatIsBox;
-	[SerializeField] private StageSO stageInfo;
+    [SerializeField] private WASD WASD;
+    [SerializeField] private LayerMask whatIsBox;
+    [SerializeField] private StageSO stageInfo;
 
-	public int curCount;
-	public int moveCount;
-	public Vector3 direction;
-	public PlayerDir playerEnum;
+    public int curCount;
+    public int moveCount;
+    public PlayerDir playerEnum;
 
-	[SerializeField] private bool[] isCanMove = new bool[6];
+    public Vector3 direction { get; set; }
 
-	public MeshRenderer render;
+    [SerializeField] private bool[] isCanMove = new bool[6];
 
-	private void Awake()
-	{
-		//render = GetComponent<MeshRenderer>();
-	}
+    public MeshRenderer render;
 
-	private void Start()
-	{
-		camMovement = FindObjectOfType<CameraMovement>();
+    private void Awake()
+    {
+        //render = GetComponent<MeshRenderer>();
+    }
 
-		RayCheck();
-	}
+    private void Start()
+    {
+        camMovement = FindObjectOfType<CameraMovement>();
 
-	private void Update()
-	{
-		BoxManager.Instance.boxDec(transform);
+        RayCheck();
+    }
 
-		RayCheck();
-	}
-	
-	public void SetPlayer(Color color, int moveCnt)
-	{
-		render = GetComponent<MeshRenderer>();
-		render.sharedMaterial.SetColor("_PlayerColor", color);
-		moveCount = moveCnt;
-	}
+    private void Update()
+    {
+        BoxManager.Instance.boxDec(transform);
 
-	public void MoveLeft()
-	{
-		BoxManager.Instance.boxDec(transform);
+        RayCheck();
+    }
 
-		RayCheck();
-		if (isCanMove[2] && curCount < moveCount)
-		{
-			Vector3 pos = Vector3Int.FloorToInt(-camMovement.curTransfrom.transform.right); 
-			print(pos);
-			transform.position += pos;
+    public void SetPlayer(Color color, int moveCnt)
+    {
+        render = GetComponent<MeshRenderer>();
+        render.sharedMaterial.SetColor("_PlayerColor", color);
+        moveCount = moveCnt;
+    }
 
-			curCount++;
-		}
-	}
+    public void MoveLeft()
+    {
+        RayCheck();
 
-	public void MoveRight()
-	{
-		BoxManager.Instance.boxDec(transform);
+        direction = Vector3Int.FloorToInt(-camMovement.curTransfrom.transform.right);
+        BoxManager.Instance.boxDec(transform);
 
-		RayCheck();
-		if (isCanMove[3] && curCount < moveCount)
-		{
-			Vector3 pos = Vector3Int.FloorToInt(camMovement.curTransfrom.transform.right);
-			print(pos);
-			transform.position += pos;
+        if (isCanMove[2] && curCount < moveCount && direction != Vector3.zero)
+        {
+            transform.position += direction;
 
-			curCount++;
-		}
-	}
+            curCount++;
+        }
+    }
 
-	public void MoveUp()
-	{
-		BoxManager.Instance.boxDec(transform);
+    public void MoveRight()
+    {
+        RayCheck();
 
-		RayCheck();
-		if (isCanMove[4] && curCount < moveCount)
-		{
-			Vector3 pos = Vector3Int.RoundToInt(camMovement.curTransfrom.transform.up);
-			print(pos);
-			transform.position += pos;
+        direction = Vector3Int.FloorToInt(camMovement.curTransfrom.transform.right);
+        BoxManager.Instance.boxDec(transform);
 
-			curCount++;
-		}
-	}
+        if (isCanMove[3] && curCount < moveCount && direction != Vector3.zero)
+        {
+            transform.position += direction;
 
-	public void MoveDown()
-	{
-		BoxManager.Instance.boxDec(transform);
+            curCount++;
+        }
+    }
 
-		RayCheck();
-		if (isCanMove[5] && curCount < moveCount)
-		{
-			Vector3 pos = Vector3Int.RoundToInt(-camMovement.curTransfrom.transform.up);
-			print(pos);
-			transform.position += pos;
+    public void MoveUp()
+    {
+        RayCheck();
 
-			curCount++;
-		}
-	}
+        direction = Vector3Int.RoundToInt(camMovement.curTransfrom.transform.up);
+        BoxManager.Instance.boxDec(transform);
 
-	public void RayCheck()
-	{
-		ray[0].direction = transform.up; // y up
-		ray[1].direction = -transform.up; // y down
-		ray[2].direction = -transform.right; // x left
-		ray[3].direction = transform.right; // x right
-		ray[4].direction = transform.forward; // z up
-		ray[5].direction = -transform.forward; // z down
+        if (isCanMove[4] && curCount < moveCount && direction != Vector3.zero)
+        {
+            transform.position += direction;
 
-		for (int i = 0; i < ray.Length; i++)
-		{
-			ray[i].origin = transform.position;
+            curCount++;
+        }
+    }
 
-			Debug.DrawRay(ray[i].origin, ray[i].direction);
+    public void MoveDown()
+    {
+        RayCheck();
 
-			if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
-			{
-				ray[4].direction = -transform.forward; // z up
-				ray[5].direction = transform.forward; // z down
-			}
-			else
-			{
-				ray[4].direction = transform.forward; // z up
-				ray[5].direction = -transform.forward; // z down
-			}
+        direction = Vector3Int.RoundToInt(-camMovement.curTransfrom.transform.up);
+        BoxManager.Instance.boxDec(transform);
 
-			if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
-			{
-				Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
-				isCanMove[i] = true;
-			}
-			else
-			{
-				isCanMove[i] = false;
-			}
-		}
-	}
+        if (isCanMove[5] && curCount < moveCount && direction != Vector3.zero)
+        {
+            transform.position += direction;
+
+            curCount++;
+        }
+    }
+
+    public void RayCheck()
+    {
+        ray[0].direction = transform.up; // y up
+        ray[1].direction = -transform.up; // y down
+        ray[2].direction = -transform.right; // x left
+        ray[3].direction = transform.right; // x right
+        ray[4].direction = transform.forward; // z up
+        ray[5].direction = -transform.forward; // z down
+
+        for (int i = 0; i < ray.Length; i++)
+        {
+            ray[i].origin = transform.position;
+
+            Debug.DrawRay(ray[i].origin, ray[i].direction);
+
+            if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
+            {
+                ray[4].direction = -transform.forward; // z up
+                ray[5].direction = transform.forward; // z down
+            }
+            else
+            {
+                ray[4].direction = transform.forward; // z up
+                ray[5].direction = -transform.forward; // z down
+            }
+
+            if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
+            {
+                Debug.DrawRay(ray[i].origin, ray[i].direction, Color.red);
+                isCanMove[i] = true;
+            }
+            else
+            {
+                isCanMove[i] = false;
+            }
+        }
+    }
 }
