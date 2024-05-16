@@ -30,8 +30,8 @@ public class Teleporter : MonoBehaviour
                 if (teleportManager.tpPair.ContainsKey(other.transform))
                 {
                     isTP = true;
-                    print(isTP);
-                    print(teleportManager.tpPair[other.transform]); // �̵��� ��ġ
+                    //print(isTP);
+                    //print(teleportManager.tpPair[other.transform]); // �̵��� ��ġ
                     transform.position = teleportManager.tpPair[other.transform].position;
                 }
                 else

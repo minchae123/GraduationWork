@@ -114,7 +114,7 @@ public class Movement : MonoBehaviour
     {
         RayCheck();
 
-        direction = Vector3Int.RoundToInt(camMovement.curTransfrom.transform.up);
+        direction = (camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
         if (isCanMove[4] && curCount < moveCount && direction != Vector3.zero)
@@ -130,7 +130,7 @@ public class Movement : MonoBehaviour
     {
         RayCheck();
 
-        direction = Vector3Int.RoundToInt(-camMovement.curTransfrom.transform.up);
+        direction = (-camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
         if (isCanMove[5] && curCount < moveCount && direction != Vector3.zero)
