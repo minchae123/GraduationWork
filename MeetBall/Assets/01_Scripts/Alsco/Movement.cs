@@ -144,8 +144,6 @@ public class Movement : MonoBehaviour
 
     public void RayCheck()
     {
-        ray[0].direction = camMovement.curTransfrom.transform.up; // y up
-        ray[1].direction = -camMovement.curTransfrom.transform.up; // y down
         ray[2].direction = -camMovement.curTransfrom.transform.right; // x left
         ray[3].direction = camMovement.curTransfrom.transform.right; // x right
         ray[4].direction = camMovement.curTransfrom.transform.forward; // z up
