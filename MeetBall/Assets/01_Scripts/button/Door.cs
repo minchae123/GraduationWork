@@ -18,12 +18,12 @@ public class Door : MonoBehaviour
 	{
 		mr.material = openDoorMat;
 		gameObject.layer = 6;
-		print("open");
+		//print("open");
 	}
 	public void Close()
 	{
 		mr.material = closeDoorMat;
 		gameObject.layer = 0;
-		print("close");
+		//print("close");
 	}
 }

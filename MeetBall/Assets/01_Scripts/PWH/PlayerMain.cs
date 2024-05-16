@@ -34,12 +34,4 @@ public class PlayerMain : MonoBehaviour
             }
         }
     }
-
-    private void Direction(string key)
-    {
-        switch(key)
-        {
-            //case Direction.W.Tostring():
-        }
-    }
 }

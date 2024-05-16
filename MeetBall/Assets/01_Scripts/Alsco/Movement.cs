@@ -56,7 +56,20 @@ public class Movement : MonoBehaviour
         BoxManager.Instance.boxDec(transform);
 
         RayCheck();
+
+        //PrintDir();
     }
+
+    public void PrintDir()
+    {
+        print("x+ " + camMovement.curTransfrom.transform.right);
+        print("x- " + -camMovement.curTransfrom.transform.right);
+        print("y+ " + camMovement.curTransfrom.transform.up);
+        print("y- " + -camMovement.curTransfrom.transform.up);
+        print("z+ " + camMovement.curTransfrom.transform.forward);
+        print("z- " + camMovement.curTransfrom.transform.forward);
+    }
+
 
     public void SetPlayer(Color color, int moveCnt)
     {
@@ -69,11 +82,12 @@ public class Movement : MonoBehaviour
     {
         RayCheck();
 
-        direction = Vector3Int.FloorToInt(-camMovement.curTransfrom.transform.right);
+        direction = (-camMovement.curTransfrom.transform.right);
         BoxManager.Instance.boxDec(transform);
 
         if (isCanMove[2] && curCount < moveCount && direction != Vector3.zero)
         {
+            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -84,11 +98,12 @@ public class Movement : MonoBehaviour
     {
         RayCheck();
 
-        direction = Vector3Int.FloorToInt(camMovement.curTransfrom.transform.right);
+        direction = (camMovement.curTransfrom.transform.right);
         BoxManager.Instance.boxDec(transform);
 
         if (isCanMove[3] && curCount < moveCount && direction != Vector3.zero)
         {
+            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -104,6 +119,7 @@ public class Movement : MonoBehaviour
 
         if (isCanMove[4] && curCount < moveCount && direction != Vector3.zero)
         {
+            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -119,6 +135,7 @@ public class Movement : MonoBehaviour
 
         if (isCanMove[5] && curCount < moveCount && direction != Vector3.zero)
         {
+            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -127,12 +144,12 @@ public class Movement : MonoBehaviour
 
     public void RayCheck()
     {
-        ray[0].direction = transform.up; // y up
-        ray[1].direction = -transform.up; // y down
-        ray[2].direction = -transform.right; // x left
-        ray[3].direction = transform.right; // x right
-        ray[4].direction = transform.forward; // z up
-        ray[5].direction = -transform.forward; // z down
+        ray[0].direction = camMovement.curTransfrom.transform.up; // y up
+        ray[1].direction = -camMovement.curTransfrom.transform.up; // y down
+        ray[2].direction = -camMovement.curTransfrom.transform.right; // x left
+        ray[3].direction = camMovement.curTransfrom.transform.right; // x right
+        ray[4].direction = camMovement.curTransfrom.transform.forward; // z up
+        ray[5].direction = -camMovement.curTransfrom.transform.forward; // z down
 
         for (int i = 0; i < ray.Length; i++)
         {
@@ -142,13 +159,13 @@ public class Movement : MonoBehaviour
 
             if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
             {
-                ray[4].direction = -transform.forward; // z up
-                ray[5].direction = transform.forward; // z down
+                ray[4].direction = -camMovement.curTransfrom.transform.forward; // z up
+                ray[5].direction = camMovement.curTransfrom.transform.forward; // z down
             }
             else
             {
-                ray[4].direction = transform.forward; // z up
-                ray[5].direction = -transform.forward; // z down
+                ray[4].direction = camMovement.curTransfrom.transform.up; // z up
+                ray[5].direction = -camMovement.curTransfrom.transform.up; // z down
             }
 
             if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
