@@ -46,8 +46,8 @@ public class StageManager : MonoBehaviour
     }
 
     private void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.Tab))
+    {
+        if (Input.GetKeyDown(KeyCode.Tab))
         {
             StopAllCoroutines();
             ClearStage();
@@ -58,12 +58,12 @@ public class StageManager : MonoBehaviour
             DestroyImmediate(curStageGameObject);
             LoadStage(curStage);
             StartCoroutine(FindBox());
-		}
-	}
+        }
+    }
 
-	public void LoadStage(int stageNum)
+    public void LoadStage(int stageNum)
     {
-        if(stageNum <= stageList.Stages.Count)
+        if (stageNum <= stageList.Stages.Count)
         {
             currentStageSO = stageList.Stages[stageNum - 1]; // 현재 스테이지
 
@@ -87,20 +87,27 @@ public class StageManager : MonoBehaviour
         ClearAnim.SetTrigger("Clear");
 
         BoxManager.Instance.CleanBox();
-        clearParticle.Play();
 
+        gameCanvas.SetActive(false);
+        Invoke(nameof(ClearParticle), 1);
         StartCoroutine(StageLoad());
+    }
+
+    private void ClearParticle()
+    {
+        clearParticle.Play();
     }
 
     private IEnumerator StageLoad()
     {
-        gameCanvas.SetActive(false);
+        yield return new WaitForSeconds(1);
+
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
         Destroy(curStageGameObject);
         curStage = GameManager.Instance.curStage;
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(1);
         LoadStage(curStage);
         StartCoroutine(FindBox());
     }
