@@ -47,7 +47,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 			moveUIList.Add(move);
 		}
 
-		targetImage.color = curStage.targetColor;
+		targetImage.color = GameManager.Instance.FindColor(curStage.targetColor);
 
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
 		moveUIList[selectedNum].Select();

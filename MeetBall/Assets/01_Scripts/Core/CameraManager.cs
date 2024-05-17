@@ -34,8 +34,8 @@ public class CameraManager : MonoBehaviour
 
 	[SerializeField] private List<float> rotates = new List<float>();
 
-	[SerializeField] private LeftControl leftControl;
-	[SerializeField] private RightControl rightControl;
+	//LeftControl leftControl;
+	//RightControl rightControl;
 
 	[SerializeField] private Movement move;
 
@@ -99,12 +99,6 @@ public class CameraManager : MonoBehaviour
 		CameraZoom(Input.GetAxis("Mouse ScrollWheel"));
 	}
 
-	public void NewControl()
-	{
-		leftControl = FindObjectOfType<LeftControl>();
-		rightControl = FindObjectOfType<RightControl>();
-	}
-
 	private void SnapRotation()
 	{
 		transform.DORotate(SnapVector(), 0.5f).SetEase(Ease.OutBounce).OnComplete(() => isBusy = false); // isbusy일땐 못움직이게
@@ -130,8 +124,8 @@ public class CameraManager : MonoBehaviour
 			_ => DIRECTION.East
 		};
 
-		leftControl?.Move(direction);
-		rightControl?.Move(direction);
+		//leftControl?.Move(direction);
+		//rightControl?.Move(direction);
 
 		return new Vector3(xRotation, endValue, 0);
 	}
