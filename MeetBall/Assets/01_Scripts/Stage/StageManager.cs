@@ -71,9 +71,9 @@ public class StageManager : MonoBehaviour
             isInStage = true;
 
             gameCanvas.SetActive(true);
-            gameCanvas.transform.Find("PlayerState/TargetColorImage").GetComponent<TargetColorUI>().ResetUI();
+            gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
-            CameraManager.Instance.NewControl();
+            //CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
         }
         else
