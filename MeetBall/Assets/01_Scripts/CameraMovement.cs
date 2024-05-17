@@ -5,7 +5,7 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 
-public class CameraMovement : MonoBehaviour
+public class CameraMovement : MonoSingleton<CameraMovement>
 {
 	public List<Transform> transforms = new List<Transform>();
 	public CinemachineVirtualCamera[] cinemachineCam;
