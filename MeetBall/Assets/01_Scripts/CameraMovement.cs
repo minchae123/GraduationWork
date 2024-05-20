@@ -14,10 +14,11 @@ public class CameraMovement : MonoSingleton<CameraMovement>
     public Transform curTransfrom;
 
     public HoverButton button { get; set; }
-    private List<Transform> items;
     public Direction _dir;
 
     public int left, up;
+
+    private List<Transform> items;
 
     private void Start()
     {
