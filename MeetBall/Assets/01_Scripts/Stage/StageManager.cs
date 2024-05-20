@@ -68,13 +68,14 @@ public class StageManager : MonoBehaviour
             currentStageSO = stageList.Stages[stageNum - 1]; // 현재 스테이지
 
             curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
-            isInStage = true;
+            isInStage = true;   
 
             gameCanvas.SetActive(true);
             gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
             //CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
+            CameraMovement.Instance.FindItems();
         }
         else
         {

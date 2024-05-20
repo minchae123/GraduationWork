@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoSingleton<GameManager>
 {
 	public class PlayerColorClass
 	{
@@ -34,29 +34,39 @@ public class GameManager : MonoBehaviour
 		{
 			ColorDictionary = new Dictionary<ColorEnum, Color>();
 
-			ColorDictionary[ColorEnum.RED] =				RED;
-			ColorDictionary[ColorEnum.GREEN] =			GREEN;
-			ColorDictionary[ColorEnum.BLUE] =				BLUE;
-			ColorDictionary[ColorEnum.YELLOW] =		YELLOW;
-			ColorDictionary[ColorEnum.MAGENTA] =		MAGENTA;
-			ColorDictionary[ColorEnum.MINT] =				MINT;
-			ColorDictionary[ColorEnum.WHITE] =			WHITE;
+			ColorDictionary[ColorEnum.RED]	   =  			RED;
+			ColorDictionary[ColorEnum.GREEN]   =			GREEN;
+			ColorDictionary[ColorEnum.BLUE]    =			BLUE;
+			ColorDictionary[ColorEnum.YELLOW]  =			YELLOW;
+			ColorDictionary[ColorEnum.MAGENTA] =			MAGENTA;
+			ColorDictionary[ColorEnum.MINT]	   =			MINT;
+			ColorDictionary[ColorEnum.WHITE]   =			WHITE;
 		}
 	}
 
-	public static GameManager Instance;
 	public PlayerColorClass playerColors;
 
 	public int curStage;
 
 	private void Awake()
 	{
-		if (Instance != null) Debug.LogError("CHECKGAMEMANAGER");
-
-		Instance = this;
-
 		playerColors = new PlayerColorClass();
 		playerColors.SetColors();
+	}
+
+	public List<Transform> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
+	{
+		List<Transform> items = new List<Transform>();
+
+		foreach (Transform trm in FindObjectsOfType<Transform>())
+		{
+			if (trm.TryGetComponent(out Item item))
+			{
+				items.Add(trm);
+			}
+		}
+
+		return items;
 	}
 
 	public Color FindColor(ColorEnum c)
