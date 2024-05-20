@@ -75,6 +75,7 @@ public class StageManager : MonoBehaviour
 
             //CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
+            CameraMovement.Instance.FindItems();
         }
         else
         {

@@ -14,6 +14,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
     public Transform curTransfrom;
 
     public HoverButton button { get; set; }
+    private List<Transform> items;
     public Direction _dir;
 
     public int left, up;
@@ -23,10 +24,14 @@ public class CameraMovement : MonoSingleton<CameraMovement>
         previousCam = cinemachineCam[3];
     }
 
+    public void FindItems()
+    {
+        items = GameManager.Instance.FindAllItems();
+    }
+
     public void ChangeCamera(Direction dir)
     {
         bool isTurn = false;
-
         FindMovement();
 
         foreach (var c in cinemachineCam)
@@ -107,8 +112,11 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
     private void ItemRot(bool value)
     {
-        Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
-        button.transform.Rotate(rot);
+        foreach (Transform item in items)
+        {
+            Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
+            item.transform.Rotate(rot);
+        }
     }
 
     private void FindMovement()
