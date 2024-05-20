@@ -47,6 +47,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         camMovement = FindObjectOfType<CameraMovement>();
+        curCount = 0;
 
         RayCheck();
     }
@@ -56,26 +57,14 @@ public class Movement : MonoBehaviour
         BoxManager.Instance.boxDec(transform);
 
         RayCheck();
-
-        //PrintDir();
     }
-
-    public void PrintDir()
-    {
-        print("x+ " + camMovement.curTransfrom.transform.right);
-        print("x- " + -camMovement.curTransfrom.transform.right);
-        print("y+ " + camMovement.curTransfrom.transform.up);
-        print("y- " + -camMovement.curTransfrom.transform.up);
-        print("z+ " + camMovement.curTransfrom.transform.forward);
-        print("z- " + camMovement.curTransfrom.transform.forward);
-    }
-
 
     public void SetPlayer(Color color, int moveCnt)
     {
         render = GetComponent<MeshRenderer>();
         render.sharedMaterial.SetColor("_PlayerColor", color);
         moveCount = moveCnt;
+        //print($"move: {moveCount},  cur: {curCount}");
     }
 
     public void MoveLeft()
@@ -103,7 +92,6 @@ public class Movement : MonoBehaviour
 
         if (isCanMove[3] && curCount < moveCount && direction != Vector3.zero)
         {
-            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -117,9 +105,8 @@ public class Movement : MonoBehaviour
         direction = (camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[4] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[0] && curCount < moveCount && direction != Vector3.zero)
         {
-            print(direction);
             transform.position += direction;
 
             curCount++;
@@ -133,7 +120,7 @@ public class Movement : MonoBehaviour
         direction = (-camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[5] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[1] && curCount < moveCount && direction != Vector3.zero)
         {
             print(direction);
             transform.position += direction;
@@ -144,7 +131,9 @@ public class Movement : MonoBehaviour
 
     public void RayCheck()
     {
-        ray[2].direction = -camMovement.curTransfrom.transform.right; // x left
+		ray[0].direction = camMovement.curTransfrom.transform.up; // y up
+		ray[1].direction = -camMovement.curTransfrom.transform.up; // y down
+		ray[2].direction = -camMovement.curTransfrom.transform.right; // x left
         ray[3].direction = camMovement.curTransfrom.transform.right; // x right
         ray[4].direction = camMovement.curTransfrom.transform.forward; // z up
         ray[5].direction = -camMovement.curTransfrom.transform.forward; // z down
@@ -155,16 +144,16 @@ public class Movement : MonoBehaviour
 
             Debug.DrawRay(ray[i].origin, ray[i].direction);
 
-            if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
-            {
-                ray[4].direction = -camMovement.curTransfrom.transform.forward; // z up
-                ray[5].direction = camMovement.curTransfrom.transform.forward; // z down
-            }
-            else
-            {
-                ray[4].direction = camMovement.curTransfrom.transform.up; // z up
-                ray[5].direction = -camMovement.curTransfrom.transform.up; // z down
-            }
+            //if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
+            //{
+            //    ray[4].direction = -camMovement.curTransfrom.transform.forward; // z up
+            //    ray[5].direction = camMovement.curTransfrom.transform.forward; // z down
+            //}
+            //else
+            //{
+            //    ray[4].direction = camMovement.curTransfrom.transform.up; // z up
+            //    ray[5].direction = -camMovement.curTransfrom.transform.up; // z down
+            //}
 
             if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
             {
