@@ -47,6 +47,7 @@ public class Movement : MonoBehaviour
     private void Start()
     {
         camMovement = FindObjectOfType<CameraMovement>();
+        curCount = 0;
 
         RayCheck();
     }
@@ -76,10 +77,12 @@ public class Movement : MonoBehaviour
         render = GetComponent<MeshRenderer>();
         render.sharedMaterial.SetColor("_PlayerColor", color);
         moveCount = moveCnt;
+        print($"move: {moveCount},  cur: {curCount}");
     }
 
     public void MoveLeft()
     {
+        print("left");
         RayCheck();
 
         direction = (-camMovement.curTransfrom.transform.right);
@@ -87,6 +90,8 @@ public class Movement : MonoBehaviour
 
         if (isCanMove[2] && curCount < moveCount && direction != Vector3.zero)
         {
+            print("move");
+
             print(direction);
             transform.position += direction;
 

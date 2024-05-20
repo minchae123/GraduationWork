@@ -21,12 +21,6 @@ public class StageSO : ScriptableObject
     {
         players = stagePref.transform.GetComponentsInChildren<Movement>();
 
-		if (players.Length != playersCount.Length || players.Length != playersColor.Length)
-        {
-            Debug.LogError("플레이어랑 안 맞소");
-            return;
-        }
-
         for (int i = 0; i < players.Length; ++i)
         {
             players[i].SetPlayer(GameManager.Instance.FindColor(playersColor[i]), playersCount[i]);
