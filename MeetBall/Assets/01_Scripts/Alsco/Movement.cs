@@ -144,16 +144,13 @@ public class Movement : MonoBehaviour
 
             Debug.DrawRay(ray[i].origin, ray[i].direction);
 
-            //if (camMovement._dir == Direction.Down || camMovement._dir == Direction.Up)
-            //{
-            //    ray[4].direction = -camMovement.curTransfrom.transform.forward; // z up
-            //    ray[5].direction = camMovement.curTransfrom.transform.forward; // z down
-            //}
-            //else
-            //{
-            //    ray[4].direction = camMovement.curTransfrom.transform.up; // z up
-            //    ray[5].direction = -camMovement.curTransfrom.transform.up; // z down
-            //}
+            RaycastHit hiit;
+			Physics.Raycast(ray[i], out hiit, 0.5f);
+            if(hiit.collider != null)
+            {
+                print(i);
+			    print(hiit.collider.name);
+            }
 
             if (Physics.Raycast(ray[i], out hit, 0.5f, whatIsBox))
             {
