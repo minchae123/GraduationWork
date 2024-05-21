@@ -27,10 +27,11 @@ public class Movement : MonoBehaviour
 
     [SerializeField] private WASD WASD;
     [SerializeField] private LayerMask whatIsBox;
-    [SerializeField] private StageSO stageInfo;
 
     public int curCount;
-    public int moveCount;
+    private int totalCount;
+    public int TotalCount => totalCount;
+
     public PlayerDir playerEnum;
 
     public Vector3 direction { get; set; }
@@ -41,13 +42,10 @@ public class Movement : MonoBehaviour
 
     private void Awake()
     {
-        //render = GetComponent<MeshRenderer>();
-    }
-
-    private void Start()
-    {
         camMovement = FindObjectOfType<CameraMovement>();
+        
         curCount = 0;
+        totalCount = 0;
 
         RayCheck();
     }
@@ -55,7 +53,7 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         BoxManager.Instance.boxDec(transform);
-
+        //print(totalCount);
         RayCheck();
     }
 
@@ -63,8 +61,9 @@ public class Movement : MonoBehaviour
     {
         render = GetComponent<MeshRenderer>();
         render.sharedMaterial.SetColor("_PlayerColor", color);
-        moveCount = moveCnt;
-        //print($"move: {moveCount},  cur: {curCount}");
+        totalCount = moveCnt;
+
+        print($"MOVEMENT SETPLAYER -> {this.gameObject.name} : t {totalCount}, T {TotalCount}");
     }
 
     public void MoveLeft()
@@ -74,7 +73,7 @@ public class Movement : MonoBehaviour
         direction = (-camMovement.curTransfrom.transform.right);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[2] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[2] && curCount < totalCount && direction != Vector3.zero)
         {
             print(direction);
             transform.position += direction;
@@ -90,7 +89,7 @@ public class Movement : MonoBehaviour
         direction = (camMovement.curTransfrom.transform.right);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[3] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[3] && curCount < totalCount && direction != Vector3.zero)
         {
             transform.position += direction;
 
@@ -105,7 +104,7 @@ public class Movement : MonoBehaviour
         direction = (camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[0] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[0] && curCount < totalCount && direction != Vector3.zero)
         {
             transform.position += direction;
 
@@ -120,7 +119,7 @@ public class Movement : MonoBehaviour
         direction = (-camMovement.curTransfrom.transform.up);
         BoxManager.Instance.boxDec(transform);
 
-        if (isCanMove[1] && curCount < moveCount && direction != Vector3.zero)
+        if (isCanMove[1] && curCount < totalCount && direction != Vector3.zero)
         {
             print(direction);
             transform.position += direction;

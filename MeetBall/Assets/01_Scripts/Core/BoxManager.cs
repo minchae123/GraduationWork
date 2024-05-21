@@ -40,10 +40,6 @@ public class BoxManager : MonoSingleton<BoxManager>
                 {
                     if (player.TryGetComponent(out Movement move) && dir == move.direction)
                         move.direction = Vector3.zero;
-                    //if (player.TryGetComponent(out LeftControl left) && dir == left.direction)
-                    //    left.direction = Vector3.zero;
-                    //else if (player.TryGetComponent(out RightControl right) && dir == right.direction)
-                    //    right.direction = Vector3.zero;
                 }
                 else if (ownerBox.transform.position == box.transform.position)
                     return true;

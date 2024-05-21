@@ -3,11 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
-public class ToggleButton : MonoBehaviour
+public class ToggleButton : MonoBehaviour, Item
 {
     [SerializeField] private Door connectDoor; //이어진 문 넣어주기
 
     private bool isClick = false;
+
+    public void Init()
+    {
+
+    }
 
     private void OnTriggerEnter(Collider other)
     {

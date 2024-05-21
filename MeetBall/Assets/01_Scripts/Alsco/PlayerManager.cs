@@ -45,6 +45,8 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 			move.UnSelect();
 			
 			moveUIList.Add(move);
+
+			players[i].SetPlayer(GameManager.Instance.FindColor(curStage.playersColor[i]), curStage.playersCount[i]);
 		}
 
 		targetImage.color = GameManager.Instance.FindColor(curStage.targetColor);
@@ -52,7 +54,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 		selectedPlayer = players[selectedNum]; // 처음 플레이어
 		moveUIList[selectedNum].Select();
 
-		curStage.SetPlayers();
+		//players.ForEach(p => print($"foreach1 : {p.TotalCount}"));
 	}
 
 	public void ChangeMovePlayer()
@@ -106,6 +108,8 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	
 	public void UpdateUI()
     {
-		moveUIList[selectedNum].UpdateMove(selectedPlayer.moveCount - selectedPlayer.curCount);
+		print($"cur: {selectedPlayer.curCount}, move {selectedPlayer.TotalCount}");
+
+		moveUIList[selectedNum].UpdateMove(selectedPlayer.TotalCount - selectedPlayer.curCount);
 	}
 }

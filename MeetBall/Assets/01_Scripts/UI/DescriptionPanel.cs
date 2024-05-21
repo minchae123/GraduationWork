@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class DescriptionPanel : MonoBehaviour
 {
     public Image colorImage;
+    public List<Image> colorImageList;
 
     public void SetPanel(StageSO stage)
     {
@@ -39,9 +40,14 @@ public class DescriptionPanel : MonoBehaviour
                 break;
         }
 
-        for(int i = 0; i < needColors.Count; ++i)
+        colorImageList.ForEach(c => DestroyImmediate(c.gameObject));
+        colorImageList.Clear();
+
+        for (int i = 0; i < needColors.Count; ++i)
         {
             Image image = Instantiate(colorImage, this.transform);
+
+            colorImageList.Add(image);
             image.color = GameManager.Instance.FindColor(needColors[i]);
         }
 

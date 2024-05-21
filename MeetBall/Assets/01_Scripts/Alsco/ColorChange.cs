@@ -9,13 +9,18 @@ public enum CoiorChangeEnum
 	GREEN = 2,
 	BLUE = 3,
 }
-public class ColorChange : MonoBehaviour
+public class ColorChange : MonoBehaviour, Item
 {
 	[SerializeField] private CoiorChangeEnum colorToChange;
 	private Color changeColor;
 	private MeshRenderer render;
 
 	private GameObject[] visuals;
+
+	public void Init()
+	{
+		throw new System.NotImplementedException();
+	}
 
 	private void Awake()
 	{
