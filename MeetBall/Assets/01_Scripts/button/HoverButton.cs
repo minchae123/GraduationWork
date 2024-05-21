@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class HoverButton : MonoBehaviour
+public class HoverButton : MonoBehaviour, Item
 {
     [SerializeField] private List<Door> connectDoor; //이어진 문 넣어주기
 
-	private void Update()
-	{
-		transform.LookAt(Camera.main.transform.forward);
-	}
+    public void Init()
+    {
+
+    }
 
 	private void OnTriggerStay(Collider other)
     {
