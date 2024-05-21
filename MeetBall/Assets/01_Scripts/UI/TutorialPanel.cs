@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System;
 
 public class TutorialPanel : MonoBehaviour
 {
@@ -9,18 +10,24 @@ public class TutorialPanel : MonoBehaviour
 
     private RectTransform _panel;
 
+    public bool isWait { get; set; }
+
     private void Awake()
     {
         _panel = GetComponent<RectTransform>();
     }
 
-    public void ShowTutorial()
+    public void ShowTutorial(Action action = null)
     {
-        _panel.DOScaleY(_panelSize, 1f);
+        isWait = true;
+
+        _panel.DOScaleX(_panelSize, 1f)
+            .OnComplete(() => { action(); });
     }
 
     public void CloseTutorial()
     {
-        _panel?.DOScaleY(0, 1f);
+        _panel?.DOScaleX(0, 1f)
+            .OnComplete(()=> isWait = false);
     }
 }
