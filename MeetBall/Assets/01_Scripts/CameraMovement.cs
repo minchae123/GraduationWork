@@ -32,7 +32,6 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
     public void ChangeCamera(Direction dir)
     {
-        bool isTurn = false;
         FindMovement();
 
         foreach (var c in cinemachineCam)
@@ -83,8 +82,6 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                 break;
             case Direction.Down:
                 {
-                    isTurn = true;
-
                     if (up < 0)
                     {
                         up = 0;
@@ -104,7 +101,8 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                 break;
         }
 
-        ItemRot(isTurn);
+        ItemRot(curTransfrom == cinemachineCam[5].transform);
+
         up = Mathf.Clamp(up, -1, 1);
 
         previousCam.Priority = 5;
@@ -113,10 +111,11 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
     private void ItemRot(bool value)
     {
+        Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
+
         foreach (Transform item in items)
         {
-            Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
-            item.transform.Rotate(rot);
+            item.rotation = Quaternion.Euler(rot);
         }
     }
 
