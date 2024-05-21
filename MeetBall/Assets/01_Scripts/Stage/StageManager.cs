@@ -68,12 +68,11 @@ public class StageManager : MonoBehaviour
             currentStageSO = stageList.Stages[stageNum - 1]; // 현재 스테이지
 
             curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
-            isInStage = true;   
+            isInStage = true;
 
             gameCanvas.SetActive(true);
             gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
-            //CameraManager.Instance.NewControl();
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
         }
@@ -105,7 +104,7 @@ public class StageManager : MonoBehaviour
 
         GameManager.Instance.StageUp(); // 스테이지 수 올려주고
 
-        Destroy(curStageGameObject);
+        DestroyImmediate(curStageGameObject);
         curStage = GameManager.Instance.curStage;
 
         yield return new WaitForSeconds(1);

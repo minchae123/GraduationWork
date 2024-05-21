@@ -16,14 +16,4 @@ public class StageSO : ScriptableObject
     public ColorEnum targetColor;
 
     public bool IsClear= false;
-
-    public void SetPlayers()
-    {
-        players = stagePref.transform.GetComponentsInChildren<Movement>();
-
-        for (int i = 0; i < players.Length; ++i)
-        {
-            players[i].SetPlayer(GameManager.Instance.FindColor(playersColor[i]), playersCount[i]);
-        }
-    }
 }

@@ -20,6 +20,7 @@ public class MoveUI : MonoBehaviour
 
 		colorImage.color = color;
 		moveCnt.text = $"{cnt}";
+		//print(cnt);
     }
 
 	public void Select()
@@ -41,5 +42,6 @@ public class MoveUI : MonoBehaviour
 		moveCnt.transform.DOShakePosition(0.5f, strength: new Vector3(5, 5, 0), vibrato: 10, randomness: 90, fadeOut: false).SetUpdate(true);
 		
 		moveCnt.text = $"{cnt}";
+		//print(cnt);
 	}
 }
