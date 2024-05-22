@@ -30,6 +30,12 @@ public class CameraMovement : MonoSingleton<CameraMovement>
         items = GameManager.Instance.FindAllItems();
     }
 
+    public void CameraReset()
+    {
+        cinemachineCam[3].Priority = 10;
+        previousCam.Priority = 5;
+    }
+
     public void ChangeCamera(Direction dir)
     {
         FindMovement();
@@ -65,7 +71,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                 break;
             case Direction.Up:
                 {
-                    if (up > 0)
+                    if (up < 0)
                     {
                         up = 0;
                         int i = left % 4;
@@ -84,7 +90,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                 break;
             case Direction.Down:
                 {
-                    if (up < 0)
+                    if (up > 0)
                     {
                         up = 0;
                         int i = left % 4;

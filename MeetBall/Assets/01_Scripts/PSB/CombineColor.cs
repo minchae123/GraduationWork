@@ -24,6 +24,7 @@ public class CombineColor : MonoBehaviour
             //print($"c1: {c1}, c2: {c2}, combine: {combineColor}");
 
             render.sharedMaterial.SetColor("_PlayerColor", combineColor);
+            CameraMovement.Instance.CameraReset();
             PlayerManager.Instance.DestroyPlayer(other.gameObject.GetComponent<Movement>());
             StartCoroutine(ClearAnim());
         }
