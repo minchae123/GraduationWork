@@ -11,9 +11,10 @@ public class OneStepCube : MapCube
         //디졸브 초기화
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         StartCoroutine(DissolveWall());
+        print("나가기");
     }
 
     private IEnumerator DissolveWall()
