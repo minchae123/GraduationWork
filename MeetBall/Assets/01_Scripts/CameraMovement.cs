@@ -40,7 +40,9 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                 previousCam = c;
         }
 
-        switch (dir)
+		previousCam.Priority = 5;
+
+		switch (dir)
         {
             case Direction.Left:
                 {
@@ -105,7 +107,6 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
         up = Mathf.Clamp(up, -1, 1);
 
-        previousCam.Priority = 5;
         _dir = dir;
     }
 
