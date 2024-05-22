@@ -67,7 +67,7 @@ public class GimmickExplain : MonoBehaviour
 
     public void RoadStage()
     {
-        GameManager.Instance.curStage = stageNum;
+        //GameManager.Instance.curStage = stageNum;
         SceneManager.LoadScene("TutorialPlay");
     }
 }
