@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 {
@@ -26,12 +27,6 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
     private Animator ClearAnim;
     private ParticleSystem clearParticle;
 
-
-    [Header("===============")]
-    [Header("UI")]
-    [SerializeField] private Transform selectStageTrm;
-    [SerializeField] private StageUI stageUIPrefab;
-
     private int selectStageNum = 0;
     private StageUI[] stageUISs;
     private float moveX = -300f;
@@ -43,12 +38,11 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
     private void Start()
     {
-        SetSelectStageUI();
-
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
 
-        //StartCoroutine(StageLoad());
+        LoadStage();
+        StartCoroutine(FindBox());
     }
 
     private void Update()
@@ -65,23 +59,11 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
             LoadStage();
             StartCoroutine(FindBox());
         }
-
-        if (Input.GetKeyDown(KeyCode.A))
-        {
-            UpdateSelectStageUI(-1);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            UpdateSelectStageUI(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            StartCoroutine(StageLoad());
-        }
     }
 
     public void LoadStage()
     {
+        selectStageNum = GameManager.Instance.stage;
         if (selectStageNum <= stageList.Stages.Count)
         {
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
@@ -119,13 +101,9 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
     private IEnumerator StageLoad()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(2f);
 
-        DestroyImmediate(curStageGameObject);
-
-        yield return new WaitForSeconds(1f);
-        LoadStage();
-        StartCoroutine(FindBox());
+        SceneManager.LoadScene("GimmickExplain");
     }
 
     IEnumerator FindBox()
@@ -139,33 +117,4 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
     {
         isInStage = false;
     }
-
-
-    #region UI
-    public void SetSelectStageUI()
-    {
-        selectStageTrm.localPosition = Vector3.zero;
-
-        for (int i = 0; i < stageList.Stages.Count; ++i)
-        {
-            StageUI stage = Instantiate(stageUIPrefab, selectStageTrm);
-            stage.SetUI(i + 1);
-        }
-
-        stageUISs = selectStageTrm.GetComponentsInChildren<StageUI>();
-        stageUISs[selectStageNum].Selected();
-    }
-
-    public void UpdateSelectStageUI(int value)
-    {
-        stageUISs[selectStageNum].UnSelected();
-
-        selectStageNum += value;
-        selectStageNum = Mathf.Clamp(selectStageNum, 0, stageUISs.Length - 1);
-
-        selectStageTrm.DOLocalMoveX(moveX * selectStageNum, 1.2f);
-
-        stageUISs[selectStageNum].Selected();
-    }
-    #endregion
 }
