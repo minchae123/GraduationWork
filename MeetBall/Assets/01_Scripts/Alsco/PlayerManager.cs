@@ -108,8 +108,6 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 	
 	public void UpdateUI()
     {
-		print($"cur: {selectedPlayer.curCount}, move {selectedPlayer.TotalCount}");
-
 		moveUIList[selectedNum].UpdateMove(selectedPlayer.TotalCount - selectedPlayer.curCount);
 	}
 }
