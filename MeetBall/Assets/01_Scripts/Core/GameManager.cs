@@ -46,8 +46,6 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public PlayerColorClass playerColors;
 
-	public int curStage;
-
 	private void Awake()
 	{
 		playerColors = new PlayerColorClass();
@@ -77,9 +75,4 @@ public class GameManager : MonoSingleton<GameManager>
         }
 		return Color.black;
     }
-
-    public void StageUp()
-	{
-		curStage++;
-	}
 }

@@ -8,31 +8,24 @@ using System;
 
 public class StageUI : MonoBehaviour
 {
-    public StageSO stage;
-    public bool IsSelected = false;
-    [SerializeField]private TextMeshProUGUI stageNumText;
+    [SerializeField] private TextMeshProUGUI stageText;
 
-    private void Start()
+    private bool isSelect = false;
+    public bool IsSelect => isSelect;
+
+    public void SetUI(int stage)
     {
-        IsSelected = false;
+        stageText.text = $"{stage}";
     }
 
     public void Selected()
     {
-        IsSelected = true;
         transform.DOScale(1.3f, 0.6f);
+        isSelect = true;
     }
     public void UnSelected()
     {
-        IsSelected = false;
         transform.DOScale(1f, 0.6f);
-    }
-
-    internal void SetUI(StageSO stage, int stageNum)
-    {
-        if (stageNum < 10) stageNumText.text = $"0{stageNum}";
-        else stageNumText.text = $"{stageNum}";
-
-        this.stage = stage;
+        isSelect = false;
     }
 }
