@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using System;
+using UnityEngine.EventSystems;
 
 public class TutorialPanel : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class TutorialPanel : MonoBehaviour
     private RectTransform _panel;
 
     public bool isWait { get; set; }
+    public bool isTwin { get; private set; }
 
     private void Awake()
     {
@@ -20,14 +22,25 @@ public class TutorialPanel : MonoBehaviour
     public void ShowTutorial(Action action = null)
     {
         isWait = true;
+        isTwin = true;
 
-        _panel.DOScaleX(_panelSize, 1f)
-            .OnComplete(() => { action(); });
+        _panel.DOScaleX(_panelSize, 1f).SetEase(Ease.InOutQuint)
+            .OnComplete(() =>
+            {
+                isTwin = false;
+                action();
+            });
     }
 
     public void CloseTutorial()
     {
-        _panel?.DOScaleX(0, 1f)
-            .OnComplete(()=> isWait = false);
+        isTwin = true;
+
+        _panel.DOScaleX(0, 1f).SetEase(Ease.InOutQuint)
+            .OnComplete(() =>
+            {
+                isTwin= false;
+                isWait = false;
+            });
     }
 }
