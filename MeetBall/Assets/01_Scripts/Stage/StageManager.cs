@@ -8,6 +8,7 @@ using DG.Tweening;
 public class StageManager : MonoSingleton<StageManager>
 {
     private bool isInStage = false;
+    public bool IsInStage => isInStage;
 
     [Header("===============")]
     [Header("Stage")]
@@ -106,6 +107,8 @@ public class StageManager : MonoSingleton<StageManager>
 
         if (selectStageNum <= stageList.Stages.Count)
         {
+            isInStage = true;
+
             if (currentMinimap != null)
             {
                 DestroyImmediate(currentMinimap);
@@ -115,7 +118,6 @@ public class StageManager : MonoSingleton<StageManager>
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
             curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
-            isInStage = true;
 
             stageSelectTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
@@ -132,8 +134,9 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void ClearStage()
     {
-        ClearAnim.SetTrigger("Clear");
+        isInStage = false;
 
+        ClearAnim.SetTrigger("Clear");
         BoxManager.Instance.CleanBox();
 
         gameCanvas.SetActive(false);
@@ -165,15 +168,15 @@ public class StageManager : MonoSingleton<StageManager>
         BoxManager.Instance.FindBox();
     }
 
-    public void ResetStage()
+    public void SetIsInStage(bool value)
     {
-        isInStage = false;
+        isInStage = value;
     }
-
 
     #region UI
     public void SetSelectStageUI()
     {
+        isInStage = false;
         stageSelectTrm.localPosition = Vector3.zero;
 
         bool isClear = true;
