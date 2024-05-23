@@ -2,18 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CoiorChangeEnum
-{
-	NONE = 0,
-	RED = 1,
-	GREEN = 2,
-	BLUE = 3,
-}
 public class ColorChange : MonoBehaviour, Item
 {
-	[SerializeField] private CoiorChangeEnum colorToChange;
-	private Color changeColor;
-	private MeshRenderer render;
+	[Header("Red, Green, Blue ¡ﬂø° ≈√1")]
+	[SerializeField] private OriginColorEnum colorToChange;
+	[Header("=======================")]
 
 	[SerializeField] private GameObject[] visuals;
 
@@ -21,35 +14,14 @@ public class ColorChange : MonoBehaviour, Item
 
 	private void Awake()
 	{
-		render = GetComponent<MeshRenderer>();
-
 		visuals[(int)colorToChange - 1].SetActive(true);
 	}
 
-	private void Start()
-	{
-		switch (colorToChange)
-		{
-			case CoiorChangeEnum.NONE:
-				break;
-			case CoiorChangeEnum.RED:
-				changeColor = Color.red;
-				break;
-			case CoiorChangeEnum.GREEN:
-				changeColor = Color.green;
-				break;
-			case CoiorChangeEnum.BLUE:
-				changeColor = Color.blue;
-				break;
-		}
-
-		render.sharedMaterial.SetColor("_PlayerColor", changeColor);
-	}
 	private void OnTriggerEnter(Collider other)
 	{
-		if (other.CompareTag("Player"))
+		if (other.TryGetComponent<Movement>(out Movement m))
 		{
-			other.GetComponent<MeshRenderer>().sharedMaterial.SetColor("_PlayerColor", changeColor);
+			m.SetPlayerColor(colorToChange);
 			Destroy(gameObject);
 		}
 	}

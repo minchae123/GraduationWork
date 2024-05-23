@@ -15,6 +15,7 @@ public class Tutorial : MonoBehaviour
 
     void Start()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         StartCoroutine(TutorialPannel());
     }
 
@@ -54,5 +55,7 @@ public class Tutorial : MonoBehaviour
 
             yield return new WaitWhile(()=>tutorial.isWait);
         }
+
+        Cursor.lockState = CursorLockMode.None;
     }
 }

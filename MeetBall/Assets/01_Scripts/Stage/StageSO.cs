@@ -12,8 +12,8 @@ public class StageSO : ScriptableObject
 
     public int[] playersCount;
 
-    public ColorEnum[] playersColor;    
-    public ColorEnum targetColor;
+    public OriginColorEnum[] playersColor;    
+    public TargetColorEnum targetColor;
 
     public bool IsClear= false;
 }

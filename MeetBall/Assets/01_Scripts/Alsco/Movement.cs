@@ -25,6 +25,9 @@ public class Movement : MonoBehaviour
 
 	public PlayerDir playerEnum;
 
+	private OriginColorEnum playerColor;
+	public OriginColorEnum PlayerColor => playerColor;
+
 	public Vector3 direction { get; set; }
 
 	[SerializeField] private bool[] isCanMove = new bool[6];
@@ -48,11 +51,22 @@ public class Movement : MonoBehaviour
 		RayCheck();
 	}
 
-	public void SetPlayer(Color color, int moveCnt)
+	public void SetPlayer(OriginColorEnum color, int moveCnt)
 	{
+		Color c = GameManager.Instance.FindColor(color);
+
 		render = GetComponent<MeshRenderer>();
-		render.sharedMaterial.SetColor("_PlayerColor", color);
+		render.sharedMaterial.SetColor("_PlayerColor", c);
+
+		playerColor = color;
 		totalCount = moveCnt;
+	}
+	public void SetPlayerColor(OriginColorEnum color)
+	{
+		Color c = GameManager.Instance.FindColor(color);
+		render.sharedMaterial.SetColor("_PlayerColor", c);
+
+		playerColor = color;
 	}
 
 	public void MoveLeft()

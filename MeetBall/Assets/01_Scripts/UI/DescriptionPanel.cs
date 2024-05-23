@@ -11,32 +11,27 @@ public class DescriptionPanel : MonoBehaviour
 
     public void SetPanel(StageSO stage)
     {
-        ColorEnum targetColor = stage.targetColor;
-        List<ColorEnum> needColors = new List<ColorEnum>();
+        TargetColorEnum targetColor = stage.targetColor;
+        List<OriginColorEnum> needColors = new List<OriginColorEnum>();
 
         switch (targetColor)
         {
-            case ColorEnum.NONE:
-            case ColorEnum.RED:
-            case ColorEnum.GREEN:
-            case ColorEnum.BLUE:
+            case TargetColorEnum.YELLOW:
+                needColors.Add(OriginColorEnum.RED);
+                needColors.Add(OriginColorEnum.GREEN);
                 break;
-            case ColorEnum.YELLOW:
-                needColors.Add(ColorEnum.RED);
-                needColors.Add(ColorEnum.GREEN);
+            case TargetColorEnum.MAGENTA:
+                needColors.Add(OriginColorEnum.RED);
+                needColors.Add(OriginColorEnum.BLUE);
                 break;
-            case ColorEnum.MAGENTA:
-                needColors.Add(ColorEnum.RED);
-                needColors.Add(ColorEnum.BLUE);
+            case TargetColorEnum.MINT:
+                needColors.Add(OriginColorEnum.GREEN);
+                needColors.Add(OriginColorEnum.BLUE);
                 break;
-            case ColorEnum.MINT:
-                needColors.Add(ColorEnum.GREEN);
-                needColors.Add(ColorEnum.BLUE);
-                break;
-            case ColorEnum.WHITE:
-                needColors.Add(ColorEnum.RED);
-                needColors.Add(ColorEnum.GREEN);
-                needColors.Add(ColorEnum.BLUE);
+            case TargetColorEnum.WHITE:
+                needColors.Add(OriginColorEnum.RED);
+                needColors.Add(OriginColorEnum.GREEN);
+                needColors.Add(OriginColorEnum.BLUE);
                 break;
         }
 

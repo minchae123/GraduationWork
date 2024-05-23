@@ -14,7 +14,8 @@ public class GameManager : MonoSingleton<GameManager>
 		public Color MINT;
 		public Color WHITE;
 
-		public Dictionary<ColorEnum, Color> ColorDictionary;
+		public Dictionary<OriginColorEnum, Color> OriginColorDictionary;
+		public Dictionary<TargetColorEnum, Color> ToMakeColorDictionary;
 
 		public void SetColors()
         {
@@ -32,15 +33,19 @@ public class GameManager : MonoSingleton<GameManager>
 		}
 		private void SetDictionary()
 		{
-			ColorDictionary = new Dictionary<ColorEnum, Color>();
+			OriginColorDictionary = new Dictionary<OriginColorEnum, Color>();
 
-			ColorDictionary[ColorEnum.RED]	   =  			RED;
-			ColorDictionary[ColorEnum.GREEN]   =			GREEN;
-			ColorDictionary[ColorEnum.BLUE]    =			BLUE;
-			ColorDictionary[ColorEnum.YELLOW]  =			YELLOW;
-			ColorDictionary[ColorEnum.MAGENTA] =			MAGENTA;
-			ColorDictionary[ColorEnum.MINT]	   =			MINT;
-			ColorDictionary[ColorEnum.WHITE]   =			WHITE;
+			OriginColorDictionary[OriginColorEnum.RED] = RED;
+			OriginColorDictionary[OriginColorEnum.GREEN] = GREEN;
+			OriginColorDictionary[OriginColorEnum.BLUE] = BLUE;
+
+
+			ToMakeColorDictionary = new Dictionary<TargetColorEnum, Color>();
+
+			ToMakeColorDictionary[TargetColorEnum.YELLOW] = YELLOW;
+			ToMakeColorDictionary[TargetColorEnum.MAGENTA] = MAGENTA;
+			ToMakeColorDictionary[TargetColorEnum.MINT] = MINT;
+			ToMakeColorDictionary[TargetColorEnum.WHITE] = WHITE;
 		}
 	}
 
@@ -68,12 +73,34 @@ public class GameManager : MonoSingleton<GameManager>
 		return items;
 	}
 
-	public Color FindColor(ColorEnum c)
+	public Color FindColor(OriginColorEnum c)
     {
-		if (playerColors.ColorDictionary.TryGetValue(c, out Color color)) 
+		if (playerColors.OriginColorDictionary.TryGetValue(c, out Color color)) 
         {
 			return color;
         }
 		return Color.black;
+    }
+	public Color FindColor(TargetColorEnum c)
+    {
+		if (playerColors.ToMakeColorDictionary.TryGetValue(c, out Color color))
+		{
+			print((int)c);
+			return color;
+		}
+		return Color.black;
+	}
+
+	public bool MergeColor(OriginColorEnum c1, OriginColorEnum c2)
+    {
+		TargetColorEnum final = StageManager.Instance.CurrentStageSO.targetColor;
+		print((int)c1);
+		print((int)c2);
+		print((int)final);
+		if((int)c1 + (int)c2 == (int)final)
+        {
+			return true;
+        }
+		return false;
     }
 }
