@@ -36,9 +36,10 @@ public class StageGenerator : MonoBehaviour
     {
         for (int i = 0; i < Blocks.Count; i++)
         {
-            Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
-            yield return new WaitForSeconds(.5f / Blocks.Count);
+            Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
+            //yield return new WaitForSeconds(.5f / Blocks.Count);
         }
+        yield return null;
     }
 
     void ResetStage()
