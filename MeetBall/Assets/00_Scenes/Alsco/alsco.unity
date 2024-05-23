@@ -549,7 +549,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ae886e9be48f442932dc63a65729af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curStage: 0
 --- !u!1 &250136937
 GameObject:
   m_ObjectHideFlags: 0
@@ -731,6 +730,8 @@ MonoBehaviour:
   stageTrm: {fileID: 1871945580}
   stages: []
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
+  selectStageTrm: {fileID: 1701410041}
+  stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
   gameCanvas: {fileID: 1017310713}
 --- !u!1 &527039512
 GameObject:
@@ -1009,6 +1010,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorImage: {fileID: 3095396577169933162, guid: a80d1a7ee223f724892caffa8176a8b7, type: 3}
+  colorImageList: []
 --- !u!114 &639811398
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2413,9 +2415,9 @@ MonoBehaviour:
   - {fileID: 732905315}
   - {fileID: 1317129477}
   curTransfrom: {fileID: 1029127824}
+  _dir: 0
   left: 0
   up: 0
-  _dir: 0
 --- !u!1 &1518001005
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,6 +3123,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+--- !u!224 &1701410041 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1216766406, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+  m_PrefabInstance: {fileID: 1701410040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1773961244
 GameObject:
   m_ObjectHideFlags: 0
@@ -3700,7 +3707,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeThreshold: 100
-  rotate: {fileID: 0}
   camMovement: {fileID: 1429365638}
 --- !u!114 &2082734115
 MonoBehaviour:

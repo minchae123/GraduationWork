@@ -116,7 +116,9 @@ public class StageManager : MonoBehaviour
 
         gameCanvas.SetActive(false);
         Invoke(nameof(ClearParticle), 1);
-        StartCoroutine(StageLoad());
+		selectStageNum++;
+
+		StartCoroutine(StageLoad());
     }
 
     private void ClearParticle()

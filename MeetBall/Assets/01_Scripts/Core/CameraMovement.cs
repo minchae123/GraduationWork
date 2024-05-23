@@ -5,6 +5,11 @@ using UnityEngine;
 using DG.Tweening;
 using Cinemachine;
 
+enum CamPos
+{
+    Left, Front, Right, Back, Up, Down
+}
+
 public class CameraMovement : MonoSingleton<CameraMovement>
 {
     public List<Transform> transforms = new List<Transform>();
@@ -16,6 +21,8 @@ public class CameraMovement : MonoSingleton<CameraMovement>
     public HoverButton button { get; set; }
     public Direction _dir;
 
+    private CamPos camPos;
+
     public int left, up;
 
     private List<Transform> items;
@@ -23,6 +30,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
     private void Start()
     {
         previousCam = cinemachineCam[3];
+        camPos = CamPos.Back;
     }
 
     public void FindItems()
@@ -33,6 +41,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
     public void CameraReset()
     {
         cinemachineCam[3].Priority = 10;
+        camPos = CamPos.Back;
         previousCam.Priority = 5;
     }
 
@@ -57,6 +66,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
                     if (i == 0) i = 4;
                     curTransfrom = cinemachineCam[i - 1].transform;
                     cinemachineCam[i - 1].Priority = 10;
+                
                 }
                 break;
             case Direction.Right:

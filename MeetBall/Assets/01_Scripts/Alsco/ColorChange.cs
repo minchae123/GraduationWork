@@ -15,23 +15,17 @@ public class ColorChange : MonoBehaviour, Item
 	private Color changeColor;
 	private MeshRenderer render;
 
-	private GameObject[] visuals;
+	[SerializeField] private GameObject[] visuals;
 
-	public void Init()
-	{
-		throw new System.NotImplementedException();
-	}
+	public void Init() {	}
 
 	private void Awake()
 	{
 		render = GetComponent<MeshRenderer>();
-		visuals = GetComponentsInChildren<GameObject>();
 
-		foreach (GameObject v in visuals)
-		{
-			v.SetActive(false);
-		}
+		visuals[(int)colorToChange - 1].SetActive(true);
 	}
+
 	private void Start()
 	{
 		switch (colorToChange)
@@ -49,7 +43,6 @@ public class ColorChange : MonoBehaviour, Item
 				break;
 		}
 
-		visuals[(int)colorToChange - 1].SetActive(true);
 		render.sharedMaterial.SetColor("_PlayerColor", changeColor);
 	}
 	private void OnTriggerEnter(Collider other)

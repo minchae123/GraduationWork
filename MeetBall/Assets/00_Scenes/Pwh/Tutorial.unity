@@ -961,6 +961,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   colorImage: {fileID: 3095396577169933162, guid: a80d1a7ee223f724892caffa8176a8b7, type: 3}
+  colorImageList: []
 --- !u!114 &248889003
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1898,10 +1899,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1280, y: 720}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1918,8 +1919,8 @@ Canvas:
   m_GameObject: {fileID: 579930746}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 1722798990}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -2674,7 +2675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   swipeThreshold: 100
-  rotate: {fileID: 0}
   camMovement: {fileID: 1701518914}
 --- !u!114 &1108141474
 MonoBehaviour:
@@ -3669,6 +3669,8 @@ MonoBehaviour:
   stageTrm: {fileID: 1025156078}
   stages: []
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
+  selectStageTrm: {fileID: 2088056982}
+  stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
   gameCanvas: {fileID: 541460114}
 --- !u!1 &1701518913
 GameObject:
@@ -3815,18 +3817,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd2ad87df7964148ace4f5d9ea5d620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 2
-  moveSpeed: 10
-  rotationSpeed: 0.5
-  zoomScale: 10
-  minZoom: 0.1
-  maxZoom: 10
-  rotates:
-  - 0
-  - 90
-  - 180
-  - 270
-  move: {fileID: 0}
 --- !u!114 &1722798992
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4392,7 +4382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b8ae886e9be48f442932dc63a65729af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curStage: 0
 --- !u!1 &1897056524
 GameObject:
   m_ObjectHideFlags: 0
@@ -4723,3 +4712,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+--- !u!224 &2088056982 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1216766406, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+  m_PrefabInstance: {fileID: 2088056981}
+  m_PrefabAsset: {fileID: 0}
