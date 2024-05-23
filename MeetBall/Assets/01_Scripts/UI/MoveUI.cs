@@ -12,7 +12,7 @@ public class MoveUI : MonoBehaviour
 	private Vector3 originPos;
 	private Outline outline;
 
-    public void SetUI(ColorEnum colorEnum, int cnt)
+    public void SetUI(OriginColorEnum colorEnum, int cnt)
 	{
 		Color color = GameManager.Instance.FindColor(colorEnum);
 		originPos = moveCnt.transform.localPosition;

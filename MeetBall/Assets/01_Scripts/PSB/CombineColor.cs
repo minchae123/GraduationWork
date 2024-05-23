@@ -7,15 +7,17 @@ using UnityEngine;
 public class CombineColor : MonoBehaviour
 {
     private MeshRenderer render;
+    private Movement movement;
 
     private void Awake()
     {
         render = GetComponent<MeshRenderer>();
+        movement = GetComponent<Movement>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.TryGetComponent<Movement>(out Movement m))
         {
             Color c1 = render.sharedMaterial.GetColor("_PlayerColor");
             Color c2 = other.gameObject.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_PlayerColor");
@@ -24,20 +26,36 @@ public class CombineColor : MonoBehaviour
             //print($"c1: {c1}, c2: {c2}, combine: {combineColor}");
 
             render.sharedMaterial.SetColor("_PlayerColor", combineColor);
+
             CameraMovement.Instance.CameraReset();
-            PlayerManager.Instance.DestroyPlayer(other.gameObject.GetComponent<Movement>());
-            StartCoroutine(ClearAnim());
+            PlayerManager.Instance.DestroyPlayer(m);
+
+            OriginColorEnum enum1 = m.PlayerColor;
+            OriginColorEnum enum2 = movement.PlayerColor;
+
+            bool IsClear = GameManager.Instance.MergeColor(enum1, enum2);
+
+            if(IsClear)
+            {
+                StartCoroutine(ClearAnim());
+            }
+            else { print("색 잘못 합침"); }
         }
     }
 
     private IEnumerator ClearAnim()
     {
-        //float randomRot = Random.Range(-359, 359);
-        //Camera.main.orthographic = false;
         transform.DOMove(Vector3.zero - Camera.main.transform.forward * 2, 1, false);
         transform.DOScale(.5f, 1);
-        //transform.DORotate(new Vector3(randomRot, randomRot, randomRot), 1);
         yield return new WaitForSeconds(1);
-        //Camera.main.orthographic = true;
+
+        if (FindObjectOfType<StageManager>())
+        {
+            StageManager.Instance.ClearStage();
+        }
+        else
+        {
+            TutorialStageManager.Instance.ClearStage();
+        }
     }
 }

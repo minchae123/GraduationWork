@@ -46,7 +46,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
             moveUIList.Add(move);
 
-            players[i].SetPlayer(GameManager.Instance.FindColor(curStage.playersColor[i]), curStage.playersCount[i]);
+            players[i].SetPlayer(curStage.playersColor[i], curStage.playersCount[i]);
         }
 
         targetImage.color = GameManager.Instance.FindColor(curStage.targetColor);
@@ -81,10 +81,6 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
         if (players.Count <= 1) // 플레이어가 한 명 남았을 경우
         {
-            if (FindObjectOfType<StageManager>())
-                StageManager.Instance.ClearStage();
-            else
-                TutorialStageManager.Instance.ClearStage();
         }
     }
 
