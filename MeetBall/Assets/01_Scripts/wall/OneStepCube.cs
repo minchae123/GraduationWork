@@ -5,22 +5,18 @@ using UnityEngine;
 
 public class OneStepCube : MapCube
 {
-    private void Start()
+    private MeshDestroy _meshDestroy;
+
+    private void Awake()
     {
-        gameObject.layer = 6;
-        //디졸브 초기화
+        _meshDestroy = GetComponent<MeshDestroy>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerExit(Collider other)
     {
-        StartCoroutine(DissolveWall());
-        print("나가기");
+        //if()
+        Debug.Log("asaad");
+        _meshDestroy.DestroyMesh();
+        Destroy(_meshDestroy, 2);
     }
-
-    private IEnumerator DissolveWall()
-    {
-        //디졸브
-        yield return new WaitForSeconds(1);
-        gameObject.layer = 0;
-    }
-}//
+}

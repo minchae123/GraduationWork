@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6353162495901185352}
   - component: {fileID: 6353162495901185353}
   - component: {fileID: 6353162495901185349}
+  - component: {fileID: 30878936}
   m_Layer: 6
   m_Name: OneStepWall
   m_TagString: Moveable
@@ -114,3 +115,17 @@ MonoBehaviour:
   originMat: {fileID: 2100000, guid: b0ca2a6090b9a164ab5d7134828590e8, type: 2}
   visitMat: {fileID: 2100000, guid: eea5cfaa07d85854d855349775b32427, type: 2}
   isVisit: 0
+--- !u!114 &30878936
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6353162495901185355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4ef1eb1ae65106d46bbd885405070a79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CutCascades: 2
+  ExplodeForce: 1
