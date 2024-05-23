@@ -34,13 +34,12 @@ public class StageGenerator : MonoBehaviour
 
     IEnumerator StageLoad()
     {
-        StageManager.Instance.SetIsInStage(false);
         for (int i = 0; i < Blocks.Count; i++)
         {
-            Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
-            yield return new WaitForSeconds(.5f / Blocks.Count);
+            Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
+            //yield return new WaitForSeconds(.5f / Blocks.Count);
         }
-        StageManager.Instance.SetIsInStage(true);
+        yield return null;
     }
 
     void ResetStage()

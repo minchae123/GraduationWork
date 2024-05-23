@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public enum Save
 {
@@ -22,6 +23,13 @@ public class Box : MonoBehaviour
     public Vector3 _rightPlayerDir { get; private set; } = Vector3.zero;
 
     private Dictionary<Save, Vector3> _saveDir = new Dictionary<Save, Vector3>();
+
+    private MeshRenderer _mr;
+
+    private void Awake()
+    {
+        _mr = GetComponentInChildren<MeshRenderer>();
+    }
 
     private void Start()
     {
@@ -85,13 +93,11 @@ public class Box : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        transform.GetComponent<Rigidbody>().useGravity = false;
         _isFall = false;
     }
 
     private void OnTriggerExit(Collider other)
     {
-        transform.GetComponent<Rigidbody>().useGravity = true;
         _isFall = true;
         StartCoroutine(DeleteBox());
 
@@ -99,12 +105,18 @@ public class Box : MonoBehaviour
 
     private IEnumerator DeleteBox()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(0.5f);
 
         if (_isFall)
         {
-            BoxManager.Instance.RemoveBox(this);
-            Destroy(gameObject);
+            float value = 0; 
+            DOTween.To(() => value, x => value = x, 1f, 1)
+                .OnUpdate(()=> _mr.material.SetFloat("_Float", value))
+                .OnComplete(()=>
+                {
+                    BoxManager.Instance.RemoveBox(this);
+                    Destroy(gameObject);
+                });
         }
     }
     #endregion
