@@ -9,6 +9,8 @@ public class StageGenerator : MonoBehaviour
     public List<GameObject> Blocks;
     public List<Vector3> SaveBlocks;
 
+    private float _radius = 3f;
+
     private void Awake()
     {
         foreach (var block in Blocks)
@@ -41,9 +43,19 @@ public class StageGenerator : MonoBehaviour
 
     void ResetStage()
     {
-        foreach (var block in Blocks)
+        //foreach (var block in Blocks)
+        //{
+        //    block.transform.position = new Vector3(block.transform.position.x, 10, block.transform.position.z);
+        //}
+
+        for (int i = 0; i < Blocks.Count; i++)
         {
-            block.transform.position = new Vector3(block.transform.position.x, 10, block.transform.position.z);
+            float angle = i * Mathf.PI * 2 / Blocks.Count;
+            float x = Mathf.Cos(angle) * _radius;
+            float y = Mathf.Sin(angle) * _radius;
+            float z = Mathf.Tan(angle) * _radius;
+
+            Blocks[i].transform.position = new Vector3(x, y, z);
         }
     }
 }
