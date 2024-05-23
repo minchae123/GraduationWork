@@ -18,7 +18,7 @@ public class Tutorial : MonoBehaviour
         StartCoroutine(TutorialPannel());
     }
 
-    private IEnumerator Typing(string text)
+    IEnumerator Typing(string text)
     {
         yield return new WaitForSeconds(1f);
 
@@ -38,7 +38,7 @@ public class Tutorial : MonoBehaviour
         tutorial.CloseTutorial();
     }
 
-    private IEnumerator TutorialPannel()
+    IEnumerator TutorialPannel()
     {
         yield return new WaitForSeconds(1f);
 

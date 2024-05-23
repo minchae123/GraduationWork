@@ -40,7 +40,7 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
     {
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-
+        
         LoadStage();
         StartCoroutine(FindBox());
     }
@@ -63,7 +63,8 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
     public void LoadStage()
     {
-        selectStageNum = GameManager.Instance.stage;
+        selectStageNum = PlayerPrefs.GetInt(GameManager.Instance.stage);
+
         if (selectStageNum <= stageList.Stages.Count)
         {
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지

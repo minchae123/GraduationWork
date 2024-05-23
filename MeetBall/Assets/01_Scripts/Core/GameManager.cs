@@ -44,7 +44,7 @@ public class GameManager : MonoSingleton<GameManager>
 		}
 	}
 
-	public int stage { get; set; }
+	public string stage { get; set; }
 	public PlayerColorClass playerColors;
 
 	private void Awake()
