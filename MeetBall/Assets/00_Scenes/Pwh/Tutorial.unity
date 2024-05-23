@@ -3569,6 +3569,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1616281164}
   - component: {fileID: 1616281165}
+  - component: {fileID: 1616281166}
   m_Layer: 0
   m_Name: StageManager
   m_TagString: Untagged
@@ -3598,7 +3599,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616281163}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ed5c6369d747934a9863317db8da485, type: 3}
   m_Name: 
@@ -3608,6 +3609,22 @@ MonoBehaviour:
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
   selectStageTrm: {fileID: 2088056982}
   stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
+  gameCanvas: {fileID: 541460114}
+--- !u!114 &1616281166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1616281163}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f82990198a29284bb83fb3281dd0727, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stageTrm: {fileID: 1025156078}
+  stages: []
+  stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
   gameCanvas: {fileID: 541460114}
 --- !u!1 &1701518913
 GameObject:
