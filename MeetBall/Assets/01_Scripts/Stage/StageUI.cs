@@ -5,17 +5,25 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 using System;
+using UnityEngine.UI;
 
 public class StageUI : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI stageText;
+    [SerializeField] private Image lockImage;
+
+    private bool canPlay = false;
+    public bool CanPlay => canPlay;
 
     private bool isSelect = false;
     public bool IsSelect => isSelect;
 
-    public void SetUI(int stage)
+    public void SetUI(int stage, bool clear)
     {
         stageText.text = $"{stage}";
+        lockImage.gameObject.SetActive(!clear);
+
+        canPlay = clear;
     }
 
     public void Selected()

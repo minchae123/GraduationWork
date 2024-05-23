@@ -14,8 +14,6 @@ public class StageManager : MonoBehaviour
     [Header("===============")]
     [Header("Stage")]
     [SerializeField] private Transform stageTrm;
-    [SerializeField] private StageUI[] stages;
-
     [SerializeField] private StageListSO stageList;
 
     private StageSO currentStageSO;
@@ -35,8 +33,12 @@ public class StageManager : MonoBehaviour
     [SerializeField] private StageUI stageUIPrefab;
 
     private int selectStageNum = 0;
-    private StageUI[] stageUISs;
+    private StageUI[] stagesUI;
     private float moveX = -300f;
+
+    [Header("Minimap")]
+    [SerializeField] private Transform minimapTrm;
+    private GameObject currentMinimap = null;
 
 
     [Header("===============")]
@@ -51,6 +53,7 @@ public class StageManager : MonoBehaviour
     private void Start()
     {
         SetSelectStageUI();
+        gameCanvas.SetActive(false);
 
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
@@ -70,7 +73,6 @@ public class StageManager : MonoBehaviour
         {
             DestroyImmediate(curStageGameObject);
             LoadStage();
-            StartCoroutine(FindBox());
         }
 
         if(Input.GetKeyDown(KeyCode.A))
@@ -83,19 +85,37 @@ public class StageManager : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            StartCoroutine(StageLoad());
+            if (!stagesUI[selectStageNum].CanPlay)
+            {
+                print("아직 클리어X");
+            }
+            LoadStage();
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            BackToMenu();
         }
     }
 
     public void LoadStage()
     {
+        StartCoroutine(FindBox());
+
         if (selectStageNum <= stageList.Stages.Count)
         {
+            if (currentMinimap != null)
+            {
+                DestroyImmediate(currentMinimap);
+                currentMinimap = null;
+            }
+
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
             curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
             isInStage = true;
 
+            selectStageTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
             gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
@@ -116,6 +136,8 @@ public class StageManager : MonoBehaviour
 
         gameCanvas.SetActive(false);
         Invoke(nameof(ClearParticle), 1);
+
+        currentStageSO.IsClear = true;
 		selectStageNum++;
 
 		StartCoroutine(StageLoad());
@@ -129,18 +151,15 @@ public class StageManager : MonoBehaviour
     private IEnumerator StageLoad()
     {
         yield return new WaitForSeconds(1f);
-
         DestroyImmediate(curStageGameObject);
-
         yield return new WaitForSeconds(1f);
+
         LoadStage();
-        StartCoroutine(FindBox());
     }
 
     IEnumerator FindBox()
     {
         yield return new WaitForSeconds(0.2f);
-
         BoxManager.Instance.FindBox();
     }
 
@@ -155,26 +174,52 @@ public class StageManager : MonoBehaviour
     {
         selectStageTrm.localPosition = Vector3.zero;
 
+        bool isClear = true;
+
         for (int i = 0; i < stageList.Stages.Count; ++i)
         {
             StageUI stage = Instantiate(stageUIPrefab, selectStageTrm);
-            stage.SetUI(i + 1);
+            stage.SetUI(i + 1, isClear);
+
+            isClear = stageList.Stages[i].IsClear;
         }
 
-        stageUISs = selectStageTrm.GetComponentsInChildren<StageUI>();
-        stageUISs[selectStageNum].Selected();
+        stagesUI = selectStageTrm.GetComponentsInChildren<StageUI>();
+        UpdateSelectStageUI(0);
     }
 
     public void UpdateSelectStageUI(int value)
     {
-        stageUISs[selectStageNum].UnSelected();
+        if (currentMinimap != null)
+        {
+            DestroyImmediate(currentMinimap.gameObject);
+        }
+        stagesUI[selectStageNum].UnSelected();
 
         selectStageNum += value;
-        selectStageNum = Mathf.Clamp(selectStageNum, 0, stageUISs.Length - 1);
+        selectStageNum = Mathf.Clamp(selectStageNum, 0, stagesUI.Length - 1);
 
         selectStageTrm.DOLocalMoveX(moveX * selectStageNum, 1.2f);
 
-        stageUISs[selectStageNum].Selected();
+        stagesUI[selectStageNum].Selected();
+        currentMinimap = Instantiate(stageList.Stages[selectStageNum].stagePref, minimapTrm);
+    }
+
+    public void BackToMenu()
+    {
+        for (int i = 0; i < stagesUI.Length; ++i)
+        {
+            DestroyImmediate(stagesUI[i].gameObject);
+        }
+
+        BoxManager.Instance.CleanBox();
+
+        selectStageTrm.gameObject.SetActive(true);
+        gameCanvas.SetActive(false);
+        
+        DestroyImmediate(curStageGameObject);
+
+        SetSelectStageUI();
     }
     #endregion
 }
