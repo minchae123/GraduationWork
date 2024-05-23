@@ -729,7 +729,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stageTrm: {fileID: 1871945580}
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
-  selectStageTrm: {fileID: 1216766406}
+  stageSelectTrm: {fileID: 1701410041}
   stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
   minimapTrm: {fileID: 728724396}
   gameCanvas: {fileID: 1017310713}
@@ -998,14 +998,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 728724395}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: -0.40821788, y: -0.23456968, z: -0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1808624454}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -50, y: -30, z: 0}
 --- !u!1 &732905313
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,7 +1918,7 @@ Transform:
   - {fileID: 533398542}
   - {fileID: 2064995521}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1017310713
 GameObject:
@@ -2016,7 +2016,7 @@ RectTransform:
   - {fileID: 696873119}
   - {fileID: 593151182}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2094,11 +2094,6 @@ Transform:
   m_Father: {fileID: 1429365637}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!224 &1216766406 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1216766406, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
-  m_PrefabInstance: {fileID: 1701410040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1216858364
 GameObject:
   m_ObjectHideFlags: 3
@@ -2375,7 +2370,7 @@ Transform:
   - {fileID: 732905314}
   - {fileID: 1317129476}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1429365638
 MonoBehaviour:
@@ -2514,7 +2509,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6761393945012263584, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
       propertyPath: m_RootOrder
-      value: 10
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 6761393945012263584, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3053,6 +3048,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1216766406, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216766407, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+      propertyPath: m_Spacing.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1216766407, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+      propertyPath: m_Spacing.y
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 4367021415556116379, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+      propertyPath: m_Name
+      value: StageSelectTrm
+      objectReference: {fileID: 0}
     - target: {fileID: 8123405307055180049, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
       propertyPath: m_Name
       value: MainCanvas
@@ -3067,7 +3078,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8123405307055180061, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8123405307055180061, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
       propertyPath: m_AnchorMax.x
@@ -3143,6 +3154,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+--- !u!224 &1701410041 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 4544947903339262060, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
+  m_PrefabInstance: {fileID: 1701410040}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1798154175
 GameObject:
   m_ObjectHideFlags: 0
@@ -3290,7 +3306,7 @@ Transform:
   - {fileID: 1871945580}
   - {fileID: 728724396}
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1846283356
 GameObject:

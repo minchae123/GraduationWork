@@ -78,10 +78,6 @@ public class PlayerManager : MonoSingleton<PlayerManager>
         selectedPlayer = players[selectedNum];
 
         Destroy(player.gameObject);
-
-        if (players.Count <= 1) // 플레이어가 한 명 남았을 경우
-        {
-        }
     }
 
     public void MoveLeft()

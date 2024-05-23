@@ -85,7 +85,6 @@ public class GameManager : MonoSingleton<GameManager>
     {
 		if (playerColors.ToMakeColorDictionary.TryGetValue(c, out Color color))
 		{
-			print((int)c);
 			return color;
 		}
 		return Color.black;
@@ -94,9 +93,6 @@ public class GameManager : MonoSingleton<GameManager>
 	public bool MergeColor(OriginColorEnum c1, OriginColorEnum c2)
     {
 		TargetColorEnum final = StageManager.Instance.CurrentStageSO.targetColor;
-		print((int)c1);
-		print((int)c2);
-		print((int)final);
 		if((int)c1 + (int)c2 == (int)final)
         {
 			return true;
