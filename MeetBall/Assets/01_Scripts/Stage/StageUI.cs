@@ -13,22 +13,36 @@ public class StageUI : MonoBehaviour
     [SerializeField] private Image lockImage;
 
     private bool canPlay = false;
-    public bool CanPlay => canPlay;
 
     private bool isSelect = false;
     public bool IsSelect => isSelect;
 
+    private Vector3 originLockPos;
+
     public void SetUI(int stage, bool clear)
     {
-        stageText.text = $"{stage}";
+        stageText.text = stage.ToString("D2");
         lockImage.gameObject.SetActive(!clear);
 
         canPlay = clear;
+        originLockPos = lockImage.transform.localPosition;
+    }
+
+    public bool CheckCanPlay()
+    {
+        if (canPlay)
+        {
+            return true;
+        }
+
+        lockImage.rectTransform.localPosition = originLockPos;
+        lockImage.transform.DOShakePosition(0.5f, strength: new Vector3(5, 5, 0), vibrato: 10, randomness: 90, fadeOut: false).SetUpdate(true);
+        return false;
     }
 
     public void Selected()
     {
-        transform.DOScale(1.3f, 0.6f);
+        transform.DOScale(2f, 0.6f);
         isSelect = true;
     }
     public void UnSelected()
