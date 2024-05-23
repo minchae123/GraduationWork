@@ -728,10 +728,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   stageTrm: {fileID: 1871945580}
-  stages: []
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
   selectStageTrm: {fileID: 1701410041}
   stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
+  minimapTrm: {fileID: 0}
   gameCanvas: {fileID: 1017310713}
 --- !u!1 &527039512
 GameObject:
@@ -1139,7 +1139,7 @@ MonoBehaviour:
   - m_Script
   m_LockStageInInspector: 
   m_StreamingVersion: 20170927
-  m_Priority: 5
+  m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
   m_Follow: {fileID: 0}
@@ -3859,8 +3859,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2119645254}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -10}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 10, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3879,18 +3879,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bd2ad87df7964148ace4f5d9ea5d620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  direction: 2
-  moveSpeed: 10
-  rotationSpeed: 0.5
-  zoomScale: 10
-  minZoom: 0.1
-  maxZoom: 10
-  rotates:
-  - 0
-  - 90
-  - 180
-  - 270
-  move: {fileID: 0}
 --- !u!114 &2119645260
 MonoBehaviour:
   m_ObjectHideFlags: 0
