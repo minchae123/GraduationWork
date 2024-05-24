@@ -92,7 +92,11 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public bool MergeColor(OriginColorEnum c1, OriginColorEnum c2)
     {
-		TargetColorEnum final = StageManager.Instance.CurrentStageSO.targetColor;
+		TargetColorEnum final;
+
+		if (FindObjectOfType<StageManager>()) final = StageManager.Instance.CurrentStageSO.targetColor;
+		else final = TutorialStageManager.Instance.CurrentStageSO.targetColor;
+
 		if((int)c1 + (int)c2 == (int)final)
         {
 			return true;

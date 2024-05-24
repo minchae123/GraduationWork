@@ -46,7 +46,9 @@ public class Movement : MonoBehaviour
 
 	private void Update()
 	{
-		if(StageManager.Instance.IsInStage) BoxManager.Instance.boxDec(transform);
+		if (FindObjectOfType<StageManager>() && StageManager.Instance.IsInStage) BoxManager.Instance.boxDec(transform);
+		else if (FindObjectOfType<TutorialStageManager>() && TutorialStageManager.Instance.IsInStage) BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 	}
 

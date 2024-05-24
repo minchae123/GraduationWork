@@ -10,7 +10,7 @@ public class StageGenerator : MonoBehaviour
     public List<Vector3> SaveBlocks;
 
     private float _radius = 3f;
-
+    
     private void Awake()
     {
         foreach (var block in Blocks)
@@ -34,13 +34,19 @@ public class StageGenerator : MonoBehaviour
 
     IEnumerator StageLoad()
     {
-        StageManager.Instance.SetIsInStage(false);
+        SetIsInStage(false);
         for (int i = 0; i < Blocks.Count; i++)
         {
             Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
             yield return new WaitForSeconds(.5f / Blocks.Count);
         }
-        StageManager.Instance.SetIsInStage(true);
+        SetIsInStage(true);
+    }
+
+    private void SetIsInStage(bool value)
+    {
+        if (FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(value);
+        else TutorialStageManager.Instance.SetIsInStage(value);
     }
 
     void ResetStage()
