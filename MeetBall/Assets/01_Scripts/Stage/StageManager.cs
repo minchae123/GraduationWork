@@ -50,6 +50,8 @@ public class StageManager : MonoSingleton<StageManager>
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
         stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+
+        isInStage = false;
     }
 
     private void Start()
@@ -63,41 +65,46 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!isInStage) // 스테이지 밖일 때
         {
-            StopAllCoroutines();
-            ClearStage();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DestroyImmediate(curStageGameObject);
-            LoadStage();
-        }
-
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            UpdateSelectStageUI(-1);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            UpdateSelectStageUI(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!stagesUI[selectStageNum].CheckCanPlay())
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                print("아직 클리어X");
+                UpdateSelectStageUI(-1);
             }
-            else
+            if (Input.GetKeyDown(KeyCode.D))
             {
+                UpdateSelectStageUI(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (!stagesUI[selectStageNum].CheckCanPlay())
+                {
+                    print("아직 클리어X");
+                }
+                else
+                {
+                    LoadStage();
+                }
+            }
+        }
+        else // 스테이지 안일때
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                StopAllCoroutines();
+                ClearStage();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                DestroyImmediate(curStageGameObject);
                 LoadStage();
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BackToMenu();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BackToMenu();
+            }
         }
     }
 
@@ -108,6 +115,7 @@ public class StageManager : MonoSingleton<StageManager>
         if (selectStageNum <= stageList.Stages.Count)
         {
             isInStage = true;
+            print($"1: {isInStage}");
 
             if (currentMinimap != null)
             {
@@ -122,9 +130,11 @@ public class StageManager : MonoSingleton<StageManager>
             stageSelectTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
             gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
+            print($"2: {isInStage}");
 
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
+            print($"3: {isInStage}");
         }
         else
         {
@@ -134,6 +144,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void ClearStage()
     {
+        print("Clear");
         isInStage = false;
 
         ClearAnim.SetTrigger("Clear");
@@ -170,6 +181,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void SetIsInStage(bool value)
     {
+        print("set");
         isInStage = value;
     }
 
@@ -211,6 +223,8 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void BackToMenu()
     {
+        isInStage = false;
+
         for (int i = 0; i < stagesUI.Length; ++i)
         {
             DestroyImmediate(stagesUI[i].gameObject);
