@@ -23,16 +23,20 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     [SerializeField] private Image targetImage;
 
+    public void ResetPlayers()
+    {
+        players.Clear();
+
+        moveUIList.ForEach(m => Destroy(m.gameObject));
+        moveUIList.Clear();
+    }
+
     public void SetNewPlayers(StageSO curStage) // 스테이지 바뀔 때마다 마지막에 넣어주기
     {
         selectedNum = 0;
 
-        players.Clear();
+        ResetPlayers();
         players = new List<Movement>();
-
-        moveUIList.ForEach(m => Destroy(m.gameObject));
-
-        moveUIList.Clear();
         moveUIList = new List<MoveUI>();
 
         players = stageTrm.GetComponentsInChildren<Movement>().ToList(); // 스테이지에서 플레이어를 찾아

@@ -10,7 +10,7 @@ public class StageGenerator : MonoBehaviour
     public List<Vector3> SaveBlocks;
 
     private float _radius = 3f;
-    
+
     private void Awake()
     {
         foreach (var block in Blocks)
@@ -35,10 +35,14 @@ public class StageGenerator : MonoBehaviour
     IEnumerator StageLoad()
     {
         SetIsInStage(false);
+
+        yield return new WaitForSeconds(.2f);
+
         for (int i = 0; i < Blocks.Count; i++)
         {
-            Blocks[i].transform.DOMove(SaveBlocks[i], .1f);
-            yield return new WaitForSeconds(.5f / Blocks.Count);
+            Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
+            //Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
+            //yield return new WaitForSeconds(.5f / Blocks.Count);
         }
         SetIsInStage(true);
     }
@@ -55,15 +59,22 @@ public class StageGenerator : MonoBehaviour
         //{
         //    block.transform.position = new Vector3(block.transform.position.x, 10, block.transform.position.z);
         //}
+        int count = Blocks.Count;
+        float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
+        float angleIncrement = Mathf.PI * 2 * goldenRatio;
 
-        for (int i = 0; i < Blocks.Count; i++)
+        for (int i = 0; i < count; i++)
         {
-            float angle = i * Mathf.PI * 2 / Blocks.Count;
-            float x = Mathf.Cos(angle) * _radius;
-            float y = Mathf.Sin(angle) * _radius;
-            float z = Mathf.Tan(angle) * _radius;
+            float t = (float)i / count;
+            float inclination = Mathf.Acos(1 - 2 * t); // theta: inclination angle
+            float azimuth = angleIncrement * i;
 
-            Blocks[i].transform.position = new Vector3(x, y, z);
+            float x = 4 * Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = 4 * Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = 4 * Mathf.Cos(inclination);
+
+            //Blocks[i].transform.position = new Vector3(x, y, z);
+            Blocks[i].transform.DOMove(new Vector3(x, y, z), .15f).SetEase(Ease.OutExpo);
         }
     }
 }

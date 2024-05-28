@@ -50,6 +50,8 @@ public class StageManager : MonoSingleton<StageManager>
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
         stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+
+        isInStage = false;
     }
 
     private void Start()
@@ -63,42 +65,53 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Tab))
+        if (!isInStage) // 스테이지 밖일 때
         {
-            StopAllCoroutines();
-            ClearStage();
-        }
-
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            DestroyImmediate(curStageGameObject);
-            LoadStage();
-        }
-
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            UpdateSelectStageUI(-1);
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            UpdateSelectStageUI(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            if (!stagesUI[selectStageNum].CheckCanPlay())
+            if (Input.GetKeyDown(KeyCode.A))
             {
-                print("아직 클리어X");
+                UpdateSelectStageUI(-1);
             }
-            else
+            if (Input.GetKeyDown(KeyCode.D))
             {
+                UpdateSelectStageUI(1);
+            }
+            if (Input.GetKeyDown(KeyCode.Space))
+            {
+                if (!stagesUI[selectStageNum].CheckCanPlay())
+                {
+                    print("아직 클리어X");
+                }
+                else
+                {
+                    LoadStage();
+                }
+            }
+        }
+        else // 스테이지 안일때
+        {
+            if (Input.GetKeyDown(KeyCode.Tab))
+            {
+                StopAllCoroutines();
+                ClearStage();
+            }
+
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                DestroyImmediate(curStageGameObject);
                 LoadStage();
             }
-        }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            BackToMenu();
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BackToMenu();
+            }
         }
+    }
+
+    private IEnumerator WaitForGenerate()
+    {
+        yield return new WaitForSeconds(.5f);
+        isInStage = true;
     }
 
     public void LoadStage()
@@ -107,8 +120,6 @@ public class StageManager : MonoSingleton<StageManager>
 
         if (selectStageNum <= stageList.Stages.Count)
         {
-            isInStage = true;
-
             if (currentMinimap != null)
             {
                 DestroyImmediate(currentMinimap);
@@ -117,7 +128,7 @@ public class StageManager : MonoSingleton<StageManager>
 
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
-            curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
+            curStageGameObject = Instantiate(currentStageSO.stagePref, stageTrm); // 스테이지 생성
 
             stageSelectTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
@@ -125,6 +136,8 @@ public class StageManager : MonoSingleton<StageManager>
 
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
+
+            StartCoroutine(WaitForGenerate());
         }
         else
         {
@@ -134,6 +147,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void ClearStage()
     {
+        print("Clear");
         isInStage = false;
 
         ClearAnim.SetTrigger("Clear");
@@ -170,6 +184,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void SetIsInStage(bool value)
     {
+        print("set");
         isInStage = value;
     }
 
@@ -207,10 +222,13 @@ public class StageManager : MonoSingleton<StageManager>
 
         stagesUI[selectStageNum].Selected();
         currentMinimap = Instantiate(stageList.Stages[selectStageNum].stagePref, minimapTrm);
+        currentMinimap.transform.position = Vector3.zero;
     }
 
     public void BackToMenu()
     {
+        isInStage = false;
+
         for (int i = 0; i < stagesUI.Length; ++i)
         {
             DestroyImmediate(stagesUI[i].gameObject);
@@ -222,6 +240,7 @@ public class StageManager : MonoSingleton<StageManager>
         gameCanvas.SetActive(false);
         
         DestroyImmediate(curStageGameObject);
+        PlayerManager.Instance.ResetPlayers();
 
         SetSelectStageUI();
     }
