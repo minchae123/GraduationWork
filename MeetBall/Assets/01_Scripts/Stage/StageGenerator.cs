@@ -34,12 +34,13 @@ public class StageGenerator : MonoBehaviour
 
     IEnumerator StageLoad()
     {
+        yield return new WaitForSeconds(.2f);
         for (int i = 0; i < Blocks.Count; i++)
         {
-            Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
+            Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
+            //Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
             //yield return new WaitForSeconds(.5f / Blocks.Count);
         }
-        yield return null;
     }
 
     void ResetStage()
@@ -58,11 +59,12 @@ public class StageGenerator : MonoBehaviour
             float inclination = Mathf.Acos(1 - 2 * t); // theta: inclination angle
             float azimuth = angleIncrement * i;
 
-            float x = 8 * Mathf.Sin(inclination) * Mathf.Cos(azimuth);
-            float y = 8 * Mathf.Sin(inclination) * Mathf.Sin(azimuth);
-            float z = 8 * Mathf.Cos(inclination);
+            float x = 4 * Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = 4 * Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = 4 * Mathf.Cos(inclination);
 
-            Blocks[i].transform.position = new Vector3(x, y, z);
+            //Blocks[i].transform.position = new Vector3(x, y, z);
+            Blocks[i].transform.DOMove(new Vector3(x, y, z), .15f).SetEase(Ease.OutExpo);
         }
     }
 }
