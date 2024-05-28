@@ -25,7 +25,7 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
     public int left, up;
 
-    private List<Transform> items;
+    private List<Item> items;
 
     private void Start()
     {
@@ -128,11 +128,9 @@ public class CameraMovement : MonoSingleton<CameraMovement>
 
     private void ItemRot(bool value)
     {
-        Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
-
-        foreach (Transform item in items)
+        foreach (Item item in items)
         {
-            item.rotation = Quaternion.Euler(rot);
+            item.Rotation(value);
         }
     }
 

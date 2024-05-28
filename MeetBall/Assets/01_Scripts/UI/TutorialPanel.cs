@@ -12,7 +12,6 @@ public class TutorialPanel : MonoBehaviour
 
     private RectTransform _panel;
     private Sequence _seq;
-    private Sequence _seq1;
 
     public bool isWait { get; set; }
     public bool isTwin { get; private set; }
@@ -20,7 +19,6 @@ public class TutorialPanel : MonoBehaviour
     private void Awake()
     {
         _seq = DOTween.Sequence();
-        _seq1 = DOTween.Sequence();
         _panel = GetComponent<RectTransform>();
     }
 
@@ -29,10 +27,11 @@ public class TutorialPanel : MonoBehaviour
         isWait = true;
         isTwin = true;
 
-        _seq.Append(_panel.DOScaleX(_panelSize, 1f).SetEase(Ease.OutBounce))
-                .Append(_panel.GetComponent<Image>().DOFade(1, 1).SetEase(Ease.InOutQuint)
+        _seq.Append(_panel.DOScaleX(_panelSize + 0.05f, 0.8f).SetEase(Ease.InOutQuint))
+                .Append(_panel.GetComponent<Image>().DOFade(1, .8f)
                 .OnComplete(() =>
                 {
+                    _seq.Append(_panel.DOScaleX(_panelSize, .2f));
                     isTwin = false;
                     action();
                 }));
@@ -56,8 +55,8 @@ public class TutorialPanel : MonoBehaviour
     {
         isTwin = true;
 
-        _seq.Append(_panel.DOScaleX(0, 1f).SetEase(Ease.InOutQuint))
-           .Join(_panel.GetComponent<Image>().DOFade(0, 1).SetEase(Ease.InOutQuint)
+        _seq.Append(_panel.DOScaleX(0, .8f).SetEase(Ease.InOutQuint))
+           .Join(_panel.GetComponent<Image>().DOFade(0, .8f).SetEase(Ease.InOutQuint)
            .OnComplete(() =>
            {
                isTwin = false;
