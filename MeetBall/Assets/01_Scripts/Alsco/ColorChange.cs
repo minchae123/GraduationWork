@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class ColorChange : MonoBehaviour, Item
 {
-	[Header("Red, Green, Blue ¡ﬂø° ≈√1")]
 	[SerializeField] private OriginColorEnum colorToChange;
 	[Header("=======================")]
 

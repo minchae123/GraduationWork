@@ -108,15 +108,18 @@ public class StageManager : MonoSingleton<StageManager>
         }
     }
 
+    private IEnumerator WaitForGenerate()
+    {
+        yield return new WaitForSeconds(.5f);
+        isInStage = true;
+    }
+
     public void LoadStage()
     {
         StartCoroutine(FindBox());
 
         if (selectStageNum <= stageList.Stages.Count)
         {
-            isInStage = true;
-            print($"1: {isInStage}");
-
             if (currentMinimap != null)
             {
                 DestroyImmediate(currentMinimap);
@@ -125,16 +128,16 @@ public class StageManager : MonoSingleton<StageManager>
 
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
-            curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
+            curStageGameObject = Instantiate(currentStageSO.stagePref, stageTrm); // 스테이지 생성
 
             stageSelectTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
             gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
-            print($"2: {isInStage}");
 
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
-            print($"3: {isInStage}");
+
+            StartCoroutine(WaitForGenerate());
         }
         else
         {
@@ -219,6 +222,7 @@ public class StageManager : MonoSingleton<StageManager>
 
         stagesUI[selectStageNum].Selected();
         currentMinimap = Instantiate(stageList.Stages[selectStageNum].stagePref, minimapTrm);
+        currentMinimap.transform.position = Vector3.zero;
     }
 
     public void BackToMenu()
@@ -236,6 +240,7 @@ public class StageManager : MonoSingleton<StageManager>
         gameCanvas.SetActive(false);
         
         DestroyImmediate(curStageGameObject);
+        PlayerManager.Instance.ResetPlayers();
 
         SetSelectStageUI();
     }

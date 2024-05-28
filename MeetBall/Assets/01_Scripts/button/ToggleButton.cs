@@ -16,6 +16,8 @@ public class ToggleButton : MonoBehaviour, Item
 
     private void OnTriggerEnter(Collider other)
     {
+        if (!StageManager.Instance.IsInStage) return;
+
         if (other.CompareTag("Player"))
         {
             if(isClick) // 누른 적이 있는데 다시 눌렀을 경우
