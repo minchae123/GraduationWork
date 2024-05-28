@@ -48,13 +48,19 @@ public class StageGenerator : MonoBehaviour
         //{
         //    block.transform.position = new Vector3(block.transform.position.x, 10, block.transform.position.z);
         //}
+        int count = Blocks.Count;
+        float goldenRatio = (1 + Mathf.Sqrt(5)) / 2;
+        float angleIncrement = Mathf.PI * 2 * goldenRatio;
 
-        for (int i = 0; i < Blocks.Count; i++)
+        for (int i = 0; i < count; i++)
         {
-            float angle = i * Mathf.PI * 2 / Blocks.Count;
-            float x = Mathf.Cos(angle) * _radius;
-            float y = Mathf.Sin(angle) * _radius;
-            float z = Mathf.Tan(angle) * _radius;
+            float t = (float)i / count;
+            float inclination = Mathf.Acos(1 - 2 * t); // theta: inclination angle
+            float azimuth = angleIncrement * i;
+
+            float x = 8 * Mathf.Sin(inclination) * Mathf.Cos(azimuth);
+            float y = 8 * Mathf.Sin(inclination) * Mathf.Sin(azimuth);
+            float z = 8 * Mathf.Cos(inclination);
 
             Blocks[i].transform.position = new Vector3(x, y, z);
         }
