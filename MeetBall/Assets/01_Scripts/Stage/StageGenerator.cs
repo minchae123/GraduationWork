@@ -15,7 +15,8 @@ public class StageGenerator : MonoBehaviour
 	{
 		foreach (var block in Blocks)
 		{
-			SaveBlocks.Add(block.transform.position);
+			if(block != null) 
+				SaveBlocks.Add(block.transform.position);
 		}
 	}
 

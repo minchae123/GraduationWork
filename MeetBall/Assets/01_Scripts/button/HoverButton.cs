@@ -13,6 +13,7 @@ public class HoverButton : MonoBehaviour, Item
 
 	private void OnTriggerStay(Collider other)
     {
+        if (!StageManager.Instance.IsInStage) return;
         if(connectDoor.Count > 0)
         {
             if (!other.CompareTag("Moveable"))
