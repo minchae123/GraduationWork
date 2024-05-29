@@ -23,7 +23,6 @@ public class StageGenerator : MonoBehaviour
 
     private void Start()
     {
-        Debug.Log(transform.parent.name);
         if (transform.parent == GameObject.Find("Minimap").transform) isSelected = false;
         else isSelected = true;
 
