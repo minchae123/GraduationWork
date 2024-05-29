@@ -47,13 +47,13 @@ public class StageGenerator : MonoBehaviour
         {
             if (isSelected)
             {
-                Blocks[i].transform.DOMove(SaveBlocks[i], .75f);
-                yield return new WaitForSeconds(.5f / Blocks.Count);
+                Blocks[i].transform.DOMove(SaveBlocks[i], .2f);
+                yield return new WaitForSeconds(.4f / Blocks.Count);
             }
             else
                 Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
         }
-        SetIsInStage(true);
+        if(isSelected) SetIsInStage(true);
     }
 
     private void SetIsInStage(bool value)

@@ -186,7 +186,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void SetIsInStage(bool value)
     {
-        print("set");
+        print(value);
         isInStage = value;
     }
 
