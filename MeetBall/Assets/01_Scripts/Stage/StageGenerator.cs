@@ -40,8 +40,10 @@ public class StageGenerator : MonoBehaviour
 
     IEnumerator StageLoad()
     {
+        SetIsInStage(false);
 
         yield return new WaitForSeconds(.2f);
+
         for (int i = 0; i < Blocks.Count; i++)
         {
             if (isSelected)
@@ -52,6 +54,13 @@ public class StageGenerator : MonoBehaviour
             else
                 Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
         }
+        SetIsInStage(true);
+    }
+
+    private void SetIsInStage(bool value)
+    {
+        if (FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(value);
+        else TutorialStageManager.Instance.SetIsInStage(value);
     }
 
     void ResetStage()

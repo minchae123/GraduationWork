@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 {
     private bool isInStage = false;
+    public bool IsInStage => isInStage;
 
     [Header("===============")]
     [Header("Stage")]
@@ -67,6 +68,7 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
         if (selectStageNum <= stageList.Stages.Count)
         {
+            isInStage = true;
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
             curStageGameObject = Instantiate(currentStageSO.stagePref, Vector3.zero, Quaternion.identity, stageTrm); // 스테이지 생성
@@ -86,6 +88,7 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
     public void ClearStage()
     {
+        isInStage = false;
         ClearAnim.SetTrigger("Clear");
 
         BoxManager.Instance.CleanBox();
@@ -114,8 +117,18 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
         BoxManager.Instance.FindBox();
     }
 
-    public void ResetStage()
+    public bool MergeColor(OriginColorEnum c1, OriginColorEnum c2)
     {
-        isInStage = false;
+        TargetColorEnum final = StageManager.Instance.CurrentStageSO.targetColor;
+        if ((int)c1 + (int)c2 == (int)final)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public void SetIsInStage(bool value)
+    {
+        isInStage = value;
     }
 }
