@@ -4,24 +4,35 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 using TMPro;
+using UnityEngine.EventSystems;
 
-public class TapToStart : MonoBehaviour
+public class TapToStart : MonoBehaviour, IPointerClickHandler
 {
+	[Header("TitleScene")]
 	private TextMeshProUGUI text;
+
+	private int curScene = 0;
+	private bool isClicked = false;
 
 	private void Start()
 	{
-		text = GetComponent<TextMeshProUGUI>();
-
-		AlphaRepeat();
+		curScene = SceneManager.GetActiveScene().buildIndex;
+		if (curScene == 0)
+        {
+			TitleScene();
+		}
 	}
 
 	private void Update()
 	{
 		if (Input.anyKey)
 		{
-			print("Start");
-			GameStart();
+			if(curScene == 0 && !isClicked)
+            {
+				isClicked = true;
+				print("Start");
+				GameStart();
+			}
 		}
 	}
 
@@ -30,8 +41,17 @@ public class TapToStart : MonoBehaviour
 		SceneManager.LoadScene(1);
 	}
 
-	public void AlphaRepeat()
+	public void TitleScene()
 	{
-		text.DOFade(0.2f, 0.6f).SetLoops(-1, LoopType.Yoyo);
+		text = GetComponent<TextMeshProUGUI>();
+		text.DOFade(0.2f, 1).SetLoops(-1, LoopType.Yoyo);
+	}
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+		if (curScene != 0) // 나중에 curScene ==1 로 변경 (게임씬일때만)
+		{
+			StageManager.Instance.EnterStage();
+		}
 	}
 }

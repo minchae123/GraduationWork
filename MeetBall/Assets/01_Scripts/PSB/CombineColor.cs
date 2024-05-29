@@ -17,7 +17,12 @@ public class CombineColor : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (StageManager.Instance.IsInStage && other.TryGetComponent<Movement>(out Movement m))
+        bool isInStage = false;
+
+        if(FindObjectOfType<StageManager>()) isInStage = StageManager.Instance.IsInStage;
+        else isInStage = TutorialStageManager.Instance.IsInStage;
+
+        if (isInStage && other.TryGetComponent<Movement>(out Movement m))
         {
             Color c1 = render.sharedMaterial.GetColor("_PlayerColor");
             Color c2 = other.gameObject.GetComponent<MeshRenderer>().sharedMaterial.GetColor("_PlayerColor");
@@ -37,7 +42,8 @@ public class CombineColor : MonoBehaviour
 
             if(IsClear)
             {
-                StageManager.Instance.SetIsInStage(false);
+                if(FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(false);
+                else TutorialStageManager.Instance.SetIsInStage(false);
                 StartCoroutine(ClearAnim());
             }
             else { print("색 잘못 합침"); }

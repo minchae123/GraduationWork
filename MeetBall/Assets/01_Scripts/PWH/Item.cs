@@ -2,5 +2,5 @@ using UnityEngine;
 
 public interface Item
 {
-    void Init();
+    public void Rotation(bool value);
 }

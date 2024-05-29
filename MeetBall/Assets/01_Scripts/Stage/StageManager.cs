@@ -63,6 +63,19 @@ public class StageManager : MonoSingleton<StageManager>
         //StartCoroutine(StageLoad());
     }
 
+    public void EnterStage()
+    {
+        if (IsInStage) return;
+        if (!stagesUI[selectStageNum].CheckCanPlay())
+        {
+            print("아직 클리어X");
+        }
+        else
+        {
+            LoadStage();
+        }
+    }
+
     private void Update()
     {
         if (!isInStage) // 스테이지 밖일 때
@@ -74,17 +87,6 @@ public class StageManager : MonoSingleton<StageManager>
             if (Input.GetKeyDown(KeyCode.D))
             {
                 UpdateSelectStageUI(1);
-            }
-            if (Input.GetKeyDown(KeyCode.Space))
-            {
-                if (!stagesUI[selectStageNum].CheckCanPlay())
-                {
-                    print("아직 클리어X");
-                }
-                else
-                {
-                    LoadStage();
-                }
             }
         }
         else // 스테이지 안일때
@@ -241,6 +243,7 @@ public class StageManager : MonoSingleton<StageManager>
         
         DestroyImmediate(curStageGameObject);
         PlayerManager.Instance.ResetPlayers();
+        CameraMovement.Instance.CameraReset();
 
         SetSelectStageUI();
     }

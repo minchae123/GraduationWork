@@ -58,15 +58,15 @@ public class GameManager : MonoSingleton<GameManager>
 		playerColors.SetColors();
 	}
 
-	public List<Transform> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
+	public List<Item> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
 	{
-		List<Transform> items = new List<Transform>();
+		List<Item> items = new List<Item>();
 
 		foreach (Transform trm in FindObjectsOfType<Transform>())
 		{
 			if (trm.TryGetComponent(out Item item))
 			{
-				items.Add(trm);
+				items.Add(item);
 			}
 		}
 
@@ -92,7 +92,11 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public bool MergeColor(OriginColorEnum c1, OriginColorEnum c2)
     {
-		TargetColorEnum final = StageManager.Instance.CurrentStageSO.targetColor;
+		TargetColorEnum final;
+
+		if (FindObjectOfType<StageManager>()) final = StageManager.Instance.CurrentStageSO.targetColor;
+		else final = TutorialStageManager.Instance.CurrentStageSO.targetColor;
+
 		if((int)c1 + (int)c2 == (int)final)
         {
 			return true;
