@@ -19,9 +19,9 @@ public class GameManager : MonoSingleton<GameManager>
 
 		public void SetColors()
         {
-			RED = new Color(255f / 255f, 185f / 255f, 170f / 255f);
-			GREEN = new Color(151f / 255f, 220f / 255f, 169f / 255f);
-			BLUE = new Color(119f / 255f, 158f / 255f, 220f / 255f);
+			RED = new Color(255f / 255f, 40f / 255f, 42f / 255f);
+			GREEN = new Color(19f / 255f, 202f / 255f, 0f / 255f);
+			BLUE = new Color(11f / 255f, 63f / 255f, 255f / 255f);
 
 			YELLOW = new Color(246f / 255f, 234f / 255f, 182f / 255f);
 			MAGENTA = new Color(203f / 255f, 170f / 255f, 203f / 255f);

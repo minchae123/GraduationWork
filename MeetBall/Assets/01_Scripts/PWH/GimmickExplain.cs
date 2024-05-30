@@ -7,18 +7,20 @@ using UnityEngine.SceneManagement;
 
 public class GimmickExplain : MonoBehaviour
 {
-    [SerializeField] private string[] explain;
+    [SerializeField] Gimmick gimmick;
     [SerializeField] private int objLayer;
-    [SerializeField] private TextMeshProUGUI explainTxt;
 
+    private TextMeshProUGUI explainTxt;
     private TutorialPanel panel;
+
     private bool isClick = false;
 
     private int stageNum;
 
     private void Awake()
     {
-        panel = GetComponent<TutorialPanel>();
+        panel = FindObjectOfType<TutorialPanel>();
+        explainTxt = panel.GetComponentInChildren<TextMeshProUGUI>();
     }
 
     private void Update()
@@ -28,7 +30,7 @@ public class GimmickExplain : MonoBehaviour
 
     private void CickObj()
     {
-        if (!Input.GetMouseButtonDown(0) || EventSystem.current.IsPointerOverGameObject() || panel.isTwin) return;
+        if (!Input.GetMouseButtonDown(0) || panel.isTwin) return;
 
         panel.CloseTutorial();
 
@@ -43,31 +45,32 @@ public class GimmickExplain : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if (Physics.Raycast(ray, out hit))
+        for (int i = 0; i < gimmick.Explain.Length; i++)
         {
-            isClick = true;
-            LayerMask layer = hit.transform.gameObject.layer;
-
-            for (int i = objLayer; i < objLayer + 5; i++)//나중에 기믹 수에 맞게 포문 돌아가게 바꾸기
+            if (Physics.Raycast(ray, out hit))
             {
-                if (layer.value == i)
+                LayerMask layer = hit.transform.gameObject.layer;
+
+                if (layer.value == i + objLayer)
                 {
-                    stageNum = i - objLayer;
-                    explainTxt.text = explain[stageNum];
+                    print(layer.value);
+                    isClick = true;
+
+                    stageNum = i;
+                    explainTxt.text = gimmick.Explain[stageNum];
+
+                    Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
+                    transform.position = hitPos;
+
+                    panel.ShowTutorial();
                     break;
                 }
             }
-
-            Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
-            transform.position = hitPos;
-
-            panel.ShowTutorial();
         }
     }
 
     public void RoadStage()
     {
-        PlayerPrefs.SetInt(GameManager.Instance.stage, stageNum);
-        SceneManager.LoadScene("TutorialPlay");
+        panel.CloseTutorial();
     }
 }
