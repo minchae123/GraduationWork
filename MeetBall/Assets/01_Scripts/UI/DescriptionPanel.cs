@@ -6,8 +6,15 @@ using UnityEngine.UI;
 
 public class DescriptionPanel : MonoBehaviour
 {
+    private CanvasGroup cg;
+
     public Image colorImage;
     public List<Image> colorImageList;
+
+    private void Start()
+    {
+        cg = GetComponent<CanvasGroup>();
+    }
 
     public void SetPanel(StageSO stage)
     {
@@ -47,14 +54,15 @@ public class DescriptionPanel : MonoBehaviour
         }
 
         this.GetComponent<RectTransform>().sizeDelta = needColors.Count <= 2 ? new Vector2(270f, 150f) : new Vector2(380f, 150f);
-        transform.localScale = new Vector3(0, 1, 1);
+        cg.alpha = 0;
     }
     public void OpenPanel()
     {
-        transform.DOScaleX(1f, 0.5f);
+        cg.DOFade(1f, 0.4f);
+        //transform.DOScaleX(1f, 0.5f);
     }
     public void ClosePanel()
     {
-        transform.DOScaleX(0f, 0.5f);
+        cg.DOFade(0f, 0.3f);
     }
 }
