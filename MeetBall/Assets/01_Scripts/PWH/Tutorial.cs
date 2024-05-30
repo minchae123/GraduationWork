@@ -2,21 +2,23 @@ using System.Collections;
 using System.Text;
 using TMPro;
 using UnityEngine;
+using DG.Tweening;
+using UnityEngine.UI;
 
 public class Tutorial : MonoBehaviour
 {
     [SerializeField] private RectTransform[] explainPos;
     [SerializeField] private string[] explain;
+    [SerializeField] private GameObject[] uiLayer;
+    [SerializeField] private GameObject fadePanel;
 
-    [SerializeField] private TextMeshProUGUI tutorialText;
-    [SerializeField] private RectTransform panel;
-
+    private TextMeshProUGUI tutorialText;
     private TutorialPanel tutorial;
 
-    void Start()
+    void Awake()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        StartCoroutine(TutorialPannel());
+        tutorial = GetComponentInChildren<TutorialPanel>();
+        tutorialText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
     IEnumerator Typing(string text)
@@ -34,28 +36,47 @@ public class Tutorial : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1f);
-
-        tutorialText.text = null;
-        tutorial.CloseTutorial();
+       
+        ResetPanel();
     }
 
-    IEnumerator TutorialPannel()
+    public IEnumerator TutorialPannel()
     {
-        yield return new WaitForSeconds(1f);
+        fadePanel.GetComponent<Image>().DOFade(0.9f, 1f);
 
+        yield return new WaitForSeconds(1.2f);
+        
         for (int i = 0; i < explainPos.Length; i++)
         {
-            panel.transform.position = explainPos[i].transform.position;
+            UiLayer(i);
 
-            if (panel.TryGetComponent(out TutorialPanel tutorial))
-            {
-                this.tutorial = tutorial;
-                tutorial.ShowTutorial(() => { StartCoroutine(Typing(explain[i])); });
-            }
+            tutorial.GetComponent<RectTransform>().transform.position = explainPos[i].transform.position;
+            tutorial.ShowTutorial(() => { StartCoroutine(Typing(explain[i])); });
 
-            yield return new WaitWhile(()=>tutorial.isWait);
+            yield return new WaitWhile(() => tutorial.isWait);
         }
 
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    private void UiLayer(int idx)
+    {
+        if (idx == uiLayer.Length)
+        {
+            fadePanel.GetComponent<Image>().DOFade(0, 1);
+            fadePanel.transform.SetAsLastSibling();
+        }
+        else
+        {
+            fadePanel.transform.SetAsLastSibling();
+            transform.SetAsLastSibling();
+            uiLayer[idx].transform.SetAsLastSibling();
+        }
+    }
+
+    public void ResetPanel()
+    {
+        tutorialText.text = null;
+        tutorial.CloseTutorial();
     }
 }

@@ -19,7 +19,7 @@ public class GimmickExplain : MonoBehaviour
 
     private void Awake()
     {
-        panel = FindObjectOfType<TutorialPanel>();
+        panel = GetComponent<TutorialPanel>();
         explainTxt = panel.GetComponentInChildren<TextMeshProUGUI>();
     }
 

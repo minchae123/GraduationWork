@@ -140,6 +140,12 @@ public class StageManager : MonoSingleton<StageManager>
             CameraMovement.Instance.FindItems();
 
             StartCoroutine(WaitForGenerate());
+
+            if (selectStageNum == 0)
+            {
+                Tutorial tutorial = FindObjectOfType<Tutorial>();
+                StartCoroutine(tutorial.TutorialPannel());
+            }
         }
         else
         {
@@ -159,9 +165,9 @@ public class StageManager : MonoSingleton<StageManager>
         Invoke(nameof(ClearParticle), 1);
 
         currentStageSO.IsClear = true;
-		selectStageNum++;
+        selectStageNum++;
 
-		StartCoroutine(StageLoad());
+        StartCoroutine(StageLoad());
     }
 
     private void ClearParticle()
@@ -231,6 +237,16 @@ public class StageManager : MonoSingleton<StageManager>
     {
         isInStage = false;
 
+        if (selectStageNum == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            StopAllCoroutines();
+
+            Tutorial tutorial = FindObjectOfType<Tutorial>();
+            tutorial.ResetPanel();
+        }
+
         for (int i = 0; i < stagesUI.Length; ++i)
         {
             DestroyImmediate(stagesUI[i].gameObject);
@@ -240,7 +256,7 @@ public class StageManager : MonoSingleton<StageManager>
 
         stageSelectTrm.gameObject.SetActive(true);
         gameCanvas.SetActive(false);
-        
+
         DestroyImmediate(curStageGameObject);
         PlayerManager.Instance.ResetPlayers();
         CameraMovement.Instance.CameraReset();
