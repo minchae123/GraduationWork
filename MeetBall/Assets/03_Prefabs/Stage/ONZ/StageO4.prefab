@@ -144,10 +144,7 @@ MonoBehaviour:
   whatIsBox:
     serializedVersion: 2
     m_Bits: 64
-  stageInfo: {fileID: 11400000, guid: f07550d7e858cb9498e1be96cc9e5888, type: 2}
   curCount: 0
-  moveCount: 0
-  direction: {x: 0, y: 0, z: 0}
   playerEnum: 1
   isCanMove: 000000000000
   render: {fileID: 0}
@@ -308,10 +305,7 @@ MonoBehaviour:
   whatIsBox:
     serializedVersion: 2
     m_Bits: 64
-  stageInfo: {fileID: 11400000, guid: f07550d7e858cb9498e1be96cc9e5888, type: 2}
   curCount: 0
-  moveCount: 0
-  direction: {x: 0, y: 0, z: 0}
   playerEnum: 0
   isCanMove: 000000000000
   render: {fileID: 0}
@@ -484,14 +478,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 5135128181779327251}
     m_Modifications:
     - target: {fileID: 4449666174645802045, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
-      propertyPath: AppearMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 192a536bfedf1d44bbd850a173857a6e, type: 2}
-    - target: {fileID: 4449666174645802045, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
-      propertyPath: outLineMat
-      value: 
-      objectReference: {fileID: 2100000, guid: 165bbffbf505be94dae98a6a56dfaaa0, type: 2}
-    - target: {fileID: 4449666174645802045, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
       propertyPath: hiddenPaths.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -509,6 +495,10 @@ PrefabInstance:
       objectReference: {fileID: 6885728734601202580}
     - target: {fileID: 4449666174645802045, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
       propertyPath: hiddenPaths.Array.data[3]
+      value: 
+      objectReference: {fileID: 6885728734166855468}
+    - target: {fileID: 4449666174645802045, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
+      propertyPath: hiddenPaths.Array.data[4]
       value: 
       objectReference: {fileID: 6885728734166855468}
     - target: {fileID: 6011546310269058032, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
