@@ -13,11 +13,12 @@ public class DescriptionPanel : MonoBehaviour
 
     private void Start()
     {
-        cg = GetComponent<CanvasGroup>();
     }
 
     public void SetPanel(StageSO stage)
     {
+        cg = GetComponent<CanvasGroup>();
+
         TargetColorEnum targetColor = stage.targetColor;
         List<OriginColorEnum> needColors = new List<OriginColorEnum>();
 
