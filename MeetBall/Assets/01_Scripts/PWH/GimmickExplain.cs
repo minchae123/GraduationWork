@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+using UnityEngine.Video;
 
 public class GimmickExplain : MonoBehaviour
 {
@@ -12,6 +10,7 @@ public class GimmickExplain : MonoBehaviour
 
     private TextMeshProUGUI explainTxt;
     private TutorialPanel panel;
+    private VideoPlayer video;
 
     private bool isClick = false;
 
@@ -20,6 +19,7 @@ public class GimmickExplain : MonoBehaviour
     private void Awake()
     {
         panel = GetComponent<TutorialPanel>();
+        video = GetComponentInChildren<VideoPlayer>();
         explainTxt = panel.GetComponentInChildren<TextMeshProUGUI>();
     }
 
@@ -31,9 +31,8 @@ public class GimmickExplain : MonoBehaviour
     private void CickObj()
     {
         if (!Input.GetMouseButtonDown(0) || panel.isTwin) return;
-
-        panel.CloseTutorial();
-
+        
+        panel.CloseTutorial(() => video.Stop());
         if (!isClick)
             ExplainPanel();
         else
@@ -53,24 +52,19 @@ public class GimmickExplain : MonoBehaviour
 
                 if (layer.value == i + objLayer)
                 {
-                    print(layer.value);
                     isClick = true;
-
                     stageNum = i;
+
+                    video.clip = gimmick.video[stageNum];
                     explainTxt.text = gimmick.Explain[stageNum];
 
                     Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
                     transform.position = hitPos;
 
-                    panel.ShowTutorial();
+                    panel.ShowTutorial(() => video.Play());
                     break;
                 }
             }
         }
-    }
-
-    public void RoadStage()
-    {
-        panel.CloseTutorial();
     }
 }
