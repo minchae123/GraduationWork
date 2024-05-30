@@ -24,6 +24,15 @@ public class ColorChange : MonoBehaviour, Item
 	{
 		if (other.TryGetComponent<Movement>(out Movement m))
 		{
+			OriginColorEnum basicColor = m.PlayerColor;
+			foreach(MoveUI ui in PlayerManager.Instance.MoveUIList)
+            {
+				if(ui.color == basicColor)
+                {
+					ui.SetUI(colorToChange);
+                }
+            }
+
 			m.SetPlayerColor(colorToChange);
 			Destroy(gameObject);
 		}

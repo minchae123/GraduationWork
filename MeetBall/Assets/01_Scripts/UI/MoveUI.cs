@@ -6,6 +6,8 @@ using UnityEngine.UI;
 using DG.Tweening;
 public class MoveUI : MonoBehaviour
 {
+	public OriginColorEnum color;
+
 	[SerializeField] private Image colorImage;
 	[SerializeField] private TextMeshProUGUI moveCnt;
 
@@ -14,14 +16,23 @@ public class MoveUI : MonoBehaviour
 
     public void SetUI(OriginColorEnum colorEnum, int cnt)
 	{
-		Color color = GameManager.Instance.FindColor(colorEnum);
+		color = colorEnum;
+
+		Color c = GameManager.Instance.FindColor(colorEnum);
 		originPos = moveCnt.transform.localPosition;
 		outline = colorImage.GetComponent<Outline>();
 
-		colorImage.color = color;
+		colorImage.color = c;
 		moveCnt.text = $"{cnt}";
 		//print(cnt);
     }
+	public void SetUI(OriginColorEnum colorEnum)
+    {
+		color = colorEnum;
+
+		Color c = GameManager.Instance.FindColor(colorEnum);
+		colorImage.color = c;
+	}
 
 	public void Select()
 	{

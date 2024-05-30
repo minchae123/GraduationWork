@@ -20,6 +20,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     [SerializeField] private MoveUI moveUIPref;
     [SerializeField] private List<MoveUI> moveUIList;
+    public List<MoveUI> MoveUIList => moveUIList;
 
     [SerializeField] private Image targetImage;
 
