@@ -51,8 +51,9 @@ public class TutorialPanel : MonoBehaviour
         //}
     }
 
-    public void CloseTutorial()
+    public void CloseTutorial(Action action = null)
     {
+        action();
         isTwin = true;
 
         _seq.Append(_panel.DOScaleX(0, .8f).SetEase(Ease.InOutQuint))
