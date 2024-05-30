@@ -5,11 +5,16 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
-    [SerializeField] float _tpDelayTime;
+    float _tpDelayTime;
 
     TeleportManager teleportManager;
 
     bool isTP = false; // ������ ������
+
+    private void Awake()
+    {
+        _tpDelayTime = 0.1f;
+    }
 
     private void Start()
     {
