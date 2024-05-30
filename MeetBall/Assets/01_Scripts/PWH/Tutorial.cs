@@ -43,6 +43,7 @@ public class Tutorial : MonoBehaviour
     public IEnumerator TutorialPannel()
     {
         fadePanel.GetComponent<Image>().DOFade(0.9f, 1f);
+        Cursor.lockState = CursorLockMode.Locked;
 
         yield return new WaitForSeconds(1.2f);
         
@@ -64,7 +65,7 @@ public class Tutorial : MonoBehaviour
         if (idx == uiLayer.Length)
         {
             fadePanel.GetComponent<Image>().DOFade(0, 1);
-            fadePanel.transform.SetAsLastSibling();
+            fadePanel.transform.SetAsFirstSibling();
         }
         else
         {
