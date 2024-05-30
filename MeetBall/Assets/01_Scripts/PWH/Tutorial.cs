@@ -43,7 +43,7 @@ public class Tutorial : MonoBehaviour
     public IEnumerator TutorialPannel()
     {
         fadePanel.GetComponent<Image>().DOFade(0.9f, 1f);
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
 
         yield return new WaitForSeconds(1.2f);
         
@@ -57,7 +57,7 @@ public class Tutorial : MonoBehaviour
             yield return new WaitWhile(() => tutorial.isWait);
         }
 
-        Cursor.lockState = CursorLockMode.None;
+        //Cursor.lockState = CursorLockMode.None;
     }
 
     private void UiLayer(int idx)
