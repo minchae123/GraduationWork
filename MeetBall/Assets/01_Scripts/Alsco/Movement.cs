@@ -46,8 +46,9 @@ public class Movement : MonoBehaviour
 
 	private void Update()
 	{
-		if (!StageManager.Instance.IsInStage) return;
-		BoxManager.Instance.boxDec(transform);
+		if (FindObjectOfType<StageManager>() && StageManager.Instance.IsInStage) BoxManager.Instance.boxDec(transform);
+		else if (FindObjectOfType<TutorialStageManager>() && TutorialStageManager.Instance.IsInStage) BoxManager.Instance.boxDec(transform);
+
 		RayCheck();
 	}
 
@@ -149,7 +150,7 @@ public class Movement : MonoBehaviour
 
 		for (int i = 0; i < ray.Length; i++)
 		{
-			ray[i].origin = transform.localPosition;
+			ray[i].origin = transform.position;
 
 			Debug.DrawRay(ray[i].origin, ray[i].direction);
 

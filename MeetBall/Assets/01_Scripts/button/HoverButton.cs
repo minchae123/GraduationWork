@@ -6,12 +6,13 @@ public class HoverButton : MonoBehaviour, Item
 {
     [SerializeField] private List<Door> connectDoor; //이어진 문 넣어주기
 
-    public void Init()
+    public void Rotation(bool value)
     {
-
+        Vector3 rot = value ? new Vector3(0f, 0f, 180f) : Vector3.zero;
+        transform.rotation = Quaternion.Euler(rot);
     }
 
-	private void OnTriggerStay(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (!StageManager.Instance.IsInStage) return;
         if(connectDoor.Count > 0)

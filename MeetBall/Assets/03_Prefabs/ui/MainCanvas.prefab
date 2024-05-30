@@ -58,7 +58,7 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 0, y: 0}
-  m_Spacing: {x: 300, y: 300}
+  m_Spacing: {x: 500, y: 500}
   m_Constraint: 1
   m_ConstraintCount: 100
 --- !u!1 &4367021415556116379
@@ -71,7 +71,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4544947903339262060}
   m_Layer: 5
-  m_Name: GameObject
+  m_Name: StageSelectTrm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 7067999858657246977}
   - component: {fileID: 68410837233369223}
   - component: {fileID: 1366360476829794933}
+  - component: {fileID: 1701410043}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -175,6 +176,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1701410043
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5225560753476297195}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8356074a3a4cff84cad5fefc6d1e7fda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8123405305921172544
 GameObject:
   m_ObjectHideFlags: 0
