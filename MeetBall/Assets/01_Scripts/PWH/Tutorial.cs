@@ -93,6 +93,9 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        nextTut = true;
+        if(!tutorial.isWait)
+        {
+            nextTut = true;
+        }
     }
 }

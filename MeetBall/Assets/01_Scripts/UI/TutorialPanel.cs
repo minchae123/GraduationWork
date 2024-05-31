@@ -16,7 +16,8 @@ public class TutorialPanel : MonoBehaviour
     private Sequence _seq;
 
     private CanvasGroup cg;
-    private TextMeshProUGUI explainText;
+    private TextMeshProUGUI upText;
+    private TextMeshProUGUI downText;
     private Image highlightImage;
 
     public bool isWait { get; set; }
@@ -34,7 +35,9 @@ public class TutorialPanel : MonoBehaviour
         gameObject.SetActive(true);
         cg = GetComponent<CanvasGroup>();
         highlightImage = transform.Find("Highlight").GetComponent<Image>();
-        explainText = transform.Find("TextPanel/TutorialText").GetComponent<TextMeshProUGUI>();
+
+        upText = transform.Find("UpText/TutorialText").GetComponent<TextMeshProUGUI>();
+        downText = transform.Find("DownText/TutorialText").GetComponent<TextMeshProUGUI>();
 
         cg.alpha = 0;
         highlightImage.raycastTarget = true;
@@ -48,6 +51,20 @@ public class TutorialPanel : MonoBehaviour
 
     public void SetFirstTutorial(Transform parent, string text)
     {
+        print(parent.localPosition.y);
+         if (parent.localPosition.y < 0)
+        {
+            upText.gameObject.SetActive(true);
+            downText.gameObject.SetActive(false);
+            upText.text = text;
+        }
+        else
+        {
+            upText.gameObject.SetActive(false);
+            downText.gameObject.SetActive(true);
+            downText.text = text;
+        }
+
         cg.alpha = 1;
         isWait = true;
 
@@ -55,13 +72,11 @@ public class TutorialPanel : MonoBehaviour
         _panel.localPosition = Vector3.zero;
         _panel.sizeDelta = Vector2.zero;
 
-        explainText.text = text;
-
         transform.localScale = Vector3.one * 10;
 
         transform.DOScale(1f, 0.6f).SetEase(Ease.InOutExpo).OnComplete(()=>
        {
-           highlightImage.DOFade(0.2f, 0.3f).OnComplete(() => highlightImage.DOFade(0.0f, 0.2f));
+           highlightImage.DOFade(0.2f, 0.3f).OnComplete(() => highlightImage.DOFade(0.0f, 0.2f).OnComplete(()=> isWait = false));
        });
     }
 
