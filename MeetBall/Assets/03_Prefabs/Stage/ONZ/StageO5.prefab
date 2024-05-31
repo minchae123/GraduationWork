@@ -82,6 +82,7 @@ MonoBehaviour:
   - {fileID: 2752940022144571127}
   - {fileID: 3017460831036383305}
   SaveBlocks: []
+  isSelected: 0
 --- !u!1001 &52918164235101720
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -95,7 +96,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 2b10f6bcd22d9c34eb26daa0af2b4a6c, type: 2}
     - target: {fileID: 466900214703683144, guid: 2fdc1317dad6757409f0fdd4f4edef4d, type: 3}
       propertyPath: whatIsBox.m_Bits
-      value: 192
+      value: 4288
       objectReference: {fileID: 0}
     - target: {fileID: 7088294143665749499, guid: 2fdc1317dad6757409f0fdd4f4edef4d, type: 3}
       propertyPath: m_RootOrder
@@ -253,7 +254,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6011546310269058033, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6011546310269058033, guid: c974514e1112a70489f2f592f4c450d9, type: 3}
       propertyPath: m_LocalPosition.z
@@ -909,6 +910,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Wall (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4607857514626011685, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8aa6c217469dcc341ae1cfdfd10b6c97, type: 3}
 --- !u!1 &8842440709213050076 stripped
@@ -1317,7 +1322,7 @@ PrefabInstance:
       objectReference: {fileID: 11400000, guid: 38365ef4297172f4fa31356c3ade2d35, type: 2}
     - target: {fileID: 4927433077198292557, guid: c2571c5c8508c31488444b72e84da542, type: 3}
       propertyPath: whatIsBox.m_Bits
-      value: 320
+      value: 4416
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2571c5c8508c31488444b72e84da542, type: 3}
