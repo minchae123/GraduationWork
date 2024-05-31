@@ -4,16 +4,22 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
 
-public class Tutorial : MonoBehaviour
+public class Tutorial : MonoBehaviour, IPointerClickHandler
 {
+    [Header("Explain")]
     [SerializeField] private RectTransform[] explainPos;
-    [SerializeField] private string[] explain;
-    [SerializeField] private GameObject[] uiLayer;
-    [SerializeField] private GameObject fadePanel;
+    [TextArea] [SerializeField] private string[] explain;
+
+    [SerializeField] private Transform[] uiLayer;
+    [SerializeField] private Image fadePanel;
 
     private TextMeshProUGUI tutorialText;
     private TutorialPanel tutorial;
+
+    private bool nextTut = false;
 
     void Awake()
     {
@@ -21,7 +27,7 @@ public class Tutorial : MonoBehaviour
         tutorialText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    IEnumerator Typing(string text)
+    /*IEnumerator Typing(string text)
     {
         yield return new WaitForSeconds(1f);
 
@@ -38,25 +44,29 @@ public class Tutorial : MonoBehaviour
         yield return new WaitForSeconds(1f);
        
         ResetPanel();
-    }
+    }*/
 
     public IEnumerator TutorialPannel()
     {
-        fadePanel.GetComponent<Image>().DOFade(0.9f, 1f);
-        //Cursor.lockState = CursorLockMode.Locked;
+        tutorial.InitializeFirstTut();
 
+        fadePanel.DOFade(0.9f, 1f);
+        //Cursor.lockState = CursorLockMode.Locked;
         yield return new WaitForSeconds(1.2f);
         
-        for (int i = 0; i < explainPos.Length; i++)
+        for (int i = 0; i < explain.Length; i++)
         {
             UiLayer(i);
+            tutorial.SetFirstTutorial(explainPos[i], explain[i]);
+            yield return new WaitUntil(() => nextTut);
 
-            tutorial.GetComponent<RectTransform>().transform.position = explainPos[i].transform.position;
-            tutorial.ShowTutorial(() => { StartCoroutine(Typing(explain[i])); });
+            tutorial.NextTut();
 
-            yield return new WaitWhile(() => tutorial.isWait);
+            yield return new WaitForSeconds(1.2f);
+            nextTut = false;
         }
 
+        gameObject.SetActive(false);
         //Cursor.lockState = CursorLockMode.None;
     }
 
@@ -64,20 +74,25 @@ public class Tutorial : MonoBehaviour
     {
         if (idx == uiLayer.Length)
         {
-            fadePanel.GetComponent<Image>().DOFade(0, 1);
+            fadePanel.DOFade(0, 1);
             fadePanel.transform.SetAsFirstSibling();
         }
         else
         {
             fadePanel.transform.SetAsLastSibling();
+            uiLayer[idx].SetAsLastSibling();
             transform.SetAsLastSibling();
-            uiLayer[idx].transform.SetAsLastSibling();
         }
     }
 
     public void ResetPanel()
     {
         tutorialText.text = null;
-        tutorial.CloseTutorial();
+        tutorial.ResetFirstTut();
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        nextTut = true;
     }
 }
