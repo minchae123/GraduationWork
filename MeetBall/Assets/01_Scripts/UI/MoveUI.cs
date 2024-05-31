@@ -49,9 +49,12 @@ public class MoveUI : MonoBehaviour
     {
 		DOTween.Clear();
 
-		moveCnt.rectTransform.localPosition = originPos;
-		moveCnt.transform.DOShakePosition(0.5f, strength: new Vector3(5, 5, 0), vibrato: 10, randomness: 90, fadeOut: false).SetUpdate(true);
-		
+		moveCnt.rectTransform.localScale = Vector3.one;
+		moveCnt.transform.DOScale(1.2f, .4f).OnComplete(() => moveCnt.transform.DOScale(1.0f, .2f).SetUpdate(true)).SetEase(Ease.InOutExpo).SetUpdate(true);
+
+		//moveCnt.rectTransform.localPosition = originPos;
+		//moveCnt.transform.DOShakePosition(0.5f, strength: new Vector3(5, 5, 0), vibrato: 10, randomness: 90, fadeOut: false).SetUpdate(true);
+
 		moveCnt.text = $"{cnt}";
 		//print(cnt);
 	}
