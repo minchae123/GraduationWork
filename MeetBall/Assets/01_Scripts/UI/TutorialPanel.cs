@@ -33,7 +33,9 @@ public class TutorialPanel : MonoBehaviour
                 {
                     _seq.Append(_panel.DOScaleX(_panelSize, .2f));
                     isTwin = false;
-                    action();
+
+                    if (action != null)
+                        action();
                 }));
 
         //foreach (RectTransform obj in _panel)    //자식오브젝트까지 해보려했는데 필요할까요구르ㅡ=트
@@ -53,7 +55,9 @@ public class TutorialPanel : MonoBehaviour
 
     public void CloseTutorial(Action action = null)
     {
-        action();
+        if (action != null)
+            action();
+
         isTwin = true;
 
         _seq.Append(_panel.DOScaleX(0, .8f).SetEase(Ease.InOutQuint))
