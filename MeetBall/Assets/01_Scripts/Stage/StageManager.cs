@@ -12,7 +12,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     [Header("===============")]
     [Header("Stage")]
-    [SerializeField] private Transform stageTrm;
+    public Transform StageTrm;
     [SerializeField] private StageListSO stageList;
 
     private StageSO currentStageSO;
@@ -130,7 +130,7 @@ public class StageManager : MonoSingleton<StageManager>
 
             currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
-            curStageGameObject = Instantiate(currentStageSO.stagePref, stageTrm); // 스테이지 생성
+            curStageGameObject = Instantiate(currentStageSO.stagePref, StageTrm); // 스테이지 생성
 
             stageSelectTrm.gameObject.SetActive(false);
             gameCanvas.SetActive(true);
@@ -192,7 +192,6 @@ public class StageManager : MonoSingleton<StageManager>
 
     public void SetIsInStage(bool value)
     {
-        print(value);
         isInStage = value;
     }
 
