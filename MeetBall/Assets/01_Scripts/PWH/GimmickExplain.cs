@@ -32,7 +32,7 @@ public class GimmickExplain : MonoBehaviour
     {
         if (!Input.GetMouseButtonDown(0) || panel.isTwin) return;
         
-        panel.CloseTutorial(() => video.Stop());
+        panel?.CloseTutorial(() => video.Stop());
         if (!isClick)
             ExplainPanel();
         else

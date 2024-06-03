@@ -51,17 +51,16 @@ public class TutorialPanel : MonoBehaviour
 
     public void SetFirstTutorial(Transform parent, string text)
     {
-        print(parent.localPosition.y);
          if (parent.localPosition.y < 0)
         {
-            upText.gameObject.SetActive(true);
-            downText.gameObject.SetActive(false);
+            upText.transform.parent.gameObject.SetActive(true);
+            downText.transform.parent.gameObject.SetActive(false);
             upText.text = text;
         }
         else
         {
-            upText.gameObject.SetActive(false);
-            downText.gameObject.SetActive(true);
+            upText.transform.parent.gameObject.SetActive(false);
+            downText.transform.parent.gameObject.SetActive(true);
             downText.text = text;
         }
 
