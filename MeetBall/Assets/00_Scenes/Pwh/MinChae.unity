@@ -3330,7 +3330,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2119645259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraManager, Assembly-CSharp
         m_MethodName: OnLook
         m_Mode: 0
@@ -3350,7 +3350,7 @@ MonoBehaviour:
     m_ActionName: Game/Move[/Mouse/leftButton]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2119645259}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: CameraManager, Assembly-CSharp
         m_MethodName: OnRatate
         m_Mode: 0
@@ -5310,8 +5310,6 @@ GameObject:
   - component: {fileID: 2119645257}
   - component: {fileID: 2119645256}
   - component: {fileID: 2119645255}
-  - component: {fileID: 2119645259}
-  - component: {fileID: 2119645260}
   - component: {fileID: 2119645261}
   m_Layer: 0
   m_Name: MainCamera
@@ -5419,30 +5417,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
---- !u!114 &2119645259
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119645254}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bd2ad87df7964148ace4f5d9ea5d620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &2119645260
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2119645254}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2b6235369386ffe4fa481f521bacd0f3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2119645261
 MonoBehaviour:
   m_ObjectHideFlags: 0
