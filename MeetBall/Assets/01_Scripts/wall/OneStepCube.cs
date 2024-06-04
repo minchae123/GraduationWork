@@ -15,8 +15,11 @@ public class OneStepCube : MapCube
     private void OnTriggerExit(Collider other)
     {
         //if()
-        Debug.Log("asaad");
-        _meshDestroy.DestroyMesh();
-        Destroy(_meshDestroy, 2);
+        if(other.CompareTag("Player"))
+        {
+            Debug.Log("asaad");
+            _meshDestroy.DestroyMesh();
+            Destroy(_meshDestroy, 2);
+        }
     }
 }
