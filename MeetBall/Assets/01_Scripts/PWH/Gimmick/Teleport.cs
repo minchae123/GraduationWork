@@ -8,7 +8,7 @@ public class Teleport : MonoBehaviour, Item
     {
         Vector3 rotation = CameraMovement.Instance.curTransfrom.transform.position.normalized;
         RoundVector(ref rotation);
-        print(rotation);
+        //print(rotation);
         transform.rotation = Quaternion.Euler(rotation);
     }
 
