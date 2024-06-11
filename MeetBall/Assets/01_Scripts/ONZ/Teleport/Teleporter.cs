@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Teleporter : MonoBehaviour
 {
-    float _tpDelayTime;
+    [SerializeField] private float _tpDelayTime = .5f;
 
     TeleportManager teleportManager;
 
@@ -14,7 +14,7 @@ public class Teleporter : MonoBehaviour
 
     private void Awake()
     {
-        _tpDelayTime = 1.1f;
+        //_tpDelayTime = 0.1f
     }
 
     private void Start()
@@ -43,16 +43,16 @@ public class Teleporter : MonoBehaviour
                 {
                     print("탈수없는것임.");
                 }
-                CoroutineUtil.CallWaitForSeconds(_tpDelayTime, null, () => isTP = false);
+                CoroutineUtil.CallWaitForSeconds(_tpDelayTime + .1f, null, () => isTP = false);
             }
         }
     }
 
     private IEnumerator Teleporting(Transform tpPos)
     {
-        transform.DOScale(0, 1);
-        yield return new WaitForSeconds(1);
+        transform.DOScale(0, _tpDelayTime);
+        yield return new WaitForSeconds(_tpDelayTime);
         transform.position = tpPos.position;
-        transform.DOScale(1, 1);
+        transform.DOScale(1, _tpDelayTime);
     }
 }
