@@ -16,7 +16,6 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	bool draggingStarted;
 
 	[SerializeField] private CameraMovement camMovement;
-	[SerializeField] private TapToStart tapToStart;
 
 	private void Awake()
 	{

@@ -1383,7 +1383,7 @@ RectTransform:
   m_GameObject: {fileID: 619520116}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1395028791}
@@ -3266,8 +3266,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -220}
-  m_SizeDelta: {x: 670, y: 95}
+  m_AnchoredPosition: {x: 5, y: -145}
+  m_SizeDelta: {x: 400, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1395028792
 MonoBehaviour:
@@ -3289,7 +3289,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: ssssssssssss
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 29cd7d7d8107a13458a6573161cdac37, type: 2}
   m_sharedMaterial: {fileID: -3183391130771150070, guid: 29cd7d7d8107a13458a6573161cdac37, type: 2}
@@ -3352,7 +3352,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1.3403931, y: 0, z: -0.35302734, w: 0}
+  m_margin: {x: -38.644043, y: 0, z: -26.429321, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4061,7 +4061,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 50}
-  m_SizeDelta: {x: 680, y: 430}
+  m_SizeDelta: {x: 480, y: 280}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!328 &1658124255
 VideoPlayer:
@@ -5194,7 +5194,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swipeThreshold: 100
   camMovement: {fileID: 1429365638}
-  tapToStart: {fileID: 0}
 --- !u!114 &2082734115
 MonoBehaviour:
   m_ObjectHideFlags: 0
