@@ -1,10 +1,6 @@
-using Player;
-using System.Collections;
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
-using DG.Tweening;
-using Cinemachine;
-using Unity.Mathematics;
 
 public enum CamPos
 {

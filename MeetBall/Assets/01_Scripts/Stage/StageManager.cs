@@ -7,260 +7,280 @@ using DG.Tweening;
 
 public class StageManager : MonoSingleton<StageManager>
 {
-    private bool isInStage = false;
-    public bool IsInStage => isInStage;
+	private bool isInStage = false;
+	public bool IsInStage => isInStage;
 
-    [Header("===============")]
-    [Header("Stage")]
-    public Transform StageTrm;
-    [SerializeField] private StageListSO stageList;
+	[Header("===============")]
+	[Header("Stage")]
+	public Transform StageTrm;
+	[SerializeField] private StageListSO stageList;
 
-    private StageSO currentStageSO;
-    public StageSO CurrentStageSO => currentStageSO;
+	private StageSO currentStageSO;
+	public StageSO CurrentStageSO => currentStageSO;
 
-    private GameObject curStageGameObject;
+	private GameObject curStageGameObject;
 
-    [Header("===============")]
-    [Header("Clear")]
-    private Animator ClearAnim;
-    private ParticleSystem clearParticle;
-
-
-    [Header("===============")]
-    [Header("UI")]
-    [SerializeField] private Transform stageSelectTrm;
-    [SerializeField] private StageUI stageUIPrefab;
-    private Transform stageSelectUITrm;
-
-    private int selectStageNum = 0;
-    private StageUI[] stagesUI;
-    private float moveX = -500f;
-
-    [Header("Minimap")]
-    [SerializeField] private Transform minimapTrm;
-    private GameObject currentMinimap = null;
+	[Header("===============")]
+	[Header("Clear")]
+	private Animator ClearAnim;
+	private ParticleSystem clearParticle;
 
 
-    [Header("===============")]
-    [Header("ETC")]
-    [SerializeField] private GameObject gameCanvas;
+	[Header("===============")]
+	[Header("UI")]
+	[SerializeField] private Transform stageSelectTrm;
+	[SerializeField] private StageUI stageUIPrefab;
+	private Transform stageSelectUITrm;
 
-    private void Awake()
-    {
-        clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
-        ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-        stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+	private int selectStageNum = 0;
+	private StageUI[] stagesUI;
+	private float moveX = -500f;
 
-        isInStage = false;
-    }
-
-    private void Start()
-    {
-        SetSelectStageUI();
-        gameCanvas.SetActive(false);
+	[Header("Minimap")]
+	[SerializeField] private Transform minimapTrm;
+	private GameObject currentMinimap = null;
 
 
-        //StartCoroutine(StageLoad());
-    }
+	[Header("===============")]
+	[Header("ETC")]
+	[SerializeField] private GameObject gameCanvas;
 
-    public void EnterStage()
-    {
-        if (IsInStage) return;
-        if (!stagesUI[selectStageNum].CheckCanPlay())
-        {
-            print("아직 클리어X");
-        }
-        else
-        {
-            LoadStage();
-        }
-    }
+	private void Awake()
+	{
+		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
+		stageSelectUITrm = stageSelectTrm.Find("StageSelect");
 
-    private void Update()
-    {
-        if (!isInStage) // 스테이지 밖일 때
-        {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                UpdateSelectStageUI(-1);
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                UpdateSelectStageUI(1);
-            }
-        }
-        else // 스테이지 안일때
-        {
-            if (Input.GetKeyDown(KeyCode.Tab))
-            {
-                StopAllCoroutines();
-                ClearStage();
-            }
+		isInStage = false;
+	}
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                DestroyImmediate(curStageGameObject);
-                LoadStage();
-            }
+	private void Start()
+	{
+		SetSelectStageUI();
+		gameCanvas.SetActive(false);
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                BackToMenu();
-            }
-        }
-    }
 
-    private IEnumerator WaitForGenerate()
-    {
-        yield return new WaitForSeconds(.5f);
-        isInStage = true;
-    }
+		//StartCoroutine(StageLoad());
+	}
 
-    public void LoadStage()
-    {
-        StartCoroutine(FindBox());
+	public void EnterStage()
+	{
+		if (IsInStage) return;
+		if (!stagesUI[selectStageNum].CheckCanPlay())
+		{
+			print("아직 클리어X");
+		}
+		else
+		{
+			LoadStage();
+		}
+	}
 
-        if (selectStageNum <= stageList.Stages.Count)
-        {
-            if (currentMinimap != null)
-            {
-                DestroyImmediate(currentMinimap);
-                currentMinimap = null;
-            }
+	public void MoveStage(Direction dir)
+	{
+		if (!isInStage)
+		{
+			switch (dir)
+			{
+				case Direction.Left:
+					{
+						UpdateSelectStageUI(-1);
+					}
+					break;
+				case Direction.Right:
+					{
+						UpdateSelectStageUI(1);
+					}
+					break;
+			}
+		}
+	}
 
-            currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
+	private void Update()
+	{
+		if (!isInStage) // 스테이지 밖일 때
+		{
+			if (Input.GetKeyDown(KeyCode.A))
+			{
+				UpdateSelectStageUI(-1);
+			}
+			if (Input.GetKeyDown(KeyCode.D))
+			{
+				UpdateSelectStageUI(1);
+			}
+		}
+		else // 스테이지 안일때
+		{
+			if (Input.GetKeyDown(KeyCode.Tab))
+			{
+				StopAllCoroutines();
+				ClearStage();
+			}
 
-            curStageGameObject = Instantiate(currentStageSO.stagePref, StageTrm); // 스테이지 생성
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				DestroyImmediate(curStageGameObject);
+				LoadStage();
+			}
 
-            stageSelectTrm.gameObject.SetActive(false);
-            gameCanvas.SetActive(true);
-            gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
+			if (Input.GetKeyDown(KeyCode.Escape))
+			{
+				BackToMenu();
+			}
+		}
+	}
 
-            PlayerManager.Instance.SetNewPlayers(currentStageSO);
-            CameraMovement.Instance.FindItems();
+	private IEnumerator WaitForGenerate()
+	{
+		yield return new WaitForSeconds(.5f);
+		isInStage = true;
+	}
 
-            StartCoroutine(WaitForGenerate());
+	public void LoadStage()
+	{
+		StartCoroutine(FindBox());
 
-            if (selectStageNum == 0)
-            {
-                Tutorial tutorial = FindObjectOfType<Tutorial>();
-                StartCoroutine(tutorial.TutorialPannel());
-            }
-        }
-        else
-        {
-            print("준비된 스테이지가 아닙니다람쥐");
-        }
-    }
+		if (selectStageNum <= stageList.Stages.Count)
+		{
+			if (currentMinimap != null)
+			{
+				DestroyImmediate(currentMinimap);
+				currentMinimap = null;
+			}
 
-    public void ClearStage()
-    {
-        print("Clear");
-        isInStage = false;
+			currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
-        ClearAnim.SetTrigger("Clear");
-        BoxManager.Instance.CleanBox();
+			curStageGameObject = Instantiate(currentStageSO.stagePref, StageTrm); // 스테이지 생성
 
-        gameCanvas.SetActive(false);
-        Invoke(nameof(ClearParticle), 1);
+			stageSelectTrm.gameObject.SetActive(false);
+			gameCanvas.SetActive(true);
+			gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
-        currentStageSO.IsClear = true;
-        selectStageNum++;
+			PlayerManager.Instance.SetNewPlayers(currentStageSO);
+			CameraMovement.Instance.FindItems();
 
-        StartCoroutine(StageLoad());
-    }
+			StartCoroutine(WaitForGenerate());
 
-    private void ClearParticle()
-    {
-        clearParticle.Play();
-    }
+			if (selectStageNum == 0)
+			{
+				Tutorial tutorial = FindObjectOfType<Tutorial>();
+				StartCoroutine(tutorial.TutorialPannel());
+			}
+		}
+		else
+		{
+			print("준비된 스테이지가 아닙니다람쥐");
+		}
+	}
 
-    private IEnumerator StageLoad()
-    {
-        yield return new WaitForSeconds(1f);
-        DestroyImmediate(curStageGameObject);
-        yield return new WaitForSeconds(1f);
+	public void ClearStage()
+	{
+		print("Clear");
+		isInStage = false;
 
-        LoadStage();
-    }
+		ClearAnim.SetTrigger("Clear");
+		BoxManager.Instance.CleanBox();
 
-    IEnumerator FindBox()
-    {
-        yield return new WaitForSeconds(0.2f);
-        BoxManager.Instance.FindBox();
-    }
+		gameCanvas.SetActive(false);
+		Invoke(nameof(ClearParticle), 1);
 
-    public void SetIsInStage(bool value)
-    {
-        isInStage = value;
-    }
+		currentStageSO.IsClear = true;
+		selectStageNum++;
 
-    #region UI
-    public void SetSelectStageUI()
-    {
-        isInStage = false;
-        stageSelectTrm.localPosition = Vector3.zero;
+		StartCoroutine(StageLoad());
+	}
 
-        bool isClear = true;
+	private void ClearParticle()
+	{
+		clearParticle.Play();
+	}
 
-        for (int i = 0; i < stageList.Stages.Count; ++i)
-        {
-            StageUI stage = Instantiate(stageUIPrefab, stageSelectUITrm);
-            stage.SetUI(i + 1, isClear);
+	private IEnumerator StageLoad()
+	{
+		yield return new WaitForSeconds(1f);
+		DestroyImmediate(curStageGameObject);
+		yield return new WaitForSeconds(1f);
 
-            isClear = stageList.Stages[i].IsClear;
-        }
+		LoadStage();
+	}
 
-        stagesUI = stageSelectUITrm.GetComponentsInChildren<StageUI>();
-        UpdateSelectStageUI(0);
-    }
+	IEnumerator FindBox()
+	{
+		yield return new WaitForSeconds(0.2f);
+		BoxManager.Instance.FindBox();
+	}
 
-    public void UpdateSelectStageUI(int value)
-    {
-        if (currentMinimap != null)
-        {
-            DestroyImmediate(currentMinimap.gameObject);
-        }
-        stagesUI[selectStageNum].UnSelected();
-        selectStageNum += value;
-        selectStageNum = Mathf.Clamp(selectStageNum, 0, stagesUI.Length - 1);
+	public void SetIsInStage(bool value)
+	{
+		isInStage = value;
+	}
 
-        stageSelectUITrm.DOLocalMoveX(moveX * selectStageNum, 0.3f);
+	#region UI
+	public void SetSelectStageUI()
+	{
+		isInStage = false;
+		stageSelectTrm.localPosition = Vector3.zero;
 
-        stagesUI[selectStageNum].Selected();
-        currentMinimap = Instantiate(stageList.Stages[selectStageNum].stagePref, minimapTrm);
-        currentMinimap.transform.position = Vector3.zero;
-    }
+		bool isClear = true;
 
-    public void BackToMenu()
-    {
-        isInStage = false;
+		for (int i = 0; i < stageList.Stages.Count; ++i)
+		{
+			StageUI stage = Instantiate(stageUIPrefab, stageSelectUITrm);
+			stage.SetUI(i + 1, isClear);
 
-        if (selectStageNum == 0)
-        {
-            Cursor.lockState = CursorLockMode.None;
+			isClear = stageList.Stages[i].IsClear;
+		}
 
-            StopAllCoroutines();
+		stagesUI = stageSelectUITrm.GetComponentsInChildren<StageUI>();
+		UpdateSelectStageUI(0);
+	}
 
-            Tutorial tutorial = FindObjectOfType<Tutorial>();
-            tutorial.ResetPanel();
-        }
+	public void UpdateSelectStageUI(int value)
+	{
+		if (currentMinimap != null)
+		{
+			DestroyImmediate(currentMinimap.gameObject);
+		}
+		stagesUI[selectStageNum].UnSelected();
+		selectStageNum += value;
+		selectStageNum = Mathf.Clamp(selectStageNum, 0, stagesUI.Length - 1);
 
-        for (int i = 0; i < stagesUI.Length; ++i)
-        {
-            DestroyImmediate(stagesUI[i].gameObject);
-        }
+		stageSelectUITrm.DOLocalMoveX(moveX * selectStageNum, 0.3f);
 
-        BoxManager.Instance.CleanBox();
+		stagesUI[selectStageNum].Selected();
+		currentMinimap = Instantiate(stageList.Stages[selectStageNum].stagePref, minimapTrm);
+		currentMinimap.transform.position = Vector3.zero;
+	}
 
-        stageSelectTrm.gameObject.SetActive(true);
-        gameCanvas.SetActive(false);
+	public void BackToMenu()
+	{
+		isInStage = false;
 
-        DestroyImmediate(curStageGameObject);
-        PlayerManager.Instance.ResetPlayers();
-        CameraMovement.Instance.CameraReset();
+		if (selectStageNum == 0)
+		{
+			Cursor.lockState = CursorLockMode.None;
 
-        SetSelectStageUI();
-    }
-    #endregion
+			StopAllCoroutines();
+
+			Tutorial tutorial = FindObjectOfType<Tutorial>();
+			tutorial.ResetPanel();
+		}
+
+		for (int i = 0; i < stagesUI.Length; ++i)
+		{
+			DestroyImmediate(stagesUI[i].gameObject);
+		}
+
+		BoxManager.Instance.CleanBox();
+
+		stageSelectTrm.gameObject.SetActive(true);
+		gameCanvas.SetActive(false);
+
+		DestroyImmediate(curStageGameObject);
+		PlayerManager.Instance.ResetPlayers();
+		CameraMovement.Instance.CameraReset();
+
+		SetSelectStageUI();
+	}
+	#endregion
 }

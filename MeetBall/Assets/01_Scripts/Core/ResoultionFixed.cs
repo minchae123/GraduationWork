@@ -14,20 +14,20 @@ public class ResoultionFixed : MonoBehaviour
 
 	public void SetResolution()
 	{
-		int deviceWidth = Screen.width; 
-		int deviceHeight = Screen.height; 
-
-		Screen.SetResolution(width, (int)(((float)deviceHeight / deviceWidth) * width), true); 
-
-		if ((float)width / height < (float)deviceWidth / deviceHeight)
+		Camera camera = GetComponent<Camera>();
+		Rect rect = camera.rect;
+		float scaleheight = ((float)Screen.width / Screen.height) / ((float)16 / 9);
+		float scalewidth = 1f / scaleheight;
+		if (scaleheight < 1)
 		{
-			float newWidth = ((float)width / height) / ((float)deviceWidth / deviceHeight); 
-			Camera.main.rect = new Rect((1f - newWidth) / 2f, 0f, newWidth, 1f); 
+			rect.height = scaleheight;
+			rect.y = (1f - scaleheight) / 2f;
 		}
-		else 
+		else
 		{
-			float newHeight = ((float)deviceWidth / deviceHeight) / ((float)width / height); 
-			Camera.main.rect = new Rect(0f, (1f - newHeight) / 2f, 1f, newHeight); 
+			rect.width = scalewidth;
+			rect.x = (1f - scalewidth) / 2f;
 		}
+		camera.rect = rect;
 	}
 }

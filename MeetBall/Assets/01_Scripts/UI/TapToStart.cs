@@ -13,6 +13,7 @@ public class TapToStart : MonoBehaviour, IPointerClickHandler
 
 	private int curScene = 0;
 	private bool isClicked = false;
+	public bool IsClicked {  get { return isClicked; } set => isClicked = value; }
 
 	private void Start()
 	{
