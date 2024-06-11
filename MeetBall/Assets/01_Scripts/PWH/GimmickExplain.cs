@@ -49,9 +49,9 @@ public class GimmickExplain : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 LayerMask layer = hit.transform.gameObject.layer;
-
                 if (layer.value == i + objLayer)
                 {
+                print(hit.collider.name);
                     isClick = true;
                     stageNum = i;
 
