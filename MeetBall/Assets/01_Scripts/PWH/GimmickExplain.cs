@@ -48,18 +48,17 @@ public class GimmickExplain : MonoBehaviour
         {
             if (Physics.Raycast(ray, out hit))
             {
-                print(hit.collider.name);
                 LayerMask layer = hit.transform.gameObject.layer;
                 if (layer.value == i + objLayer)
                 {
-                print(hit.collider.name);
                     isClick = true;
                     stageNum = i;
 
                     video.clip = gimmick.video[stageNum];
                     explainTxt.text = gimmick.Explain[stageNum];
-
+                    
                     Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
+
                     transform.position = hitPos;
 
                     panel.ShowTutorial(() => video.Play());
