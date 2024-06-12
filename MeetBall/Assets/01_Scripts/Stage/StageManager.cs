@@ -78,21 +78,14 @@ public class StageManager : MonoSingleton<StageManager>
 
 	public void MoveStage(Direction dir)
 	{
-		if (!isInStage)
+		switch (dir)
 		{
-			switch (dir)
-			{
-				case Direction.Left:
-					{
-						UpdateSelectStageUI(-1);
-					}
-					break;
-				case Direction.Right:
-					{
-						UpdateSelectStageUI(1);
-					}
-					break;
-			}
+			case Direction.Left:
+				UpdateSelectStageUI(-1);
+				break;
+			case Direction.Right:
+				UpdateSelectStageUI(1);
+				break;
 		}
 	}
 
@@ -119,8 +112,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 			if (Input.GetKeyDown(KeyCode.R))
 			{
-				DestroyImmediate(curStageGameObject);
-				LoadStage();
+				ReStartBtn();
 			}
 
 			if (Input.GetKeyDown(KeyCode.Escape))
@@ -213,6 +205,12 @@ public class StageManager : MonoSingleton<StageManager>
 	public void SetIsInStage(bool value)
 	{
 		isInStage = value;
+	}
+
+	public void ReStartBtn()
+	{
+		DestroyImmediate(curStageGameObject);
+		LoadStage();
 	}
 
 	#region UI

@@ -12,8 +12,7 @@ public class TapToStart : MonoBehaviour, IPointerClickHandler
 	private TextMeshProUGUI text;
 
 	private int curScene = 0;
-	private bool isClicked = false;
-	public bool IsClicked {  get { return isClicked; } set => isClicked = value; }
+	public bool isClicked = false;
 
 	private void Start()
 	{

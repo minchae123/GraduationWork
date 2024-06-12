@@ -26,8 +26,8 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
 	public void OnBeginDrag(PointerEventData eventData)
 	{
-		if(tapToStart != null)
-			tapToStart.IsClicked = true;
+		if (tapToStart != null)
+			tapToStart.isClicked = true;
 
 		draggingStarted = true;
 		startPos = eventData.pressPosition;
@@ -64,10 +64,11 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 		if (draggingStarted && direction != Direction.None)
 		{
 			camMovement?.ChangeCamera(direction);
-			if(tapToStart != null)
+
+			if (tapToStart != null)
 			{
 				StageManager.Instance.MoveStage(direction);
-				tapToStart.IsClicked = false;
+				tapToStart.isClicked = false;
 			}
 		}
 

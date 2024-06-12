@@ -50,9 +50,9 @@ public class GimmickExplain : MonoBehaviour
             {
                 print(hit.collider.name);
                 LayerMask layer = hit.transform.gameObject.layer;
-
                 if (layer.value == i + objLayer)
                 {
+                print(hit.collider.name);
                     isClick = true;
                     stageNum = i;
 
