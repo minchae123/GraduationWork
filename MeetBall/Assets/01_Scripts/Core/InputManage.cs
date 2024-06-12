@@ -16,6 +16,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	bool draggingStarted;
 
 	[SerializeField] private CameraMovement camMovement;
+	[SerializeField] private TapToStart tapToStart;
 
 	private void Awake()
 	{
@@ -26,7 +27,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 	public void OnBeginDrag(PointerEventData eventData)
 	{
 		if (tapToStart != null)
-			tapToStart.IsClicked = true;
+			tapToStart.isClicked = true;
 
 		draggingStarted = true;
 		startPos = eventData.pressPosition;
@@ -67,7 +68,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 			if (tapToStart != null)
 			{
 				StageManager.Instance.MoveStage(direction);
-				tapToStart.IsClicked = false;
+				tapToStart.isClicked = false;
 			}
 		}
 
