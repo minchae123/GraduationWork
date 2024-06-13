@@ -2,23 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Teleporter : MonoBehaviour
 {
-    float _tpDelayTime;
+    private float _tpDelayTime = .5f;
+
+    [SerializeField] private GameObject _tpParticle;
 
     TeleportManager teleportManager;
 
     bool isTP = false; // ������ ������
 
-    private void Awake()
-    {
-        _tpDelayTime = 0.1f;
-    }
-
     private void Start()
     {
-        teleportManager = StageManager.Instance.StageTrm.GetComponentInChildren<TeleportManager>();  
+        teleportManager = StageManager.Instance.StageTrm.GetComponentInChildren<TeleportManager>();
 
         if (_tpDelayTime == 0)
             Debug.LogError("텔포딜레이가 0이면 아주 심각한 문제가 발생합니다람쥐");
@@ -35,14 +33,25 @@ public class Teleporter : MonoBehaviour
                 {
                     isTP = true;
                     //print(teleportManager.tpPair[other.transform]); // �̵��� ��ġ
-                    transform.position = teleportManager.tpPair[other.transform].position;
+                    //transform.position = teleportManager.tpPair[other.transform].position;
+                    StartCoroutine(Teleporting(teleportManager.tpPair[other.transform]));
                 }
                 else
                 {
                     print("탈수없는것임.");
                 }
-                CoroutineUtil.CallWaitForSeconds(_tpDelayTime, null, () => isTP = false);
+                CoroutineUtil.CallWaitForSeconds(_tpDelayTime + .1f, null, () => isTP = false);
             }
         }
+    }
+
+    private IEnumerator Teleporting(Transform tpPos)
+    {
+        GameObject obj = Instantiate(_tpParticle, transform);
+        Destroy(obj, 3);
+        transform.DOScale(0, _tpDelayTime);
+        yield return new WaitForSeconds(_tpDelayTime); 
+        transform.position = tpPos.position; 
+        transform.DOScale(1, _tpDelayTime);
     }
 }
