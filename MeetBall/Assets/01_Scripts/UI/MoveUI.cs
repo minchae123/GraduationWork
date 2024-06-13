@@ -4,7 +4,9 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
-public class MoveUI : MonoBehaviour
+using UnityEngine.EventSystems;
+
+public class MoveUI : MonoBehaviour, IPointerClickHandler
 {
 	public OriginColorEnum color;
 
@@ -58,4 +60,9 @@ public class MoveUI : MonoBehaviour
 		moveCnt.text = $"{cnt}";
 		//print(cnt);
 	}
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+		PlayerManager.Instance.ChangeMovePlayer(color);
+    }
 }
