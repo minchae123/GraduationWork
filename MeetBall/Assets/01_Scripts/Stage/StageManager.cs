@@ -156,7 +156,7 @@ public class StageManager : MonoSingleton<StageManager>
 			if (selectStageNum == 0)
 			{
 				Tutorial tutorial = FindObjectOfType<Tutorial>();
-				StartCoroutine(tutorial.TutorialPannel());
+				StartCoroutine(tutorial?.TutorialPannel());
 			}
 		}
 		else
@@ -261,7 +261,7 @@ public class StageManager : MonoSingleton<StageManager>
 			StopAllCoroutines();
 
 			Tutorial tutorial = FindObjectOfType<Tutorial>();
-			tutorial.ResetPanel();
+			tutorial?.ResetPanel();
 		}
 
 		for (int i = 0; i < stagesUI.Length; ++i)

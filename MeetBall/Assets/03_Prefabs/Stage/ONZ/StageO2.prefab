@@ -149,6 +149,7 @@ MonoBehaviour:
   - {fileID: 8786206441053034876}
   - {fileID: 6362385458093159644}
   SaveBlocks: []
+  isSelected: 0
 --- !u!1 &6362385458093159644
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +278,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239ca786381808149a216d47e7c24e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tpDelayTime: 0.1
 --- !u!114 &3268192262030543985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -438,7 +438,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 239ca786381808149a216d47e7c24e4f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tpDelayTime: 0.1
 --- !u!114 &4541459381645213309
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -915,6 +914,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1995180135594163778}
     m_Modifications:
+    - target: {fileID: 964940646035131461, guid: e4f3ba5c59bfe4445bdaba1394dbd4c0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1e8a131c49f485147bed923103ac7145, type: 2}
     - target: {fileID: 8304135019646027180, guid: e4f3ba5c59bfe4445bdaba1394dbd4c0, type: 3}
       propertyPath: m_RootOrder
       value: 21
