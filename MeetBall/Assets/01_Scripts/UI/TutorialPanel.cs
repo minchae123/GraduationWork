@@ -81,6 +81,10 @@ public class TutorialPanel : MonoBehaviour
 
     public void NextTut()
     {
+        DOTween.Kill(this);
+
+        transform.localScale = Vector3.one;
+
         cg.DOFade(0f, 1.0f);
     }
 

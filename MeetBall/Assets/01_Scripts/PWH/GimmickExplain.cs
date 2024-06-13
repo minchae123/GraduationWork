@@ -49,7 +49,6 @@ public class GimmickExplain : MonoBehaviour
             if (Physics.Raycast(ray, out hit))
             {
                 LayerMask layer = hit.transform.gameObject.layer;
-
                 if (layer.value == i + objLayer)
                 {
                     isClick = true;
@@ -57,8 +56,9 @@ public class GimmickExplain : MonoBehaviour
 
                     video.clip = gimmick.video[stageNum];
                     explainTxt.text = gimmick.Explain[stageNum];
-
+                    
                     Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
+
                     transform.position = hitPos;
 
                     panel.ShowTutorial(() => video.Play());

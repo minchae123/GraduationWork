@@ -27,31 +27,11 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler
         tutorialText = GetComponentInChildren<TextMeshProUGUI>();
     }
 
-    /*IEnumerator Typing(string text)
-    {
-        yield return new WaitForSeconds(1f);
-
-        StringBuilder builder = new StringBuilder();
-
-        foreach (char ch in text)
-        {
-            builder.Append(ch);
-            tutorialText.text = builder.ToString();
-
-            yield return new WaitForSeconds(0.1f);
-        }
-
-        yield return new WaitForSeconds(1f);
-       
-        ResetPanel();
-    }*/
-
     public IEnumerator TutorialPannel()
     {
         tutorial.InitializeFirstTut();
 
         fadePanel.DOFade(0.9f, 1f);
-        //Cursor.lockState = CursorLockMode.Locked;
         yield return new WaitForSeconds(1.2f);
         
         for (int i = 0; i < explain.Length; i++)
@@ -62,12 +42,11 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler
 
             tutorial.NextTut();
 
-            yield return new WaitForSeconds(1.2f);
+            yield return new WaitForSeconds(1f);
             nextTut = false;
         }
 
         gameObject.SetActive(false);
-        //Cursor.lockState = CursorLockMode.None;
     }
 
     private void UiLayer(int idx)
@@ -93,9 +72,6 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if(!tutorial.isWait)
-        {
-            nextTut = true;
-        }
+        nextTut = true;
     }
 }

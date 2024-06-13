@@ -39,30 +39,17 @@ public class CombineColor : MonoBehaviour
             OriginColorEnum enum2 = movement.PlayerColor;
 
             bool IsClear = GameManager.Instance.MergeColor(enum1, enum2);
+            StageManager.Instance.SetIsInStage(false);
 
-            if(IsClear)
-            {
-                if(FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(false);
-                else TutorialStageManager.Instance.SetIsInStage(false);
-                StartCoroutine(ClearAnim());
-            }
-            else { print("색 잘못 합침"); }
+            StartCoroutine(UIAnim(IsClear));
         }
     }
-
-    private IEnumerator ClearAnim()
+    private IEnumerator UIAnim(bool isClear)
     {
         transform.DOMove(Vector3.zero - Camera.main.transform.forward * 2, 1, false);
         transform.DOScale(.5f, 1);
         yield return new WaitForSeconds(1);
 
-        if (FindObjectOfType<StageManager>())
-        {
-            StageManager.Instance.ClearStage();
-        }
-        else
-        {
-            TutorialStageManager.Instance.ClearStage();
-        }
+        StageManager.Instance.ClearStage(isClear);
     }
 }
