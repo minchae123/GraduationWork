@@ -23,6 +23,7 @@ public class StageManager : MonoSingleton<StageManager>
 	[Header("===============")]
 	[Header("Clear")]
 	private Animator ClearAnim;
+	private TextMeshProUGUI clearText;
 	private ParticleSystem clearParticle;
 	private GimmickExplain gimmick;
 
@@ -52,6 +53,8 @@ public class StageManager : MonoSingleton<StageManager>
 		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
 		stageSelectUITrm = stageSelectTrm.Find("StageSelect");
 		gimmick = FindFirstObjectByType<GimmickExplain>();
+
+		clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
 
 		isInStage = false;
 	}
@@ -109,7 +112,7 @@ public class StageManager : MonoSingleton<StageManager>
 			if (Input.GetKeyDown(KeyCode.Tab))
 			{
 				StopAllCoroutines();
-				ClearStage();
+				ClearStage(true);
 			}
 
 			if (Input.GetKeyDown(KeyCode.R))
@@ -159,7 +162,7 @@ public class StageManager : MonoSingleton<StageManager>
 			if (selectStageNum == 0)
 			{
 				Tutorial tutorial = FindObjectOfType<Tutorial>();
-				StartCoroutine(tutorial?.TutorialPannel());
+				if (tutorial != null) StartCoroutine(tutorial.TutorialPannel());
 			}
 		}
 		else
@@ -168,8 +171,20 @@ public class StageManager : MonoSingleton<StageManager>
 		}
 	}
 
-	public void ClearStage()
+	public void ClearStage(bool isClear)
 	{
+		if (isClear)
+		{
+			currentStageSO.IsClear = true;
+			selectStageNum++;
+
+			clearText.text = "Stage Clear!";
+		}
+        else
+        {
+			clearText.text = "Stage Fail. . .";
+        }
+
 		print("Clear");
 		isInStage = false;
 
@@ -178,9 +193,6 @@ public class StageManager : MonoSingleton<StageManager>
 
 		gameCanvas.SetActive(false);
 		Invoke(nameof(ClearParticle), 1);
-
-		currentStageSO.IsClear = true;
-		selectStageNum++;
 
 		StartCoroutine(StageLoad());
 	}
@@ -264,7 +276,7 @@ public class StageManager : MonoSingleton<StageManager>
 			StopAllCoroutines();
 
 			Tutorial tutorial = FindObjectOfType<Tutorial>();
-			tutorial?.ResetPanel();
+			tutorial.ResetPanel();
 		}
 
 		for (int i = 0; i < stagesUI.Length; ++i)
