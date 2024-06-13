@@ -24,6 +24,7 @@ public class StageManager : MonoSingleton<StageManager>
 	[Header("Clear")]
 	private Animator ClearAnim;
 	private ParticleSystem clearParticle;
+	private GimmickExplain gimmick;
 
 
 	[Header("===============")]
@@ -50,6 +51,7 @@ public class StageManager : MonoSingleton<StageManager>
 		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
 		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
 		stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+		gimmick = FindFirstObjectByType<GimmickExplain>();
 
 		isInStage = false;
 	}
@@ -151,6 +153,7 @@ public class StageManager : MonoSingleton<StageManager>
 			PlayerManager.Instance.SetNewPlayers(currentStageSO);
 			CameraMovement.Instance.FindItems();
 
+			StartCoroutine(gimmick.StartTutorial());
 			StartCoroutine(WaitForGenerate());
 
 			if (selectStageNum == 0)
