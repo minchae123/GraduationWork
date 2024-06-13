@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
+using System.Collections;
 
 public class GimmickExplain : MonoBehaviour
 {
@@ -14,7 +15,8 @@ public class GimmickExplain : MonoBehaviour
 
     private bool isClick = false;
 
-    private int stageNum;
+    private int stageNum = 0;
+    private int tutorialNum = 0;
 
     private void Awake()
     {
@@ -28,10 +30,24 @@ public class GimmickExplain : MonoBehaviour
         CickObj();
     }
 
+    public IEnumerator StartTutorial()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        if (StageManager.Instance.CurrentStageSO.IsStartGimmick)
+        {
+            explainTxt.text = gimmick.Explain[tutorialNum];
+            video.clip = gimmick.video[tutorialNum];
+
+            panel.ShowTutorial(() => video.Play());
+            tutorialNum++;
+        }
+    }
+
     private void CickObj()
     {
         if (!Input.GetMouseButtonDown(0) || panel.isTwin) return;
-        
+
         panel?.CloseTutorial(() => video.Stop());
         if (!isClick)
             ExplainPanel();
@@ -56,7 +72,7 @@ public class GimmickExplain : MonoBehaviour
 
                     video.clip = gimmick.video[stageNum];
                     explainTxt.text = gimmick.Explain[stageNum];
-                    
+
                     Vector3 hitPos = Camera.main.WorldToScreenPoint(hit.transform.position);
 
                     transform.position = hitPos;

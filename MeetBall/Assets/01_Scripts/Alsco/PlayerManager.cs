@@ -24,6 +24,36 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
     [SerializeField] private Image targetImage;
 
+    private void Update()
+    {
+        if (!StageManager.Instance.IsInStage) return;
+
+        if(Input.GetKeyDown(KeyCode.A))
+        {
+            MoveLeft();
+        }
+
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveDown();
+        }
+
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            MoveRight();
+        }
+
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveUp();
+        }
+
+        if(Input.GetKeyDown(KeyCode.Q))
+        {
+            ChangeMovePlayer();
+        }
+    }
+
     public void ResetPlayers()
     {
         players.Clear();
