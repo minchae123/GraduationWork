@@ -46,6 +46,7 @@ public class StageManager : MonoSingleton<StageManager>
 	[Header("===============")]
 	[Header("ETC")]
 	[SerializeField] private GameObject gameCanvas;
+	private Tutorial tutorialPanel;
 
 	private void Awake()
 	{
@@ -55,6 +56,7 @@ public class StageManager : MonoSingleton<StageManager>
 		gimmick = FindFirstObjectByType<GimmickExplain>();
 
 		clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
+		tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
 		isInStage = false;
 	}
@@ -64,7 +66,7 @@ public class StageManager : MonoSingleton<StageManager>
 		SetSelectStageUI();
 		gameCanvas.SetActive(false);
 
-
+		tutorialPanel.gameObject.SetActive(false);
 		//StartCoroutine(StageLoad());
 	}
 
@@ -161,8 +163,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 			if (selectStageNum == 0)
 			{
-				Tutorial tutorial = FindObjectOfType<Tutorial>();
-				if (tutorial != null) StartCoroutine(tutorial.TutorialPannel());
+				StartCoroutine(tutorialPanel.TutorialPannel());
 			}
 		}
 		else
@@ -274,9 +275,7 @@ public class StageManager : MonoSingleton<StageManager>
 			Cursor.lockState = CursorLockMode.None;
 
 			StopAllCoroutines();
-
-			Tutorial tutorial = FindObjectOfType<Tutorial>();
-			if (tutorial != null) tutorial.ResetPanel();
+			tutorialPanel.ResetPanel();
 		}
 
 		for (int i = 0; i < stagesUI.Length; ++i)
