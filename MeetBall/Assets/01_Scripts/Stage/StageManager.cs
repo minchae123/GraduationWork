@@ -8,7 +8,10 @@ using DG.Tweening;
 public class StageManager : MonoSingleton<StageManager>
 {
 	private bool isInStage = false;
+	private bool isReStart = false;
+
 	public bool IsInStage => isInStage;
+	public bool IsReStart => isReStart;
 
 	[Header("===============")]
 	[Header("Stage")]
@@ -113,6 +116,8 @@ public class StageManager : MonoSingleton<StageManager>
 		{
 			if (Input.GetKeyDown(KeyCode.Tab))
 			{
+				isReStart = true;
+
 				StopAllCoroutines();
 				ClearStage(true);
 			}
@@ -177,6 +182,7 @@ public class StageManager : MonoSingleton<StageManager>
 		if (isClear)
 		{
 			currentStageSO.IsClear = true;
+			isReStart = false;
 			selectStageNum++;
 
 			clearText.text = "Stage Clear!";
@@ -225,6 +231,8 @@ public class StageManager : MonoSingleton<StageManager>
 
 	public void ReStartBtn()
 	{
+		isReStart = true;
+
 		DestroyImmediate(curStageGameObject);
 		LoadStage();
 	}
@@ -290,7 +298,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 		DestroyImmediate(curStageGameObject);
 		PlayerManager.Instance.ResetPlayers();
-		CameraMovement.Instance.CameraReset();
+		//CameraMovement.Instance.CameraReset();
 
 		SetSelectStageUI();
 	}

@@ -9,6 +9,8 @@ public class GimmickExplain : MonoBehaviour
     [SerializeField] Gimmick gimmick;
     [SerializeField] private int objLayer;
 
+    private StageManager stageManager;
+
     private TextMeshProUGUI explainTxt;
     private TutorialPanel panel;
     private VideoPlayer video;
@@ -20,6 +22,8 @@ public class GimmickExplain : MonoBehaviour
 
     private void Awake()
     {
+        stageManager = StageManager.Instance;
+
         panel = GetComponent<TutorialPanel>();
         video = GetComponentInChildren<VideoPlayer>();
         explainTxt = panel.GetComponentInChildren<TextMeshProUGUI>();
@@ -34,7 +38,7 @@ public class GimmickExplain : MonoBehaviour
     {
         yield return new WaitForSeconds(1.5f);
 
-        if (StageManager.Instance.CurrentStageSO.IsStartGimmick)
+        if (stageManager.CurrentStageSO.IsStartGimmick && !stageManager.IsReStart)
         {
             explainTxt.text = gimmick.Explain[tutorialNum];
             video.clip = gimmick.video[tutorialNum];

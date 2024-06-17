@@ -32,7 +32,7 @@ public class CombineColor : MonoBehaviour
 
             render.sharedMaterial.SetColor("_PlayerColor", combineColor);
 
-            CameraMovement.Instance.CameraReset();
+            //CameraMovement.Instance.CameraReset();
             PlayerManager.Instance.DestroyPlayer(m);
 
             OriginColorEnum enum1 = m.PlayerColor;
