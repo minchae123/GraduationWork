@@ -26,7 +26,7 @@ public class Teleporter : MonoBehaviour
     {
         if (teleportManager != null)
         {
-            print(0);
+            //print(0);
             if (other.CompareTag("Teleport") && !isTP)
             {
                 if (teleportManager.tpPair.ContainsKey(other.transform))
