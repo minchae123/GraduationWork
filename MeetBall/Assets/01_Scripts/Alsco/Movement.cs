@@ -13,6 +13,7 @@ public enum PlayerDir
 public class Movement : MonoBehaviour
 {
 	private CameraMovement camMovement;
+	private GimmickExplain gimmick;
 
 	private RaycastHit hit;
 	private Ray[] ray = new Ray[6];
@@ -37,6 +38,7 @@ public class Movement : MonoBehaviour
 	private void Awake()
 	{
 		camMovement = FindObjectOfType<CameraMovement>();
+		gimmick = FindObjectOfType<GimmickExplain>();
 
 		curCount = 0;
 		totalCount = 0;
@@ -128,6 +130,9 @@ public class Movement : MonoBehaviour
 
 	public void Move(Vector3 dir)
 	{
+		if(gimmick.panel.isWait)
+			gimmick.panel.CloseTutorial();
+
 		Vector3 pos = new Vector3(Round(dir.x+transform.localPosition.x),Round(dir.y+transform.localPosition.y),Round(dir.z+transform.localPosition.z));
 		//print($"dir {dir} / pos {transform.localPosition} / result {pos} {pos.x} {pos.y} {pos.z}");
 
