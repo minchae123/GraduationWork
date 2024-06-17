@@ -28,6 +28,8 @@ public class ExplainText : MonoBehaviour
 
     IEnumerator Typing(string text)
     {
+        yield return new WaitForSeconds(1f);
+
         StringBuilder builder = new StringBuilder();
 
         foreach (char ch in text)
