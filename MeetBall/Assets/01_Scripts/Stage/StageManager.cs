@@ -290,7 +290,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 		DestroyImmediate(curStageGameObject);
 		PlayerManager.Instance.ResetPlayers();
-		CameraMovement.Instance.CameraReset();
+		//CameraMovement.Instance.CameraReset();
 
 		SetSelectStageUI();
 	}
