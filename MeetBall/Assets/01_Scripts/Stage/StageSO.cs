@@ -16,5 +16,7 @@ public class StageSO : ScriptableObject
     public TargetColorEnum targetColor;
 
     public bool IsClear= false;
+
     public bool IsStartGimmick = false;
+    public int gimmickNum;
 }

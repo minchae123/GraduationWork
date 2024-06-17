@@ -277,7 +277,7 @@ public class StageManager : MonoSingleton<StageManager>
 	public void BackToMenu()
 	{
 		isInStage = false;
-
+		print("ss");
 		if (selectStageNum == 0)
 		{
 			Cursor.lockState = CursorLockMode.None;
@@ -293,6 +293,8 @@ public class StageManager : MonoSingleton<StageManager>
 
 		BoxManager.Instance.CleanBox();
 
+		gimmick.panel.ClearSequence();
+		gimmick.panel.CloseTutorial();
 		stageSelectTrm.gameObject.SetActive(true);
 		gameCanvas.SetActive(false);
 
