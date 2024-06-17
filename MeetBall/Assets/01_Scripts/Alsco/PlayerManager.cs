@@ -104,6 +104,24 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
         selectedPlayer.RayCheck();
     }
+    public void ChangeMovePlayer(OriginColorEnum color)
+    {
+        DOTween.Clear();
+        moveUIList.ForEach(m => m.UnSelect());
+
+        for (int i = 0; i < players.Count; ++i)
+        {
+            if (players[i].PlayerColor == color)
+            {
+                selectedNum = i;
+                selectedPlayer = players[i];
+            }
+        }
+
+        moveUIList[selectedNum].Select();
+
+        selectedPlayer.RayCheck();
+    }
 
     public void DestroyPlayer(Movement player)
     {

@@ -29,6 +29,7 @@ public class Tutorial : MonoBehaviour, IPointerClickHandler
 
     public IEnumerator TutorialPannel()
     {
+        gameObject.SetActive(true);
         tutorial.InitializeFirstTut();
 
         fadePanel.DOFade(0.9f, 1f);
