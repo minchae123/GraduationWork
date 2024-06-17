@@ -93,15 +93,15 @@ public class TutorialPanel : MonoBehaviour
         isWait = true;
         isTwin = true;
 
+        if (action != null)
+            action();
+
         _seq.Append(_panel.DOScaleX(_panelSize + 0.05f, 0.8f).SetEase(Ease.InOutQuint))
                 .Append(_panel.GetComponent<Image>().DOFade(1, .8f)
                 .OnComplete(() =>
                 {
                     _seq.Append(_panel.DOScaleX(_panelSize, .2f));
                     isTwin = false;
-
-                    if (action != null)
-                        action();
                 }));
     }
 
