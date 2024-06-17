@@ -128,8 +128,7 @@ public class Movement : MonoBehaviour
 
 	public void Move(Vector3 dir)
 	{
-		Vector3 pos = new Vector3(Round(dir.x+transform.localPosition.x),Round(dir.y+transform.localPosition.y),Round(dir.z+transform.localPosition.z));
-		//print($"dir {dir} / pos {transform.localPosition} / result {pos} {pos.x} {pos.y} {pos.z}");
+		Vector3 pos = new Vector3(Round(dir.x + transform.localPosition.x), Round(dir.y + transform.localPosition.y), Round(dir.z + transform.localPosition.z));
 
 		transform.localPosition = pos;
 
