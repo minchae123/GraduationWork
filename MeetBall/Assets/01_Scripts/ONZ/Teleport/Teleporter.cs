@@ -47,11 +47,14 @@ public class Teleporter : MonoBehaviour
 
     private IEnumerator Teleporting(Transform tpPos)
     {
-        GameObject obj = Instantiate(_tpParticle, transform);
-        Destroy(obj, 3);
-        transform.DOScale(0, _tpDelayTime);
-        yield return new WaitForSeconds(_tpDelayTime); 
-        transform.position = tpPos.position; 
-        transform.DOScale(1, _tpDelayTime);
+        if(_tpParticle != null)
+        {
+			GameObject obj = Instantiate(_tpParticle, transform);
+			Destroy(obj, 3);
+			transform.DOScale(0, _tpDelayTime);
+			yield return new WaitForSeconds(_tpDelayTime);
+			transform.position = tpPos.position;
+			transform.DOScale(1, _tpDelayTime);
+		}
     }
 }
