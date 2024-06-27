@@ -36,7 +36,7 @@ public class SettingUI : MonoBehaviour
     {
         settingTrm.DOScaleY(0, 0.08f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
-            buttomTrm.DOScaleY(1, 0.15f).SetEase(Ease.OutExpo);
+            buttomTrm.DOScaleY(1, 0.3f).SetEase(Ease.OutExpo);
         });
     }
     public void OnClickBGMButton() // BGM On & Off
@@ -79,7 +79,7 @@ public class SettingUI : MonoBehaviour
     {
         buttomTrm.DOScaleY(0, 0.08f).SetEase(Ease.OutExpo).OnComplete(() =>
         {
-            settingTrm.DOScaleY(1, 0.15f).SetEase(Ease.OutExpo);
+            settingTrm.DOScaleY(1, 0.3f).SetEase(Ease.OutExpo);
         });
     }
 }
