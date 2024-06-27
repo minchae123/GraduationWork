@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
@@ -114,7 +115,7 @@ public class StageManager : MonoSingleton<StageManager>
 		}
 		else // 스테이지 안일때
 		{
-			if (Input.GetKeyDown(KeyCode.Tab))
+			if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.CapsLock))
 			{
 				isReStart = true;
 
@@ -173,6 +174,7 @@ public class StageManager : MonoSingleton<StageManager>
 		}
 		else
 		{
+			SceneManager.LoadScene(2);
 			print("준비된 스테이지가 아닙니다람쥐");
 		}
 	}
