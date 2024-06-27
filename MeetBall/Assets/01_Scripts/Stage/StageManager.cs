@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 using DG.Tweening;
@@ -114,7 +115,7 @@ public class StageManager : MonoSingleton<StageManager>
 		}
 		else // 스테이지 안일때
 		{
-			if (Input.GetKeyDown(KeyCode.Tab))
+			if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.CapsLock))
 			{
 				isReStart = true;
 
@@ -173,6 +174,7 @@ public class StageManager : MonoSingleton<StageManager>
 		}
 		else
 		{
+			SceneManager.LoadScene(2);
 			print("준비된 스테이지가 아닙니다람쥐");
 		}
 	}
@@ -277,7 +279,7 @@ public class StageManager : MonoSingleton<StageManager>
 	public void BackToMenu()
 	{
 		isInStage = false;
-
+		print("ss");
 		if (selectStageNum == 0)
 		{
 			Cursor.lockState = CursorLockMode.None;
@@ -293,6 +295,8 @@ public class StageManager : MonoSingleton<StageManager>
 
 		BoxManager.Instance.CleanBox();
 
+		gimmick.panel.ClearSequence();
+		gimmick.panel.CloseTutorial();
 		stageSelectTrm.gameObject.SetActive(true);
 		gameCanvas.SetActive(false);
 

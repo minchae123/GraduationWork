@@ -104,6 +104,7 @@ public class PlayerManager : MonoSingleton<PlayerManager>
 
         selectedPlayer.RayCheck();
     }
+
     public void ChangeMovePlayer(OriginColorEnum color)
     {
         DOTween.Clear();

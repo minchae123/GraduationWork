@@ -23,6 +23,7 @@ public class TutorialPanel : MonoBehaviour
     public bool isWait { get; set; }
     public bool isTwin { get; private set; }
 
+    private bool isStopTween = false;
 
     private void Awake()
     {
@@ -51,7 +52,7 @@ public class TutorialPanel : MonoBehaviour
 
     public void SetFirstTutorial(Transform parent, string text)
     {
-         if (parent.localPosition.y < 0)
+        if (parent.localPosition.y < 0)
         {
             upText.transform.parent.gameObject.SetActive(true);
             downText.transform.parent.gameObject.SetActive(false);
@@ -73,9 +74,9 @@ public class TutorialPanel : MonoBehaviour
 
         transform.localScale = Vector3.one * 10;
 
-        transform.DOScale(1f, 0.6f).SetEase(Ease.InOutExpo).OnComplete(()=>
+        transform.DOScale(1f, 0.6f).SetEase(Ease.InOutExpo).OnComplete(() =>
        {
-           highlightImage.DOFade(0.2f, 0.3f).OnComplete(() => highlightImage.DOFade(0.0f, 0.2f).OnComplete(()=> isWait = false));
+           highlightImage.DOFade(0.2f, 0.3f).OnComplete(() => highlightImage.DOFade(0.0f, 0.2f).OnComplete(() => isWait = false));
        });
     }
 
@@ -88,13 +89,27 @@ public class TutorialPanel : MonoBehaviour
         cg.DOFade(0f, 1.0f);
     }
 
+    public void ClearSequence()
+    {
+        _seq.Kill();
+        _seq = DOTween.Sequence();
+
+        isStopTween = true;
+    }
+
     public void ShowTutorial(Action action = null)
     {
-        isWait = true;
-        isTwin = true;
+        if (isStopTween)
+        {
+            isStopTween = false;
+            return;
+        }
 
         if (action != null)
             action();
+
+        isWait = true;
+        isTwin = true;
 
         _seq.Append(_panel.DOScaleX(_panelSize + 0.05f, 0.8f).SetEase(Ease.InOutQuint))
                 .Append(_panel.GetComponent<Image>().DOFade(1, .8f)

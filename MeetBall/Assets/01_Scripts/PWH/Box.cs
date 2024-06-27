@@ -109,6 +109,7 @@ public class Box : MonoBehaviour
 
         if (_isFall)
         {
+            print("ss");
             float value = 0; 
             DOTween.To(() => value, x => value = x, 1f, 1)
                 .OnUpdate(()=> _mr.material.SetFloat("_Float", value))

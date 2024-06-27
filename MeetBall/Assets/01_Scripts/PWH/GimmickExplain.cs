@@ -9,16 +9,15 @@ public class GimmickExplain : MonoBehaviour
     [SerializeField] Gimmick gimmick;
     [SerializeField] private int objLayer;
 
-    private StageManager stageManager;
+    public TutorialPanel panel { get; private set; }
 
+    private StageManager stageManager;
     private TextMeshProUGUI explainTxt;
-    private TutorialPanel panel;
     private VideoPlayer video;
 
     private bool isClick = false;
 
     private int stageNum = 0;
-    private int tutorialNum = 0;
 
     private void Awake()
     {
@@ -40,11 +39,10 @@ public class GimmickExplain : MonoBehaviour
 
         if (stageManager.CurrentStageSO.IsStartGimmick && !stageManager.IsReStart)
         {
-            explainTxt.text = gimmick.Explain[tutorialNum];
-            video.clip = gimmick.video[tutorialNum];
+            explainTxt.text = gimmick.Explain[stageManager.CurrentStageSO.gimmickNum];
+            video.clip = gimmick.video[stageManager.CurrentStageSO.gimmickNum];
 
             panel.ShowTutorial(() => video.Play());
-            tutorialNum++;
         }
     }
 
