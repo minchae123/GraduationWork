@@ -137,9 +137,6 @@ public class Movement : MonoBehaviour
 
     public void Move(Vector3 dir)
     {
-        if (gimmick.panel.isWait)
-            gimmick.panel.CloseTutorial();
-
         Vector3 pos = new Vector3(Round(dir.x + transform.localPosition.x), Round(dir.y + transform.localPosition.y), Round(dir.z + transform.localPosition.z));
         //transform.DOLocalMove(pos, 0.5f).SetEase(Ease.OutBounce).OnComplete(() => print("왜 안움직인담")); //ray때문에 이거시 안되는듯 함
         StartCoroutine(MoveCoroutine(pos));
