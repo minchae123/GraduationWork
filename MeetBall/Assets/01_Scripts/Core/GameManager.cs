@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+	public GameData gameData;
+
 	public class PlayerColorClass
 	{
 		public Color RED;
