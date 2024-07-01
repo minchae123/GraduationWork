@@ -33,15 +33,14 @@ public class Movement : MonoBehaviour
     public Vector3 direction { get; set; }
 
     [SerializeField] private bool[] isCanMove = new bool[6];
-    private Sequence seq;
 
     public MeshRenderer render;
+    private bool isWaitMove = false;
 
     private void Awake()
     {
         camMovement = FindObjectOfType<CameraMovement>();
         gimmick = FindObjectOfType<GimmickExplain>();
-        seq = DOTween.Sequence();
 
         curCount = 0;
         totalCount = 0;
@@ -137,9 +136,14 @@ public class Movement : MonoBehaviour
 
     public void Move(Vector3 dir)
     {
+        if (isWaitMove) return;
+
+        if (gimmick.panel.isWait)
+            gimmick.panel.CloseTutorial();
+
         Vector3 pos = new Vector3(Round(dir.x + transform.localPosition.x), Round(dir.y + transform.localPosition.y), Round(dir.z + transform.localPosition.z));
-        //transform.DOLocalMove(pos, 0.5f).SetEase(Ease.OutBounce).OnComplete(() => print("왜 안움직인담")); //ray때문에 이거시 안되는듯 함
         StartCoroutine(MoveCoroutine(pos));
+        //transform.DOLocalMove(pos, 0.5f).SetEase(Ease.OutBounce).OnComplete(() => print("왜 안움직인담")); //Dotween이 왜 여기서 안되는지 찾기
         
         direction = Vector3.zero;
 
@@ -149,7 +153,7 @@ public class Movement : MonoBehaviour
     private IEnumerator MoveCoroutine(Vector3 targetPos)
     {
         Vector3 startPos = transform.localPosition;
-        Vector3 overshootPos = targetPos + (targetPos - startPos) * 0.2f; // 목표지점보다 20% 더 먼 지점
+        Vector3 overshootPos = targetPos + (targetPos - startPos) * 0.1f; // 목표지점보다 20% 더 먼 지점
         Vector3 currentVelocity = Vector3.zero;
 
         Vector3 initialScale = transform.localScale;
@@ -157,10 +161,12 @@ public class Movement : MonoBehaviour
 
         float distance = Vector3.Distance(startPos, targetPos);
         float duration = Mathf.Clamp(distance * 0.5f, 0.05f, 0.1f); // 거리 비례 시간, 최소 0.1초, 최대 1초
-        float smoothTime = duration * 0.8f; // 처음 이동의 80% 시간 사용
+        float smoothTime = duration * 0.5f; // 처음 이동의 80% 시간 사용
         float elapsedTime = 0f;
 
         bool overshootReached = false;
+
+        isWaitMove = true;
 
         while (!overshootReached || Vector3.Distance(transform.localPosition, targetPos) >= 0.01f)
         {
@@ -209,15 +215,16 @@ public class Movement : MonoBehaviour
             }
             else
             {
-                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPos, ref currentVelocity, smoothTime * 0.25f);
+                transform.localPosition = Vector3.SmoothDamp(transform.localPosition, targetPos, ref currentVelocity, smoothTime);
 
                 // 크기를 복원하기
-                transform.localScale = Vector3.Lerp(targetScale, initialScale, t + 0.01f);
+                transform.localScale = Vector3.Lerp(targetScale, initialScale, t);
             }
 
             yield return null;
         }
 
+        isWaitMove = false;
         transform.localScale = initialScale;
         transform.localPosition = targetPos;
     }
