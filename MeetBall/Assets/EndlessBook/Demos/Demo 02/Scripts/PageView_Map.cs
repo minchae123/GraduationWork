@@ -17,6 +17,7 @@
         protected override bool HandleHit(RaycastHit hit, BookActionDelegate action)
         {
             continentText.text = hit.collider.gameObject.name;
+            print(continentText.text);
 
             return true;
         }
