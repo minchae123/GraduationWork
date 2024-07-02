@@ -35,7 +35,7 @@ public class GimmickExplain : MonoBehaviour
 
     public IEnumerator StartTutorial()
     {
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(0.5f);
 
         if (stageManager.CurrentStageSO.IsStartGimmick && !stageManager.IsReStart)
         {
@@ -48,13 +48,18 @@ public class GimmickExplain : MonoBehaviour
 
     private void CickObj()
     {
-        if (!Input.GetMouseButtonDown(0) || panel.isTwin) return;
+        if (Input.GetMouseButtonDown(0))
+        {
+            if (panel.isTwin) return;
 
-        panel?.CloseTutorial(() => video.Stop());
-        if (!isClick)
-            ExplainPanel();
-        else
-            isClick = false;
+            if (panel.isWait)
+                panel?.CloseTutorial(() => video.Stop());
+
+            if (!isClick)
+                ExplainPanel();
+            else
+                isClick = false;
+        }
     }
 
     private void ExplainPanel()
