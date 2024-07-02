@@ -203,8 +203,14 @@ public class StageManager : MonoSingleton<StageManager>
 		gameCanvas.SetActive(false);
 		Invoke(nameof(ClearParticle), 1);
 
-		StartCoroutine(StageLoad());
+		StartCoroutine(StageClearBackToMenu(2f));
 	}
+
+	private IEnumerator StageClearBackToMenu(float time)
+    {
+		yield return new WaitForSeconds(time);
+		BackToMenu();
+    }
 
 	private void ClearParticle()
 	{
