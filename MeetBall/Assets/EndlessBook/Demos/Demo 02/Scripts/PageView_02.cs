@@ -25,18 +25,25 @@
 
         public ChapterJump[] chapterJumps;
 
-        protected override bool HandleHit(RaycastHit hit, BookActionDelegate action)
+        protected override bool HandleHit(RaycastHit hit, BookActionDelegate action) // hit는 
         {
             // no action, just return
             if (action == null) return false;
 
             // check each collider and jump to a page if that collider was hit.
 
+            if (hit.collider.name == "Chapter 07")
+            {
+                print("누르기러기");
+                return true;
+            }
+
             foreach (var chapterJump in chapterJumps)
             {
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
-                    action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber);
+                    print(hit.collider.gameObject.name);
+                    action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
                     return true;
                 }
             }
