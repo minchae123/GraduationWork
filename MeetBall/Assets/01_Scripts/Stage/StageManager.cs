@@ -50,7 +50,7 @@ public class StageManager : MonoSingleton<StageManager>
     [SerializeField] private GameObject gameCanvas;
     private Tutorial tutorialPanel;
 
-    private void Awake()
+    public void Init()
     {
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
@@ -65,10 +65,10 @@ public class StageManager : MonoSingleton<StageManager>
 
     private void Start()
     {
-        SetSelectStageUI();
-        gameCanvas.SetActive(false);
+        //SetSelectStageUI();
+        //gameCanvas.SetActive(false);
 
-        tutorialPanel.gameObject.SetActive(false);
+        //tutorialPanel.gameObject.SetActive(false);
         //StartCoroutine(StageLoad());
     }
 
@@ -170,7 +170,7 @@ public class StageManager : MonoSingleton<StageManager>
 			PlayerManager.Instance.SetNewPlayers(currentStageSO);
 			CameraMovement.Instance.FindItems();
 
-			StartCoroutine(gimmick.StartTutorial());
+			//StartCoroutine(gimmick.StartTutorial());
 			StartCoroutine(WaitForGenerate());
 
 			if (selectStageNum == 0)
