@@ -54,23 +54,23 @@ public class StageManager : MonoSingleton<StageManager>
 
 	private void Awake()
 	{
-		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
-		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-		stageSelectUITrm = stageSelectTrm.Find("StageSelect");
-		gimmick = FindFirstObjectByType<GimmickExplain>();
-
-		clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
-		tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
+		//clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+		//ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
+		//stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+		//gimmick = FindFirstObjectByType<GimmickExplain>();
+		//
+		//clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
+		//tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
 		isInStage = false;
 	}
 
 	private void Start()
 	{
-		SetSelectStageUI();
-		gameCanvas.SetActive(false);
-
-		tutorialPanel.gameObject.SetActive(false);
+		//SetSelectStageUI();
+		//gameCanvas.SetActive(false);
+		//
+		//tutorialPanel.gameObject.SetActive(false);
 		//StartCoroutine(StageLoad());
 	}
 
@@ -141,7 +141,15 @@ public class StageManager : MonoSingleton<StageManager>
 		isInStage = true;
 	}
 
-	public void LoadStage()
+	public void SetStageNumber(int num)
+	{
+		selectStageNum = num;
+		
+		LoadStage();
+	}
+
+
+    public void LoadStage()
 	{
 		StartCoroutine(FindBox());
 

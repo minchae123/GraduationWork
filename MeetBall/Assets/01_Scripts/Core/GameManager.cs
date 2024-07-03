@@ -52,6 +52,7 @@ public class GameManager : MonoSingleton<GameManager>
 	public string stage { get; set; }
 	public PlayerColorClass playerColors;
 
+	public GameObject game, book;
 	private void Awake()
 	{
 		playerColors = new PlayerColorClass();
