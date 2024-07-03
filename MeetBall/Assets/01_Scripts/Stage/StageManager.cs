@@ -169,7 +169,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 			if (selectStageNum == 0)
 			{
-				StartCoroutine(tutorialPanel.TutorialPannel());
+				//StartCoroutine(tutorialPanel.TutorialPannel());
 			}
 		}
 		else
