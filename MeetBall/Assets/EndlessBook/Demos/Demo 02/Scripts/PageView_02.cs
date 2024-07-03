@@ -44,7 +44,8 @@
                 {
                     print(hit.collider.gameObject.name);
                     GameManager.Instance.game.SetActive(true);
-                    StageManager.Instance.SetStageNumber(1);
+                    StageManager.Instance.Init();
+                    StageManager.Instance.SetStageNumber(chapterJump.pageNumber);
                     GameManager.Instance.book.SetActive(false); ;
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
                     return true;
