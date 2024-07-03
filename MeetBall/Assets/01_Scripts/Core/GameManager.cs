@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class GameManager : MonoSingleton<GameManager>
 {
+	public GameData gameData;
+
 	public class PlayerColorClass
 	{
 		public Color RED;
@@ -57,6 +59,11 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		playerColors = new PlayerColorClass();
 		playerColors.SetColors();
+	}
+
+	private void Start()
+	{
+		SaveManager.Instance.Load();
 	}
 
 	public List<Item> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
