@@ -1,80 +1,78 @@
+using DG.Tweening;
 using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
-using TMPro;
-using DG.Tweening;
 
 public class StageManager : MonoSingleton<StageManager>
 {
-	private bool isInStage = false;
-	private bool isReStart = false;
+    private bool isInStage = false;
+    private bool isReStart = false;
 
-	public bool IsInStage => isInStage;
-	public bool IsReStart => isReStart;
+    public bool IsInStage => isInStage;
+    public bool IsReStart => isReStart;
 
-	[Header("===============")]
-	[Header("Stage")]
-	public Transform StageTrm;
-	[SerializeField] private StageListSO stageList;
+    [Header("===============")]
+    [Header("Stage")]
+    public Transform StageTrm;
+    [SerializeField] private StageListSO stageList;
 
-	private StageSO currentStageSO;
-	public StageSO CurrentStageSO => currentStageSO;
+    private StageSO currentStageSO;
+    public StageSO CurrentStageSO => currentStageSO;
 
-	private GameObject curStageGameObject;
+    private GameObject curStageGameObject;
 
-	[Header("===============")]
-	[Header("Clear")]
-	private Animator ClearAnim;
-	private TextMeshProUGUI clearText;
-	private ParticleSystem clearParticle;
-	private GimmickExplain gimmick;
-
-
-	[Header("===============")]
-	[Header("UI")]
-	[SerializeField] private Transform stageSelectTrm;
-	[SerializeField] private StageUI stageUIPrefab;
-	private Transform stageSelectUITrm;
-
-	private int selectStageNum = 0;
-	private StageUI[] stagesUI;
-	private float moveX = -500f;
-
-	[Header("Minimap")]
-	[SerializeField] private Transform minimapTrm;
-	private GameObject currentMinimap = null;
+    [Header("===============")]
+    [Header("Clear")]
+    private Animator ClearAnim;
+    private TextMeshProUGUI clearText;
+    private ParticleSystem clearParticle;
+    private GimmickExplain gimmick;
 
 
-	[Header("===============")]
-	[Header("ETC")]
-	[SerializeField] private GameObject gameCanvas;
-	private Tutorial tutorialPanel;
+    [Header("===============")]
+    [Header("UI")]
+    [SerializeField] private Transform stageSelectTrm;
+    [SerializeField] private StageUI stageUIPrefab;
+    private Transform stageSelectUITrm;
 
-	private void Awake()
-	{
-		//clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
-		//ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-		//stageSelectUITrm = stageSelectTrm.Find("StageSelect");
-		//gimmick = FindFirstObjectByType<GimmickExplain>();
-		//
-		//clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
-		//tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
+    private int selectStageNum = 0;
+    private StageUI[] stagesUI;
+    private float moveX = -500f;
 
-		isInStage = false;
-	}
+    [Header("Minimap")]
+    [SerializeField] private Transform minimapTrm;
+    private GameObject currentMinimap = null;
 
-	private void Start()
-	{
-		//SetSelectStageUI();
-		//gameCanvas.SetActive(false);
-		//
-		//tutorialPanel.gameObject.SetActive(false);
-		//StartCoroutine(StageLoad());
-	}
 
-	public void EnterStage()
+    [Header("===============")]
+    [Header("ETC")]
+    [SerializeField] private GameObject gameCanvas;
+    private Tutorial tutorialPanel;
+
+    private void Awake()
+    {
+        clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+        ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
+        stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+        gimmick = FindFirstObjectByType<GimmickExplain>();
+
+        clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
+        tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
+
+        isInStage = false;
+    }
+
+    private void Start()
+    {
+        SetSelectStageUI();
+        gameCanvas.SetActive(false);
+
+        tutorialPanel.gameObject.SetActive(false);
+        //StartCoroutine(StageLoad());
+    }
+
+    public void EnterStage()
 	{
 		if (IsInStage) return;
 		if (!stagesUI[selectStageNum].CheckCanPlay())
@@ -177,7 +175,7 @@ public class StageManager : MonoSingleton<StageManager>
 
 			if (selectStageNum == 0)
 			{
-				//StartCoroutine(tutorialPanel.TutorialPannel());
+					StartCoroutine(tutorialPanel.TutorialPannel());
 			}
 		}
 		else
