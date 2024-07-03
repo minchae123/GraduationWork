@@ -60,6 +60,11 @@ public class GameManager : MonoSingleton<GameManager>
 		playerColors.SetColors();
 	}
 
+	private void Start()
+	{
+		SaveManager.Instance.Load();
+	}
+
 	public List<Item> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
 	{
 		List<Item> items = new List<Item>();
