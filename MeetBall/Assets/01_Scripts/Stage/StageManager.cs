@@ -50,7 +50,7 @@ public class StageManager : MonoSingleton<StageManager>
     [SerializeField] private GameObject gameCanvas;
     private Tutorial tutorialPanel;
 
-    public void Init()
+    public void Awake()
     {
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
@@ -58,9 +58,11 @@ public class StageManager : MonoSingleton<StageManager>
         gimmick = FindFirstObjectByType<GimmickExplain>();
 
         clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
-        tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
+        //tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
         isInStage = false;
+
+
     }
 
     private void Start()
@@ -69,7 +71,7 @@ public class StageManager : MonoSingleton<StageManager>
         //gameCanvas.SetActive(false);
 
         //tutorialPanel.gameObject.SetActive(false);
-        //StartCoroutine(StageLoad());
+         //StartCoroutine(StageLoad());
     }
 
     public void EnterStage()
@@ -171,12 +173,12 @@ public class StageManager : MonoSingleton<StageManager>
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
 
-            //StartCoroutine(gimmick.StartTutorial());
+            StartCoroutine(gimmick.StartTutorial());
             StartCoroutine(WaitForGenerate());
 
             if (selectStageNum == 0)
             {
-                StartCoroutine(tutorialPanel.TutorialPannel());
+                //StartCoroutine(tutorialPanel.TutorialPannel());
             }
         }
         else
@@ -209,10 +211,14 @@ public class StageManager : MonoSingleton<StageManager>
 
         gameCanvas.SetActive(false);
         Invoke(nameof(ClearParticle), 1);
-
-        StartCoroutine(StageClearBackToMenu(2f));
+        StartCoroutine(StageLoad());
+        Invoke(nameof(openbook), 3f);
     }
 
+    private void openbook()
+    {
+        GameManager.Instance.OpenBook();
+    }
     private IEnumerator StageClearBackToMenu(float time)
     {
         yield return new WaitForSeconds(time);
@@ -228,9 +234,10 @@ public class StageManager : MonoSingleton<StageManager>
     {
         yield return new WaitForSeconds(1f);
         DestroyImmediate(curStageGameObject);
-        yield return new WaitForSeconds(1f);
+        print("Destroy");
+        yield return null;
 
-        LoadStage();
+        //LoadStage();
     }
 
     IEnumerator FindBox()
@@ -298,7 +305,7 @@ public class StageManager : MonoSingleton<StageManager>
             Cursor.lockState = CursorLockMode.None;
 
             StopAllCoroutines();
-            tutorialPanel.ResetPanel();
+            //tutorialPanel.ResetPanel();
         }
 
         for (int i = 0; i < stagesUI.Length; ++i)
