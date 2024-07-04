@@ -43,10 +43,10 @@
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
                     print(hit.collider.gameObject.name);
-                    GameManager.Instance.game.SetActive(true);
+                    GameManager.Instance.Game.SetActive(true);
                     StageManager.Instance.Init();
                     StageManager.Instance.SetStageNumber(chapterJump.pageNumber);
-                    GameManager.Instance.book.SetActive(false); ;
+                    GameManager.Instance.Book.SetActive(false);
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
                     return true;
                 }

@@ -26,9 +26,9 @@ public class StageSelector : PageView
             {
                 print(stageInfo.gameObjectName);
                 print(stageInfo.stageNumber);
-                GameManager.Instance.game.SetActive(true);
+                GameManager.Instance.Game.SetActive(true);
                 StageManager.Instance.SetStageNumber(stageInfo.stageNumber);
-                GameManager.Instance.book.SetActive(false);
+                GameManager.Instance.Book.SetActive(false);
                 return true;
             }
 
