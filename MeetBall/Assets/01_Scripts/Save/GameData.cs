@@ -9,5 +9,5 @@ public class Stage
 
 public class GameData 
 {
-	public List<Stage> BidStage = new List<Stage>();
+	public List<Stage> BidStage = new List<Stage>();   
 }
