@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17985071, g: 0.22518851, b: 0.30664027, a: 1}
+  m_IndirectSpecularColor: {r: 0.17985119, g: 0.22518931, b: 0.30664146, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -14899,6 +14899,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1785422612}
   - component: {fileID: 1785422613}
+  - component: {fileID: 1785422614}
   m_Layer: 0
   m_Name: Book
   m_TagString: Untagged
@@ -14951,7 +14952,7 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 12a6cbdd77c2f9142aca65e397c68bca, type: 2}
   - {fileID: 2100000, guid: 203443d95a43b144b9ad9bc9eae6079a, type: 2}
   - {fileID: 2100000, guid: cd678c2baf31bac4496edecf2be0b628, type: 2}
-  - {fileID: 2100000, guid: 4a6b336d4442b6b4ea86696418657ed4, type: 2}
+  - {fileID: 2100000, guid: 04ea780ed53afb646bb53cbe72eba201, type: 2}
   - {fileID: 2100000, guid: f5039b4ba344df24c91873d60a377d4f, type: 2}
   materialMappings:
   - materialType: 0
@@ -15028,7 +15029,7 @@ MonoBehaviour:
   - materialType: 7
     mappings: []
   pageData:
-  - material: {fileID: 2100000, guid: 4a6b336d4442b6b4ea86696418657ed4, type: 2}
+  - material: {fileID: 2100000, guid: 04ea780ed53afb646bb53cbe72eba201, type: 2}
   - material: {fileID: 2100000, guid: f5039b4ba344df24c91873d60a377d4f, type: 2}
   - material: {fileID: 2100000, guid: fc2241260ac80c541ba5097e1d26291b, type: 2}
   - material: {fileID: 2100000, guid: 61a77c46318d0f543904413c366b516d, type: 2}
@@ -15058,6 +15059,26 @@ MonoBehaviour:
   maxPagesTurningCount: 4
   deltaTime: 0
   pageFillerMaterial: {fileID: 2100000, guid: 994cb9cc3369e7046a93b91ab44ddfbb, type: 2}
+--- !u!114 &1785422614
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1785422611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 978cb1fdbfc88904bb9f3870103b5d29, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  books:
+  - name: SnowWhite
+    Type: 0
+    Mat:
+    - {fileID: 2100000, guid: 04ea780ed53afb646bb53cbe72eba201, type: 2}
+    - {fileID: 2100000, guid: 6b8f09fa80564ea48806cd868f2bcd6e, type: 2}
+    - {fileID: 2100000, guid: 953b684d8eaa4c6429a4d85f405dfd34, type: 2}
+    - {fileID: 2100000, guid: c58fd494120fbe64caf5964df6df3c04, type: 2}
 --- !u!1 &1793191669
 GameObject:
   m_ObjectHideFlags: 0
@@ -15740,7 +15761,7 @@ MeshRenderer:
   m_Materials:
   - {fileID: 2100000, guid: 12a6cbdd77c2f9142aca65e397c68bca, type: 2}
   - {fileID: 2100000, guid: f5039b4ba344df24c91873d60a377d4f, type: 2}
-  - {fileID: 2100000, guid: 4a6b336d4442b6b4ea86696418657ed4, type: 2}
+  - {fileID: 2100000, guid: 04ea780ed53afb646bb53cbe72eba201, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -17843,7 +17864,7 @@ SkinnedMeshRenderer:
   - {fileID: 2100000, guid: 12a6cbdd77c2f9142aca65e397c68bca, type: 2}
   - {fileID: 2100000, guid: 203443d95a43b144b9ad9bc9eae6079a, type: 2}
   - {fileID: 2100000, guid: f5039b4ba344df24c91873d60a377d4f, type: 2}
-  - {fileID: 2100000, guid: 4a6b336d4442b6b4ea86696418657ed4, type: 2}
+  - {fileID: 2100000, guid: 04ea780ed53afb646bb53cbe72eba201, type: 2}
   - {fileID: 2100000, guid: cd678c2baf31bac4496edecf2be0b628, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
