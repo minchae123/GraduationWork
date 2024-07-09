@@ -16,7 +16,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 		data = new GameData();
 		savePath = Application.dataPath + "/SaveData/";
 
-		if(!Directory.Exists(savePath))
+		if (!Directory.Exists(savePath))
 		{
 			Directory.CreateDirectory(savePath);
 		}
@@ -33,20 +33,20 @@ public class SaveManager : MonoSingleton<SaveManager>
 	}
 
 	[ContextMenu("로드")]
-	public void Load()
+	public GameData Load()
 	{
 		if (File.Exists(savePath + fileName))
 		{
 			string loadJson = File.ReadAllText(savePath + fileName);
 			data = JsonUtility.FromJson<GameData>(loadJson);
 
-			GameManager.Instance.gameData = data;
-			
 			Debug.Log("로드 성공 !");
+			return data;
 		}
 		else
 		{
 			Debug.Log("저장 실패 !!!");
+			return null;
 		}
 	}
 

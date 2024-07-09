@@ -10,9 +10,6 @@ public class PlayerMain : MonoBehaviour
 
     public IPlayerControl player;
 
-    private int x = 0;
-    private int y = 0;
-
     private void Update()
     {
         MoveKey();

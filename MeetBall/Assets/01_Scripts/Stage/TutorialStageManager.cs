@@ -30,8 +30,6 @@ public class TutorialStageManager : MonoSingleton<TutorialStageManager>
 
     private int selectStageNum = 0;
     private StageUI[] stageUISs;
-    private float moveX = -300f;
-
 
     [Header("===============")]
     [Header("ETC")]

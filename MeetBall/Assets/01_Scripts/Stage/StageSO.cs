@@ -6,6 +6,7 @@ using UnityEngine.Rendering;
 [CreateAssetMenu(menuName ="SO/StageInfo")]
 public class StageSO : ScriptableObject
 {
+    public string bigStageName;
     public GameObject stagePref;
 
     private Movement[] players;

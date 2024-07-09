@@ -26,11 +26,18 @@ public class BookList : MonoBehaviour
     }
 
     //Test
-    //private void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.A))
-    //        ChangeProgress(0, 0);
-    //}
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A))
+            ChangeProgress(0, 0);
+		if (Input.GetKeyDown(KeyCode.S))
+			ChangeProgress(0, 1);
+		if (Input.GetKeyDown(KeyCode.D))
+			ChangeProgress(0, 2);
+		if (Input.GetKeyDown(KeyCode.F))
+			ChangeProgress(0, 3);
+
+	}
 
     public void ChangeProgress(int bookNum, int index)
     {

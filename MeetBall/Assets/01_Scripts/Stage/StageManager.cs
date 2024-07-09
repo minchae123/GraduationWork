@@ -104,14 +104,14 @@ public class StageManager : MonoSingleton<StageManager>
     {
         if (!isInStage) // 스테이지 밖일 때
         {
-            if (Input.GetKeyDown(KeyCode.A))
-            {
-                UpdateSelectStageUI(-1);
-            }
-            if (Input.GetKeyDown(KeyCode.D))
-            {
-                UpdateSelectStageUI(1);
-            }
+            //if (Input.GetKeyDown(KeyCode.A))
+            //{
+            //    UpdateSelectStageUI(-1);
+            //}
+            //if (Input.GetKeyDown(KeyCode.D))
+            //{
+            //    UpdateSelectStageUI(1);
+            //}
         }
         else // 스테이지 안일때
         {
@@ -144,8 +144,6 @@ public class StageManager : MonoSingleton<StageManager>
     public void SetStageNumber(int num)
     {
         selectStageNum = num;
-        print(num);
-        print(selectStageNum);
         LoadStage();
     }
 
@@ -193,6 +191,8 @@ public class StageManager : MonoSingleton<StageManager>
         if (isClear)
         {
             currentStageSO.IsClear = true;
+
+            //GameManager.Instance.gameData.bigStage[currentStageSO.bigStageName].insdieStages[selectStageNum] = true;
             isReStart = false;
             selectStageNum++;
 
@@ -234,7 +234,7 @@ public class StageManager : MonoSingleton<StageManager>
     {
         yield return new WaitForSeconds(1f);
         DestroyImmediate(curStageGameObject);
-        print("Destroy");
+        //print("Destroy");
         yield return null;
 
         //LoadStage();
