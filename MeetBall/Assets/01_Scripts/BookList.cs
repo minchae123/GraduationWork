@@ -39,6 +39,10 @@ public class BookList : MonoBehaviour
 
 	}
 
+    //EndlessBook에서 바꾸는거 해야함
+
+
+    //책 몇페이지 몇번째를 색 바꿀지
     public void ChangeProgress(int bookNum, int index)
     {
         StartCoroutine(ChangeParameter(bookNum, index));
