@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
 public class StageManager : MonoSingleton<StageManager>
@@ -192,7 +193,16 @@ public class StageManager : MonoSingleton<StageManager>
         {
             currentStageSO.IsClear = true;
 
-            //GameManager.Instance.gameData.bigStage[currentStageSO.bigStageName].insdieStages[selectStageNum] = true;
+            if(GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
+            {
+                keys[selectStageNum] = true;
+                //print(keys[selectStageNum]);
+            }
+            else
+            {
+                print("½ÇÆÐ");
+            }
+
             isReStart = false;
             selectStageNum++;
 

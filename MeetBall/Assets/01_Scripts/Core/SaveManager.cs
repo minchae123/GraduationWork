@@ -2,8 +2,11 @@ using echo17.EndlessBook;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Xml;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
+using Newtonsoft.Json;
+using Formatting = Newtonsoft.Json.Formatting;
 
 public class SaveManager : MonoSingleton<SaveManager>
 {
@@ -27,8 +30,8 @@ public class SaveManager : MonoSingleton<SaveManager>
 	{
 		data = gd;
 
-		string json = JsonUtility.ToJson(data);
-		File.WriteAllText(savePath + fileName, json);
+		string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+		File.WriteAllText(Path.Combine(savePath, fileName), json);
 		Debug.Log(json);
 	}
 
