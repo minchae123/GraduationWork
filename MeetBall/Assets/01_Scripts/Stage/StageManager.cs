@@ -1,6 +1,9 @@
 using DG.Tweening;
+using echo17.EndlessBook;
 using System.Collections;
+using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
@@ -51,6 +54,8 @@ public class StageManager : MonoSingleton<StageManager>
     [SerializeField] private GameObject gameCanvas;
     private Tutorial tutorialPanel;
 
+    [SerializeField] private EndlessBook endlessBook;
+
     public void Awake()
     {
         clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
@@ -72,7 +77,17 @@ public class StageManager : MonoSingleton<StageManager>
         //gameCanvas.SetActive(false);
 
         //tutorialPanel.gameObject.SetActive(false);
-         //StartCoroutine(StageLoad());
+        //StartCoroutine(StageLoad());
+    }
+
+    public void CheckPaint()
+    {
+        GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys);
+
+        for (int i = 0; i < keys.Count; i++)
+        {
+            if (keys[i]) ; //EndlessBook Mat Change
+        }
     }
 
     public void EnterStage()
@@ -187,15 +202,24 @@ public class StageManager : MonoSingleton<StageManager>
         }
     }
 
+    private IEnumerator Painting(string stageName, int stageIndex)
+    {
+        yield return new WaitForSeconds(4);
+        endlessBook.ChangePaint(stageName, stageIndex);
+    }
+
     public void ClearStage(bool isClear)
     {
         if (isClear)
         {
             currentStageSO.IsClear = true;
 
-            if(GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
+            if (GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
             {
                 keys[selectStageNum] = true;
+
+                StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum));
+
                 //print(keys[selectStageNum]);
             }
             else
