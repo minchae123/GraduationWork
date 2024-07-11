@@ -21,6 +21,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 
 		if (!Directory.Exists(savePath))
 		{
+			print("A");
 			Directory.CreateDirectory(savePath);
 		}
 	}
@@ -30,8 +31,11 @@ public class SaveManager : MonoSingleton<SaveManager>
 	{
 		data = gd;
 
-		string json = JsonConvert.SerializeObject(data, Formatting.Indented);
-		File.WriteAllText(Path.Combine(savePath, fileName), json);
+		//string json = JsonConvert.SerializeObject(data, Formatting.Indented);
+		//File.WriteAllText(Path.Combine(savePath, fileName), json);
+
+		string json = JsonUtility.ToJson(data);
+		File.WriteAllText(savePath + fileName, json);
 		Debug.Log(json);
 	}
 
@@ -48,7 +52,7 @@ public class SaveManager : MonoSingleton<SaveManager>
 		}
 		else
 		{
-			Debug.Log("저장 실패 !!!");
+			Debug.Log("로드 실패 !!!");
 			return null;
 		}
 	}
