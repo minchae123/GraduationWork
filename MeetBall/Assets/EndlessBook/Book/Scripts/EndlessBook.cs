@@ -590,8 +590,8 @@
             if (curStageName == "Snow")
                 stageNameIndex = 0;
 
-            //(큰 스테이지, 작은스테이지) ex 1-3
-            //materials[3] = bookList.books[0].Mat[0];
+
+            SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
             bookList.ChangeProgress(stageNameIndex, curStageIndex);
         }
 
