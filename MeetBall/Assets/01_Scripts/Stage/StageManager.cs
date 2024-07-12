@@ -196,7 +196,6 @@ public class StageManager : MonoSingleton<StageManager>
             if(GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
             {
                 keys[selectStageNum] = true;
-                //print(keys[selectStageNum]);
             }
             else
             {
