@@ -590,9 +590,10 @@
             if (curStageName == "Snow")
                 stageNameIndex = 0;
 
+            pageData[stageNameIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
+			SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
 
-            SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
-            bookList.ChangeProgress(stageNameIndex, curStageIndex);
+			bookList.ChangeProgress(stageNameIndex, curStageIndex);
         }
 
         /// <summary>

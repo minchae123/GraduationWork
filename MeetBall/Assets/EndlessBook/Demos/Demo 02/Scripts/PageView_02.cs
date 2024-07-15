@@ -44,7 +44,7 @@
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
                     //print(hit.collider.gameObject.name);
-                    EventSystem.current.enabled = false;
+                    //EventSystem.current.enabled = false;
                     GameManager.Instance.StartGame(chapterJump.pageNumber);
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
                     return true;

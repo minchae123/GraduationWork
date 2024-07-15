@@ -14,16 +14,16 @@ public class BookList : MonoBehaviour
 {
     public Books[] books;
 
-    //private void Awake()
-    //{
-    //    foreach (var book in books)
-    //    {
-    //        for (int i = 0; i < book.Mat.Count; i++)
-    //        {
-    //            book.Mat[i].SetFloat("_Progress", 0);
-    //        }
-    //    }
-    //}
+    private void Awake()
+    {
+        foreach (var book in books)
+        {
+            for (int i = 0; i < book.Mat.Count; i++)
+            {
+                book.Mat[i].SetFloat("_Progress", 0);
+            }
+        }
+    }
 
     //EndlessBook에서 바꾸는거 해야함
 

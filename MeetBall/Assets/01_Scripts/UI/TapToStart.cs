@@ -38,7 +38,7 @@ public class TapToStart : MonoBehaviour, IPointerClickHandler
 
 	public void GameStart()
 	{
-		SceneManager.LoadScene(1);
+		//SceneManager.LoadScene(1);
 	}
 
 	public void TitleScene()

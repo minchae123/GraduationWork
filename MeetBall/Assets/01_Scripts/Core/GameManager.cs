@@ -137,6 +137,7 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void StartGame(int stageNum)
     {
+        print("asd");
         Game.SetActive(true);
         //StageManager.Instance.Init();
         StageManager.Instance.SetStageNumber(stageNum);

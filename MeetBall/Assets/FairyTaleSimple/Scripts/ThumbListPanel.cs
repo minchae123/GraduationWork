@@ -6,19 +6,19 @@ using System.IO;
 
 namespace RedScarf.FairyTableSimple
 {
-    public class ThumbListPanel : MonoBehaviour
-    {
-        [SerializeField] RawImage m_Image;
-        [SerializeField] ScrollRect m_ThumbScroll;
-        [SerializeField] ThumbItem m_ThumbItemSource;
-        [SerializeField] Button m_PrevButton;
-        [SerializeField] Button m_NextButton;
-        [SerializeField] Text pathText;
+	public class ThumbListPanel : MonoBehaviour
+	{
+		[SerializeField] RawImage m_Image;
+		[SerializeField] ScrollRect m_ThumbScroll;
+		[SerializeField] ThumbItem m_ThumbItemSource;
+		[SerializeField] Button m_PrevButton;
+		[SerializeField] Button m_NextButton;
+		[SerializeField] Text pathText;
 
-        List<Texture> currentTexList;
-        int currentIndex;
+		List<Texture> currentTexList;
+		int currentIndex;
 
-        private void Start()
+		/*private void Start()
         {
             m_NextButton.onClick.AddListener(()=> {
                 currentIndex++;
@@ -30,9 +30,9 @@ namespace RedScarf.FairyTableSimple
             });
 
             CreateThumbs();
-        }
+        }*/
 
-        void CreateThumbs()
+		/*void CreateThumbs()
         {
 #if UNITY_EDITOR
             for (var i=m_ThumbScroll.content.childCount-1;i>=0;i--)
@@ -101,5 +101,6 @@ namespace RedScarf.FairyTableSimple
 
             pathText.text = UnityEditor.AssetDatabase.GetAssetPath(tex);
         }
-    }
+    }*/
+	}
 }
