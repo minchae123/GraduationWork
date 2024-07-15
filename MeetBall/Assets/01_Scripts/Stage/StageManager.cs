@@ -144,10 +144,10 @@ public class StageManager : MonoSingleton<StageManager>
                 ReStartBtn();
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                BackToMenu();
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    BackToMenu();
+            //}
         }
     }
 
