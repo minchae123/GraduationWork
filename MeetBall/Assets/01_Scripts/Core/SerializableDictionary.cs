@@ -14,7 +14,7 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 		this.Clear();
 		if (keys.Count != values.Count)
 		{
-			Debug.LogError("key count does no match to value count");
+			Debug.Log("key count does no match to value count");
 		}
 		else
 		{

@@ -14,33 +14,18 @@ public class BookList : MonoBehaviour
 {
     public Books[] books;
 
-    private void Awake()
-    {
-        foreach (var book in books)
-        {
-            for (int i = 0; i < book.Mat.Count; i++)
-            {
-                book.Mat[i].SetFloat("_Progress", 0);
-            }
-        }
-    }
-
-    //Test
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.A))
-            ChangeProgress(0, 0);
-		if (Input.GetKeyDown(KeyCode.S))
-			ChangeProgress(0, 1);
-		if (Input.GetKeyDown(KeyCode.D))
-			ChangeProgress(0, 2);
-		if (Input.GetKeyDown(KeyCode.F))
-			ChangeProgress(0, 3);
-
-	}
+    //private void Awake()
+    //{
+    //    foreach (var book in books)
+    //    {
+    //        for (int i = 0; i < book.Mat.Count; i++)
+    //        {
+    //            book.Mat[i].SetFloat("_Progress", 0);
+    //        }
+    //    }
+    //}
 
     //EndlessBook에서 바꾸는거 해야함
-
 
     //책 몇페이지 몇번째를 색 바꿀지
     public void ChangeProgress(int bookNum, int index)

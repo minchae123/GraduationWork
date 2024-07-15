@@ -513,8 +513,11 @@
 
         #region Protected and Hidden Public
 
+        BookList bookList;
+
         void Awake()
         {
+            bookList = GetComponent<BookList>();
             Initialize();
         }
 
@@ -577,6 +580,19 @@
 
             // fire the completion handler
             if (onCompletedAction != null) { onCompletedAction(oldState, currentState, currentPageNumber); }
+        }
+
+        int stageNameIndex;
+        //게임 클리어시 실행
+        public void ChangePaint(string curStageName, int curStageIndex)
+        {
+            //확장을 어떻게 할까요~
+            if (curStageName == "Snow")
+                stageNameIndex = 0;
+
+
+            SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
+            bookList.ChangeProgress(stageNameIndex, curStageIndex);
         }
 
         /// <summary>
