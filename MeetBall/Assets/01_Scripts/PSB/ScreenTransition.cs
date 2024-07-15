@@ -27,11 +27,13 @@ public class ScreenTransition : MonoBehaviour
 
     private IEnumerator StartTransition()
     {
+        WaitForSeconds waitflag = new WaitForSeconds(.025f);
+
         _image.material.SetFloat("_On", 0);
         for (float i = 0; i <= 3; i += .1f)
         {
             _image.material.SetFloat("_Scroll", i);
-            yield return new WaitForSeconds(.025f);
+            yield return waitflag;
         }
 
         yield return new WaitForSeconds(1);
@@ -40,7 +42,7 @@ public class ScreenTransition : MonoBehaviour
         for (float i = 3; i >= 0; i -= .1f)
         {
             _image.material.SetFloat("_Scroll", i);
-            yield return new WaitForSeconds(.025f);
+            yield return waitflag;
         }
     }
 }

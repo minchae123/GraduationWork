@@ -5,6 +5,7 @@
     using System.Collections.Generic;
     using UnityEngine;
     using echo17.EndlessBook;
+    using UnityEngine.EventSystems;
 
     /// <summary>
     /// Table of contents page.
@@ -43,6 +44,7 @@
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
                     //print(hit.collider.gameObject.name);
+                    EventSystem.current.enabled = false;
                     GameManager.Instance.StartGame(chapterJump.pageNumber);
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
                     return true;

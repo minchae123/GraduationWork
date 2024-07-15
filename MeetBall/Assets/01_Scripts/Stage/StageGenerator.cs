@@ -42,13 +42,14 @@ public class StageGenerator : MonoBehaviour
         SetIsInStage(false);
 
         yield return new WaitForSeconds(.2f);
+        WaitForSeconds waitflag = new WaitForSeconds(.4f / Blocks.Count);
 
         for (int i = 0; i < Blocks.Count; i++)
         {
             if (isSelected)
             {
                 Blocks[i].transform.DOMove(SaveBlocks[i], .2f);
-                yield return new WaitForSeconds(.4f / Blocks.Count);
+                yield return waitflag;
             }
             else
                 Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);

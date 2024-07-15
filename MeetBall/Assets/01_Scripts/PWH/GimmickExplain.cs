@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Video;
 using System.Collections;
+using UnityEngine.SocialPlatforms;
 
 public class GimmickExplain : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class GimmickExplain : MonoBehaviour
     private VideoPlayer video;
 
     private bool isClick = false;
+    private bool isClose = false;
 
     private int stageNum = 0;
 
@@ -33,6 +35,18 @@ public class GimmickExplain : MonoBehaviour
         CickObj();
     }
 
+    private IEnumerator ClosePanel()
+    {
+        yield return new WaitForSeconds(1.5f);
+
+        isClose = true;
+        panel.CloseTutorial(()=> video.Stop());
+
+        yield return new WaitForSeconds(1f);
+
+        isClose = false;
+    }
+
     public IEnumerator StartTutorial()
     {
         yield return new WaitForSeconds(0.5f);
@@ -43,16 +57,18 @@ public class GimmickExplain : MonoBehaviour
             video.clip = gimmick.video[stageManager.CurrentStageSO.gimmickNum];
 
             panel.ShowTutorial(() => video.Play());
+
+            StartCoroutine(ClosePanel());
         }
     }
-
+    
     private void CickObj()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (panel.isTwin) return;
 
-            if (panel.isWait)
+            if (panel.isWait && !isClose)
                 panel?.CloseTutorial(() => video.Stop());
 
             if (!isClick)
@@ -89,5 +105,7 @@ public class GimmickExplain : MonoBehaviour
                 }
             }
         }
+
+        StartCoroutine(ClosePanel());
     }
 }

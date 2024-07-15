@@ -23,12 +23,14 @@ public class StageSelectUI : MonoBehaviour, IPointerClickHandler
 
     private IEnumerator ClickAnimation(bool isClick)
     {
+        WaitForSeconds waitflag = new WaitForSeconds(0.3f);
+
         if (isClick)
         {
             foreach(SelectUI s in selectUI)
             {
                 s.MoveToSelect();
-                yield return new WaitForSeconds(0.3f);
+                yield return waitflag;
             }
         }
         else
@@ -36,7 +38,7 @@ public class StageSelectUI : MonoBehaviour, IPointerClickHandler
             foreach (SelectUI s in selectUI)
             {
                 s.MoveToOrigin();
-                yield return new WaitForSeconds(0.3f);
+                yield return waitflag;
             }
         }
     }
