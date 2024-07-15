@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.SceneManagement;
 
@@ -53,6 +54,7 @@ public class StageManager : MonoSingleton<StageManager>
     [Header("ETC")]
     [SerializeField] private GameObject gameCanvas;
     private Tutorial tutorialPanel;
+    private EventSystem eventSystem;
 
     [SerializeField] private EndlessBook endlessBook;
 
@@ -62,13 +64,12 @@ public class StageManager : MonoSingleton<StageManager>
         ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
         stageSelectUITrm = stageSelectTrm.Find("StageSelect");
         gimmick = FindFirstObjectByType<GimmickExplain>();
+        eventSystem = EventSystem.current;
 
         clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
         //tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
         isInStage = false;
-
-
     }
 
     private void Start()
@@ -154,7 +155,15 @@ public class StageManager : MonoSingleton<StageManager>
     private IEnumerator WaitForGenerate()
     {
         yield return new WaitForSeconds(.5f);
+
         isInStage = true;
+    }
+
+    private IEnumerator WaitTouch()
+    {
+        yield return new WaitForSeconds(1f);
+
+        eventSystem.enabled = true;
     }
 
     public void SetStageNumber(int num)
@@ -186,9 +195,11 @@ public class StageManager : MonoSingleton<StageManager>
 
             PlayerManager.Instance.SetNewPlayers(currentStageSO);
             CameraMovement.Instance.FindItems();
+            eventSystem.enabled = false;
 
             StartCoroutine(gimmick.StartTutorial());
             StartCoroutine(WaitForGenerate());
+            StartCoroutine(WaitTouch());
 
             if (selectStageNum == 0)
             {
@@ -218,6 +229,7 @@ public class StageManager : MonoSingleton<StageManager>
             {
                 keys[selectStageNum] = true;
 
+                if(selectStageNum < 5)
                 StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum));
 
                 //print(keys[selectStageNum]);
