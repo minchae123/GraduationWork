@@ -145,10 +145,10 @@ public class StageManager : MonoSingleton<StageManager>
                 ReStartBtn();
             }
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                BackToMenu();
-            }
+            //if (Input.GetKeyDown(KeyCode.Escape))
+            //{
+            //    BackToMenu();
+            //}
         }
     }
 
@@ -229,6 +229,7 @@ public class StageManager : MonoSingleton<StageManager>
             {
                 keys[selectStageNum] = true;
 
+                if(selectStageNum < 5)
                 StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum));
 
                 //print(keys[selectStageNum]);
