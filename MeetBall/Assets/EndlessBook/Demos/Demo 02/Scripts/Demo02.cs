@@ -603,7 +603,7 @@
         /// </summary>
         /// <param name="pageNumber">The page number</param>
         /// <returns></returns>
-        protected virtual PageView GetPageView(int pageNumber)
+        protected virtual PageView GetPageView(int pageNumber) // 페이지 번호에 따라 페이지 뷰를 킬지 말지 정하는 곳 이름을 이러쿵 저러쿵 잘 해준다
         {
             // search for a page view.
             // 0 = front page,
