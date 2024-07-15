@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 using Unity.VisualScripting;
+using static UnityEngine.Rendering.DebugUI;
 
 public class StageGenerator : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class StageGenerator : MonoBehaviour
 
     public bool isSelected;
 
+    private Transform panel;
+
     private void Awake()
     {
+        panel =  GameObject.Find("MainCanvas").transform.Find("LoadingPanel");
+     
         foreach (var block in Blocks)
         {
             SaveBlocks.Add(block.transform.position);
@@ -35,12 +40,17 @@ public class StageGenerator : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1))
             StageLoad();
+
+        if (loading) panel.gameObject.SetActive(true);
+        else panel.gameObject.SetActive(false);
     }
+
+    bool loading;
 
     IEnumerator StageLoad()
     {
         SetIsInStage(false);
-
+        loading = true;
         yield return new WaitForSeconds(.2f);
 
         for (int i = 0; i < Blocks.Count; i++)
@@ -53,7 +63,9 @@ public class StageGenerator : MonoBehaviour
             else
                 Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
         }
-        if(isSelected) SetIsInStage(true);
+        yield return new WaitForSeconds(1f);
+        loading = false;
+        if (isSelected) SetIsInStage(true);
     }
 
     private void SetIsInStage(bool value)
