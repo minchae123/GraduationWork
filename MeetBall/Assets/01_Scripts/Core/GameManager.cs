@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static echo17.EndlessBook.Demo02.PageView_02;
 
 public class GameManager : MonoSingleton<GameManager>
 {
