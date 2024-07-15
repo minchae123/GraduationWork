@@ -218,6 +218,7 @@ public class StageManager : MonoSingleton<StageManager>
             {
                 keys[selectStageNum] = true;
 
+                if(selectStageNum < 5)
                 StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum));
 
                 //print(keys[selectStageNum]);
