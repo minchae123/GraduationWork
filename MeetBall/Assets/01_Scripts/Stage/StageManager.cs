@@ -253,6 +253,7 @@ public class StageManager : MonoSingleton<StageManager>
 		print("Clear");
 		isInStage = false;
 
+
 		ClearAnim.SetTrigger("Clear");
 		BoxManager.Instance.CleanBox();
 
