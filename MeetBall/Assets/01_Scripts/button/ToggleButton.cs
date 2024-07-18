@@ -5,7 +5,9 @@ using DG.Tweening;
 
 public class ToggleButton : MonoBehaviour, Item
 {
+    [Header("나중에 리스트로 변경")]
     [SerializeField] private Door connectDoor; //이어진 문 넣어주기
+    [SerializeField] private List<Door> connectDoorList; //이어진 문 넣어주기
 
     private bool isClick = false;
 
@@ -35,6 +37,8 @@ public class ToggleButton : MonoBehaviour, Item
     public void DoorClose()
     {
         connectDoor.Close();
+        connectDoorList.ForEach(x => x.Close());
+
         isClick = false;
 
         transform.DOScaleY(0.25f, 0.5f);
@@ -43,6 +47,8 @@ public class ToggleButton : MonoBehaviour, Item
     public void DoorOpen()
     {
         connectDoor.Open();
+        connectDoorList.ForEach(x => x.Open());
+
         isClick = true;
 
         transform.DOScaleY(0.1f, 0.5f);

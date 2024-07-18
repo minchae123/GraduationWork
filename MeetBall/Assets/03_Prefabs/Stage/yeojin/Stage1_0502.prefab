@@ -161,6 +161,7 @@ MonoBehaviour:
   - {fileID: 155358536692511046}
   - {fileID: 2558794652579999118}
   SaveBlocks: []
+  isSelected: 0
 --- !u!1 &6951688877442596315
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +193,7 @@ Transform:
   - {fileID: 4115164414885270586}
   - {fileID: 4115164414270562327}
   - {fileID: 4115164414822371832}
+  - {fileID: 9081199548954339260}
   - {fileID: 4115164414282024339}
   m_Father: {fileID: 6951688876848641141}
   m_RootOrder: 2
@@ -302,6 +304,87 @@ Transform:
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1739757178892753938, guid: 68d011f78a68ad048a73dad024ac87c4, type: 3}
   m_PrefabInstance: {fileID: 687444370780838710}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2838317698887536086
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 6951688877442596312}
+    m_Modifications:
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739563, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_Name
+      value: Door (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6441656034006739563, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+--- !u!114 &9081199548954339232 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6441656034006739574, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+  m_PrefabInstance: {fileID: 2838317698887536086}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 828613e0a956c5e4cb2e326a43a9e9da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &9081199548954339260 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
+  m_PrefabInstance: {fileID: 2838317698887536086}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6951688876099424776
 PrefabInstance:
@@ -1401,6 +1484,18 @@ PrefabInstance:
       propertyPath: connectDoor
       value: 
       objectReference: {fileID: 4115164414822371812}
+    - target: {fileID: -7911786426295943327, guid: 7cdee775e7d28e7448881ff2867d0ca2, type: 3}
+      propertyPath: connectDoorList.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: -7911786426295943327, guid: 7cdee775e7d28e7448881ff2867d0ca2, type: 3}
+      propertyPath: connectDoorList.Array.data[0]
+      value: 
+      objectReference: {fileID: 4115164414822371812}
+    - target: {fileID: -7911786426295943327, guid: 7cdee775e7d28e7448881ff2867d0ca2, type: 3}
+      propertyPath: connectDoorList.Array.data[1]
+      value: 
+      objectReference: {fileID: 9081199548954339232}
     - target: {fileID: 6011546310269058032, guid: 7cdee775e7d28e7448881ff2867d0ca2, type: 3}
       propertyPath: m_Name
       value: ToggleButton (1)
@@ -1470,7 +1565,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1966,7 +2061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1978,7 +2073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6441656034006739562, guid: edb5ca93917f83c46b32c3f0f20a3366, type: 3}
       propertyPath: m_LocalRotation.w
