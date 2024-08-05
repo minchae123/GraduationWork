@@ -18,8 +18,8 @@ public class StageGenerator : MonoBehaviour
 
     private void Awake()
     {
-        panel =  GameObject.Find("GameCanvas").transform.Find("LoadingPanel");
-     
+        panel = GameObject.Find("GameCanvas").transform.Find("LoadingPanel");
+
         foreach (var block in Blocks)
         {
             SaveBlocks.Add(block.transform.position);
@@ -68,8 +68,7 @@ public class StageGenerator : MonoBehaviour
 
     private void SetIsInStage(bool value)
     {
-        if (FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(value);
-        else TutorialStageManager.Instance.SetIsInStage(value);
+        StageManager.Instance.SetIsInStage(value);
     }
 
     void ResetStage()
