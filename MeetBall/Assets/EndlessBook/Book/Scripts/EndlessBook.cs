@@ -589,11 +589,13 @@
             //확장을 어떻게 할까요~
             if (curStageName == "Snow")
                 stageNameIndex = 0;
+            if (curStageName == "Cinderella")
+                stageNameIndex = 1;
 
             pageData[stageNameIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
-			SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
+            SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
 
-			bookList.ChangeProgress(stageNameIndex, curStageIndex);
+            bookList.ChangeProgress(stageNameIndex, curStageIndex);
         }
 
         /// <summary>
