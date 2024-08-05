@@ -67,7 +67,7 @@ public class InputManage : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndD
 
 			if (tapToStart != null)
 			{
-				StageManager.Instance.MoveStage(direction);
+				//StageManager.Instance.MoveStage(direction);
 				tapToStart.isClicked = false;
 			}
 		}
