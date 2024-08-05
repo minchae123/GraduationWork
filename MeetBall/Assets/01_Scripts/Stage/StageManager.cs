@@ -94,14 +94,14 @@ public class StageManager : MonoSingleton<StageManager>
 	public void EnterStage()
 	{
 		if (IsInStage) return;
-		if (!stagesUI[selectStageNum]?.CheckCanPlay())
+		/*if (!stagesUI[selectStageNum].CheckCanPlay())
 		{
 			print("아직 클리어X");
 		}
 		else
 		{
 			LoadStage();
-		}
+		}*/
 	}
 
 	public void MoveStage(Direction dir)
