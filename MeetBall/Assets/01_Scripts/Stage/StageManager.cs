@@ -233,7 +233,7 @@ public class StageManager : MonoSingleton<StageManager>
             yield return new WaitForSeconds(1.0f);
 
             text.text = "테스트 텍스트";
-            DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f);
+            DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
         }
     }
 
