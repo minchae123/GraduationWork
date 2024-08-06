@@ -22,5 +22,12 @@ public class GameData
             CinderellaStage.Add(i, false);
 		}
 		bigStage.Add("Cinderella", CinderellaStage);
-	}
+
+        var mermaid = new SerializableDictionary<int, bool>();
+        for (int i = 0; i < 7; i++)
+        {
+            mermaid.Add(i, false);
+        }
+        bigStage.Add("Mermaid", mermaid);
+    }
 }

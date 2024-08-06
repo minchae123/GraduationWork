@@ -148,10 +148,10 @@ public class StageManager : MonoSingleton<StageManager>
                 ReStartBtn();
             }
 
-            //if (Input.GetKeyDown(KeyCode.Escape))
-            //{
-            //    BackToMenu();
-            //}
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BackToMenu();
+            }
         }
     }
 
@@ -325,5 +325,28 @@ public class StageManager : MonoSingleton<StageManager>
 
         DestroyImmediate(curStageGameObject);
         LoadStage();
+    }
+
+    public void BackToMenu()
+    {
+        isInStage = false;
+
+        if (selectStageNum == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            StopAllCoroutines();
+        }
+
+        openbook();
+        BoxManager.Instance.CleanBox();
+
+        gimmick.panel.ClearSequence();
+        gimmick.panel.CloseTutorial();
+        gameCanvas.SetActive(false);
+
+        DestroyImmediate(curStageGameObject);
+        PlayerManager.Instance.ResetPlayers();
+        //CameraMovement.Instance.CameraReset();
     }
 }
