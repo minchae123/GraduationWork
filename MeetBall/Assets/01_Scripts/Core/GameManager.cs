@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static echo17.EndlessBook.EndlessBook;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -55,6 +56,8 @@ public class GameManager : MonoSingleton<GameManager>
     public PlayerColorClass playerColors;
 
     public GameObject Game, Book;
+    public Material LoadingMat;
+
     private void Awake()
     {
         playerColors = new PlayerColorClass();
@@ -131,16 +134,26 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void OpenBook()
     {
+        StartCoroutine(BookCoroutine());
+    }
+
+    private IEnumerator BookCoroutine()
+    {
+        StartCoroutine(LoadCoroutine());
+        yield return new WaitForSeconds(1);
         Game.SetActive(false);
         Book.SetActive(true);
     }
 
     public void StartGame(int stageNum)
     {
-        //StageManager.Instance.Init();
-        if (!StageManager.Instance.IsClear(stageNum)) return;
+       StartCoroutine(GameCoroutine(stageNum));
+    }
 
-        print("깨끗하다");
+    private IEnumerator GameCoroutine(int stageNum)
+    {
+        StartCoroutine(LoadCoroutine());
+        yield return new WaitForSeconds(1);
         Game.SetActive(true);
         StageManager.Instance.SetStageNumber(stageNum);
         Book.SetActive(false);
@@ -154,5 +167,51 @@ public class GameManager : MonoSingleton<GameManager>
     public void PrintData()
     {
         print(gameData.bigStage["Snow"]);
+    }
+
+    private IEnumerator LoadCoroutine()
+    {
+        float startValue = 1.5f;
+        float endValue = 0f;
+        float elapsedTime = 0f;
+
+
+        while (elapsedTime < 1f)
+        {
+            // 경과된 시간 비율
+            float t = elapsedTime / 1f;
+            // 선형 보간을 사용하여 값을 계산
+            float value = Mathf.Lerp(startValue, endValue, t);
+            // 애니메이터 파라미터 설정
+            LoadingMat.SetFloat("_Progress", value);
+
+            // 경과된 시간 업데이트
+            elapsedTime += Time.deltaTime;
+            // 한 프레임 대기
+            yield return null;
+        }
+        // 애니메이터 파라미터를 최종 값으로 설정 (마지막에 정확한 값 설정)
+        LoadingMat.SetFloat("_Progress", endValue);
+        elapsedTime = 0f;
+
+        yield return new WaitForSeconds(.5f);
+
+
+        while (elapsedTime < 1f)
+        {
+            // 경과된 시간 비율
+            float t = elapsedTime / 1f;
+            // 선형 보간을 사용하여 값을 계산
+            float value = Mathf.Lerp(endValue, startValue, t);
+            // 애니메이터 파라미터 설정
+            LoadingMat.SetFloat("_Progress", value);
+
+            // 경과된 시간 업데이트
+            elapsedTime += Time.deltaTime;
+            // 한 프레임 대기
+            yield return null;
+        }
+        // 애니메이터 파라미터를 최종 값으로 설정 (마지막에 정확한 값 설정)
+        LoadingMat.SetFloat("_Progress", startValue);
     }
 }
