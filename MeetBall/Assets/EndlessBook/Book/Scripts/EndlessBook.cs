@@ -599,9 +599,12 @@
                 stageShowIndex = 2;
                 curStageIndex -= 5;
             }
-
-            print(curStageName);
-            print(curStageIndex);
+            if(curStageName == "Mermaid")
+            {
+                stageNameIndex = 2;
+                stageShowIndex = 4;
+                curStageIndex -= 10;
+            }
 
             pageData[stageShowIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
             SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
