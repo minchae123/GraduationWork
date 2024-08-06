@@ -599,6 +599,12 @@
                 stageShowIndex = 2;
                 curStageIndex -= 5;
             }
+            if (curStageName == "Mermaid")
+            {
+                stageNameIndex = 2;
+                stageShowIndex = 4;
+                curStageIndex -= 10;
+            }
 
             print(curStageName);
             print(curStageIndex);
