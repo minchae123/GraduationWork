@@ -175,8 +175,20 @@ public class StageManager : MonoSingleton<StageManager>
         LoadStage();
     }
 
+	public bool IsClear(int num)
+	{
+		for (int i = 0; i < num; i++)
+		{
+			if (!stageList.Stages[i].IsClear)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public void LoadStage()
+
+	public void LoadStage()
     {
         StartCoroutine(FindBox());
 
