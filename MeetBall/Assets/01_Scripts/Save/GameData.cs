@@ -8,19 +8,19 @@ public class GameData
 
 	public GameData()
 	{
-		var smallStages = new SerializableDictionary<int, bool>();
+		var snowStages = new SerializableDictionary<int, bool>();
 		for (int i = 0; i < 5; i++)
 		{
-			smallStages.Add(i , false);
+			snowStages.Add(i , false);
 		}
 
-		bigStage.Add("Snow", smallStages);
+		bigStage.Add("Snow", snowStages);
 
-		smallStages = new SerializableDictionary<int, bool>();
-		for (int i = 0; i < 5; i++)
+		var CinderellaStage = new SerializableDictionary<int, bool>();
+		for (int i = 0; i < 6; i++)
 		{
-			smallStages.Add(i, false);
+            CinderellaStage.Add(i, false);
 		}
-		bigStage.Add("Sea", smallStages);
+		bigStage.Add("Cinderella", CinderellaStage);
 	}
 }

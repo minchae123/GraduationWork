@@ -583,17 +583,30 @@
         }
 
         int stageNameIndex;
+        int stageShowIndex;
         //게임 클리어시 실행
         public void ChangePaint(string curStageName, int curStageIndex)
         {
             //확장을 어떻게 할까요~
             if (curStageName == "Snow")
+            {
                 stageNameIndex = 0;
+                stageShowIndex = 0;
+            }
+            if (curStageName == "Cinderella")
+            {
+                stageNameIndex = 1;
+                stageShowIndex = 2;
+                curStageIndex -= 5;
+            }
 
-            pageData[stageNameIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
-			SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
+            print(curStageName);
+            print(curStageIndex);
 
-			bookList.ChangeProgress(stageNameIndex, curStageIndex);
+            pageData[stageShowIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
+            SetMaterial(MaterialEnum.BookPageLeft, bookList.books[stageNameIndex].Mat[curStageIndex]);
+
+            bookList.ChangeProgress(stageNameIndex, curStageIndex);
         }
 
         /// <summary>
