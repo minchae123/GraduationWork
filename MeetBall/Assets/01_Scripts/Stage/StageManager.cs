@@ -175,6 +175,18 @@ public class StageManager : MonoSingleton<StageManager>
         LoadStage();
     }
 
+    public bool IsClear(int num)
+    {
+        for (int i = 0; i < num; i++)
+        {
+            if (!stageList.Stages[i].IsClear)
+            {
+                print("더럽다");
+                return false;
+            }
+        }
+        return true;
+    }
 
     public void LoadStage()
     {
@@ -222,7 +234,7 @@ public class StageManager : MonoSingleton<StageManager>
         yield return new WaitForSeconds(4);
         endlessBook.ChangePaint(stageName, stageIndex);
 
-        if(IsLast) // 마지막 스테이지 클리어시
+        if (IsLast) // 마지막 스테이지 클리어시
         {
             yield return new WaitForSeconds(1.5f);
             fadeCg.DOFade(1, 1f);

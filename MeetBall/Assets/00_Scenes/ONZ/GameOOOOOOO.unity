@@ -2809,8 +2809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StageTrm: {fileID: 1871945580}
   stageList: {fileID: 11400000, guid: a54b9e764924b8545a5470b81a33fa05, type: 2}
-  stageSelectTrm: {fileID: 1701410041}
-  stageUIPrefab: {fileID: 4856039984159133157, guid: 24d71f02ce8903c45841dc968df2ee31, type: 3}
+  fadeCg: {fileID: 0}
   minimapTrm: {fileID: 728724396}
   gameCanvas: {fileID: 1017310713}
   endlessBook: {fileID: 1785422613}
@@ -5347,37 +5346,6 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f5039b4ba344df24c91873d60a377d4f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6202ff505aa176d43865035aa7073aa8, type: 3}
---- !u!1 &594067314 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5225560753476297195, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
-  m_PrefabInstance: {fileID: 1701410040}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &594067316 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1701410043, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
-  m_PrefabInstance: {fileID: 1701410040}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594067314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8356074a3a4cff84cad5fefc6d1e7fda, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &594067319
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 594067314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c931cda1112f2f4fb5009b7f52246fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  swipeThreshold: 100
-  camMovement: {fileID: 0}
-  tapToStart: {fileID: 594067316}
 --- !u!1 &597643744
 GameObject:
   m_ObjectHideFlags: 0
@@ -14789,11 +14757,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
---- !u!224 &1701410041 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 4544947903339262060, guid: 8f6365c132cdd4e44828222c7e10f4d0, type: 3}
-  m_PrefabInstance: {fileID: 1701410040}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1714766297
 GameObject:
   m_ObjectHideFlags: 0

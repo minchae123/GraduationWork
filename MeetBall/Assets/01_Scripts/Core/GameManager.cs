@@ -68,22 +68,22 @@ public class GameManager : MonoSingleton<GameManager>
         OpenBook();
         gameData = SaveManager.Instance.Load();
 
-        if(gameData == null)
+        if (gameData == null)
         {
             gameData = new GameData();
         }
     }
 
-	private void Update()
-	{
-		if(Input.GetKeyDown(KeyCode.O))
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.O))
             PrintData();
 
-        if(Input.GetKeyDown(KeyCode.V))
+        if (Input.GetKeyDown(KeyCode.V))
             SaveData();
-	}
+    }
 
-	public List<Item> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
+    public List<Item> FindAllItems() //FindAllItems<T>() where T : class 나중에 interface를 많이 쓸거라면 이걸로 바꿔서
     {
         List<Item> items = new List<Item>();
 
@@ -137,9 +137,11 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void StartGame(int stageNum)
     {
-        print("asd");
-        Game.SetActive(true);
         //StageManager.Instance.Init();
+        if (!StageManager.Instance.IsClear(stageNum)) return;
+
+        print("깨끗하다");
+        Game.SetActive(true);
         StageManager.Instance.SetStageNumber(stageNum);
         Book.SetActive(false);
     }
