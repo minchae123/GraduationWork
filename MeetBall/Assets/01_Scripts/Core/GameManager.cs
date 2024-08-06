@@ -147,13 +147,15 @@ public class GameManager : MonoSingleton<GameManager>
 
     public void StartGame(int stageNum)
     {
-       StartCoroutine(GameCoroutine(stageNum));
+        if (!StageManager.Instance.IsClear(stageNum)) return;
+
+        StartCoroutine(GameCoroutine(stageNum));
     }
 
     private IEnumerator GameCoroutine(int stageNum)
     {
         StartCoroutine(LoadCoroutine());
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(1);   
         Game.SetActive(true);
         StageManager.Instance.SetStageNumber(stageNum);
         Book.SetActive(false);
