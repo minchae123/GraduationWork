@@ -603,7 +603,7 @@
             {
                 stageNameIndex = 2;
                 stageShowIndex = 4;
-                curStageIndex -= 10;
+                curStageIndex -= 11;
             }
 
             pageData[stageShowIndex].material = bookList.books[stageNameIndex].Mat[curStageIndex];
