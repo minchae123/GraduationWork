@@ -98,6 +98,8 @@
         /// </summary>
         public Action tableOfContentsDetected;
 
+        bool canTouch;
+
         void Awake()
         {
             // set up collider rects
@@ -109,22 +111,38 @@
             }
         }
 
+        private void OnEnable()
+        {
+            canTouch = true;
+        }
+
+        private IEnumerator TouchCooltime()
+        {
+            yield return new WaitForSeconds(1);
+            canTouch = true;
+        }
+
         void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (canTouch)
             {
-                // left mouse button pressed
-                DetectTouchDown(Input.mousePosition);
-            }
-            if (Input.GetMouseButtonUp(0))
-            {
-                // left mouse button un-pressed
-                DetectTouchUp(Input.mousePosition);
-            }
-            else if (touchDown && Input.GetMouseButton(0))
-            {
-                // dragging
-                DetectDrag(Input.mousePosition);
+                if (Input.GetMouseButtonDown(0))
+                {
+                    // left mouse button pressed
+                    DetectTouchDown(Input.mousePosition);
+                }
+                if (Input.GetMouseButtonUp(0))
+                {
+                    // left mouse button un-pressed
+                    DetectTouchUp(Input.mousePosition);
+                    canTouch = false;
+                    StartCoroutine(TouchCooltime());
+                }
+                else if (touchDown && Input.GetMouseButton(0))
+                {
+                    // dragging
+                    DetectDrag(Input.mousePosition);
+                }
             }
         }
 
