@@ -231,7 +231,7 @@ public class StageManager : MonoSingleton<StageManager>
 
     private IEnumerator Painting(string stageName, int stageIndex, bool IsLast)
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(6);
         endlessBook.ChangePaint(stageName, stageIndex);
 
         if(IsLast) // 마지막 스테이지 클리어시
