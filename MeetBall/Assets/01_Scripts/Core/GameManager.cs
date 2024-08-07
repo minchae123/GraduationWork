@@ -162,7 +162,7 @@ public class GameManager : MonoSingleton<GameManager>
 		Game.SetActive(false);
 		Book.SetActive(true);
 
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(2);
 		loading = false;
 	}
 
@@ -187,7 +187,7 @@ public class GameManager : MonoSingleton<GameManager>
 		StageManager.Instance.SetStageNumber(stageNum);
 		Book.SetActive(false);
 		
-		yield return new WaitForSeconds(1);
+		yield return new WaitForSeconds(2);
 		loading = false;
 	}
 
