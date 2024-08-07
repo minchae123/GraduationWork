@@ -234,19 +234,19 @@ public class StageManager : MonoSingleton<StageManager>
         yield return new WaitForSeconds(6);
         endlessBook.ChangePaint(stageName, stageIndex);
 
-        if(IsLast) // 마지막 스테이지 클리어시
-        {
-            yield return new WaitForSeconds(1.5f);
-            fadeCg.DOFade(1, 1f);
-
-            TextMeshProUGUI text = fadeCg.transform.GetComponentInChildren<TextMeshProUGUI>();
-            text.text = string.Empty;
-
-            yield return new WaitForSeconds(1.0f);
-
-            text.text = "테스트 텍스트";
-            DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
-        }
+        //if(IsLast) // 마지막 스테이지 클리어시
+        //{
+        //    yield return new WaitForSeconds(1.5f);
+        //    fadeCg.DOFade(1, 1f);
+        //
+        //    TextMeshProUGUI text = fadeCg.transform.GetComponentInChildren<TextMeshProUGUI>();
+        //    text.text = string.Empty;
+        //
+        //    yield return new WaitForSeconds(1.0f);
+        //
+        //    text.text = "테스트 텍스트";
+        //    DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
+        //}
     }
 
     public void ClearStage(bool isClear)
