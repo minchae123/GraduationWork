@@ -81,9 +81,6 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.O))
-			PrintData();
-
 		if (Input.GetKeyDown(KeyCode.V))
 			SaveData();
 	}
