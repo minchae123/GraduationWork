@@ -33,17 +33,12 @@
 
             // check each collider and jump to a page if that collider was hit.
 
-            if (hit.collider.name == "Chapter 07")
-            {
-                print("누르기러기");
-                return true;
-            }
+            print(hit.collider.gameObject.name);
 
             foreach (var chapterJump in chapterJumps)
             {
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
-                    //print(hit.collider.gameObject.name);
                     //EventSystem.current.enabled = false;
                     GameManager.Instance.StartGame(chapterJump.pageNumber);
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
