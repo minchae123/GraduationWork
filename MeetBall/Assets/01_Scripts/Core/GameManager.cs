@@ -154,7 +154,6 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		if (!StageManager.Instance.IsClear(stageNum))
 		{
-			print("as");
 			return;
 		}
 

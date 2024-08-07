@@ -48,7 +48,7 @@
             {
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
                 {
-                    print(hit.collider.gameObject.name);
+                    //print(hit.collider.gameObject.name);
 
                     isHandlingTouch = true;
                     lastTouchTime = Time.time;
