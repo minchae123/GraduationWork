@@ -159,9 +159,11 @@ public class GameManager : MonoSingleton<GameManager>
         StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
 		
-		loading = false;
 		Game.SetActive(false);
 		Book.SetActive(true);
+
+		yield return new WaitForSeconds(1);
+		loading = false;
 	}
 
 	public void StartGame(int stageNum)
@@ -180,10 +182,13 @@ public class GameManager : MonoSingleton<GameManager>
 
 		StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
-		loading = false;
+		
 		Game.SetActive(true);
 		StageManager.Instance.SetStageNumber(stageNum);
 		Book.SetActive(false);
+		
+		yield return new WaitForSeconds(1);
+		loading = false;
 	}
 
 	private IEnumerator LoadCoroutine()
