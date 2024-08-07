@@ -43,10 +43,11 @@ public class CombineColor : MonoBehaviour
         }
     }
     private IEnumerator UIAnim(bool isClear)
-    {
+    {        
         transform.DOMove(Vector3.zero - Camera.main.transform.forward * 2, 1, false);
         transform.DOScale(.5f, 1);
         yield return new WaitForSeconds(1);
+        transform.position = Vector3.zero;
 
         StageManager.Instance.ClearStage(isClear);
     }

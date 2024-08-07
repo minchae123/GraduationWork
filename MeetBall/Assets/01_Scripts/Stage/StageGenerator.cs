@@ -14,12 +14,8 @@ public class StageGenerator : MonoBehaviour
 
     public bool isSelected;
 
-    private Transform panel;
-
     private void Start()
     {
-        panel = GameObject.Find("GameCanvas").transform.Find("LoadingPanel");
-
         foreach (var block in Blocks)
         {
             SaveBlocks.Add(block.transform.position);
@@ -31,20 +27,11 @@ public class StageGenerator : MonoBehaviour
         ResetStage();
 
         StartCoroutine(StageLoad());
-    }
-
-    private void Update()
-    {
-        if (loading) panel.gameObject.SetActive(true);
-        else panel.gameObject.SetActive(false);
-    }
-
-    bool loading;
+    }   
 
     IEnumerator StageLoad()
     {
         SetIsInStage(false);
-        loading = true;
         yield return new WaitForSeconds(.2f);
         WaitForSeconds waitflag = new WaitForSeconds(.4f / Blocks.Count);
 
@@ -59,7 +46,6 @@ public class StageGenerator : MonoBehaviour
                 Blocks[i].transform.DOMove(SaveBlocks[i], .1f).SetEase(Ease.InExpo);
         }
         yield return new WaitForSeconds(1f);
-        loading = false;
         if (isSelected) SetIsInStage(true);
     }
 

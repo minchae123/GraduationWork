@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using static echo17.EndlessBook.EndlessBook;
+using static UnityEngine.Rendering.DebugUI;
 
 public class GameManager : MonoSingleton<GameManager>
 {
@@ -57,15 +58,18 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public GameObject Game, Book;
 
-	private void Awake()
+    private Transform panel;
+
+    private void Awake()
 	{
 		playerColors = new PlayerColorClass();
 		playerColors.SetColors();
 		Game = GameObject.Find("Game");
 		Book = GameObject.Find("Book");
-	}
+        panel = GameObject.Find("MainCanvas").transform.Find("TouchLockPanel");
+    }
 
-	private void Start()
+    private void Start()
 	{
 		//OpenBook();
 		Game.SetActive(false);
@@ -83,9 +87,13 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		if (Input.GetKeyDown(KeyCode.V))
 			SaveData();
-	}
 
-	public List<Item> FindAllItems() //FindAllItems<T>() where T : class ���߿� interface�� ���� ���Ŷ�� �̰ɷ� �ٲ㼭
+            if (loading) panel.gameObject.SetActive(true);
+            else panel.gameObject.SetActive(false);
+
+    }
+
+    public List<Item> FindAllItems() //FindAllItems<T>() where T : class ���߿� interface�� ���� ���Ŷ�� �̰ɷ� �ٲ㼭
 	{
 		List<Item> items = new List<Item>();
 
@@ -137,15 +145,21 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public Material LoadingMat;
 
-	public void OpenBook()
+    bool loading;
+
+    public void OpenBook()
 	{
 		StartCoroutine(BookCoroutine());
 	}
 
 	private IEnumerator BookCoroutine()
 	{
-		StartCoroutine(LoadCoroutine());
+		loading = true;
+
+        StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
+		
+		loading = false;
 		Game.SetActive(false);
 		Book.SetActive(true);
 	}
@@ -162,8 +176,11 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private IEnumerator GameCoroutine(int stageNum)
 	{
+		loading = true;
+
 		StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
+		loading = false;
 		Game.SetActive(true);
 		StageManager.Instance.SetStageNumber(stageNum);
 		Book.SetActive(false);

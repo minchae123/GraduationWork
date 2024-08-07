@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 102907793}
   - component: {fileID: 102907792}
   m_Layer: 5
-  m_Name: LoadingPanel
+  m_Name: TouchLockPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1477,8 +1477,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1017310717}
-  m_RootOrder: 7
+  m_Father: {fileID: 8123405306440285669}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2109,7 +2109,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8123405306440285669}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4782,8 +4782,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503360848}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -8}
-  m_LocalScale: {x: 0.00926, y: 0.00926, z: 0.00926}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 887300527}
@@ -9525,7 +9525,6 @@ RectTransform:
   - {fileID: 1975891550}
   - {fileID: 160579851}
   - {fileID: 1141835464}
-  - {fileID: 102907791}
   m_Father: {fileID: 887300527}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14711,6 +14710,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ClearParticle
       objectReference: {fileID: 0}
+    - target: {fileID: 6761393945012263587, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9020e2127a706ae44a988021aa9dcd1e, type: 3}
 --- !u!4 &1524766116 stripped
@@ -19489,7 +19492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 0, g: 0, b: 0, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -20406,7 +20409,7 @@ RectTransform:
   - {fileID: 7067999856961244153}
   - {fileID: 770643262}
   m_Father: {fileID: 8123405306440285669}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -20575,6 +20578,7 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 102907791}
   - {fileID: 8123405307274337613}
   - {fileID: 184483766}
   - {fileID: 4544947903794775188}
@@ -20813,7 +20817,7 @@ RectTransform:
   - {fileID: 8123405307576385721}
   - {fileID: 8123405307270352367}
   m_Father: {fileID: 8123405306440285669}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
