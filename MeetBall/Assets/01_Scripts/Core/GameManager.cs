@@ -76,14 +76,12 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private void Update()
 	{
-		if(Input.GetKeyDown(KeyCode.O))
-            PrintData();
 
         if(Input.GetKeyDown(KeyCode.V))
             SaveData();
 	}
 
-	public List<Item> FindAllItems() //FindAllItems<T>() where T : class ���߿� interface�� ���� ���Ŷ�� �̰ɷ� �ٲ㼭
+	public List<Item> FindAllItems() //FindAllItems<T>() where T : class ���߿� interface�� ���� ���Ŷ�� �̰ɷ� �ٲ㼭
     {
         List<Item> items = new List<Item>();
 
@@ -129,28 +127,89 @@ public class GameManager : MonoSingleton<GameManager>
         return false;
     }
 
-    public void OpenBook()
-    {
-        Game.SetActive(false);
-        Book.SetActive(true);
-    }
+	public void SaveData()
+	{
+		SaveManager.Instance.Save(gameData);
+	}
 
-    public void StartGame(int stageNum)
-    {
-        print("asd");
-        Game.SetActive(true);
-        //StageManager.Instance.Init();
-        StageManager.Instance.SetStageNumber(stageNum);
-        Book.SetActive(false);
-    }
+	public Material LoadingMat;
 
-    public void SaveData()
-    {
-        SaveManager.Instance.Save(gameData);
-    }
+	public void OpenBook()
+	{
+		StartCoroutine(BookCoroutine());
+	}
 
-    public void PrintData()
-    {
-        print(gameData.bigStage["Snow"]);
-    }
+	private IEnumerator BookCoroutine()
+	{
+		StartCoroutine(LoadCoroutine());
+		yield return new WaitForSeconds(1);
+		Game.SetActive(false);
+		Book.SetActive(true);
+	}
+
+	public void StartGame(int stageNum)
+	{
+		if (!StageManager.Instance.IsClear(stageNum))
+		{
+			print("as");
+			return;
+		}
+
+		StartCoroutine(GameCoroutine(stageNum));
+	}
+
+	private IEnumerator GameCoroutine(int stageNum)
+	{
+		StartCoroutine(LoadCoroutine());
+		yield return new WaitForSeconds(1);
+		Game.SetActive(true);
+		StageManager.Instance.SetStageNumber(stageNum);
+		Book.SetActive(false);
+	}
+
+	private IEnumerator LoadCoroutine()
+	{
+		float startValue = 1.5f;
+		float endValue = 0f;
+		float elapsedTime = 0f;
+
+
+		while (elapsedTime < 1f)
+		{
+			// ����� �ð� ����
+			float t = elapsedTime / 1f;
+			// ���� ������ ����Ͽ� ���� ���
+			float value = Mathf.Lerp(startValue, endValue, t);
+			// �ִϸ����� �Ķ���� ����
+			LoadingMat.SetFloat("_Progress", value);
+
+			// ����� �ð� ������Ʈ
+			elapsedTime += Time.deltaTime;
+			// �� ������ ���
+			yield return null;
+		}
+		// �ִϸ����� �Ķ���͸� ���� ������ ���� (�������� ��Ȯ�� �� ����)
+		LoadingMat.SetFloat("_Progress", endValue);
+		elapsedTime = 0f;
+
+		yield return new WaitForSeconds(.5f);
+
+
+		while (elapsedTime < 1f)
+		{
+			// ����� �ð� ����
+			float t = elapsedTime / 1f;
+			// ���� ������ ����Ͽ� ���� ���
+			float value = Mathf.Lerp(endValue, startValue, t);
+			// �ִϸ����� �Ķ���� ����
+			LoadingMat.SetFloat("_Progress", value);
+
+			// ����� �ð� ������Ʈ
+			elapsedTime += Time.deltaTime;
+			// �� ������ ���
+			yield return null;
+		}
+		// �ִϸ����� �Ķ���͸� ���� ������ ���� (�������� ��Ȯ�� �� ����)
+		LoadingMat.SetFloat("_Progress", startValue);
+	}
 }
