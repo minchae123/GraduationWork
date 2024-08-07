@@ -42,7 +42,7 @@ public class ToggleButton : MonoBehaviour, Item
         isClick = false;
 
         transform.DOScaleY(0.25f, 0.5f);
-        transform.localPosition = new Vector3(transform.localPosition.x, -0.3f, transform.localPosition.z);
+        //transform.localPosition = new Vector3(transform.localPosition.x, -0.3f, transform.localPosition.z);
     }
     public void DoorOpen()
     {
@@ -51,7 +51,7 @@ public class ToggleButton : MonoBehaviour, Item
 
         isClick = true;
 
-        transform.DOScaleY(0.1f, 0.5f);
-        transform.localPosition = new Vector3(transform.localPosition.x, -0.45f, transform.localPosition.z);
+        transform.DOScaleY(0.2f, 0.5f);
+        //transform.localPosition = new Vector3(transform.localPosition.x, -0.45f, transform.localPosition.z);
     }
 }
