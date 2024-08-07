@@ -18,9 +18,7 @@ public class CombineColor : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         bool isInStage = false;
-
-        if(FindObjectOfType<StageManager>()) isInStage = StageManager.Instance.IsInStage;
-        else isInStage = TutorialStageManager.Instance.IsInStage;
+        isInStage = StageManager.Instance.IsInStage;
 
         if (isInStage && other.TryGetComponent<Movement>(out Movement m))
         {

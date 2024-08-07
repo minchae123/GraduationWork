@@ -148,10 +148,10 @@ public class StageManager : MonoSingleton<StageManager>
                 ReStartBtn();
             }
 
-            //if (Input.GetKeyDown(KeyCode.Escape))
-            //{
-            //    BackToMenu();
-            //}
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                BackToMenu();
+            }
         }
     }
 
@@ -175,8 +175,20 @@ public class StageManager : MonoSingleton<StageManager>
         LoadStage();
     }
 
+	public bool IsClear(int num)
+	{
+		for (int i = 0; i < num; i++)
+		{
+			if (!stageList.Stages[i].IsClear)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
-    public void LoadStage()
+
+	public void LoadStage()
     {
         StartCoroutine(FindBox());
 
@@ -233,7 +245,7 @@ public class StageManager : MonoSingleton<StageManager>
             yield return new WaitForSeconds(1.0f);
 
             text.text = "테스트 텍스트";
-            DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f);
+            DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
         }
     }
 
@@ -325,5 +337,28 @@ public class StageManager : MonoSingleton<StageManager>
 
         DestroyImmediate(curStageGameObject);
         LoadStage();
+    }
+
+    public void BackToMenu()
+    {
+        isInStage = false;
+
+        if (selectStageNum == 0)
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            StopAllCoroutines();
+        }
+
+        openbook();
+        BoxManager.Instance.CleanBox();
+
+        gimmick.panel.ClearSequence();
+        gimmick.panel.CloseTutorial();
+        gameCanvas.SetActive(false);
+
+        DestroyImmediate(curStageGameObject);
+        PlayerManager.Instance.ResetPlayers();
+        //CameraMovement.Instance.CameraReset();
     }
 }

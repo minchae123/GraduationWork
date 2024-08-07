@@ -16,18 +16,15 @@ public class StageGenerator : MonoBehaviour
 
     private Transform panel;
 
-    private void Awake()
+    private void Start()
     {
-        panel =  GameObject.Find("GameCanvas").transform.Find("LoadingPanel");
-     
+        panel = GameObject.Find("GameCanvas").transform.Find("LoadingPanel");
+
         foreach (var block in Blocks)
         {
             SaveBlocks.Add(block.transform.position);
         }
-    }
 
-    private void Start()
-    {
         if (transform.parent == GameObject.Find("Minimap").transform) isSelected = false;
         else isSelected = true;
 
@@ -68,8 +65,7 @@ public class StageGenerator : MonoBehaviour
 
     private void SetIsInStage(bool value)
     {
-        if (FindObjectOfType<StageManager>()) StageManager.Instance.SetIsInStage(value);
-        else TutorialStageManager.Instance.SetIsInStage(value);
+        StageManager.Instance.SetIsInStage(value);
     }
 
     void ResetStage()

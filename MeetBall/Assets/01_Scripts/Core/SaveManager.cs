@@ -21,7 +21,6 @@ public class SaveManager : MonoSingleton<SaveManager>
 
 		if (!Directory.Exists(savePath))
 		{
-			print("A");
 			Directory.CreateDirectory(savePath);
 		}
 	}
