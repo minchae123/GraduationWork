@@ -58,6 +58,8 @@ public class GameManager : MonoSingleton<GameManager>
 
 	public GameObject Game, Book;
 
+    public Material LoadingMat;
+
     private Transform panel;
 
     private void Awake()
@@ -72,7 +74,10 @@ public class GameManager : MonoSingleton<GameManager>
     private void Start()
 	{
 		//OpenBook();
-		Game.SetActive(false);
+		LoadingMat.SetFloat("_Progress", 1.5f);
+
+
+        Game.SetActive(false);
 		Book.SetActive(true);
 
 		gameData = SaveManager.Instance.Load();
@@ -142,8 +147,6 @@ public class GameManager : MonoSingleton<GameManager>
 	{
 		SaveManager.Instance.Save(gameData);
 	}
-
-	public Material LoadingMat;
 
     bool loading;
 
