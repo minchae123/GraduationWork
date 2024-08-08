@@ -159,6 +159,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private IEnumerator BookCoroutine()
 	{
+		Game.SetActive(false);
 		loading = true;
 
         StartCoroutine(LoadCoroutine());
@@ -167,7 +168,7 @@ public class GameManager : MonoSingleton<GameManager>
 
 		yield return new WaitForSeconds(1.5f);
 		loading = false;
-		SetActive(false, true);
+		Book.SetActive(true);
 	}
 
 	public void StartGame(int stageNum)
@@ -189,15 +190,16 @@ public class GameManager : MonoSingleton<GameManager>
 
 	private IEnumerator GameCoroutine(int stageNum)
 	{
+		Book.SetActive(false);
 		loading = true;
 
 		StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
 
 		StageManager.Instance.SetStageNumber(stageNum);
-		SetActive(true,false);
 		
 		yield return new WaitForSeconds(1.5f);
+		Game.SetActive(true);
 		loading = false;
 	}
 
