@@ -11,93 +11,92 @@ using UnityEngine.SceneManagement;
 
 public class StageManager : MonoSingleton<StageManager>
 {
-    private bool isInStage = false;
-    private bool isReStart = false;
+	private bool isInStage = false;
+	private bool isReStart = false;
 
-    public bool IsInStage => isInStage;
-    public bool IsReStart => isReStart;
+	public bool IsInStage => isInStage;
+	public bool IsReStart => isReStart;
 
-    [Header("===============")]
-    [Header("Stage")]
-    public Transform StageTrm;
-    [SerializeField] private StageListSO stageList;
+	[Header("===============")]
+	[Header("Stage")]
+	public Transform StageTrm;
+	[SerializeField] private StageListSO stageList;
 
-    private StageSO currentStageSO;
-    public StageSO CurrentStageSO => currentStageSO;
+	private StageSO currentStageSO;
+	public StageSO CurrentStageSO => currentStageSO;
 
-    private GameObject curStageGameObject;
+	private GameObject curStageGameObject;
 
-    [Header("===============")]
-    [Header("Clear")]
-    private Animator ClearAnim;
-    private TextMeshProUGUI clearText;
-    private ParticleSystem clearParticle;
-    private GimmickExplain gimmick;
-
-
-    [Header("===============")]
-    [Header("UI")]
-    [SerializeField] private CanvasGroup fadeCg;
-    //[SerializeField] private Transform stageSelectTrm;
-    //[SerializeField] private StageUI stageUIPrefab;
-    //private Transform stageSelectUITrm;
-
-    private int selectStageNum = 0;
-    private StageUI[] stagesUI;
-    private float moveX = -500f;
-
-    [Header("Minimap")]
-    [SerializeField] private Transform minimapTrm;
-    private GameObject currentMinimap = null;
+	[Header("===============")]
+	[Header("Clear")]
+	private Animator ClearAnim;
+	private TextMeshProUGUI clearText;
+	private ParticleSystem clearParticle;
+	private GimmickExplain gimmick;
 
 
-    [Header("===============")]
-    [Header("ETC")]
-    [SerializeField] private GameObject gameCanvas;
-    private Tutorial tutorialPanel;
-    private EventSystem eventSystem;
+	[Header("===============")]
+	[Header("UI")]
+	//[SerializeField] private Transform stageSelectTrm;
+	//[SerializeField] private StageUI stageUIPrefab;
+	//private Transform stageSelectUITrm;
 
-    [SerializeField] private EndlessBook endlessBook;
+	private int selectStageNum = 0;
+	private StageUI[] stagesUI;
+	private float moveX = -500f;
 
-    public void Awake()
-    {
-        clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
-        ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
-        //stageSelectUITrm = stageSelectTrm.Find("StageSelect");
-        gimmick = FindFirstObjectByType<GimmickExplain>();
-        eventSystem = EventSystem.current;
+	[Header("Minimap")]
+	[SerializeField] private Transform minimapTrm;
+	private GameObject currentMinimap = null;
 
-        clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
-        //tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
-        isInStage = false;
+	[Header("===============")]
+	[Header("ETC")]
+	[SerializeField] private GameObject gameCanvas;
+	private Tutorial tutorialPanel;
+	private EventSystem eventSystem;
 
-        fadeCg.alpha = 0;
-    }
+	[SerializeField] private EndlessBook endlessBook;
 
-    private void Start()
-    {
-        //SetSelectStageUI();
-        //gameCanvas.SetActive(false);
+	public void Awake()
+	{
+		clearParticle = GameObject.Find("ClearParticle").GetComponent<ParticleSystem>();
+		ClearAnim = GameObject.Find("ClearUIAnim").GetComponent<Animator>();
+		//stageSelectUITrm = stageSelectTrm.Find("StageSelect");
+		gimmick = FindFirstObjectByType<GimmickExplain>();
+		eventSystem = EventSystem.current;
 
-        //tutorialPanel.gameObject.SetActive(false);
-        //StartCoroutine(StageLoad());
-    }
+		clearText = ClearAnim.transform.Find("ClearText").GetComponent<TextMeshProUGUI>();
+		//tutorialPanel = gameCanvas.transform.GetComponentInChildren<Tutorial>();
 
-    public void CheckPaint()
-    {
-        GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys);
+		isInStage = false;
 
-        for (int i = 0; i < keys.Count; i++)
-        {
-            if (keys[i]) ; //EndlessBook Mat Change
-        }
-    }
+		//fadeCg.alpha = 0;
+	}
 
-    public void EnterStage()
-    {
-        if (IsInStage) return;
-        /*if (!stagesUI[selectStageNum].CheckCanPlay())
+	private void Start()
+	{
+		//SetSelectStageUI();
+		//gameCanvas.SetActive(false);
+
+		//tutorialPanel.gameObject.SetActive(false);
+		//StartCoroutine(StageLoad());
+	}
+
+	public void CheckPaint()
+	{
+		GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys);
+
+		for (int i = 0; i < keys.Count; i++)
+		{
+			if (keys[i]) ; //EndlessBook Mat Change
+		}
+	}
+
+	public void EnterStage()
+	{
+		if (IsInStage) return;
+		/*if (!stagesUI[selectStageNum].CheckCanPlay())
 		{
 			print("아직 클리어X");
 		}
@@ -105,9 +104,9 @@ public class StageManager : MonoSingleton<StageManager>
 		{
 			LoadStage();
 		}*/
-    }
+	}
 
-    /*public void MoveStage(Direction dir)
+	/*public void MoveStage(Direction dir)
     {
         switch (dir)
         {
@@ -120,60 +119,60 @@ public class StageManager : MonoSingleton<StageManager>
         }
     }*/
 
-    private void Update()
-    {
-        if (!isInStage) // 스테이지 밖일 때
-        {
-            //if (Input.GetKeyDown(KeyCode.A))
-            //{
-            //    UpdateSelectStageUI(-1);
-            //}
-            //if (Input.GetKeyDown(KeyCode.D))
-            //{
-            //    UpdateSelectStageUI(1);
-            //}
-        }
-        else // 스테이지 안일때
-        {
-            if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.CapsLock))
-            {
-                isReStart = true;
+	private void Update()
+	{
+		if (!isInStage) // 스테이지 밖일 때
+		{
+			//if (Input.GetKeyDown(KeyCode.A))
+			//{
+			//    UpdateSelectStageUI(-1);
+			//}
+			//if (Input.GetKeyDown(KeyCode.D))
+			//{
+			//    UpdateSelectStageUI(1);
+			//}
+		}
+		else // 스테이지 안일때
+		{
+			if (Input.GetKey(KeyCode.Tab) && Input.GetKeyDown(KeyCode.CapsLock))
+			{
+				isReStart = true;
 
-                StopAllCoroutines();
-                ClearStage(true);
-            }
+				StopAllCoroutines();
+				ClearStage(true);
+			}
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                ReStartBtn();
-            }
+			if (Input.GetKeyDown(KeyCode.R))
+			{
+				ReStartBtn();
+			}
 
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                BackToMenu();
-            }
-        }
-    }
+			if (GameManager.Instance.Game.activeSelf && Input.GetKeyDown(KeyCode.Escape))
+			{
+				BackToMenu();
+			}
+		}
+	}
 
-    private IEnumerator WaitForGenerate()
-    {
-        yield return new WaitForSeconds(.5f);
+	private IEnumerator WaitForGenerate()
+	{
+		yield return new WaitForSeconds(.5f);
 
-        isInStage = true;
-    }
+		isInStage = true;
+	}
 
-    private IEnumerator WaitTouch()
-    {
-        yield return new WaitForSeconds(1f);
-        print("true");
-        eventSystem.enabled = true;
-    }
+	private IEnumerator WaitTouch()
+	{
+		yield return new WaitForSeconds(1f);
+		print("true");
+		eventSystem.enabled = true;
+	}
 
-    public void SetStageNumber(int num)
-    {
-        selectStageNum = num;
-        LoadStage();
-    }
+	public void SetStageNumber(int num)
+	{
+		selectStageNum = num;
+		LoadStage();
+	}
 
 	public bool IsClear(int num)
 	{
@@ -189,176 +188,189 @@ public class StageManager : MonoSingleton<StageManager>
 
 
 	public void LoadStage()
-    {
-        StartCoroutine(FindBox());
+	{
+		GameManager.Instance.SetActive(true,false);
+		StartCoroutine(FindBox());
 
-        if (selectStageNum <= stageList.Stages.Count)
-        {
+		if (selectStageNum <= stageList.Stages.Count)
+		{
 
-            if (currentMinimap != null)
-            {
-                DestroyImmediate(currentMinimap);
-                currentMinimap = null;
-            }
-
-            currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
-
-            curStageGameObject = Instantiate(currentStageSO.stagePref, StageTrm); // 스테이지 생성
-
-            //stageSelectTrm.gameObject.SetActive(false);
-            gameCanvas.SetActive(true);
-            gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
-
-            PlayerManager.Instance.SetNewPlayers(currentStageSO);
-            CameraMovement.Instance.FindItems();
-            //eventSystem.enabled = false;
-
-            StartCoroutine(gimmick.StartTutorial());
-            StartCoroutine(WaitForGenerate());
-            //StartCoroutine(WaitTouch());
-
-            if (selectStageNum == 0)
-            {
-                //StartCoroutine(tutorialPanel.TutorialPannel());
-            }
-        }
-        else
-        {
-            SceneManager.LoadScene(2);
-            print("준비된 스테이지가 아닙니다람쥐");
-        }
-    }
-
-    private IEnumerator Painting(string stageName, int stageIndex, bool IsLast)
-    {
-        yield return new WaitForSeconds(6);
-        endlessBook.ChangePaint(stageName, stageIndex);
-
-        //if(IsLast) // 마지막 스테이지 클리어시
-        //{
-        //    yield return new WaitForSeconds(1.5f);
-        //    fadeCg.DOFade(1, 1f);
-        //
-        //    TextMeshProUGUI text = fadeCg.transform.GetComponentInChildren<TextMeshProUGUI>();
-        //    text.text = string.Empty;
-        //
-        //    yield return new WaitForSeconds(1.0f);
-        //
-        //    text.text = "테스트 텍스트";
-        //    DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
-        //}
-    }
-
-    public void ClearStage(bool isClear)
-    {
-        if (isClear)
-        {
-            currentStageSO.IsClear = true;
-
-            if (GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
-            {
-                keys[selectStageNum] = true;
-
-                print(currentStageSO.bigStageName);
-
-                StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum, keys.Count - 1 == selectStageNum));
-                print(keys.Count);
-                print(selectStageNum);
-
-                //print(keys[selectStageNum]);
-            }
-            else
-            {
-                print("실패");
-            }
-
-            isReStart = false;
-            selectStageNum++;
-
-            clearText.text = "Stage Clear!";
-        }
-        else
-        {
-            clearText.text = "Stage Fail. . .";
-        }
-
-        print("Clear");
-        isInStage = false;
+			if (currentMinimap != null)
+			{
+				DestroyImmediate(currentMinimap);
+				currentMinimap = null;
+			}
 
 
-        ClearAnim.SetTrigger("Clear");
-        BoxManager.Instance.CleanBox();
+			DestroyImmediate(curStageGameObject);
+			PlayerManager.Instance.ResetPlayers();
 
-        gameCanvas.SetActive(false);
-        Invoke(nameof(ClearParticle), 1);
-        StartCoroutine(StageLoad());
-        Invoke(nameof(openbook), 3f);
-    }
+			currentStageSO = stageList.Stages[selectStageNum]; // 현재 스테이지
 
-    private void openbook()
-    {
-        GameManager.Instance.OpenBook();
-    }
-    private IEnumerator StageClearBackToMenu(float time)
-    {
-        yield return new WaitForSeconds(time);
-        //BackToMenu();
-    }
+			curStageGameObject = Instantiate(currentStageSO.stagePref, StageTrm); // 스테이지 생성
 
-    private void ClearParticle()
-    {
-        clearParticle.Play();
-    }
+			//stageSelectTrm.gameObject.SetActive(false);
+			gameCanvas.SetActive(true);
+			gameCanvas.GetComponentInChildren<DescriptionPanel>().SetPanel(currentStageSO);
 
-    private IEnumerator StageLoad()
-    {
-        yield return new WaitForSeconds(1f);
-        DestroyImmediate(curStageGameObject);
-        //print("Destroy");
-        yield return null;
+			PlayerManager.Instance.SetNewPlayers(currentStageSO);
+			CameraMovement.Instance.FindItems();
+			//eventSystem.enabled = false;
 
-        //LoadStage();
-    }
+			StartCoroutine(gimmick.StartTutorial());
+			StartCoroutine(WaitForGenerate());
+			//StartCoroutine(WaitTouch());
 
-    IEnumerator FindBox()
-    {
-        yield return new WaitForSeconds(0.2f);
-        BoxManager.Instance.FindBox();
-    }
+			if (selectStageNum == 0)
+			{
+				//StartCoroutine(tutorialPanel.TutorialPannel());
+			}
+		}
+		else
+		{
+			SceneManager.LoadScene(2);
+			print("준비된 스테이지가 아닙니다람쥐");
+		}
+	}
 
-    public void SetIsInStage(bool value)
-    {
-        isInStage = value;
-    }
+	private IEnumerator Painting(string stageName, int stageIndex, bool IsLast)
+	{
+		yield return new WaitForSeconds(6);
+		endlessBook.ChangePaint(stageName, stageIndex);
 
-    public void ReStartBtn()
-    {
-        isReStart = true;
+		//if(IsLast) // 마지막 스테이지 클리어시
+		//{
+		//    yield return new WaitForSeconds(1.5f);
+		//    fadeCg.DOFade(1, 1f);
+		//
+		//    TextMeshProUGUI text = fadeCg.transform.GetComponentInChildren<TextMeshProUGUI>();
+		//    text.text = string.Empty;
+		//
+		//    yield return new WaitForSeconds(1.0f);
+		//
+		//    text.text = "테스트 텍스트";
+		//    DOTween.To(x => text.maxVisibleCharacters = (int)x, 0f, text.text.Length, 1.5f).OnComplete(() => fadeCg.DOFade(0f, 1.4f));
+		//}
+	}
 
-        DestroyImmediate(curStageGameObject);
-        LoadStage();
-    }
+	public void ClearStage(bool isClear)
+	{
+		if (isClear)
+		{
+			currentStageSO.IsClear = true;
 
-    public void BackToMenu()
-    {
-        isInStage = false;
+			if (GameManager.Instance.gameData.bigStage.TryGetValue(currentStageSO.bigStageName, out var keys))
+			{
+				keys[selectStageNum] = true;
 
-        if (selectStageNum == 0)
-        {
-            Cursor.lockState = CursorLockMode.None;
+				print(currentStageSO.bigStageName);
 
-            StopAllCoroutines();
-        }
+				StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum, keys.Count - 1 == selectStageNum));
+				StartCoroutine(Painting(currentStageSO.bigStageName, selectStageNum, keys.Count - 1 == selectStageNum));
+				print(keys.Count);
+				print(selectStageNum);
 
-        openbook();
-        BoxManager.Instance.CleanBox();
+				//print(keys[selectStageNum]);
+			}
+			else
+			{
+				print("실패");
+			}
 
-        gimmick.panel.ClearSequence();
-        gimmick.panel.CloseTutorial();
-        gameCanvas.SetActive(false);
+			isReStart = false;
+			selectStageNum++;
 
-        DestroyImmediate(curStageGameObject);
-        PlayerManager.Instance.ResetPlayers();
-        //CameraMovement.Instance.CameraReset();
-    }
+			clearText.text = "Stage Clear!";
+		}
+		else
+		{
+			clearText.text = "Stage Fail. . .";
+		}
+
+		print("Clear");
+		isInStage = false;
+
+
+		ClearAnim.SetTrigger("Clear");
+		BoxManager.Instance.CleanBox();
+
+		gameCanvas.SetActive(false);
+		Invoke(nameof(ClearParticle), 1);
+		StartCoroutine(StageLoad());
+		Invoke(nameof(openbook), 3f);
+	}
+
+	private void openbook()
+	{
+		GameManager.Instance.OpenBook();
+	}
+	private IEnumerator StageClearBackToMenu(float time)
+	{
+		yield return new WaitForSeconds(time);
+		//BackToMenu();
+	}
+
+	private void ClearParticle()
+	{
+		clearParticle.Play();
+	}
+
+	private IEnumerator StageLoad()
+	{
+		yield return new WaitForSeconds(1f);
+		DestroyImmediate(curStageGameObject);
+		PlayerManager.Instance.ResetPlayers();
+		//print("Destroy");
+		yield return null;
+
+		//LoadStage();
+	}
+
+	IEnumerator FindBox()
+	{
+		yield return new WaitForSeconds(0.2f);
+		BoxManager.Instance.FindBox();
+	}
+
+	public void SetIsInStage(bool value)
+	{
+		isInStage = value;
+	}
+
+	public void ReStartBtn()
+	{
+		isReStart = true;
+
+		DestroyImmediate(curStageGameObject);
+
+		LoadStage();
+	}
+
+	public void BackToMenu()
+	{
+		isInStage = false;
+
+		if (selectStageNum == 0)
+		{
+			Cursor.lockState = CursorLockMode.None;
+
+			StopAllCoroutines();
+		}
+
+		openbook();
+		BoxManager.Instance.CleanBox();
+
+		gimmick.panel.ClearSequence();
+		gimmick.panel.CloseTutorial();
+
+		//CameraMovement.Instance.CameraReset();
+	}
+
+	private IEnumerator MenuCoroutine()
+	{
+		yield return new WaitForSeconds(2);
+		DestroyImmediate(curStageGameObject);
+		gameCanvas.SetActive(false);
+		PlayerManager.Instance.ResetPlayers();
+	}
 }

@@ -64,6 +64,8 @@ public class GameManager : MonoSingleton<GameManager>
 
     private void Awake()
 	{
+		Application.targetFrameRate = 60;	
+
 		playerColors = new PlayerColorClass();
 		playerColors.SetColors();
 		Game = GameObject.Find("Game");
@@ -148,7 +150,7 @@ public class GameManager : MonoSingleton<GameManager>
 		SaveManager.Instance.Save(gameData);
 	}
 
-    bool loading;
+    public bool loading;
 
     public void OpenBook()
 	{
@@ -161,12 +163,11 @@ public class GameManager : MonoSingleton<GameManager>
 
         StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
-		
-		Game.SetActive(false);
-		Book.SetActive(true);
 
-		yield return new WaitForSeconds(2);
+
+		yield return new WaitForSeconds(1.5f);
 		loading = false;
+		SetActive(false, true);
 	}
 
 	public void StartGame(int stageNum)
@@ -179,18 +180,24 @@ public class GameManager : MonoSingleton<GameManager>
 		StartCoroutine(GameCoroutine(stageNum));
 	}
 
+	public void SetActive(bool game, bool book)
+	{
+		Game.SetActive(game);
+		Book.SetActive(book);
+	}
+
+
 	private IEnumerator GameCoroutine(int stageNum)
 	{
 		loading = true;
 
 		StartCoroutine(LoadCoroutine());
 		yield return new WaitForSeconds(1);
-		
-		Game.SetActive(true);
+
 		StageManager.Instance.SetStageNumber(stageNum);
-		Book.SetActive(false);
+		SetActive(true,false);
 		
-		yield return new WaitForSeconds(2);
+		yield return new WaitForSeconds(1.5f);
 		loading = false;
 	}
 
@@ -201,10 +208,10 @@ public class GameManager : MonoSingleton<GameManager>
 		float elapsedTime = 0f;
 
 
-		while (elapsedTime < 1f)
+		while (elapsedTime < .5f)
 		{
 			// ����� �ð� ����
-			float t = elapsedTime / 1f;
+			float t = elapsedTime / .5f;
 			// ���� ������ ����Ͽ� ���� ���
 			float value = Mathf.Lerp(startValue, endValue, t);
 			// �ִϸ����� �Ķ���� ����
@@ -222,10 +229,10 @@ public class GameManager : MonoSingleton<GameManager>
 		yield return new WaitForSeconds(.5f);
 
 
-		while (elapsedTime < 1f)
+		while (elapsedTime < .5f)
 		{
 			// ����� �ð� ����
-			float t = elapsedTime / 1f;
+			float t = elapsedTime / .5f;
 			// ���� ������ ����Ͽ� ���� ���
 			float value = Mathf.Lerp(endValue, startValue, t);
 			// �ִϸ����� �Ķ���� ����
