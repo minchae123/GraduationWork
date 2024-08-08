@@ -189,7 +189,6 @@ public class StageManager : MonoSingleton<StageManager>
 
 	public void LoadStage()
 	{
-		GameManager.Instance.SetActive(true,false);
 		StartCoroutine(FindBox());
 
 		if (selectStageNum <= stageList.Stages.Count)
