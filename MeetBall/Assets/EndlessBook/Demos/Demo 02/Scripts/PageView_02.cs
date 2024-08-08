@@ -32,6 +32,9 @@
 
         protected override bool HandleHit(RaycastHit hit, BookActionDelegate action) // hit는 
         {
+
+            if (GameManager.Instance.Game.activeSelf) return false;
+
             // no action, just return
             if (action == null) return false;
 

@@ -194,14 +194,6 @@ public class StageManager : MonoSingleton<StageManager>
 
 		if (selectStageNum <= stageList.Stages.Count)
 		{
-
-			if (currentMinimap != null)
-			{
-				DestroyImmediate(currentMinimap);
-				currentMinimap = null;
-			}
-
-
 			DestroyImmediate(curStageGameObject);
 			PlayerManager.Instance.ResetPlayers();
 
