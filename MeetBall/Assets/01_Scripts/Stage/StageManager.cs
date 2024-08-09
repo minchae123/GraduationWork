@@ -1,5 +1,6 @@
 using DG.Tweening;
 using echo17.EndlessBook;
+using echo17.EndlessBook.Demo02;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -56,7 +57,9 @@ public class StageManager : MonoSingleton<StageManager>
 	private Tutorial tutorialPanel;
 	private EventSystem eventSystem;
 
-	[SerializeField] private EndlessBook endlessBook;
+    [SerializeField] private EndlessBook endlessBook;
+	
+	public TouchPad TouchPad;
 
 	public void Awake()
 	{
@@ -281,6 +284,7 @@ public class StageManager : MonoSingleton<StageManager>
 		print("Clear");
 		isInStage = false;
 
+		TouchPad.gameObject.SetActive(true);
 
 		ClearAnim.SetTrigger("Clear");
 		BoxManager.Instance.CleanBox();

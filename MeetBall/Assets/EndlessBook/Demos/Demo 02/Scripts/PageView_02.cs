@@ -17,6 +17,8 @@
         private float touchCooldown = 0.5f; // 쿨다운 시간 (초 단위)
         private float lastTouchTime = -Mathf.Infinity; // 마지막 터치를 처리한 시간
 
+        public TouchPad TouchPad;
+
         /// <summary>
         /// The name of the collider and what page number
         /// it is associated with
@@ -45,8 +47,6 @@
 
             // check each collider and jump to a page if that collider was hit.
 
-
-
             foreach (var chapterJump in chapterJumps)
             {
                 if (chapterJump.gameObjectName == hit.collider.gameObject.name)
@@ -61,6 +61,7 @@
                     //action(BookActionTypeEnum.TurnPage, chapterJump.pageNumber); //누르면 실행됨
 
                     StartCoroutine(ResetTouchFlag());
+                    TouchPad.gameObject.SetActive(false);
 
                     return true;
                 }
